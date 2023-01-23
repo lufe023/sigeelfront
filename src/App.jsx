@@ -13,7 +13,7 @@ function App() {
   useEffect(() => {
     const URL = 'https://sigeel.onrender.com/api/v1/census'
     axios.get(URL)
-    .then(res => setCensus(res))
+    .then(res => setCensus(res.data))
     .catch(err => console.log(err))
    }, [])
   
