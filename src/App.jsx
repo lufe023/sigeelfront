@@ -1,32 +1,31 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
+import axios from 'axios'
+import { useEffect, useState } from 'react'
 import './App.css'
+import Aside from './components/Aside'
+import Content from './components/Content'
+import Footer from './components/Footer'
+import Header from './components/Header'
+import RightMenu from './components/RightMenu'
 
 function App() {
-  const [count, setCount] = useState(0)
+  const [census, setCensus] = useState('loading')
 
+  useEffect(() => {
+    const URL = 'https://sigeel.onrender.com/api/v1/census'
+    axios.get(URL)
+    .then(res => setCensus(res))
+    .catch(err => console.log(err))
+   }, [])
+  
+   console.log(census)
   return (
-    <div className="App">
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src="/vite.svg" className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://reactjs.org" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
+    <div className="wrapper">
+      <Header/>
+      <Aside/>
+      <Content/>
+      <RightMenu/>
+      <Footer/>
+      
     </div>
   )
 }
