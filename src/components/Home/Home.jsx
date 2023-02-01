@@ -41,7 +41,7 @@ const Home = () => {
               </div>
             </div>
             <div className="card">
-      
+
             </div>
           
             {/* /.card */}
