@@ -1,19 +1,24 @@
 import React from 'react'
+import { useLocation } from 'react-router-dom'
+import TodoCard from './Todo/TodoCard'
+
 
 const Content = () => {
+  const {pathname} = useLocation()
   return (
-    <div className="content-wrapper">
+    <div className="content-wrapper" style={{minHeight: 536}}>
   {/* Content Header (Page header) */}
   <div className="content-header">
     <div className="container-fluid">
       <div className="row mb-2">
         <div className="col-sm-6">
-          <h1 className="m-0">Dashboard</h1>
+          <h1 className="m-0">{pathname}</h1>
         </div>{/* /.col */}
         <div className="col-sm-6">
           <ol className="breadcrumb float-sm-right">
             <li className="breadcrumb-item"><a href="#">Home</a></li>
             <li className="breadcrumb-item active">Dashboard v1</li>
+            
           </ol>
         </div>{/* /.col */}
       </div>{/* /.row */}
@@ -29,13 +34,21 @@ const Content = () => {
           {/* small box */}
           <div className="small-box bg-info">
             <div className="inner">
-              <h3>150</h3>
-              <p>New Orders</p>
+              <h3>15</h3>
+              <p>Electores Asignados</p>
             </div>
             <div className="icon">
-              <i className="ion ion-bag" />
+           
+              <i className='ion'>
+              <ion-icon name="people-outline"></ion-icon>
+            </i>
+                
+
+                
+
+             
             </div>
-            <a href="#" className="small-box-footer">More info <i className="fas fa-arrow-circle-right" /></a>
+            <a href="#" className="small-box-footer">Ver más <i className="fas fa-arrow-circle-right" /></a>
           </div>
         </div>
         {/* ./col */}
@@ -44,12 +57,13 @@ const Content = () => {
           <div className="small-box bg-success">
             <div className="inner">
               <h3>53<sup style={{fontSize: 20}}>%</sup></h3>
-              <p>Bounce Rate</p>
+              <p>Completado</p>
             </div>
             <div className="icon">
+              
               <i className="ion ion-stats-bars" />
             </div>
-            <a href="#" className="small-box-footer">More info <i className="fas fa-arrow-circle-right" /></a>
+            <a href="#" className="small-box-footer">Ver más <i className="fas fa-arrow-circle-right" /></a>
           </div>
         </div>
         {/* ./col */}
@@ -57,13 +71,13 @@ const Content = () => {
           {/* small box */}
           <div className="small-box bg-warning">
             <div className="inner">
-              <h3>44</h3>
-              <p>User Registrations</p>
+              <h3>11</h3>
+              <p>Participación/Beneficio</p>
             </div>
             <div className="icon">
               <i className="ion ion-person-add" />
             </div>
-            <a href="#" className="small-box-footer">More info <i className="fas fa-arrow-circle-right" /></a>
+            <a href="#" className="small-box-footer">Ver más <i className="fas fa-arrow-circle-right" /></a>
           </div>
         </div>
         {/* ./col */}
@@ -71,13 +85,13 @@ const Content = () => {
           {/* small box */}
           <div className="small-box bg-danger">
             <div className="inner">
-              <h3>65</h3>
-              <p>Unique Visitors</p>
+              <h3>47%</h3>
+              <p>Trabajo Pendiente</p>
             </div>
             <div className="icon">
               <i className="ion ion-pie-graph" />
             </div>
-            <a href="#" className="small-box-footer">More info <i className="fas fa-arrow-circle-right" /></a>
+            <a href="#" className="small-box-footer">Ver más <i className="fas fa-arrow-circle-right" /></a>
           </div>
         </div>
         {/* ./col */}
@@ -86,41 +100,13 @@ const Content = () => {
       {/* Main row */}
       <div className="row">
         {/* Left col */}
-        <section className="col-lg-7 connectedSortable">
+        <section className="col-lg-7 connectedSortable ui-sortable">
           {/* Custom tabs (Charts with tabs)*/}
-          <div className="card">
-            <div className="card-header">
-              <h3 className="card-title">
-                <i className="fas fa-chart-pie mr-1" />
-                Sales
-              </h3>
-              <div className="card-tools">
-                <ul className="nav nav-pills ml-auto">
-                  <li className="nav-item">
-                    <a className="nav-link active" href="#revenue-chart" data-toggle="tab">Area</a>
-                  </li>
-                  <li className="nav-item">
-                    <a className="nav-link" href="#sales-chart" data-toggle="tab">Donut</a>
-                  </li>
-                </ul>
-              </div>
-            </div>{/* /.card-header */}
-            <div className="card-body">
-              <div className="tab-content p-0">
-                {/* Morris chart - Sales */}
-                <div className="chart tab-pane active" id="revenue-chart" style={{position: 'relative', height: 300}}>
-                  <canvas id="revenue-chart-canvas" height={300} style={{height: 300}} />
-                </div>
-                <div className="chart tab-pane" id="sales-chart" style={{position: 'relative', height: 300}}>
-                  <canvas id="sales-chart-canvas" height={300} style={{height: 300}} />
-                </div>
-              </div>
-            </div>{/* /.card-body */}
-          </div>
+         
           {/* /.card */}
           {/* DIRECT CHAT */}
           <div className="card direct-chat direct-chat-primary">
-            <div className="card-header">
+            <div className="card-header ui-sortable-handle" style={{cursor: 'move'}}>
               <h3 className="card-title">Direct Chat</h3>
               <div className="card-tools">
                 <span title="3 New Messages" className="badge badge-primary">3</span>
@@ -308,228 +294,22 @@ const Content = () => {
           </div>
           {/*/.direct-chat */}
           {/* TO DO List */}
-          <div className="card">
-            <div className="card-header">
-              <h3 className="card-title">
-                <i className="ion ion-clipboard mr-1" />
-                To Do List
-              </h3>
-              <div className="card-tools">
-                <ul className="pagination pagination-sm">
-                  <li className="page-item"><a href="#" className="page-link">«</a></li>
-                  <li className="page-item"><a href="#" className="page-link">1</a></li>
-                  <li className="page-item"><a href="#" className="page-link">2</a></li>
-                  <li className="page-item"><a href="#" className="page-link">3</a></li>
-                  <li className="page-item"><a href="#" className="page-link">»</a></li>
-                </ul>
-              </div>
-            </div>
-            {/* /.card-header */}
-            <div className="card-body">
-              <ul className="todo-list" data-widget="todo-list">
-                <li>
-                  {/* drag handle */}
-                  <span className="handle">
-                    <i className="fas fa-ellipsis-v" />
-                    <i className="fas fa-ellipsis-v" />
-                  </span>
-                  {/* checkbox */}
-                  <div className="icheck-primary d-inline ml-2">
-                    <input type="checkbox" defaultValue name="todo1" id="todoCheck1" />
-                    <label htmlFor="todoCheck1" />
-                  </div>
-                  {/* todo text */}
-                  <span className="text">Design a nice theme</span>
-                  {/* Emphasis label */}
-                  <small className="badge badge-danger"><i className="far fa-clock" /> 2 mins</small>
-                  {/* General tools such as edit or delete*/}
-                  <div className="tools">
-                    <i className="fas fa-edit" />
-                    <i className="fas fa-trash-o" />
-                  </div>
-                </li>
-                <li>
-                  <span className="handle">
-                    <i className="fas fa-ellipsis-v" />
-                    <i className="fas fa-ellipsis-v" />
-                  </span>
-                  <div className="icheck-primary d-inline ml-2">
-                    <input type="checkbox" defaultValue name="todo2" id="todoCheck2" defaultChecked />
-                    <label htmlFor="todoCheck2" />
-                  </div>
-                  <span className="text">Make the theme responsive</span>
-                  <small className="badge badge-info"><i className="far fa-clock" /> 4 hours</small>
-                  <div className="tools">
-                    <i className="fas fa-edit" />
-                    <i className="fas fa-trash-o" />
-                  </div>
-                </li>
-                <li>
-                  <span className="handle">
-                    <i className="fas fa-ellipsis-v" />
-                    <i className="fas fa-ellipsis-v" />
-                  </span>
-                  <div className="icheck-primary d-inline ml-2">
-                    <input type="checkbox" defaultValue name="todo3" id="todoCheck3" />
-                    <label htmlFor="todoCheck3" />
-                  </div>
-                  <span className="text">Let theme shine like a star</span>
-                  <small className="badge badge-warning"><i className="far fa-clock" /> 1 day</small>
-                  <div className="tools">
-                    <i className="fas fa-edit" />
-                    <i className="fas fa-trash-o" />
-                  </div>
-                </li>
-                <li>
-                  <span className="handle">
-                    <i className="fas fa-ellipsis-v" />
-                    <i className="fas fa-ellipsis-v" />
-                  </span>
-                  <div className="icheck-primary d-inline ml-2">
-                    <input type="checkbox" defaultValue name="todo4" id="todoCheck4" />
-                    <label htmlFor="todoCheck4" />
-                  </div>
-                  <span className="text">Let theme shine like a star</span>
-                  <small className="badge badge-success"><i className="far fa-clock" /> 3 days</small>
-                  <div className="tools">
-                    <i className="fas fa-edit" />
-                    <i className="fas fa-trash-o" />
-                  </div>
-                </li>
-                <li>
-                  <span className="handle">
-                    <i className="fas fa-ellipsis-v" />
-                    <i className="fas fa-ellipsis-v" />
-                  </span>
-                  <div className="icheck-primary d-inline ml-2">
-                    <input type="checkbox" defaultValue name="todo5" id="todoCheck5" />
-                    <label htmlFor="todoCheck5" />
-                  </div>
-                  <span className="text">Check your messages and notifications</span>
-                  <small className="badge badge-primary"><i className="far fa-clock" /> 1 week</small>
-                  <div className="tools">
-                    <i className="fas fa-edit" />
-                    <i className="fas fa-trash-o" />
-                  </div>
-                </li>
-                <li>
-                  <span className="handle">
-                    <i className="fas fa-ellipsis-v" />
-                    <i className="fas fa-ellipsis-v" />
-                  </span>
-                  <div className="icheck-primary d-inline ml-2">
-                    <input type="checkbox" defaultValue name="todo6" id="todoCheck6" />
-                    <label htmlFor="todoCheck6" />
-                  </div>
-                  <span className="text">Let theme shine like a star</span>
-                  <small className="badge badge-secondary"><i className="far fa-clock" /> 1 month</small>
-                  <div className="tools">
-                    <i className="fas fa-edit" />
-                    <i className="fas fa-trash-o" />
-                  </div>
-                </li>
-              </ul>
-            </div>
-            {/* /.card-body */}
-            <div className="card-footer clearfix">
-              <button type="button" className="btn btn-primary float-right"><i className="fas fa-plus" /> Add item</button>
-            </div>
-          </div>
+          <TodoCard/>
+        
           {/* /.card */}
         </section>
         {/* /.Left col */}
         {/* right col (We are only adding the ID to make the widgets sortable)*/}
-        <section className="col-lg-5 connectedSortable">
+        <section className="col-lg-5 connectedSortable ui-sortable">
           {/* Map card */}
-          <div className="card bg-gradient-primary">
-            <div className="card-header border-0">
-              <h3 className="card-title">
-                <i className="fas fa-map-marker-alt mr-1" />
-                Visitors
-              </h3>
-              {/* card tools */}
-              <div className="card-tools">
-                <button type="button" className="btn btn-primary btn-sm daterange" title="Date range">
-                  <i className="far fa-calendar-alt" />
-                </button>
-                <button type="button" className="btn btn-primary btn-sm" data-card-widget="collapse" title="Collapse">
-                  <i className="fas fa-minus" />
-                </button>
-              </div>
-              {/* /.card-tools */}
-            </div>
-            <div className="card-body">
-              <div id="world-map" style={{height: 250, width: '100%'}} />
-            </div>
-            {/* /.card-body*/}
-            <div className="card-footer bg-transparent">
-              <div className="row">
-                <div className="col-4 text-center">
-                  <div id="sparkline-1" />
-                  <div className="text-white">Visitors</div>
-                </div>
-                {/* ./col */}
-                <div className="col-4 text-center">
-                  <div id="sparkline-2" />
-                  <div className="text-white">Online</div>
-                </div>
-                {/* ./col */}
-                <div className="col-4 text-center">
-                  <div id="sparkline-3" />
-                  <div className="text-white">Sales</div>
-                </div>
-                {/* ./col */}
-              </div>
-              {/* /.row */}
-            </div>
-          </div>
+        
           {/* /.card */}
           {/* solid sales graph */}
-          <div className="card bg-gradient-info">
-            <div className="card-header border-0">
-              <h3 className="card-title">
-                <i className="fas fa-th mr-1" />
-                Sales Graph
-              </h3>
-              <div className="card-tools">
-                <button type="button" className="btn bg-info btn-sm" data-card-widget="collapse">
-                  <i className="fas fa-minus" />
-                </button>
-                <button type="button" className="btn bg-info btn-sm" data-card-widget="remove">
-                  <i className="fas fa-times" />
-                </button>
-              </div>
-            </div>
-            <div className="card-body">
-              <canvas className="chart" id="line-chart" style={{minHeight: 250, height: 250, maxHeight: 250, maxWidth: '100%'}} />
-            </div>
-            {/* /.card-body */}
-            <div className="card-footer bg-transparent">
-              <div className="row">
-                <div className="col-4 text-center">
-                  <input type="text" className="knob" data-readonly="true" defaultValue={20} data-width={60} data-height={60} data-fgcolor="#39CCCC" />
-                  <div className="text-white">Mail-Orders</div>
-                </div>
-                {/* ./col */}
-                <div className="col-4 text-center">
-                  <input type="text" className="knob" data-readonly="true" defaultValue={50} data-width={60} data-height={60} data-fgcolor="#39CCCC" />
-                  <div className="text-white">Online</div>
-                </div>
-                {/* ./col */}
-                <div className="col-4 text-center">
-                  <input type="text" className="knob" data-readonly="true" defaultValue={30} data-width={60} data-height={60} data-fgcolor="#39CCCC" />
-                  <div className="text-white">In-Store</div>
-                </div>
-                {/* ./col */}
-              </div>
-              {/* /.row */}
-            </div>
-            {/* /.card-footer */}
-          </div>
+      
           {/* /.card */}
           {/* Calendar */}
           <div className="card bg-gradient-success">
-            <div className="card-header border-0">
+            <div className="card-header border-0 ui-sortable-handle" style={{cursor: 'move'}}>
               <h3 className="card-title">
                 <i className="far fa-calendar-alt" />
                 Calendar
@@ -560,7 +340,7 @@ const Content = () => {
             {/* /.card-header */}
             <div className="card-body pt-0">
               {/*The calendar */}
-              <div id="calendar" style={{width: '100%'}} />
+              <div id="calendar" style={{width: '100%'}}><div className="bootstrap-datetimepicker-widget usetwentyfour"><ul className="list-unstyled"><li className="show"><div className="datepicker"><div className="datepicker-days" style={{}}><table className="table table-sm"><thead><tr><th className="prev" data-action="previous"><span className="fa fa-chevron-left" title="Previous Month" /></th><th className="picker-switch" data-action="pickerSwitch" colSpan={5} title="Select Month">January 2023</th><th className="next" data-action="next"><span className="fa fa-chevron-right" title="Next Month" /></th></tr><tr><th className="dow">Su</th><th className="dow">Mo</th><th className="dow">Tu</th><th className="dow">We</th><th className="dow">Th</th><th className="dow">Fr</th><th className="dow">Sa</th></tr></thead><tbody><tr><td data-action="selectDay" data-day="01/01/2023" className="day weekend">1</td><td data-action="selectDay" data-day="01/02/2023" className="day">2</td><td data-action="selectDay" data-day="01/03/2023" className="day">3</td><td data-action="selectDay" data-day="01/04/2023" className="day">4</td><td data-action="selectDay" data-day="01/05/2023" className="day">5</td><td data-action="selectDay" data-day="01/06/2023" className="day">6</td><td data-action="selectDay" data-day="01/07/2023" className="day weekend">7</td></tr><tr><td data-action="selectDay" data-day="01/08/2023" className="day weekend">8</td><td data-action="selectDay" data-day="01/09/2023" className="day">9</td><td data-action="selectDay" data-day="01/10/2023" className="day">10</td><td data-action="selectDay" data-day="01/11/2023" className="day">11</td><td data-action="selectDay" data-day="01/12/2023" className="day">12</td><td data-action="selectDay" data-day="01/13/2023" className="day">13</td><td data-action="selectDay" data-day="01/14/2023" className="day weekend">14</td></tr><tr><td data-action="selectDay" data-day="01/15/2023" className="day weekend">15</td><td data-action="selectDay" data-day="01/16/2023" className="day">16</td><td data-action="selectDay" data-day="01/17/2023" className="day">17</td><td data-action="selectDay" data-day="01/18/2023" className="day">18</td><td data-action="selectDay" data-day="01/19/2023" className="day">19</td><td data-action="selectDay" data-day="01/20/2023" className="day">20</td><td data-action="selectDay" data-day="01/21/2023" className="day weekend">21</td></tr><tr><td data-action="selectDay" data-day="01/22/2023" className="day weekend">22</td><td data-action="selectDay" data-day="01/23/2023" className="day">23</td><td data-action="selectDay" data-day="01/24/2023" className="day">24</td><td data-action="selectDay" data-day="01/25/2023" className="day">25</td><td data-action="selectDay" data-day="01/26/2023" className="day active today">26</td><td data-action="selectDay" data-day="01/27/2023" className="day">27</td><td data-action="selectDay" data-day="01/28/2023" className="day weekend">28</td></tr><tr><td data-action="selectDay" data-day="01/29/2023" className="day weekend">29</td><td data-action="selectDay" data-day="01/30/2023" className="day">30</td><td data-action="selectDay" data-day="01/31/2023" className="day">31</td><td data-action="selectDay" data-day="02/01/2023" className="day new">1</td><td data-action="selectDay" data-day="02/02/2023" className="day new">2</td><td data-action="selectDay" data-day="02/03/2023" className="day new">3</td><td data-action="selectDay" data-day="02/04/2023" className="day new weekend">4</td></tr><tr><td data-action="selectDay" data-day="02/05/2023" className="day new weekend">5</td><td data-action="selectDay" data-day="02/06/2023" className="day new">6</td><td data-action="selectDay" data-day="02/07/2023" className="day new">7</td><td data-action="selectDay" data-day="02/08/2023" className="day new">8</td><td data-action="selectDay" data-day="02/09/2023" className="day new">9</td><td data-action="selectDay" data-day="02/10/2023" className="day new">10</td><td data-action="selectDay" data-day="02/11/2023" className="day new weekend">11</td></tr></tbody></table></div><div className="datepicker-months" style={{display: 'none'}}><table className="table-condensed"><thead><tr><th className="prev" data-action="previous"><span className="fa fa-chevron-left" title="Previous Year" /></th><th className="picker-switch" data-action="pickerSwitch" colSpan={5} title="Select Year">2023</th><th className="next" data-action="next"><span className="fa fa-chevron-right" title="Next Year" /></th></tr></thead><tbody><tr><td colSpan={7}><span data-action="selectMonth" className="month active">Jan</span><span data-action="selectMonth" className="month">Feb</span><span data-action="selectMonth" className="month">Mar</span><span data-action="selectMonth" className="month">Apr</span><span data-action="selectMonth" className="month">May</span><span data-action="selectMonth" className="month">Jun</span><span data-action="selectMonth" className="month">Jul</span><span data-action="selectMonth" className="month">Aug</span><span data-action="selectMonth" className="month">Sep</span><span data-action="selectMonth" className="month">Oct</span><span data-action="selectMonth" className="month">Nov</span><span data-action="selectMonth" className="month">Dec</span></td></tr></tbody></table></div><div className="datepicker-years" style={{display: 'none'}}><table className="table-condensed"><thead><tr><th className="prev" data-action="previous"><span className="fa fa-chevron-left" title="Previous Decade" /></th><th className="picker-switch" data-action="pickerSwitch" colSpan={5} title="Select Decade">2020-2029</th><th className="next" data-action="next"><span className="fa fa-chevron-right" title="Next Decade" /></th></tr></thead><tbody><tr><td colSpan={7}><span data-action="selectYear" className="year old">2019</span><span data-action="selectYear" className="year">2020</span><span data-action="selectYear" className="year">2021</span><span data-action="selectYear" className="year">2022</span><span data-action="selectYear" className="year active">2023</span><span data-action="selectYear" className="year">2024</span><span data-action="selectYear" className="year">2025</span><span data-action="selectYear" className="year">2026</span><span data-action="selectYear" className="year">2027</span><span data-action="selectYear" className="year">2028</span><span data-action="selectYear" className="year">2029</span><span data-action="selectYear" className="year old">2030</span></td></tr></tbody></table></div><div className="datepicker-decades" style={{display: 'none'}}><table className="table-condensed"><thead><tr><th className="prev" data-action="previous"><span className="fa fa-chevron-left" title="Previous Century" /></th><th className="picker-switch" data-action="pickerSwitch" colSpan={5}>2000-2090</th><th className="next" data-action="next"><span className="fa fa-chevron-right" title="Next Century" /></th></tr></thead><tbody><tr><td colSpan={7}><span data-action="selectDecade" className="decade old" data-selection={2006}>1990</span><span data-action="selectDecade" className="decade" data-selection={2006}>2000</span><span data-action="selectDecade" className="decade" data-selection={2016}>2010</span><span data-action="selectDecade" className="decade active" data-selection={2026}>2020</span><span data-action="selectDecade" className="decade" data-selection={2036}>2030</span><span data-action="selectDecade" className="decade" data-selection={2046}>2040</span><span data-action="selectDecade" className="decade" data-selection={2056}>2050</span><span data-action="selectDecade" className="decade" data-selection={2066}>2060</span><span data-action="selectDecade" className="decade" data-selection={2076}>2070</span><span data-action="selectDecade" className="decade" data-selection={2086}>2080</span><span data-action="selectDecade" className="decade" data-selection={2096}>2090</span><span data-action="selectDecade" className="decade old" data-selection={2106}>2100</span></td></tr></tbody></table></div></div></li><li className="picker-switch accordion-toggle" /></ul></div></div>
             </div>
             {/* /.card-body */}
           </div>
