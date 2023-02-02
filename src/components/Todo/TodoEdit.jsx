@@ -56,7 +56,7 @@ const TodoEdit = ({getAllTask, editingTask, setEditingTask}) => {
           
           Toast.fire({
             icon: 'error',
-            title: 'huvo un error'
+            title: 'No se pudo realizar la actualización'
           })
         })
         getAllTask()

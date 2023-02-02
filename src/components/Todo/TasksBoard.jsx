@@ -10,7 +10,6 @@ import Footer from '../Footer'
 import Header from '../Header'
 import TodoCard from './TodoCard'
 import TodoEdit from './TodoEdit'
-import TodoEditing from './TodoEditing'
 import TodoNewTask from './TodoNewTask'
 
 const TasksBoard = () => {
@@ -38,9 +37,6 @@ getAllTask()
 //peticion a api por id usando useparans
 
 const {id} = useParams()
-  
-console.log(id)
-
   useEffect(() => {
     if(id){
     const URL = `http://localhost:9000/api/v1/todo/${id}`
