@@ -28,13 +28,13 @@ const URL = 'http://localhost:9000/api/v1/auth/login'
     .then(res =>
       {
 
-        localStorage.setItem('token',res.data.token)
+        localStorage.setItem('token',res.data.token) 
         localStorage.setItem('id',res.data.id)
-        localStorage.setItem('firstName', res.data.User.first_name)
-        localStorage.setItem('lastName', res.data.User.last_name)
-        localStorage.setItem('picture', res.data.User.picture)
+        localStorage.setItem('firstName', res.data.user.first_name)
+        localStorage.setItem('lastName', res.data.user.last_name)
+        localStorage.setItem('picture', res.data.user.picture)
 
-        setIsLogged(localStorage.getItem('token'))
+        setIsLogged(localStorage.getItem('token')) 
         setLoader()
         const Toast = Swal.mixin({
           toast: true,

@@ -1,4 +1,3 @@
-import React, { useEffect, useState } from 'react'
 import Loging from '../Users/Loging'
 import TodoCard from '../Todo/TodoCard'
 import Quotes from './Quotes'
@@ -23,7 +22,7 @@ const Home = () => {
   <div className="content-wrapper" style={{minHeight: '100vh', marginLeft:0, backgroundColor:'rgba(0, 0, 0, 0.5)'}}>
  
     {/* Content Header (Page header) */}
-    <div className="content-header">
+    <div className="content-header"> 
       <div className="container">
         {/* /.row */}
       </div>{/* /.container-fluid */}
