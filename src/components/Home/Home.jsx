@@ -8,7 +8,7 @@ import AsideHome from './AsideHome'
 
 const Home = () => {
 
-  let VideoURL = '../public/video/politica2.mp4'
+  let VideoURL = 'video/politica2.mp4'
   return (
  <div className="layout-top-nav" >
  <video src={VideoURL} autoPlay={true} muted={true} loop={true} style={{marginLeft:0}}>
