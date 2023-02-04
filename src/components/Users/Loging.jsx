@@ -31,7 +31,6 @@ const URL = 'http://localhost:9000/api/v1/auth/login'
     axios.post(URL, data)
     .then(res =>
       {
-        console.log(res.data)
         dispatch(setUserData(res.data))
         localStorage.setItem('firstName',res.data.user.first_name)
         localStorage.setItem('lastName',res.data.user.last_name)
