@@ -44,7 +44,7 @@ const Me = () => {
          
         </div>
         <div className="col-md-9">
-          <div className="card">
+          <div className="card"> 
             <div className="card-header p-2">
               <ul className="nav nav-pills">
                 <li className="nav-item"><a className="nav-link active" href="#activity" data-toggle="tab">Activity</a></li>
