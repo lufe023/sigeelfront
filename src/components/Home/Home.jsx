@@ -1,12 +1,11 @@
 import Loging from '../Users/Loging'
-import TodoCard from '../Todo/TodoCard'
 import Quotes from './Quotes'
-import axios from 'axios'
-import getConfig from '../../utils/getConfig'
 import AsideHome from './AsideHome'
 
 
+
 const Home = () => {
+
 
   let VideoURL = 'video/politica2.mp4'
   return (

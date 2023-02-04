@@ -1,16 +1,20 @@
 import axios from 'axios';
 import React, { useState } from 'react'
 import { useForm } from "react-hook-form";
+import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import Swal from 'sweetalert2'
+import { setUserData } from '../../store/slices/user.slice';
 import Cargando from '../../utils/Cargando';
 
-
-
-
 const Loging = () => {
+
+  const dispatch = useDispatch()
+
+
   const [isLogged, setIsLogged] =useState(localStorage.getItem('token'))
 
+  const user = useSelector(state=> state.userSlice)
 
 
   const [message, setMessage] = useState('')
@@ -27,13 +31,12 @@ const URL = 'http://localhost:9000/api/v1/auth/login'
     axios.post(URL, data)
     .then(res =>
       {
-
-        localStorage.setItem('token',res.data.token) 
-        localStorage.setItem('id',res.data.id)
-        localStorage.setItem('firstName', res.data.user.first_name)
-        localStorage.setItem('lastName', res.data.user.last_name)
-        localStorage.setItem('picture', res.data.user.picture)
-
+        console.log(res.data)
+        dispatch(setUserData(res.data))
+        localStorage.setItem('firstName',res.data.user.first_name)
+        localStorage.setItem('lastName',res.data.user.last_name)
+        localStorage.setItem('picture',res.data.user.picture)
+        localStorage.setItem('token',res.data.token)
         setIsLogged(localStorage.getItem('token')) 
         setLoader()
         const Toast = Swal.mixin({
