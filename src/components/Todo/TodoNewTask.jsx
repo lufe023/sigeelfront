@@ -27,14 +27,6 @@ useEffect(() => {
     const handleSubmit = e =>{
 
         e.preventDefault()
-        
- console.log(e.target.title.value)
- console.log(e.target.description.value)
- console.log(e.target.limit.value)
- console.log(e.target.estado.value)
- console.log(e.target.responsible.value)
-    
-
         const URL = `http://localhost:9000/api/v1/todo/`
         axios.post(URL,
           {

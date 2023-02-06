@@ -32,11 +32,8 @@ const URL = 'http://localhost:9000/api/v1/auth/login'
     .then(res =>
       {
         dispatch(setUserData(res.data))
-        localStorage.setItem('firstName',res.data.user.first_name)
-        localStorage.setItem('lastName',res.data.user.last_name)
-        localStorage.setItem('picture',res.data.user.picture)
         localStorage.setItem('token',res.data.token)
-        setIsLogged(localStorage.getItem('token')) 
+        setIsLogged(true) 
         setLoader()
         const Toast = Swal.mixin({
           toast: true,
@@ -158,7 +155,7 @@ if(isLogged)
         <div className="row">
           <div className="col-8">
           {
-              loader?<Cargando/>:''
+              loader?<Cargando escala={'0.3'}/>:''
             }
           <div className="error ">
             
@@ -187,7 +184,7 @@ if(isLogged)
       </div>
       {/* /.social-auth-links */}
       <p className="mb-1">
-        <a href="forgot-password.html">I forgot my password</a>
+        <Link to='/forgotPassword'>Olvidé la contraseña</Link>
       </p>
       <p className="mb-0">
         <a href="register.html" className="text-center">Register a new membership</a>

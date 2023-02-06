@@ -1,16 +1,22 @@
 import React from 'react'
+import { useSelector } from 'react-redux'
 import {Link, NavLink} from 'react-router-dom'
+
 
 
 const Aside = () => {
 
+  const user = useSelector(state=> state.userSlice)
+
+  const first_name = user.usuario.first_name
+  
+  const last_name =  user.usuario.last_name
+  
+  const picture = user.usuario.picture
 
 
-  const first_name = localStorage.getItem('firstName')
-  const last_name = localStorage.getItem('lastName')
-  const picture = localStorage.getItem('picture')
   return (
-    <aside className="main-sidebar sidebar-dark-primary elevation-4">
+  <aside className="main-sidebar sidebar-dark-primary elevation-4">
 
   {/* Brand Logo */}
   <a href="index3.html" className="brand-link">

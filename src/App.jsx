@@ -10,6 +10,8 @@ import ScrollToTop from './components/ScrollToTop'
 import { useState } from 'react'
 import ProtectedRoutes from './components/ProtectedRoutes'
 import LogGout from './components/Users/LogGout'
+import ForgotPassword from './components/Users/ForgotPassword'
+import RecoverPassword from './components/Users/RecoverPassword'
 
 
 
@@ -29,9 +31,14 @@ function App() {
         <Route path='/me/' element={<Me/>}/>
         <Route path='/tasks' element={<TasksBoard/>}/>
         <Route path='/tasks/:id' element={<TasksBoard/>}/>
-        <Route path='*' element={<Error404/>}/>
       </Route>
+
+      <Route path='*' element={<Error404/>}/>
+
       <Route path='/logout' element={<LogGout/>}/>
+
+      <Route path='/forgotPassword' element={<ForgotPassword/>}/>
+      <Route path='/recoverypassword/:id' element={<RecoverPassword/>}/>
       </Routes>
       </div>
   )

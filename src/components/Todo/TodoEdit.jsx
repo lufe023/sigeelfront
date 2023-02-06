@@ -1,5 +1,5 @@
 import axios from 'axios'
-import React from 'react'
+import React, { useState } from 'react'
 import getConfig from '../../utils/getConfig'
 import Swal from 'sweetalert2'
 import { Link } from 'react-router-dom'
@@ -104,11 +104,12 @@ const TodoEdit = ({getAllTask, editingTask, setEditingTask}) => {
       </div>
       
       <div className="form-group">
-        <label htmlFor='estado'>Select</label>
+        <label htmlFor='estado'>Estado</label>
+  
           <select className="form-control" id='estado' name='estado'>
-          { editingTask?.isActive?<option selected value={'true'}>Pendiente</option>:<option value={'true'}>Pendiente</option>}
-          
-          {editingTask?.isActive?<option value={'false'}>Completada</option>:<option selected value={'false'}>Completada</option>}
+            <option>selecciona una opcion</option>
+            <option value={true}>verdadero</option>
+            <option value={false}>Falso</option>
           </select>
     </div>
 

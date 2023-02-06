@@ -1,12 +1,22 @@
 import React from 'react'
+import { useSelector } from 'react-redux'
 import Aside from '../Aside'
 import Footer from '../Footer'
 import Header from '../Header'
 
 const Me = () => {
-  const first_name = localStorage.getItem('firstName')
-  const last_name = localStorage.getItem('lastName')
-  const picture = localStorage.getItem('picture')
+
+  const user = useSelector(state=> state.userSlice)
+
+
+  const first_name =user.usuario.first_name
+  
+  const last_name = user.usuario.last_name
+  
+  const picture = user.usuario.picture
+
+  const role = user.nivel.roleName
+  
   return (
     <div>
       <Header/>
@@ -36,8 +46,10 @@ const Me = () => {
               <div className="text-center">
                 <img className="profile-user-img img-fluid img-circle" src="../../dist/img/user4-128x128.jpg" alt="User profile picture" />
               </div>
-              <h3 className="profile-username text-center">{`${first_name} ${last_name}`}</h3>
-              
+              <h3 className="profile-username text-center">{`${first_name} ${last_name}`
+              }</h3>
+              <p className="text-muted text-center">{role
+              }</p>
               <a href="#" className="btn btn-primary btn-block"><b>Follow</b></a>
             </div>
           </div>
