@@ -2,7 +2,6 @@ import axios from 'axios'
 import React, { useState } from 'react'
 import getConfig from '../../utils/getConfig'
 import Swal from 'sweetalert2'
-import { Link } from 'react-router-dom'
 
 const TodoEdit = ({getAllTask, editingTask, setEditingTask}) => {
 
@@ -126,8 +125,6 @@ const TodoEdit = ({getAllTask, editingTask, setEditingTask}) => {
     <div className="card-footer clearfix" style={{display: 'block'}}>
       <button type="submit" className="btn btn-primary float-right" onClick={getAllTask}><i className="fas fa-save"></i> Guardar</button></div>
     </form>
- 
- 
 
   </div>
   )
