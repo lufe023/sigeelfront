@@ -1,16 +1,20 @@
 import axios from 'axios';
 import React, { useState } from 'react'
 import { useForm } from "react-hook-form";
+import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import Swal from 'sweetalert2'
+import { setUserData } from '../../store/slices/user.slice';
 import Cargando from '../../utils/Cargando';
 
-
-
-
 const Loging = () => {
+
+  const dispatch = useDispatch()
+
+
   const [isLogged, setIsLogged] =useState(localStorage.getItem('token'))
 
+  const user = useSelector(state=> state.userSlice)
 
 
   const [message, setMessage] = useState('')
@@ -27,14 +31,9 @@ const URL = 'http://localhost:9000/api/v1/auth/login'
     axios.post(URL, data)
     .then(res =>
       {
-
+        dispatch(setUserData(res.data))
         localStorage.setItem('token',res.data.token)
-        localStorage.setItem('id',res.data.id)
-        localStorage.setItem('firstName', res.data.User.first_name)
-        localStorage.setItem('lastName', res.data.User.last_name)
-        localStorage.setItem('picture', res.data.User.picture)
-
-        setIsLogged(localStorage.getItem('token'))
+        setIsLogged(true) 
         setLoader()
         const Toast = Swal.mixin({
           toast: true,
@@ -156,7 +155,7 @@ if(isLogged)
         <div className="row">
           <div className="col-8">
           {
-              loader?<Cargando/>:''
+              loader?<Cargando escala={'0.3'}/>:''
             }
           <div className="error ">
             
@@ -185,7 +184,7 @@ if(isLogged)
       </div>
       {/* /.social-auth-links */}
       <p className="mb-1">
-        <a href="forgot-password.html">I forgot my password</a>
+        <Link to='/forgotPassword'>Olvidé la contraseña</Link>
       </p>
       <p className="mb-0">
         <a href="register.html" className="text-center">Register a new membership</a>

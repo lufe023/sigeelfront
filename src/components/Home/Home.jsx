@@ -1,15 +1,13 @@
-import React, { useEffect, useState } from 'react'
 import Loging from '../Users/Loging'
-import TodoCard from '../Todo/TodoCard'
 import Quotes from './Quotes'
-import axios from 'axios'
-import getConfig from '../../utils/getConfig'
 import AsideHome from './AsideHome'
+
 
 
 const Home = () => {
 
-  let VideoURL = '../public/video/politica2.mp4'
+
+  let VideoURL = 'video/politica2.mp4'
   return (
  <div className="layout-top-nav" >
  <video src={VideoURL} autoPlay={true} muted={true} loop={true} style={{marginLeft:0}}>
@@ -23,7 +21,7 @@ const Home = () => {
   <div className="content-wrapper" style={{minHeight: '100vh', marginLeft:0, backgroundColor:'rgba(0, 0, 0, 0.5)'}}>
  
     {/* Content Header (Page header) */}
-    <div className="content-header">
+    <div className="content-header"> 
       <div className="container">
         {/* /.row */}
       </div>{/* /.container-fluid */}

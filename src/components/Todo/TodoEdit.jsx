@@ -1,8 +1,8 @@
 import axios from 'axios'
-import React from 'react'
+import React, { useState } from 'react'
 import getConfig from '../../utils/getConfig'
 import Swal from 'sweetalert2'
-import { Link } from 'react-router-dom'
+import Cargando from '../../utils/Cargando'
 
 const TodoEdit = ({getAllTask, editingTask, setEditingTask}) => {
 
@@ -17,7 +17,7 @@ const TodoEdit = ({getAllTask, editingTask, setEditingTask}) => {
             isActive: e.target.estado.value
         }
 
-        const URL = `http://localhost:9000/api/v1/todo/${editingTask.id}`
+        const URL = `${import.meta.env.VITE_API_SERVER}/api/v1/todo/${editingTask.id}`
         axios.patch(URL,
         data, getConfig())
         .then(res =>
@@ -56,19 +56,17 @@ const TodoEdit = ({getAllTask, editingTask, setEditingTask}) => {
           
           Toast.fire({
             icon: 'error',
-            title: 'huvo un error'
+            title: 'No se pudo realizar la actualización'
           })
         })
         getAllTask()
       }   
 
-    
-  return (
+    return (
     <div className="card card-warning">
     <div className="card-header">
       <h3 className="card-title">Editar Tarea </h3>
     </div>
-
 <form onSubmit={handleSubmit}>
     <div className="card-body">
       <div className="form-group">
@@ -104,11 +102,12 @@ const TodoEdit = ({getAllTask, editingTask, setEditingTask}) => {
       </div>
       
       <div className="form-group">
-        <label htmlFor='estado'>Select</label>
+        <label htmlFor='estado'>Estado</label>
+  
           <select className="form-control" id='estado' name='estado'>
-          { editingTask?.isActive?<option selected value={'true'}>Pendiente</option>:<option value={'true'}>Pendiente</option>}
-          
-          {editingTask?.isActive?<option value={'false'}>Completada</option>:<option selected value={'false'}>Completada</option>}
+            <option>selecciona una opcion</option>
+            <option value={true}>verdadero</option>
+            <option value={false}>Falso</option>
           </select>
     </div>
 
@@ -125,11 +124,8 @@ const TodoEdit = ({getAllTask, editingTask, setEditingTask}) => {
     <div className="card-footer clearfix" style={{display: 'block'}}>
       <button type="submit" className="btn btn-primary float-right" onClick={getAllTask}><i className="fas fa-save"></i> Guardar</button></div>
     </form>
- 
- 
 
   </div>
   )
-}
-
+ }
 export default TodoEdit

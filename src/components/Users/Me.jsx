@@ -1,9 +1,22 @@
 import React from 'react'
+import { useSelector } from 'react-redux'
 import Aside from '../Aside'
 import Footer from '../Footer'
 import Header from '../Header'
 
 const Me = () => {
+
+  const user = useSelector(state=> state.userSlice)
+
+
+  const first_name =user.usuario.first_name
+  
+  const last_name = user.usuario.last_name
+  
+  const picture = user.usuario.picture
+
+  const role = user.nivel.roleName
+  
   return (
     <div>
       <Header/>
@@ -33,51 +46,16 @@ const Me = () => {
               <div className="text-center">
                 <img className="profile-user-img img-fluid img-circle" src="../../dist/img/user4-128x128.jpg" alt="User profile picture" />
               </div>
-              <h3 className="profile-username text-center">Nina Mcintire</h3>
-              <p className="text-muted text-center">Software Engineer</p>
-              <ul className="list-group list-group-unbordered mb-3">
-                <li className="list-group-item">
-                  <b>Followers</b> <a className="float-right">1,322</a>
-                </li>
-                <li className="list-group-item">
-                  <b>Following</b> <a className="float-right">543</a>
-                </li>
-                <li className="list-group-item">
-                  <b>Friends</b> <a className="float-right">13,287</a>
-                </li>
-              </ul>
+              <h3 className="profile-username text-center">{`${first_name} ${last_name}`
+              }</h3>
+              <p className="text-muted text-center">{role
+              }</p>
               <a href="#" className="btn btn-primary btn-block"><b>Follow</b></a>
-            </div>
-          </div>
-          <div className="card card-primary">
-            <div className="card-header">
-              <h3 className="card-title">About Me</h3>
-            </div>
-            <div className="card-body">
-              <strong><i className="fas fa-book mr-1" /> Education</strong>
-              <p className="text-muted">
-                B.S. in Computer Science from the University of Tennessee at Knoxville
-              </p>
-              <hr />
-              <strong><i className="fas fa-map-marker-alt mr-1" /> Location</strong>
-              <p className="text-muted">Malibu, California</p>
-              <hr />
-              <strong><i className="fas fa-pencil-alt mr-1" /> Skills</strong>
-              <p className="text-muted">
-                <span className="tag tag-danger">UI Design</span>
-                <span className="tag tag-success">Coding</span>
-                <span className="tag tag-info">Javascript</span>
-                <span className="tag tag-warning">PHP</span>
-                <span className="tag tag-primary">Node.js</span>
-              </p>
-              <hr />
-              <strong><i className="far fa-file-alt mr-1" /> Notes</strong>
-              <p className="text-muted">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam fermentum enim neque.</p>
             </div>
           </div>
         </div>
         <div className="col-md-9">
-          <div className="card">
+          <div className="card"> 
             <div className="card-header p-2">
               <ul className="nav nav-pills">
                 <li className="nav-item"><a className="nav-link active" href="#activity" data-toggle="tab">Activity</a></li>
