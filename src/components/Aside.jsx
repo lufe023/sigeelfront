@@ -19,10 +19,10 @@ const Aside = () => {
   <aside className="main-sidebar sidebar-dark-primary elevation-4">
 
   {/* Brand Logo */}
-  <a href="index3.html" className="brand-link">
+  <Link to="/" className="brand-link">
     <img src="dist/img/AdminLTELogo.png" alt="AdminLTE Logo" className="brand-image img-circle elevation-3" style={{opacity: '.8'}} />
     <span className="brand-text font-weight-light">SIGEEL</span>
-  </a>
+  </Link>
   {/* Sidebar */}
   <div className="sidebar os-host os-theme-light os-host-overflow os-host-overflow-y os-host-resize-disabled os-host-scrollbar-horizontal-hidden os-host-transition"><div className="os-resize-observer-host observed"><div className="os-resize-observer" style={{left: 0, right: 'auto'}} /></div><div className="os-size-auto-observer observed" style={{height: 'calc(100% + 1px)', float: 'left'}}><div className="os-resize-observer" /></div><div className="os-content-glue" style={{margin: '0px -8px'}} /><div className="os-padding"><div className="os-viewport os-viewport-native-scrollbars-invisible" style={{overflowY: 'scroll'}}><div className="os-content" style={{padding: '0px 8px', height: '100%', width: '100%'}}>
           {/* Sidebar user panel (optional) */}
@@ -72,22 +72,22 @@ const Aside = () => {
                   </li>
                 </ul>
               </NavLink>
-              <li  className='nav-item'>
-                <li href="#" className="nav-link">
+              <NavLink  to='/users' className='nav-item'>
+                <a  className="nav-link">
                   <i className="nav-icon fas fa-copy" />
                   <p>
                     Layout Options
                     <i className="fas fa-angle-left right" />
                     <span className="badge badge-info right">6</span>
                   </p>
-                </li>
+                </a>
                 <ul className="nav nav-treeview">
-                  <NavLink className="nav-item">
-                    <a href="pages/layout/top-nav.html" className="nav-link">
+                  <li className="nav-item">
+                    <NavLink to="/users" className="nav-link">
                       <i className="far fa-circle nav-icon" />
-                      <p>Top Navigation</p>
-                    </a>
-                  </NavLink>
+                      <p>Colaboradores</p>
+                    </NavLink>
+                  </li>
                   <li className="nav-item">
                     <a href="pages/layout/top-nav-sidebar.html" className="nav-link">
                       <i className="far fa-circle nav-icon" />
@@ -95,7 +95,7 @@ const Aside = () => {
                     </a>
                   </li>
                 </ul>
-              </li>
+              </NavLink>
             </ul>
           </nav>
           {/* /.sidebar-menu */}

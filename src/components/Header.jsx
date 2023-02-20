@@ -1,6 +1,6 @@
 import React, {useState} from 'react'
-import { Link, Navigate } from 'react-router-dom'
-import LogGout from './Users/LogGout'
+import { Link, Navigate, NavLink } from 'react-router-dom'
+import SearhPeople from './SearhPeople'
 
 const Header = () => {
 
@@ -9,17 +9,12 @@ const Header = () => {
   {/* Left navbar links */}
   <ul className="navbar-nav">
     <li className="nav-item">
-      {
-        /*
-
-        */
-      }
-    <a className="nav-link" href="#" data-widget="pushmenu" role="button"><i className="fas fa-bars" /></a>
+    <Link className="nav-link" href="#" data-widget="pushmenu" role="button"><i className="fas fa-bars" /></Link>
     </li>
     <li className="nav-item">
-          <Link to='/' className="nav-link">
+          <NavLink to='/' className="nav-link">
             Home
-          </Link>
+          </NavLink>
           </li>
           <li className="nav-item">
           <Link to='/dashboard' className="nav-link">
@@ -30,26 +25,7 @@ const Header = () => {
   {/* Right navbar links */}
   <ul className="navbar-nav ml-auto">
     {/* Navbar Search */}
-    <li className="nav-item">
-      <a className="nav-link" data-widget="navbar-search" href="#" role="button">
-        <i className="fas fa-search" />
-      </a>
-      <div className="navbar-search-block">
-        <form className="form-inline">
-          <div className="input-group input-group-sm">
-            <input className="form-control form-control-navbar" type="search" placeholder="Search" aria-label="Search" />
-            <div className="input-group-append">
-              <button className="btn btn-navbar" type="submit">
-                <i className="fas fa-search" />
-              </button>
-              <button className="btn btn-navbar" type="button" data-widget="navbar-search">
-                <i className="fas fa-times" />
-              </button>
-            </div>
-          </div>
-        </form>
-      </div>
-    </li>
+    <SearhPeople/>
     {/* Messages Dropdown Menu */}
  
     {/* Notifications Dropdown Menu */}

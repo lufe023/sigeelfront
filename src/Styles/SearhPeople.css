@@ -1,0 +1,53 @@
+.searchBox{
+    width: 90%;
+    position: absolute;
+    left: 30px;
+    top: 40px;
+    background-color: #fff;
+    border: 1px solid rgba(0,0,0,.15);
+    border-radius: 0.25rem;
+    box-shadow: 0 0.5rem 1rem rgb(0 0 0 / 18%);
+    display: none;
+    z-index: 3;
+
+}
+
+.findBox{
+    padding: 0;
+}
+.lineDivider {
+    border-top: 1px solid #e9ecef;
+    list-style: none;
+
+}
+.lineDivider:hover{
+    background-color: #caced1;
+}
+
+.people-finding{
+    height: 47px;
+    display:inline-block;
+    text-decoration: none;
+    padding: 0.25rem 1rem;
+    clear: both;
+    font-weight: 400;
+    color: #212529;
+    text-align: inherit;
+    
+}
+.people-finding:hover{
+color: #0056b3;
+    text-decoration: none;
+}
+
+.lineDivider span {
+    margin: 0 5px;
+    display: inline-block;
+}
+
+.loading{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+}

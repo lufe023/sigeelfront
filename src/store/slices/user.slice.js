@@ -3,10 +3,10 @@ import { createSlice } from "@reduxjs/toolkit";
 export const userSlice = createSlice({
     name: 'user',
     initialState: {
-        user:{
-        first_name: 'loading',
-        last_name: 'loading',
-        picture: 'loading'
+        usuario:{
+        first_name: 'Cargando',
+        last_name: 'Cargando',
+        picture: 'Cargando'
     }
 },
     reducers:{

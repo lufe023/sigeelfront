@@ -7,9 +7,9 @@ const TodoNewTask = ({getAllTask}) => {
   const [users, setUsers] = useState()
 
   const getAllUsers = () => {
-  axios.get('http://localhost:9000/api/v1/users', getConfig())
+  axios.get(`${import.meta.env.VITE_API_SERVER}/api/v1/users`, getConfig())
   .then(res=>{
-    setUsers(res.data)
+    setUsers(res.data.results)
   })
 
   .catch(err=>{
@@ -27,7 +27,7 @@ useEffect(() => {
     const handleSubmit = e =>{
 
         e.preventDefault()
-        const URL = `http://localhost:9000/api/v1/todo/`
+        const URL = `${import.meta.env.VITE_API_SERVER}/api/v1/todo/`
         axios.post(URL,
           {
             title: e.target.title.value,
@@ -137,7 +137,7 @@ useEffect(() => {
           <select className="form-control" id='responsible' name='responsible'>
             <option value=''></option>
           {
-           users?.map((user) =>
+            users?.map((user) =>
               <option key={user.id} value={user.id}>{user.email}</option>
             )
           }

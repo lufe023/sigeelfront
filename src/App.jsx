@@ -12,6 +12,7 @@ import ProtectedRoutes from './components/ProtectedRoutes'
 import LogGout from './components/Users/LogGout'
 import ForgotPassword from './components/Users/ForgotPassword'
 import RecoverPassword from './components/Users/RecoverPassword'
+import UserDashBoard from './components/UserDashboard/UserDashBoard'
 
 
 
@@ -31,6 +32,7 @@ function App() {
         <Route path='/me/' element={<Me/>}/>
         <Route path='/tasks' element={<TasksBoard/>}/>
         <Route path='/tasks/:id' element={<TasksBoard/>}/>
+        <Route path='/users' element={<UserDashBoard/>}/>
       </Route>
 
       <Route path='*' element={<Error404/>}/>

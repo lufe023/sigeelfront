@@ -1,9 +1,6 @@
 import axios from 'axios'
 import React, { useEffect, useState } from 'react'
-import { set } from 'react-hook-form'
 import { useParams } from 'react-router-dom'
-
-import Cargando from '../../utils/Cargando'
 import getConfig from '../../utils/getConfig'
 import Aside from '../Aside'
 import Footer from '../Footer'
@@ -13,19 +10,18 @@ import TodoEdit from './TodoEdit'
 import TodoNewTask from './TodoNewTask'
 
 const TasksBoard = () => {
+
   //funcion para seleccionar fecha y hora estilizados
     $('#reservationdatetime').datetimepicker({ icons: { time: 'far fa-clock' } });
 
-  const [isLoading, setIsLoading] = useState(true)
   const [editingTask, setEditingTask] = useState([])
   const [task, setTask] = useState()
 
 const getAllTask = ()=>{
-  const URL = 'http://localhost:9000/api/v1/todo'
+  const URL = `${import.meta.env.VITE_API_SERVER}/api/v1/todo`
     axios.get(URL, getConfig())
     .then(res => {
     setTask(res.data)
-    setIsLoading(false)
     })
     .catch(err => console.log(err))
 }
@@ -39,7 +35,7 @@ getAllTask()
 const {id} = useParams()
   useEffect(() => {
     if(id){
-    const URL = `http://localhost:9000/api/v1/todo/${id}`
+    const URL = `${import.meta.env.VITE_API_SERVER}/api/v1/todo/${id}`
     axios.get(URL, getConfig())
     .then(res => {
       setEditingTask(res.data[0])

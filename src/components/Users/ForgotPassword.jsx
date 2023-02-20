@@ -18,7 +18,7 @@ const ForgotPassword = () => {
         email: e.target.email.value,
     }
 
-    const URL = 'http://localhost:9000/api/v1/users/passwordRequest/'
+    const URL = `${import.meta.env.VITE_API_SERVER}/api/v1/users/passwordRequest/`
         axios.post(URL, data)
         .then(res =>
           {
@@ -95,16 +95,13 @@ const ForgotPassword = () => {
 <div className="col-12">
     {
         sent?'':  <button type="submit" className="btn btn-primary btn-block">Enviar petición</button>
-
     }
- 
+
 </div>
 {/* /.col */}
 </div>
 
       </form>
-
-    
       <p className="mt-3 mb-1">
         <Link to='/' >Login</Link> 
       </p>

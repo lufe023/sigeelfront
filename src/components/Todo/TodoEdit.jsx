@@ -2,6 +2,7 @@ import axios from 'axios'
 import React, { useState } from 'react'
 import getConfig from '../../utils/getConfig'
 import Swal from 'sweetalert2'
+import Cargando from '../../utils/Cargando'
 
 const TodoEdit = ({getAllTask, editingTask, setEditingTask}) => {
 
@@ -16,7 +17,7 @@ const TodoEdit = ({getAllTask, editingTask, setEditingTask}) => {
             isActive: e.target.estado.value
         }
 
-        const URL = `http://localhost:9000/api/v1/todo/${editingTask.id}`
+        const URL = `${import.meta.env.VITE_API_SERVER}/api/v1/todo/${editingTask.id}`
         axios.patch(URL,
         data, getConfig())
         .then(res =>
@@ -61,13 +62,11 @@ const TodoEdit = ({getAllTask, editingTask, setEditingTask}) => {
         getAllTask()
       }   
 
-    
-  return (
+    return (
     <div className="card card-warning">
     <div className="card-header">
       <h3 className="card-title">Editar Tarea </h3>
     </div>
-
 <form onSubmit={handleSubmit}>
     <div className="card-body">
       <div className="form-group">
@@ -128,6 +127,5 @@ const TodoEdit = ({getAllTask, editingTask, setEditingTask}) => {
 
   </div>
   )
-}
-
+ }
 export default TodoEdit

@@ -47,7 +47,7 @@ const sendPassword = (e) => {
     confirmNewPassword: confirmPassword
 }
 
-const URL = `http://localhost:9000/api/v1/users/passwordRequest/${id}`
+const URL = `${import.meta.env.VITE_API_SERVER}/api/v1/users/passwordRequest/${id}`
         axios.patch(URL,
         data, getConfig())
         .then(res =>

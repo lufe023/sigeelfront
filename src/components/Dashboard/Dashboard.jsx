@@ -15,7 +15,7 @@ const Dashboard = () => {
 
 
   const getUserbyId = () => { 
-    const URL = 'http://localhost:9000/api/v1/users/me'
+    const URL = `${import.meta.env.VITE_API_SERVER}/api/v1/users/me`
       axios.get(URL, getConfig())
       .then(res => {
         dispatch(setUserData(res.data))
