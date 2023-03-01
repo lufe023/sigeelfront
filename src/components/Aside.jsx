@@ -64,6 +64,14 @@ const Aside = () => {
                       <p>Perfil</p>
                   </NavLink>
                   </li>
+
+                  <li className="nav-item">
+                  <NavLink to='/mypeople' className="nav-link ">
+                      <i className="fas fa-id-card  nav-icon"></i>
+                      <p>Mi Gente</p>
+                  </NavLink>
+                  </li>
+                  
                   <li className="nav-item">
                   <NavLink to='/tasks' className="nav-link ">
                       <i className="fas fa-tasks  nav-icon"></i>

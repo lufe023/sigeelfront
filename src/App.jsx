@@ -13,6 +13,7 @@ import LogGout from './components/Users/LogGout'
 import ForgotPassword from './components/Users/ForgotPassword'
 import RecoverPassword from './components/Users/RecoverPassword'
 import UserDashBoard from './components/UserDashboard/UserDashBoard'
+import MyPeople from './components/Census/MyPeople'
 
 
 
@@ -33,6 +34,7 @@ function App() {
         <Route path='/tasks' element={<TasksBoard/>}/>
         <Route path='/tasks/:id' element={<TasksBoard/>}/>
         <Route path='/users' element={<UserDashBoard/>}/>
+        <Route path='/mypeople' element={<MyPeople/>}/>
       </Route>
 
       <Route path='*' element={<Error404/>}/>

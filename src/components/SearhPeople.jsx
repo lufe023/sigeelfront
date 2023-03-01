@@ -11,12 +11,22 @@ const SearhPeople = () => {
     const [count, setCount] = useState()
     const [isLoading, setIsloading] = useState(false)
 
+    const addPeople = (people, citizenID)=>{
+      const URL = `${import.meta.env.VITE_API_SERVER}/api/v1/census/addpeople`
+      axios.post(URL,
+          {
+            peopleId:people 
+          },
+      getConfig(),
+      )
+      .then(res => {
+        findPeople(citizenID)          
+  })
+  .catch(err =>{
+      console.log(err)
+  })
+    }
     const show = () => setIsShow(!isShow)
-    const data = 
-        {
-            "findWord": "11300054"
-        }
-    
 
         
     const findPeople = (findWord)=>{
@@ -39,16 +49,19 @@ const SearhPeople = () => {
             console.log(err)
         })
         }
-            const findingWord = e => {
+
+    const findingWord = e => {
                 const fn = e.target.value.trim()
-                console.log(fn)
                 findPeople(fn)
                 if(fn!=''){
                 setIsloading(true)
             }else{
                 setIsloading(false)
             }
-            }
+
+
+          }
+      
     return (
     
     <li className="nav-item">
@@ -69,57 +82,93 @@ const SearhPeople = () => {
             </div>
           </div>
         </form>
-       
       </div>
       
-      <div className='searchBox' style={{display:isShow?'block':'none'}}>
-      <span className="dropdown-item dropdown-header">{count?count+' Coincidencias':''} </span>
-        <ul className='findBox'>
+      <div className='searchBox callout callout-info' style={{display:isShow?'block':'none'}}>
+        {
+          count? <span className="dropdown-item dropdown-header">{`${count} coincidencia`}</span>:''
+        }
+      
+      <div className='table-responsive p-0 container-table-search'>
+        {
+        count?
+      <table className="table table-striped table-valign-middle">
+      <thead>
+        <tr>
+        <th>Ciudadano</th>
+        <th>Demografía</th>
+        <th>Herramientas</th>
+        </tr>
+      </thead>
+      <tbody>
         {
 
-count?
         results?.map((people)=>
-        <li key={people.id} className="lineDivider">
-            <a href="#" className="people-finding">
-            <img className="direct-chat-img" src="dist/img/user1-128x128.jpg" alt="message user image"/>
-            
-            <span>
-            {people.firstName} {people.lastName}
-            </span>
-            <span>
-            {people.citizenID}
-            </span>
+        <tr key={people.id} className="people-finding">
+        <td>
+          <img className="direct-chat-img" src="dist/img/user1-128x128.jpg" alt="message user image"/>
+          <ul className='demographic-information'>
+            <li>
+            Nombre: <span>{people.firstName} {people.lastName}</span>
+            </li>
+            <li>
+            {people.nickname?'Le Dicen:':''} <span>{people.nickname?people.nickname: ''}</span>
+          </li>
+          <li>
+            Cedula: <span>{people.citizenID}</span>
+          </li>
+          <li>
+            Edad: <span>{people.age}</span>
+          </li>
+          <li>
+            Género: <span>{people.gender}</span>
+          </li>
+          </ul>
+        </td>
 
-            <span>
-            {people.nickname?people.nickname:''}
-            </span>
 
-            <span>
-            {people.age}
-            </span>
-            
-            <span>
-            {people.gender}
-            </span>
+        <td>
+          <ul className='demographic-information'>
+            <li>
+              Distritto: <span>{people.districts.name} </span>
+            </li>
+            <li>
+              Municipio: <span>{people.municipalities.name}</span>
+            </li>
+            <li>
+              Provincia: <span>{people.provinces.name} </span>
+            </li>
+          </ul>
+        </td>
+        
+        <td>
+          <div className='search-tools-box'>
+        <i className="far fa-eye search-tool"></i>
+        {people.leader
+        ?<i className="fas fa-user-check search-tool less"></i>
+        :<i className="fas fa-user-plus search-tool" onClick={()=>addPeople(people.id, people.citizenID)}></i> }
+        
+        <i className="fas fa-user-edit search-tool"></i>
 
-            
-                <span>{people.provinces.name} </span>
+        
 
-                <span>{people.municipalities.name}</span>
 
-                <span>{people.districts.name?people.districts.name: ''}</span>
-
-                
-                
-            </a>
-            
-        </li>
+        </div>
+        </td>
+        </tr>
         )
-
-    :<li  className="lineDivider"> Sin resultados</li>
-       
       }
-      </ul>
+      
+      </tbody>
+      </table>
+      : 
+      <div className="">
+  <h5>Sin resultados</h5>
+  <p>Intente buscar por nombre, apellido o numero de cedula sin los guiones</p>
+</div>
+
+}
+      </div>
      
       <div className="dropdown-divider" />
         {
@@ -136,7 +185,7 @@ count?
 
        
         </div>
-      </div>
+              </div>
    
 {/*       
       <div className="dropdown-menu show">
