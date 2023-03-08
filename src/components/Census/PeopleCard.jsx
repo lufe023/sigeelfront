@@ -11,13 +11,62 @@ const PeopleCard = ({people}) => {
     <div className="card-body pt-0">
       <div className="row">
         <div className="col-7">
-          <h2 className="lead"><b>{people.firstName} {people.lastName}</b></h2>
-          <p className="text-muted text-sm"><b>About: </b> Web Designer / UX / Graphic Artist / Coffee Lover </p>
+          <h2 className="lead"><b>{people.firstName} {people.lastName} </b>{people.nickname?`(${people.nickname})`:" "}</h2>
+          <hr/>
           <ul className="ml-4 mb-0 fa-ul text-muted">
-            <li className="small"><span className="fa-li"><i className="fas fa-lg fa-building" /></span> 
-            Direccion:{people.adress}
+            <li className="small"><span className="fa-li">
+            <i className="fas fa-lg fa-building" /></span> 
+            Direccion: {people.adress}
             </li>
-            <li className="small"><span className="fa-li"><i className="fas fa-lg fa-phone" /></span> Phone #: + 800 - 12 12 23 52</li>
+
+            {
+                people.neighbourhoods?
+                <li className="small"><span className="fa-li">
+                <i className="fas fa-map-marker"></i></span> 
+                Vecindario:{people.neighbourhoods.name}
+                </li>
+                :''
+            }
+
+
+            {
+               people.districts?
+               <li className="small"><span className="fa-li">
+               <i className="far fa-map"></i></span> 
+               Distrito:{people.districts.name}
+               </li>
+               :''
+            }
+
+            <li className="small"><span className="fa-li">
+            <i className="fas fa-map"></i></span> 
+            Municipio:{people.municipalities.name}
+            </li>
+
+            <li className="small"><span className="fa-li">
+            <i className="fas fa-map-marked"></i></span> 
+            Provincia:{people.provinces.name}
+            </li>
+
+            <li className="small">
+                <span className="fa-li">
+                <i className="fas fa-lg fa-phone" />
+                </span>
+                Celular: <a href={`tel:${people.celphone}`}>{people.celphone}</a>
+            </li>
+            <li className="small">
+                <span className="fa-li">
+                <i className="fas fa-lg fa-phone" />
+                </span>
+                Telefono: <a href={`tel:${people.telephone}`}>{people.telephone}</a>
+            </li>
+            <li className="small">
+                <span className="fa-li">
+                <i className="fas fa-lg fa-phone" />
+                </span>
+                Otro Telefono: {people.otherPhone}
+            </li>
+
           </ul>
         </div>
         <div className="col-5 text-center">
@@ -26,7 +75,14 @@ const PeopleCard = ({people}) => {
       </div>
     </div>
     <div className="card-footer">
-      <div className="text-right">
+      <div className="text-right" style={{display:'flex', justifyContent:'space-evenly'}}>
+        {
+            people.geolocation?
+      <a href={`https://www.google.com/maps/search/${people.geolocation.latitud},+${people.geolocation.longitud}?shorturl=1`} className="btn btn-sm btn-info" target={'_blank'}>
+      <i className="fas fa-location-arrow"></i>
+      </a>
+      :''
+}
         <a href="#" className="btn btn-sm bg-teal">
           <i className="fas fa-comments" />
         </a>

@@ -4,7 +4,7 @@ import getConfig from '../../utils/getConfig'
 import Aside from '../Aside'
 import Footer from '../Footer'
 import Header from '../Header'
-import PeopleCard from './PeopleCard'
+import PeopleCardB from './PeopleCardB'
 
 const MyPeople = () => {
 
@@ -29,7 +29,7 @@ const MyPeople = () => {
 
         getMypeople()
         }, [])
-        
+       
     return (
     <div>
         <Header/>
@@ -40,7 +40,7 @@ const MyPeople = () => {
     <div className="container-fluid">
       <div className="row mb-2">
         <div className="col-sm-6">
-          <h1>My Gente</h1>
+          <h1>Mi Gente</h1>
         </div>
         <div className="col-sm-6">
           <ol className="breadcrumb float-sm-right">
@@ -54,28 +54,23 @@ const MyPeople = () => {
   {/* Main content */}
   <section className="content">
     {/* Default box */}
-    <div className="card card-solid">
-      <div className="card-body pb-0">
+    
+      
         <div className="row">
         
             {
         results?.map((result) => 
-          
-          <PeopleCard key={result.id} people={result}/>
+          <PeopleCardB key={result.id} people={result} getMypeople={getMypeople}/>
           )
         }
-         
-        </div>
-      </div>
-      {/* /.card-body */}
       <div className="card-footer">
         
       </div>
-      {/* /.card-footer */}
+   {/* /.card */}
     </div>
-    {/* /.card */}
+
   </section>
-  {/* /.content */}
+
 </div>
 
         <Footer/>

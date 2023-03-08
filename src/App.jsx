@@ -14,6 +14,7 @@ import ForgotPassword from './components/Users/ForgotPassword'
 import RecoverPassword from './components/Users/RecoverPassword'
 import UserDashBoard from './components/UserDashboard/UserDashBoard'
 import MyPeople from './components/Census/MyPeople'
+import People from './components/Census/People'
 
 
 
@@ -35,6 +36,8 @@ function App() {
         <Route path='/tasks/:id' element={<TasksBoard/>}/>
         <Route path='/users' element={<UserDashBoard/>}/>
         <Route path='/mypeople' element={<MyPeople/>}/>
+        <Route path='/mypeople/:id' element={<People/>}/>
+
       </Route>
 
       <Route path='*' element={<Error404/>}/>

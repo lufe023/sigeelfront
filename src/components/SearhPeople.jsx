@@ -20,7 +20,7 @@ const SearhPeople = () => {
       getConfig(),
       )
       .then(res => {
-        findPeople(citizenID)          
+        findPeople(citizenID)  
   })
   .catch(err =>{
       console.log(err)

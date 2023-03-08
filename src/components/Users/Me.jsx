@@ -9,13 +9,13 @@ const Me = () => {
   const user = useSelector(state=> state.userSlice)
 
 
-  const first_name =user.usuario.first_name
+  const first_name =user?.usuario.first_name
   
-  const last_name = user.usuario.last_name
+  const last_name = user?.usuario.last_name
   
-  const picture = user.usuario.picture
+  const picture = user?.usuario.picture
 
-  const role = user.nivel.roleName
+  const role = user?.nivel.roleName
   
   return (
     <div>

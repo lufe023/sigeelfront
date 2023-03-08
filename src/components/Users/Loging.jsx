@@ -27,7 +27,7 @@ const Loging = () => {
 
   const submit = data => {
 
-const URL = 'http://localhost:9000/api/v1/auth/login'
+const URL = `${import.meta.env.VITE_API_SERVER}/api/v1/auth/login`
     axios.post(URL, data)
     .then(res =>
       {
