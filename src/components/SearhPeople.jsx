@@ -1,5 +1,6 @@
 import axios from 'axios'
 import React, { useEffect, useState } from 'react'
+import { Link } from 'react-router-dom'
 import '../Styles/SearhPeople.css'
 import Cargando from '../utils/Cargando'
 import getConfig from '../utils/getConfig'
@@ -143,7 +144,8 @@ const SearhPeople = () => {
         
         <td>
           <div className='search-tools-box'>
-        <i className="far fa-eye search-tool"></i>
+          <Link to={`/mypeople/${people.id}`}>
+        <i className="far fa-eye search-tool"></i></Link>
         {people.leader
         ?<i className="fas fa-user-check search-tool less"></i>
         :<i className="fas fa-user-plus search-tool" onClick={()=>addPeople(people.id, people.citizenID)}></i> }

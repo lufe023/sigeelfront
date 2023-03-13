@@ -15,6 +15,7 @@ import RecoverPassword from './components/Users/RecoverPassword'
 import UserDashBoard from './components/UserDashboard/UserDashBoard'
 import MyPeople from './components/Census/MyPeople'
 import People from './components/Census/People'
+import SeeBallot from './components/Ballot/SeeBallot'
 
 
 
@@ -37,7 +38,7 @@ function App() {
         <Route path='/users' element={<UserDashBoard/>}/>
         <Route path='/mypeople' element={<MyPeople/>}/>
         <Route path='/mypeople/:id' element={<People/>}/>
-
+        <Route path='/ballot' element={<SeeBallot/>}/>
       </Route>
 
       <Route path='*' element={<Error404/>}/>

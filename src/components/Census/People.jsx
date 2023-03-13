@@ -5,6 +5,7 @@ import getConfig from '../../utils/getConfig'
 import Aside from '../Aside'
 import Footer from '../Footer'
 import Header from '../Header'
+import GPS from './GPS'
 
 const People = () => {
   const [people, setPeople] = useState()
@@ -21,10 +22,7 @@ const People = () => {
   }
   useEffect(() => {
     getPeople()
-  }, [])
-  
-  console.log(people?.Empleos)
-
+  }, [id])
   return (
     <div>
         <Header/>
@@ -363,11 +361,7 @@ const People = () => {
               </div>
 
               <div className='tab-pane' id="mapa">
-                {people?.geolocation.longitud}
-              <iframe
-              src={`https://www.google.com/maps/embed?pb=!1m17!1m12!1m3!1d3783.9866410985464!2d${people?.geolocation.longitud}!3d${people?.geolocation.latitud}!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m2!1m1!2zMTjCsDI5JzAzLjQiTiA3McKwMjUnMjQuNiJX!5e0!3m2!1ses-419!2sdo!4v1678237974900!5m2!1ses-419!2sdo`} 
-              width={"100%"} height={450} style={{border: 0}} allowFullScreen={true} loading="lazy" referrerPolicy="no-referrer-when-downgrade" />
-
+              
               </div>
               {/* /.tab-pane */}
             </div>

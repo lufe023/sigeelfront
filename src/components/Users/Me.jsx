@@ -15,7 +15,7 @@ const Me = () => {
   
   const picture = user?.usuario.picture
 
-  const role = user?.nivel.roleName
+  const role = user?.nivel?.roleName
   
   return (
     <div>

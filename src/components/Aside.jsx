@@ -8,11 +8,11 @@ const Aside = () => {
 
   const user = useSelector(state=> state.userSlice)
 
-  const first_name = user.usuario.first_name
+  const first_name = user?.usuario.first_name
   
-  const last_name =  user.usuario.last_name
+  const last_name =  user?.usuario.last_name
   
-  const picture = user.usuario.picture
+  const picture = user?.usuario.picture
 
 
   return (
@@ -84,9 +84,8 @@ const Aside = () => {
                 <a  className="nav-link">
                   <i className="nav-icon fas fa-copy" />
                   <p>
-                    Layout Options
+                    Opciones de Admin
                     <i className="fas fa-angle-left right" />
-                    <span className="badge badge-info right">6</span>
                   </p>
                 </a>
                 <ul className="nav nav-treeview">
@@ -97,10 +96,10 @@ const Aside = () => {
                     </NavLink>
                   </li>
                   <li className="nav-item">
-                    <a href="pages/layout/top-nav-sidebar.html" className="nav-link">
+                  <NavLink to="/ballot" className="nav-link">
                       <i className="far fa-circle nav-icon" />
-                      <p>Top Navigation + Sidebar</p>
-                    </a>
+                      <p>Boleta</p>
+                  </NavLink>
                   </li>
                 </ul>
               </NavLink>
