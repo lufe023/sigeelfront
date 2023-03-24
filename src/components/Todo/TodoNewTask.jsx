@@ -20,10 +20,6 @@ useEffect(() => {
   getAllUsers()
 }, [])
 
-
-
-
-  console.log()
     const handleSubmit = e =>{
 
         e.preventDefault()

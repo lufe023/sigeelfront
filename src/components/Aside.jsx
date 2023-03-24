@@ -78,26 +78,15 @@ const Aside = () => {
                       <p>Tareas</p>
                   </NavLink>
                   </li>
-                </ul>
-              </NavLink>
-              <NavLink  to='/users' className='nav-item'>
-                <a  className="nav-link">
-                  <i className="nav-icon fas fa-copy" />
-                  <p>
-                    Opciones de Admin
-                    <i className="fas fa-angle-left right" />
-                  </p>
-                </a>
-                <ul className="nav nav-treeview">
                   <li className="nav-item">
                     <NavLink to="/users" className="nav-link">
-                      <i className="far fa-circle nav-icon" />
+                      <i className="fas fa-users nav-icon" />
                       <p>Colaboradores</p>
                     </NavLink>
                   </li>
                   <li className="nav-item">
                   <NavLink to="/ballot" className="nav-link">
-                      <i className="far fa-circle nav-icon" />
+                      <i className="fas fa-book-open nav-icon" />
                       <p>Boleta</p>
                   </NavLink>
                   </li>

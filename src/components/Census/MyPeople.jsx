@@ -63,9 +63,7 @@ const MyPeople = () => {
           <PeopleCardB key={result.id} people={result} getMypeople={getMypeople}/>
           )
         }
-      <div className="card-footer">
-        
-      </div>
+      
    {/* /.card */}
     </div>
 

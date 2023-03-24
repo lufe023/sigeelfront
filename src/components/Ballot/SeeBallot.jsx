@@ -5,6 +5,7 @@ import Aside from '../Aside'
 import Footer from '../Footer'
 import Header from '../Header'
 import Swal from 'sweetalert2'
+import NewCandidate from './NewCandidate'
 
 const SeeBallot = () => {
     const [candidates, setCandidates] = useState([])
@@ -79,7 +80,7 @@ const SeeBallot = () => {
     </div>
   </div>
   {/* /.card-header */}
-  <div className="card-body table-responsive p-0" style={{height: 300}}>
+  <div className="card-body table-responsive p-0">
   
     <table className="table table-head-fixed text-nowrap">
       <thead>
@@ -97,7 +98,7 @@ const SeeBallot = () => {
         candidates?.map((candidate) => 
           <tr key={candidate.id}>
             <td>
-           <img className="img-circle img-bordered-sm" src="dist/img/user7-128x128.jpg" alt="user image" style={{height:'40px'}} />
+          <img className="img-circle img-bordered-sm" src="dist/img/user7-128x128.jpg" alt="user image" style={{height:'40px'}} />
 
             </td>
             <td>{candidate.name} </td>
@@ -123,10 +124,15 @@ const SeeBallot = () => {
             </td>
 
           </tr>
+          
         )
         }
-       
-       
+      <tr>
+        
+        <td colSpan={6}>
+          <NewCandidate/>
+        </td>
+      </tr>
       </tbody>
     </table>
   </div>
