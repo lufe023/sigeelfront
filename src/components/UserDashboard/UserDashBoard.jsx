@@ -1,5 +1,6 @@
 import axios from 'axios'
 import React, { useEffect, useState } from 'react'
+import { Link } from 'react-router-dom'
 import Swal from 'sweetalert2'
 import getConfig from '../../utils/getConfig'
 import Aside from '../Aside'
@@ -110,11 +111,11 @@ const UserDashBoard = () => {
     <span className="sr-only">Toggle Dropdown</span>
   </button>
   <div className="dropdown-menu" role="menu" style={{}}>
-    <a className="dropdown-item" href="#">Action</a>
-    <a className="dropdown-item" href="#">Another action</a>
-    <a className="dropdown-item" href="#">Something else here</a>
+    <a className="dropdown-item" href="#">Perfil</a>
+    <Link className="dropdown-item" to='/peoplebyuser'>Seguimiento</Link>
     <div className="dropdown-divider" />
-    <a className="dropdown-item" href="#">Separated link</a>
+    <a className="dropdown-item" href="#">Desactivar</a>
+    <a className="dropdown-item" href="#">Administrar</a>
   </div>
 </div>
 

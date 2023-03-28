@@ -24,7 +24,6 @@ const Loging = () => {
   const {register, handleSubmit, reset} = useForm()
   
 
-
   const submit = data => {
 
 const URL = `${import.meta.env.VITE_API_SERVER}/api/v1/auth/login`
@@ -187,7 +186,7 @@ if(isLogged)
         <Link to='/forgotPassword'>Olvidé la contraseña</Link>
       </p>
       <p className="mb-0">
-        <a href="register.html" className="text-center">Register a new membership</a>
+        <Link to='preregister' className="text-center">Crear usuario</Link>
       </p>
     </div>
     {/* /.card-body */}

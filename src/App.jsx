@@ -16,6 +16,8 @@ import UserDashBoard from './components/UserDashboard/UserDashBoard'
 import MyPeople from './components/Census/MyPeople'
 import People from './components/Census/People'
 import SeeBallot from './components/Ballot/SeeBallot'
+import PreRegister from './components/Users/PreRegister'
+import PeopleByUser from './components/UserDashboard/PeopleByUser'
 
 
 
@@ -39,10 +41,11 @@ function App() {
         <Route path='/mypeople' element={<MyPeople/>}/>
         <Route path='/mypeople/:id' element={<People/>}/>
         <Route path='/ballot' element={<SeeBallot/>}/>
+        <Route path='/peoplebyuser' element={<PeopleByUser/>}/>
       </Route>
 
       <Route path='*' element={<Error404/>}/>
-
+      <Route path='/preregister' element={<PreRegister/>}/>
       <Route path='/logout' element={<LogGout/>}/>
 
       <Route path='/forgotPassword' element={<ForgotPassword/>}/>
