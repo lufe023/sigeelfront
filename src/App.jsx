@@ -41,7 +41,7 @@ function App() {
         <Route path='/mypeople' element={<MyPeople/>}/>
         <Route path='/mypeople/:id' element={<People/>}/>
         <Route path='/ballot' element={<SeeBallot/>}/>
-        <Route path='/peoplebyuser' element={<PeopleByUser/>}/>
+        <Route path='/peoplebyuser/:id' element={<PeopleByUser/>}/>
       </Route>
 
       <Route path='*' element={<Error404/>}/>

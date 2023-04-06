@@ -112,7 +112,7 @@ const UserDashBoard = () => {
   </button>
   <div className="dropdown-menu" role="menu" style={{}}>
     <a className="dropdown-item" href="#">Perfil</a>
-    <Link className="dropdown-item" to='/peoplebyuser'>Seguimiento</Link>
+    <Link className="dropdown-item" to={`/peoplebyuser/${user.id}`}>Seguimiento</Link>
     <div className="dropdown-divider" />
     <a className="dropdown-item" href="#">Desactivar</a>
     <a className="dropdown-item" href="#">Administrar</a>
