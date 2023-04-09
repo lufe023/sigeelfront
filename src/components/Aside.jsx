@@ -7,12 +7,12 @@ import {Link, NavLink} from 'react-router-dom'
 const Aside = () => {
 
   const user = useSelector(state=> state.userSlice)
-
-  const first_name = user?.usuario.first_name
   
-  const last_name =  user?.usuario.last_name
+  const first_name = user?.censu?.firstName
   
-  const picture = user?.usuario.picture
+  const last_name =  user?.censu?.lastName
+  
+  const picture = user?.censu?.picture
 
 
   return (

@@ -121,8 +121,8 @@ useEffect(() => {
       
       <div className="form-group">
         <label htmlFor='estado'>Estado</label>
-          <select className="form-control" id='estado' name='estado'>
-          <option selected value={true}>Pendiente</option>
+          <select defaultValue={true} className="form-control" id='estado' name='estado'>
+          <option value={true}>Pendiente</option>
           <option value={false}>Completado</option>
         </select>
     </div>

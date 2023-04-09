@@ -15,9 +15,6 @@ const PeopleByUser = () => {
 const data = {
     leaderId:id
 }
-
-console.log(data)
-
     const getMypeople = ()=>{
         const URL = `${import.meta.env.VITE_API_SERVER}/api/v1/census/peoplebyuser/`
             axios.post(URL,

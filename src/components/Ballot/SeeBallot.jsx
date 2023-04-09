@@ -14,7 +14,6 @@ const SeeBallot = () => {
     const URL = `${import.meta.env.VITE_API_SERVER}/api/v1/ballots`
       axios.get(URL, getConfig())
       .then(res => {
-        console.log(res)
         setCandidates(res.data.rows)
       })
       .catch(err =>{

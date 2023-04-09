@@ -14,7 +14,6 @@ const UserDashBoard = () => {
     const URL = `${import.meta.env.VITE_API_SERVER}/api/v1/users?offset=0&limit=20`
       axios.get(URL, getConfig())
       .then(res => {
-        console.log(res)
         setUsers(res.data.results)
       })
       .catch(err =>{
@@ -100,8 +99,8 @@ const UserDashBoard = () => {
            <img className="img-circle img-bordered-sm" src="dist/img/user7-128x128.jpg" alt="user image" style={{height:'40px'}} />
 
             </td>
-            <td>{`${user.usuario.first_name} ${user.usuario.last_name}`}</td>
-            <td>{user.nivel.roleName} </td>
+            <td>{`${user.censu.first_name} ${user.censu.last_name}`}</td>
+            <td>{user.user_role.roleName} </td>
             <td>{user.email} </td>
             <td>{user.status} </td>
             <td>

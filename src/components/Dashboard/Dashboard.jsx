@@ -13,7 +13,6 @@ const Dashboard = () => {
 
   const dispatch = useDispatch()
 
-
   const getUserbyId = () => { 
     const URL = `${import.meta.env.VITE_API_SERVER}/api/v1/users/me`
       axios.get(URL, getConfig())

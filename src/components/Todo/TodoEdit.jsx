@@ -75,7 +75,7 @@ const TodoEdit = ({getAllTask, editingTask, setEditingTask}) => {
           type="text"
           id="title"
           className="form-control"
-          defaultValue={editingTask?.title} />
+          value={editingTask?.title} />
       </div>
 
       <div className="form-group">
@@ -85,7 +85,7 @@ const TodoEdit = ({getAllTask, editingTask, setEditingTask}) => {
         type="text"
         id="inputDescription"
         className="form-control"
-        defaultValue={editingTask?.description}/>
+        value={editingTask?.description}/>
       </div>
 
       <div className="form-group">
@@ -94,7 +94,7 @@ const TodoEdit = ({getAllTask, editingTask, setEditingTask}) => {
           <input 
           name="limit"
           id="before"
-          type="text" className="form-control datetimepicker-input" data-target="#reservationdatetime" defaultValue={editingTask?.limit}/>
+          type="text" className="form-control datetimepicker-input" data-target="#reservationdatetime" value={editingTask?.limit}/>
           <div className="input-group-append" data-target="#reservationdatetime" data-toggle="datetimepicker">
             <div className="input-group-text"><i className="fa fa-calendar" /></div>
           </div>

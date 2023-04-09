@@ -9,11 +9,11 @@ const Me = () => {
   const user = useSelector(state=> state.userSlice)
 
 
-  const first_name =user?.usuario.first_name
+  const first_name =user?.censu.firstName
   
-  const last_name = user?.usuario.last_name
+  const last_name = user?.censu.lastName
   
-  const picture = user?.usuario.picture
+  const picture = user?.censu.picture
 
   const role = user?.nivel?.roleName
   
