@@ -128,13 +128,13 @@ const SearhPeople = () => {
         <td>
           <ul className='demographic-information'>
             <li>
-              Distritto: <span>{people.districts.name} </span>
+              Distritto: <span>{people?.districts?.name} </span>
             </li>
             <li>
-              Municipio: <span>{people.municipalities.name}</span>
+              Municipio: <span>{people?.municipalities?.name}</span>
             </li>
             <li>
-              Provincia: <span>{people.provinces.name} </span>
+              Provincia: <span>{people?.provinces?.name} </span>
             </li>
           </ul>
         </td>

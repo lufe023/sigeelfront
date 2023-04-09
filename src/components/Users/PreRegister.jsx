@@ -62,7 +62,7 @@ const findingWord = e => {
         email: e.target.email.value,
         password: e.target.password.value,
         citizenID: e.target.cedula.value,
-        role: 1
+        role: 2
         }
         console.log(user)
         setFormLoader(true)
