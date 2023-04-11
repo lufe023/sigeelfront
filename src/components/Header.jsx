@@ -64,7 +64,7 @@ const Header = () => {
     </li>
     <li className="nav-item dropdown user-menu">
   <a href="#" className="nav-link dropdown-toggle" data-toggle="dropdown">
-    <img src="../../dist/img/user2-160x160.jpghttps://sigeel.onrender.com/api/v1/images/products/11300037618.jpg" className="user-image img-circle elevation-2" alt="User Image" />
+    <img src="../../dist/img/user2-160x160.jpg" className="user-image img-circle elevation-2" alt="User Image" />
     <span className="d-none d-md-inline">{first_name} {last_name}</span>
   </a>
   <ul className="dropdown-menu dropdown-menu-lg dropdown-menu-right">
