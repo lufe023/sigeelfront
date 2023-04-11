@@ -5,11 +5,12 @@ import Aside from '../Aside'
 import Footer from '../Footer'
 import Header from '../Header'
 import PeopleCardB from './PeopleCardB'
+import Cargando from '../../utils/Cargando'
 
 const MyPeople = () => {
 
     const [results, setResults] = useState()
-
+    const [isLoading, setIsloading] = useState(true)
     const getMypeople = ()=>{
         const URL = `${import.meta.env.VITE_API_SERVER}/api/v1/census/mypeople`
             axios.get(URL,
@@ -17,10 +18,12 @@ const MyPeople = () => {
             )
             .then(res => {
                 setResults(res.data.rows)
+                setIsloading(false)
                 
         })
         .catch(err =>{
             setResults([])
+            setIsloading(false)
             console.log(err)
         })
         }
@@ -52,6 +55,13 @@ const MyPeople = () => {
     </div>{/* /.container-fluid */}
   </section>
   {/* Main content */}
+  {
+  isLoading?
+  <div className='loading' style={{height:"100px", marginBottom:"50px"}}>
+    <Cargando escala='1.5'/>
+    </div>
+    :""
+  }
   <section className="content">
     {/* Default box */}
     

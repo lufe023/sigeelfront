@@ -6,18 +6,21 @@ import getConfig from '../../utils/getConfig'
 import Aside from '../Aside'
 import Footer from '../Footer'
 import Header from '../Header'
+import Cargando from '../../utils/Cargando'
 
 const UserDashBoard = () => {
   const [users, setUsers] = useState([])
-
+  const [loading, setLoading] = useState(true)
   const getAllUsers = ()=>{
     const URL = `${import.meta.env.VITE_API_SERVER}/api/v1/users?offset=0&limit=20`
       axios.get(URL, getConfig())
       .then(res => {
         setUsers(res.data.results)
+        setLoading(false)
       })
       .catch(err =>{
         console.log(err)
+        setLoading(false)
         const Toast = Swal.mixin({
           toast: true,
           position: 'top-end',
@@ -77,9 +80,13 @@ const UserDashBoard = () => {
       </div>
     </div>
   </div>
-  {/* /.card-header */}
+  {/* /.card-header */} 
   <div className="card-body table-responsive p-0" style={{height: 300}}>
-  
+  {
+    loading?<div className='loading' style={{height:"100px", marginBottom:"50px"}}>
+    <Cargando escala='1.5'/>
+    </div>
+  :
     <table className="table table-head-fixed text-nowrap">
       <thead>
         <tr>
@@ -128,6 +135,8 @@ const UserDashBoard = () => {
        
       </tbody>
     </table>
+}
+
   </div>
   {/* /.card-body */}
 </div>

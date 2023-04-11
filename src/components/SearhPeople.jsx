@@ -104,7 +104,7 @@ const SearhPeople = () => {
         results?.map((people)=>
         <tr key={people.id} className="people-finding">
         <td>
-          <img className="direct-chat-img" src="dist/img/user1-128x128.jpg" alt="message user image"/>
+          <img className="direct-chat-img" src={`${import.meta.env.VITE_API_SERVER}/api/v1/images/products/${people.citizenID}.jpg`} alt="message user image"/>
           <ul className='demographic-information'>
             <li>
             Nombre: <span>{people.firstName} {people.lastName}</span>
@@ -146,7 +146,6 @@ const SearhPeople = () => {
         {people.leader
         ?<i className="fas fa-user-check search-tool less"></i>
         :<i className="fas fa-user-plus search-tool" onClick={()=>addPeople(people.id, people.citizenID)}></i> }
-        
         <i className="fas fa-user-edit search-tool"></i>
         </div>
         </td>
