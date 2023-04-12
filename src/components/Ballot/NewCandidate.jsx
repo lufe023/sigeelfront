@@ -147,18 +147,15 @@ if(formLoading){
         <input required type="text" placeholder="Acronimo" className="form-control" name='acronimo'/>
     </div>
     <div className="col-2">
+    
     <select className="form-control" name='candidatura'>
-        <option>Candidatura</option>
-        <hr/>
+        <option>Postula a</option>
         <option>Consejal Distrital</option>
         <option>Director Municipal</option>
-        <hr/>
         <option>Regidor Municipal</option>
         <option>Alcalde Municipal</option>
-        <hr/>
         <option>Diputado/a</option>
         <option>Senador/a</option>
-        <hr/>
         <option>Presidente</option>
         </select>
         </div>

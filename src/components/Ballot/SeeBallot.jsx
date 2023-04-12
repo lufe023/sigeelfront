@@ -7,7 +7,7 @@ import Header from '../Header'
 import Swal from 'sweetalert2'
 import NewCandidate from './NewCandidate'
 import Cargando from '../../utils/Cargando'
-
+import "./SeeBallot.css"
 const SeeBallot = () => {
     const [candidates, setCandidates] = useState()
 
@@ -86,10 +86,8 @@ const SeeBallot = () => {
       <thead>
         <tr>
           <th></th>
-          <th>Nombre</th>
-          <th>Partido</th>
-          <th>Acronimo</th>
-          <th>Candidatura</th>
+          <th>Candidato</th>
+          <th>Area</th>
           <th>Acciones</th>
         </tr>
       </thead>
@@ -100,12 +98,22 @@ const SeeBallot = () => {
           <tr key={candidate.id}>
             <td>
           <img className="img-circle img-bordered-sm" src="dist/img/user7-128x128.jpg" alt="user image" style={{height:'40px'}} />
-
             </td>
-            <td>{candidate.name} </td>
-            <td>{candidate.party} </td>
-            <td>{candidate.partyAcronym} </td>
-            <td>{candidate.nomination} </td>
+            <td>
+              <ul>
+                <li>{candidate.name}</li>
+                <li>{candidate.nomination}</li>
+                <li>{candidate.party} - {candidate.partyAcronym}  </li>
+              </ul>
+            </td>
+            <td>
+              <ul>
+              <li>{candidate.province[0]?.name}</li>
+              <li>{candidate.municipality[0]?.name}</li>
+              <li>{candidate.DistritoMunicipal[0]?.name}</li>
+              </ul>
+            </td>
+            
             <td>
             <div className="btn-group">
   <button type="button" className="btn btn-default">Acciones</button>
@@ -113,17 +121,16 @@ const SeeBallot = () => {
     <span className="sr-only">Toggle Dropdown</span>
   </button>
   <div className="dropdown-menu" role="menu" style={{}}>
-    <a className="dropdown-item" href="#">Action</a>
-    <a className="dropdown-item" href="#">Another action</a>
-    <a className="dropdown-item" href="#">Something else here</a>
-    <div className="dropdown-divider" />
-    <a className="dropdown-item" href="#">Separated link</a>
+    <a className="dropdown-item" href="#">Borrar</a>
   </div>
 </div>
 </td>
 </tr>
 )
-:<div className='loading' style={{height:"100px", marginBottom:"50px"}}><Cargando scala="3"/></div>
+:
+<div className='loading' style={{height:"100px", marginBottom:"50px", width:'100vh'}}>
+  <Cargando scala="3"/>
+  </div>
 }
       <tr>
         <td colSpan={6}>
