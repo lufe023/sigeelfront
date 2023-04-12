@@ -5,7 +5,7 @@ import axios from 'axios'
 import Swal from 'sweetalert2'
 //import "./NewCandidate.css"
 
-const NewCandidate = ({getAllUsers}) => {
+const NewCandidate = ({getAllCandidates}) => {
     /* llamar el mapa */
     const [maps, setMaps] = useState()
     const [preMunicipios, setPreMunicipios] = useState()
@@ -40,7 +40,7 @@ const NewCandidate = ({getAllUsers}) => {
         }
         useEffect(() => {
         getAllMaps()
-      }, [])
+    }, [])
 
     /* fin de la llamada del mapa*/
     const [formLoading, setFormLoading] = useState(false)
@@ -48,26 +48,27 @@ const NewCandidate = ({getAllUsers}) => {
         e.preventDefault()
         setFormLoading(true)
 
-        const data = {
-            name : e.target.nombre.value,
-            party : e.target.partido.value,
-            partyAcronym : e.target.acronimo.value,
-            nomination : e.target.candidatura.value,
-            picture: '',
-            distritoMunicipal : e.target.distrito.value,
-            municipio : e.target.municipio.value,
-            provincia : e.target.provincia.value
-        }
+        let data = new FormData()
         
-        
+        data.append('name', e.target.nombre.value)
+        data.append('party', e.target.partido.value)
+        data.append('partyAcronym', e.target.acronimo.value)
+        data.append('nomination', e.target.candidatura.value)
+        data.append('file', e.target.file.files[0])
+        data.append('picture', 'hola')
+        data.append('distritoMunicipal', e.target.distrito.value)
+        data.append('municipio', e.target.municipio.value)
+        data.append('provincia', e.target.provincia.value)
+
+        console.log(data)
+
         const URL = `${import.meta.env.VITE_API_SERVER}/api/v1/ballots/`
         axios.post(URL,
         data,
         getConfig())
             .then(res => {
-                setUsers(res.data.results)
                 setFormLoading(false)
-                getAllUsers()
+                getAllCandidates
                 const Toast = Swal.mixin({
                     toast: true,
                     position: 'top-end',
@@ -110,9 +111,6 @@ const NewCandidate = ({getAllUsers}) => {
     const provincias = maps?.filter((map)=> map.type == 'Provincia' )
     const municipios = maps?.filter((map)=> map.parent == preMunicipios )
     const distritos = maps?.filter((map)=> map.parent == preDistritos )
-
-  
-
     const handleChangeMunicipio = event => {
         setPreMunicipios(event.target.value);
     };
@@ -128,10 +126,10 @@ if(formLoading){
     <div className='card-body'>
     <h3>Agregar un nuevo candidato/a</h3>
 
-    <form className='new-candidate-form' onSubmit={handleSubmit}>
+    <form className='new-candidate-form' onSubmit={handleSubmit} encType='multipart/form-data'>
     <div className='row'>
     <div className="col-3">
-        <input type="file" className="custom-file-input" id="canditate-picture" accept="image/png, image/jpeg"/>
+        <input type="file" className="custom-file-input" id="canditate-picture" accept="image/png, image/jpeg" name="file"/>
         <label className="custom-file-label" htmlFor="canditate-picture">Elige una foto</label>
 
     </div>
@@ -187,8 +185,8 @@ if(formLoading){
         </div>
         <div className='row' style={{marginTop:"10px"}}>
         <div className="col-11">
-        <select className="form-control" name='distrito'>
-        <option value={413}>Distrito Municipal</option>
+        <select className="form-control" name='distrito' defaultValue={null}>
+        <option value={'null'}>Distrito Municipal</option>
         <hr/>
         {
         distritos?.map((distrito)=>

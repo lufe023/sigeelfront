@@ -11,7 +11,7 @@ import "./SeeBallot.css"
 const SeeBallot = () => {
     const [candidates, setCandidates] = useState()
 
-  const getAllUsers = ()=>{
+  const getAllCandidates = ()=>{
     const URL = `${import.meta.env.VITE_API_SERVER}/api/v1/ballots`
       axios.get(URL, getConfig())
       .then(res => {
@@ -39,7 +39,7 @@ const SeeBallot = () => {
       
   }
   useEffect(() => {
-  getAllUsers()
+  getAllCandidates()
   }, [])
 
   return (
@@ -134,7 +134,7 @@ const SeeBallot = () => {
 }
       <tr>
         <td colSpan={6}>
-          <NewCandidate getAllUsers={getAllUsers()}/>
+          <NewCandidate getAllCandidates={getAllCandidates}/>
         </td>
       </tr>
       </tbody>
