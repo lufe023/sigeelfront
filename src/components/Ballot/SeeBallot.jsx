@@ -6,9 +6,10 @@ import Footer from '../Footer'
 import Header from '../Header'
 import Swal from 'sweetalert2'
 import NewCandidate from './NewCandidate'
+import Cargando from '../../utils/Cargando'
 
 const SeeBallot = () => {
-    const [candidates, setCandidates] = useState([])
+    const [candidates, setCandidates] = useState()
 
   const getAllUsers = ()=>{
     const URL = `${import.meta.env.VITE_API_SERVER}/api/v1/ballots`
@@ -42,11 +43,11 @@ const SeeBallot = () => {
   }, [])
 
   return (
-    <div>
-        <Header/>
-        <Aside/>    
-        <div className="content-wrapper">
-            <section className="content-header">
+<div>
+<Header/>
+<Aside/>    
+<div className="content-wrapper">
+  <section className="content-header">
     <div className="container-fluid">
       <div className="row mb-2">
         <div className="col-sm-6">
@@ -66,7 +67,7 @@ const SeeBallot = () => {
     <div className="col-12">
   <div className="card">
   <div className="card-header">
-    <h3 className="card-title">Colaboradores</h3>
+    <h3 className="card-title">Candidatos</h3>
     <div className="card-tools">
       <div className="input-group input-group-sm" style={{width: 150}}>
         <input type="text" name="table_search" className="form-control float-right" placeholder="Search" />
@@ -94,6 +95,7 @@ const SeeBallot = () => {
       </thead>
       <tbody>
       {
+        candidates?
         candidates?.map((candidate) => 
           <tr key={candidate.id}>
             <td>
@@ -118,18 +120,14 @@ const SeeBallot = () => {
     <a className="dropdown-item" href="#">Separated link</a>
   </div>
 </div>
-
-
-            </td>
-
-          </tr>
-          
-        )
-        }
+</td>
+</tr>
+)
+:<div className='loading' style={{height:"100px", marginBottom:"50px"}}><Cargando scala="3"/></div>
+}
       <tr>
-        
         <td colSpan={6}>
-          <NewCandidate/>
+          <NewCandidate getAllUsers={getAllUsers()}/>
         </td>
       </tr>
       </tbody>
