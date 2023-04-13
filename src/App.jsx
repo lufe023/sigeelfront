@@ -21,6 +21,7 @@ import PeopleByUser from './components/UserDashboard/PeopleByUser'
 
 
 
+
 function App() {
   
   return (
@@ -42,6 +43,7 @@ function App() {
         <Route path='/mypeople/:id' element={<People/>}/>
         <Route path='/ballot' element={<SeeBallot/>}/>
         <Route path='/peoplebyuser/:id' element={<PeopleByUser/>}/>
+
       </Route>
 
       <Route path='*' element={<Error404/>}/>

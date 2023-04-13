@@ -8,6 +8,7 @@ import Swal from 'sweetalert2'
 import NewCandidate from './NewCandidate'
 import Cargando from '../../utils/Cargando'
 import "./SeeBallot.css"
+
 const SeeBallot = () => {
     const [candidates, setCandidates] = useState()
 
@@ -41,6 +42,66 @@ const SeeBallot = () => {
   useEffect(() => {
   getAllCandidates()
   }, [])
+
+//funcion para eliminar un candidato
+  const deleteCandidate = (candidateId, candidateName) => {
+    Swal.fire({
+      title: `¿Seguro quieres eliminar a <p>${candidateName}</p> de la Boleta?`,
+      text: `Esta acción no se puede devolver`,
+      icon: 'warning',
+      showCancelButton: true,
+      cancelButtonText: "Cancelar",
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Si, Quitalo!'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        let timerInterval
+        Swal.fire({
+          title: 'Eliminando!',
+          timer: 0,
+          timerProgressBar: true,
+          didOpen: () => {
+            Swal.showLoading()
+            const b = Swal.getHtmlContainer().querySelector('b')
+            timerInterval = setInterval(() => {
+              b.textContent = Swal.getTimerLeft()
+            }, 100)
+          },
+          willClose: () => {
+            clearInterval(timerInterval)
+          }
+        }).then((result) => {
+          /* Read more about handling dismissals below */
+          if (result.dismiss === Swal.DismissReason.timer) {
+            console.log('I was closed by the timer')
+          }
+        })
+        const URL = `${import.meta.env.VITE_API_SERVER}/api/v1/ballots/${candidateId}`
+        axios.delete(URL,
+        getConfig(),
+        )
+        .then(res => {
+          Swal.fire(
+            'Eliminando',
+            'Accion realizada con éxito',
+            'success'
+          )
+          getAllCandidates()         
+    })
+    .catch(err =>{
+        console.log(err)
+        Swal.fire({
+          icon: 'error',
+          title: 'Oops...',
+          text: 'Hubo un error!',
+          
+        })
+    })
+      }
+    })
+  
+  }
 
   return (
 <div>
@@ -95,9 +156,9 @@ const SeeBallot = () => {
       {
         candidates?
         candidates?.map((candidate) => 
-          <tr key={candidate.id}>
+          <tr key={candidate.candidateId}>
             <td>
-          <img className="img-circle img-bordered-sm" src="dist/img/user7-128x128.jpg" alt="user image" style={{height:'40px'}} />
+          <img className="img-circle img-bordered-sm" src={`${import.meta.env.VITE_API_SERVER}/api/v1/images/candidate/${candidate.picture}`} alt="user image" style={{height:'40px'}} />
             </td>
             <td>
               <ul>
@@ -113,7 +174,7 @@ const SeeBallot = () => {
               <li>{candidate.DistritoMunicipal[0]?.name}</li>
               </ul>
             </td>
-            
+          
             <td>
             <div className="btn-group">
   <button type="button" className="btn btn-default">Acciones</button>
@@ -121,7 +182,7 @@ const SeeBallot = () => {
     <span className="sr-only">Toggle Dropdown</span>
   </button>
   <div className="dropdown-menu" role="menu" style={{}}>
-    <a className="dropdown-item" href="#">Borrar</a>
+    <a className="dropdown-item" href='#' onClick={()=>deleteCandidate(candidate.candidateId, candidate.name)}>Eliminar</a>
   </div>
 </div>
 </td>

@@ -60,15 +60,13 @@ const NewCandidate = ({getAllCandidates}) => {
         data.append('municipio', e.target.municipio.value)
         data.append('provincia', e.target.provincia.value)
 
-        console.log(data)
-
         const URL = `${import.meta.env.VITE_API_SERVER}/api/v1/ballots/`
         axios.post(URL,
         data,
         getConfig())
             .then(res => {
                 setFormLoading(false)
-                getAllCandidates
+                getAllCandidates()
                 const Toast = Swal.mixin({
                     toast: true,
                     position: 'top-end',
