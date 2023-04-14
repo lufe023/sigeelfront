@@ -9,7 +9,6 @@ import GPS from './GPS'
 
 const People = () => {
   const [people, setPeople] = useState()
-
   const {id} = useParams()
 
   const getPeople = ()=>{
@@ -361,6 +360,7 @@ const People = () => {
               </div>
 
               <div className='tab-pane' id="mapa">
+              <GPS lat={people?.geolocation?.latitud} long={people?.geolocation?.longitud} peopleName={people?.firstName} citizenId={people?.citizenID}/>
               
               </div>
               {/* /.tab-pane */}

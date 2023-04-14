@@ -123,7 +123,7 @@ const PeopleCard = ({people, getMypeople}) => {
           </ul>
         </div>
         <div className="col-5 text-center">
-          <img src="../../dist/img/user1-128x128.jpg" alt="user-avatar" className="img-circle img-fluid" />
+          <img src={`${import.meta.env.VITE_API_SERVER}/api/v1/images/citizen/${people.citizenID}.jpg`} alt="user-avatar" className="img-circle img-fluid" />
         </div>
       </div>
       </div>
