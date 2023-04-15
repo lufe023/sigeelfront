@@ -1,7 +1,7 @@
 import React from 'react'
 import GoogleMapReact from 'google-map-react';
 
-const GPS = ({lat, long, peopleName, citizenId}) => {
+const GPS = ({lat, long, peopleName, picture}) => {
 
   const defaultProps = {
     center: {
@@ -11,7 +11,7 @@ const GPS = ({lat, long, peopleName, citizenId}) => {
     zoom: 9
   }
   const AnyReactComponent = ({ text }) => <div style={{backgroundColor:"green", width:"10px", height: "10px", borderRadius:"50%"}}>
-    <img src={`${import.meta.env.VITE_API_SERVER}/api/v1/images/citizen/${citizenId}.jpg`} style={{width:"40px", height: "40px", borderRadius:"50%"}} />
+    <img src={`${import.meta.env.VITE_API_SERVER}/api/v1/images/citizen/${picture}`} style={{width:"40px", height: "40px", borderRadius:"50%"}} />
 
 
     <div style={{marginTop:"10px", width:"100px"}}>

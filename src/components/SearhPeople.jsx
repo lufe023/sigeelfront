@@ -104,7 +104,7 @@ const SearhPeople = () => {
         results?.map((people)=>
         <tr key={people.id} className="people-finding">
         <td>
-          <img className="direct-chat-img" src={`${import.meta.env.VITE_API_SERVER}/api/v1/images/citizen/${people.citizenID}.jpg`} alt="message user image"/>
+          <img className="direct-chat-img" src={`${import.meta.env.VITE_API_SERVER}/api/v1/images/citizen/${people?.picture}`} alt="message user image"/>
           <ul className='demographic-information'>
             <li>
             Nombre: <span>{people.firstName} {people.lastName}</span>
