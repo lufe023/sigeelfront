@@ -75,17 +75,23 @@ const TodoEdit = ({getAllTask, editingTask, setEditingTask}) => {
           type="text"
           id="title"
           className="form-control"
-          value={editingTask?.title} />
+          defaultValue={editingTask?.title} />
       </div>
 
       <div className="form-group">
+        
         <label htmlFor="inputDescription">Descripcion de la tarea</label>
+        <textarea className="form-control" rows="3" defaultValue={editingTask?.description} name='description'>
+          
+        </textarea>
+        {/* 
         <input
         name='description'
         type="text"
         id="inputDescription"
         className="form-control"
         value={editingTask?.description}/>
+        */}
       </div>
 
       <div className="form-group">
@@ -103,11 +109,10 @@ const TodoEdit = ({getAllTask, editingTask, setEditingTask}) => {
       
       <div className="form-group">
         <label htmlFor='estado'>Estado</label>
-  
           <select className="form-control" id='estado' name='estado'>
-            <option>selecciona una opcion</option>
-            <option value={true}>verdadero</option>
-            <option value={false}>Falso</option>
+            <option value={true}>selecciona una opcion</option>
+            <option value={true}>Pendiente</option>
+            <option value=''>Completada</option>
           </select>
     </div>
 

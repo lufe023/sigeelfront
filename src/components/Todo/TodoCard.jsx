@@ -16,7 +16,6 @@ return (
     </h3>
     <div className="card-tools">
     <div className="card-tools">
-    
           <button type="button" className="btn btn-tool" data-card-widget="collapse" title="Collapse">
             <i className="fas fa-minus" />
           </button>
@@ -47,11 +46,23 @@ return (
           <span className="text">{tarea.title}</span>
           </Link>
           {/* Emphasis label */}
-          <small className="badge badge-danger"><i className="far fa-clock" />{tarea.limit}</small>
+
+          {
+          tarea.isActive?
+          <small  className='badge  badge-danger'>
+            <i className="far fa-clock" />{tarea.limit}</small>
+          :
+          <small  className='badge  badge-success'>
+          <i className="far fa-clock" />{tarea.limit}</small> 
+          }
+
+          
           {/* General tools such as edit or delete*/}
           <div className="tools">
+          <Link to={`/tasks/${tarea.id}`}>
             <i className="fas fa-edit" />
             <i className="fas fa-trash-o" />
+          </Link>
           </div>
         </li>
 )
