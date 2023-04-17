@@ -51,9 +51,9 @@ const PeopleCard = ({people, getMypeople}) => {
   <div className="card">
     <div className="card-header p-2">
       <ul className="nav nav-pills">
-        <li className="nav-item"><a className="nav-link active" href={`#presentacion${people.id}`} data-toggle="tab">Presentacion</a></li>
-  
-        <li className="nav-item"><a className="nav-link" href={`#settings${people.id}`} data-toggle="tab">Acciones</a></li>
+      <li className="nav-item"><a className="nav-link active" href={`#presentacion${people.id}`} data-toggle="tab">Presentacion</a></li>
+      <li className="nav-item"><a className="nav-link" href={`#settings${people.id}`} data-toggle="tab">Acciones</a></li>
+      <li className="nav-item"><a className="nav-link" href={`#encuestar${people.id}`} data-toggle="tab">Encuestar</a></li>
       </ul>
     </div>{/* /.card-header */}
     <div className="card-body">
@@ -145,7 +145,6 @@ const PeopleCard = ({people, getMypeople}) => {
         <a className="btn btn-app">
         <i className="fas fa-user-edit"></i> Editar
         </a>
-
         <a className="btn btn-app" onClick={()=>deletePeople(people.id, people.firstName)}>
         <i className="fas fa-user-minus"></i> Quitar
         </a>
@@ -170,6 +169,23 @@ const PeopleCard = ({people, getMypeople}) => {
         </a>
       
 
+        </div>
+
+        <div className="tab-pane" id={`encuestar${people.id}`}>
+          <div className='row'></div>
+          <div className="col-7">
+        
+        <h2 className="lead"><b>{people.firstName} {people.lastName} </b>{people.nickname?`(${people.nickname})`:" "}</h2>
+        </div>
+        
+        <hr/>
+        {
+          //console.log(people)
+          //people?.Encuestas?.[0]?.id
+          people?.Encuestas?.map((result) => 
+            <li>{result.id}</li>
+        ) 
+        }
         </div>
       </div>
       
