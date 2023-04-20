@@ -30,6 +30,13 @@ video {
     background-color: #dc3545;
     border-color: #dc3545;
     box-shadow: none;
- 
+
 }
 
+li{
+    list-style: none;
+}
+
+.img-circle{
+    aspect-ratio: 1.1;
+}

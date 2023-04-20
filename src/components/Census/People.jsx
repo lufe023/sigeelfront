@@ -1,6 +1,6 @@
 import axios from 'axios'
 import React, { useEffect, useState } from 'react'
-import { useParams } from 'react-router-dom'
+import { Link, useParams } from 'react-router-dom'
 import getConfig from '../../utils/getConfig'
 import Aside from '../Aside'
 import Footer from '../Footer'
@@ -31,12 +31,13 @@ const People = () => {
   <div className="container-fluid">
     <div className="row mb-2">
       <div className="col-sm-6">
-        <h1>Perfil de Persona</h1>
+        <h1>Perfil del Ciudadano</h1>
       </div>
       <div className="col-sm-6">
         <ol className="breadcrumb float-sm-right">
           <li className="breadcrumb-item"><a href="#">Home</a></li>
-          <li className="breadcrumb-item active">Perfil de Persona</li>
+          <li className="breadcrumb-item"><Link to='/mypeople' >My People</Link></li>
+          <li className="breadcrumb-item active">Perfil del  Ciudadano</li>
         </ol>
       </div>
     </div>

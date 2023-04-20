@@ -167,8 +167,6 @@ const PeopleCard = ({people, getMypeople}) => {
       <a href={`https://t.me/${people.celphone}`} className="btn btn-app" target={'_blank'}>
       <i className="fab fa-telegram-plane"></i> Telegram
         </a>
-      
-
         </div>
 
         <div className="tab-pane" id={`encuestar${people.id}`}>
@@ -180,10 +178,18 @@ const PeopleCard = ({people, getMypeople}) => {
         
         <hr/>
         {
-          //console.log(people)
-          //people?.Encuestas?.[0]?.id
+         
           people?.Encuestas?.map((result) => 
-            <li>{result.id}</li>
+            <li>
+<div className="info-box">
+  <span className="info-box-icon bg-info"><i className="fas fa-poll"/></span>
+  <div className="info-box-content">
+    <span className="info-box-text">Encuesta</span>
+    <span className="info-box-number">Encuesta Pendiente</span>
+    <Link to={`/people/poll/${result.id}/${people.firstName} ${people.lastName}`} className='btn btn-block btn-default'>Completar</Link>
+</div>
+</div>
+</li>
         ) 
         }
         </div>
