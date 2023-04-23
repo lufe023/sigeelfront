@@ -7,6 +7,7 @@ import Header from '../Header'
 import PeopleCardB from './PeopleCardB'
 import Cargando from '../../utils/Cargando'
 import GPSGeneralView from './GPSGeneralView'
+import { Link } from 'react-router-dom'
 
 const MyPeople = () => {
 
@@ -48,7 +49,7 @@ const MyPeople = () => {
         </div>
         <div className="col-sm-6">
           <ol className="breadcrumb float-sm-right">
-            <li className="breadcrumb-item"><a href="#">Home</a></li>
+          <li className="breadcrumb-item"><Link to='/dashboard'>Dashboard</Link></li>
             <li className="breadcrumb-item active">Mi Gente</li>
           </ol>
         </div>

@@ -35,7 +35,7 @@ const People = () => {
       </div>
       <div className="col-sm-6">
         <ol className="breadcrumb float-sm-right">
-          <li className="breadcrumb-item"><a href="#">Home</a></li>
+          <li className="breadcrumb-item"><Link to='/dashboard'>Dashboard</Link></li>
           <li className="breadcrumb-item"><Link to='/mypeople' >My People</Link></li>
           <li className="breadcrumb-item active">Perfil del  Ciudadano</li>
         </ol>

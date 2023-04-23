@@ -1,6 +1,6 @@
 import axios from 'axios'
 import React, { useEffect, useState } from 'react'
-import { useParams } from 'react-router-dom'
+import { Link, useParams } from 'react-router-dom'
 import getConfig from '../../utils/getConfig'
 import Aside from '../Aside'
 import Footer from '../Footer'
@@ -8,6 +8,7 @@ import Header from '../Header'
 import TodoCard from './TodoCard'
 import TodoEdit from './TodoEdit'
 import TodoNewTask from './TodoNewTask'
+import Cargando from '../../utils/Cargando'
 
 const TasksBoard = () => {
 
@@ -16,12 +17,15 @@ const TasksBoard = () => {
 
   const [editingTask, setEditingTask] = useState([])
   const [task, setTask] = useState()
+  const [loading, setLoading] = useState(true)
+  const [id, setId] = useState()
 
 const getAllTask = ()=>{
   const URL = `${import.meta.env.VITE_API_SERVER}/api/v1/todo`
     axios.get(URL, getConfig())
     .then(res => {
     setTask(res.data)
+    setLoading(false)
     })
     .catch(err => console.log(err))
 }
@@ -32,7 +36,7 @@ getAllTask()
 
 //peticion a api por id usando useparans
 
-const {id} = useParams()
+
   useEffect(() => {
     if(id){
     const URL = `${import.meta.env.VITE_API_SERVER}/api/v1/todo/${id}`
@@ -53,11 +57,11 @@ const {id} = useParams()
     <div className="container-fluid">
       <div className="row mb-2">
         <div className="col-sm-6">
-          <h1>Editar tarea</h1>
+          <h1>Mis Tareas</h1>
         </div>
       <div className="col-sm-6">
           <ol className="breadcrumb float-sm-right">
-            <li className="breadcrumb-item"><a href="#">Dashboard</a></li>
+          <li className="breadcrumb-item"><Link to='/dashboard'>Dashboard</Link></li>
             <li className="breadcrumb-item active">Editar tarea</li>
           </ol>
         </div>
@@ -66,21 +70,26 @@ const {id} = useParams()
   </section>
   <section className="content">
   <div className="row">
-    <div className="col-md-6">
       {
-        id?<TodoEdit getAllTask={getAllTask} editingTask={editingTask} setEditingTask={setEditingTask}/>
-        :
-        <TodoNewTask getAllTask={getAllTask}/>
+        editingTask?<div className="col-md-12">
+        <TodoEdit getAllTask={getAllTask} editingTask={editingTask} setIdEditingTask={setIdEditingTask}/>
+        </div>
+        : ""
+        
       }
 
     </div>
+    {
+      id? ""
+    : <div className="row">
+    <div className="col-md-6"><TodoNewTask getAllTask={getAllTask}/></div>
     <div className="col-md-6">
-      <TodoCard task={task} setTask={setTask}/>
+      <TodoCard task={task} setTask={setTask} setId={setId}/>
     </div>
   </div>
-    
+  }
   </section>
-</div>
+  </div>
 <Footer/>
 </div>
   )

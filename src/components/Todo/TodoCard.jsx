@@ -1,7 +1,7 @@
 import React, {useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 
-const TodoCard = ({task}) => {
+const TodoCard = ({task, setId}) => {
 
   const [isLogged, setIsLogged] = useState(localStorage.getItem('token'))
 
@@ -32,19 +32,15 @@ return (
           task?.map((tarea) =>
           <li key={tarea.id}>
           {/* checkbox */}
-          <span className="handle ui-sortable-handle">
-          <i className="fas fa-ellipsis-v" />
-          <i className="fas fa-ellipsis-v" />
-        </span>
-
           <div className="icheck-primary d-inline ml-2">
             <input type="checkbox" defaultValue name={tarea.id} id={tarea.id} />
-            <label htmlFor={tarea.id} />
+            <label htmlFor={tarea.id}/>
+            <Link href='#' to={`/tasks/${tarea.id}`}>Editar</Link>
           </div>
           {/* todo text */}
-          <Link to={`/tasks/${tarea.id}`}>
+          <span >
           <span className="text">{tarea.title}</span>
-          </Link>
+          </span>
           {/* Emphasis label */}
 
           {

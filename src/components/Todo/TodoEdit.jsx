@@ -3,8 +3,9 @@ import React, { useState } from 'react'
 import getConfig from '../../utils/getConfig'
 import Swal from 'sweetalert2'
 import Cargando from '../../utils/Cargando'
+import { Link, useParams } from 'react-router-dom'
 
-const TodoEdit = ({getAllTask, editingTask, setEditingTask}) => {
+const TodoEdit = ({getAllTask, editingTask, setIdEditingTask}) => {
 
     const handleSubmit = e =>{
 
@@ -16,8 +17,9 @@ const TodoEdit = ({getAllTask, editingTask, setEditingTask}) => {
             limit: e.target.limit.value,
             isActive: e.target.estado.value
         }
+        const {id} = useParams()
 
-        const URL = `${import.meta.env.VITE_API_SERVER}/api/v1/todo/${editingTask.id}`
+        const URL = `${import.meta.env.VITE_API_SERVER}/api/v1/todo/${id}`
         axios.patch(URL,
         data, getConfig())
         .then(res =>
@@ -84,14 +86,6 @@ const TodoEdit = ({getAllTask, editingTask, setEditingTask}) => {
         <textarea className="form-control" rows="3" defaultValue={editingTask?.description} name='description'>
           
         </textarea>
-        {/* 
-        <input
-        name='description'
-        type="text"
-        id="inputDescription"
-        className="form-control"
-        value={editingTask?.description}/>
-        */}
       </div>
 
       <div className="form-group">
@@ -127,7 +121,12 @@ const TodoEdit = ({getAllTask, editingTask, setEditingTask}) => {
       </div>
     </div>
     <div className="card-footer clearfix" style={{display: 'block'}}>
-      <button type="submit" className="btn btn-primary float-right" onClick={getAllTask}><i className="fas fa-save"></i> Guardar</button></div>
+
+    <button type="button" className="btn btn-danger">
+      <i className="fas fa-ban"/> Cancelar
+    </button>
+      <button type="submit" className="btn btn-primary float-right" onClick={getAllTask}>
+      <i className="fas fa-save"></i> Guardar</button> </div>
     </form>
 
   </div>
