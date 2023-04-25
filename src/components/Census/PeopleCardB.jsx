@@ -178,7 +178,6 @@ const PeopleCard = ({people, getMypeople}) => {
         
         <hr/>
         {
-         
           people?.Encuestas?.map((result) => 
             <li>
 <div className="info-box">

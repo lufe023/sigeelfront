@@ -1,14 +1,10 @@
 import React, {useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 
-const TodoCard = ({task, setId}) => {
+const TodoCard = ({task, setLoading}) => {
 
-  const [isLogged, setIsLogged] = useState(localStorage.getItem('token'))
-
-if(isLogged)   
-{
 return (
-   <div className="card" >
+  <div className="card" >
   <div className="card-header ui-sortable-handle">
     <h3 className="card-title">
       <i className="ion ion-clipboard mr-1" />
@@ -27,20 +23,21 @@ return (
   
   <div className="card-body">
     <ul className="todo-list ui-sortable" data-widget="todo-list">
-    
         {
           task?.map((tarea) =>
-          <li key={tarea.id}>
+          <li key={tarea.id} className={tarea.isActive? '' : 'done'}>
           {/* checkbox */}
           <div className="icheck-primary d-inline ml-2">
-            <input type="checkbox" defaultValue name={tarea.id} id={tarea.id} />
-            <label htmlFor={tarea.id}/>
-            <Link href='#' to={`/tasks/${tarea.id}`}>Editar</Link>
+            <input type="checkbox"
+            name={tarea.id}
+            id={tarea.id}
+            defaultChecked={tarea.isActive? false : true}
+            />
+            <label htmlFor={tarea.id}>
+            <span className="text">{tarea.title}</span>
+            </label>
           </div>
-          {/* todo text */}
-          <span >
-          <span className="text">{tarea.title}</span>
-          </span>
+      
           {/* Emphasis label */}
 
           {
@@ -55,7 +52,7 @@ return (
           
           {/* General tools such as edit or delete*/}
           <div className="tools">
-          <Link to={`/tasks/${tarea.id}`}>
+          <Link to={`/tasks/${tarea.id}`} onClick={()=> setLoading(true)}>
             <i className="fas fa-edit" />
             <i className="fas fa-trash-o" />
           </Link>
@@ -76,9 +73,7 @@ return (
 
 )
 
-}else{
-    <div></div>
-}
+
 }
 
 export default TodoCard

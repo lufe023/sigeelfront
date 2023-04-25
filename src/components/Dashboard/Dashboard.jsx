@@ -22,7 +22,7 @@ const Dashboard = () => {
       .catch(err => console.log(err))
   }
   useEffect(() => {
-   getUserbyId()
+  getUserbyId()
   }, [])
 
   return (

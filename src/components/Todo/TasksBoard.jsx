@@ -15,10 +15,12 @@ const TasksBoard = () => {
   //funcion para seleccionar fecha y hora estilizados
     $('#reservationdatetime').datetimepicker({ icons: { time: 'far fa-clock' } });
 
-  const [editingTask, setEditingTask] = useState([])
+  const [editingTask, setEditingTask] = useState()
   const [task, setTask] = useState()
   const [loading, setLoading] = useState(true)
-  const [id, setId] = useState()
+
+
+const {id} = useParams()
 
 const getAllTask = ()=>{
   const URL = `${import.meta.env.VITE_API_SERVER}/api/v1/todo`
@@ -29,13 +31,16 @@ const getAllTask = ()=>{
     })
     .catch(err => console.log(err))
 }
+
+
 useEffect(() => {
+//ejecutada inmediatamente
 getAllTask()
 }, [])
 
 
-//peticion a api por id usando useparans
 
+//peticion a api por id usando useparans
 
   useEffect(() => {
     if(id){
@@ -43,6 +48,7 @@ getAllTask()
     axios.get(URL, getConfig())
     .then(res => {
       setEditingTask(res.data[0])
+      setLoading(false)
       })
       .catch(err => console.log(err))
     }
@@ -69,10 +75,17 @@ getAllTask()
     </div>
   </section>
   <section className="content">
+  {
+    loading?<div className='loading' style={{height:"100px", marginBottom:"50px"}}>
+  <Cargando escala='1.5'/>
+  </div>
+  :""
+  }
+
   <div className="row">
       {
         editingTask?<div className="col-md-12">
-        <TodoEdit getAllTask={getAllTask} editingTask={editingTask} setIdEditingTask={setIdEditingTask}/>
+        <TodoEdit setLoading={setLoading} getAllTask={getAllTask} setEditingTask={setEditingTask} editingTask={editingTask}/>
         </div>
         : ""
         
@@ -84,7 +97,7 @@ getAllTask()
     : <div className="row">
     <div className="col-md-6"><TodoNewTask getAllTask={getAllTask}/></div>
     <div className="col-md-6">
-      <TodoCard task={task} setTask={setTask} setId={setId}/>
+      <TodoCard task={task} setLoading={setLoading}/>
     </div>
   </div>
   }
@@ -94,5 +107,6 @@ getAllTask()
 </div>
   )
 }
+
 
 export default TasksBoard

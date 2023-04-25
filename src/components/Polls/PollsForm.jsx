@@ -7,6 +7,7 @@ import axios from 'axios'
 import getConfig from '../../utils/getConfig'
 import Cargando from '../../utils/Cargando'
 
+
 const PollsForm = () => {
 
     const [poll, setPoll] = useState()
@@ -96,7 +97,7 @@ return(
   </div>
   {/* /.card-header */}
   {/* form start */}
-  <form>
+  {/* <form>
     <div className="card-body">
 
       <div className="form-group">
@@ -108,10 +109,17 @@ return(
       </div>
 
       <div className="form-group">
-        <label>Tipo de Elector</label>
+        <label>Partido de preferencia</label>
         <select className="custom-select">
-          <option>Duro</option>
-          <option>Coyuntural</option>
+        <optgroup>
+            <option>Elige</option>
+          </optgroup>
+          <option>PLD</option>
+          <option style={{backgroundColor:"#2596be"}}>PRM</option>
+          <option>FUPU</option>
+          <option>Otro</option>
+          <option>Ninguno</option>
+          
         </select>
       </div>
 
@@ -120,11 +128,14 @@ return(
         <label className="form-check-label" htmlFor="exampleCheck1">Check me out</label>
       </div>
     </div>
-    {/* /.card-body */}
+  
     <div className="card-footer">
       <button type="submit" className="btn btn-primary">Submit</button>
     </div>
-  </form>
+  </form> 
+  
+  */}
+
 </div>
 
     </section>

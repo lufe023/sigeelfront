@@ -34,7 +34,6 @@ const MyPeople = () => {
 
         getMypeople()
         }, [])
-       
     return (
     <div>
         <Header/>
