@@ -45,9 +45,9 @@ function App() {
         <Route path='/ballot' element={<SeeBallot/>}/>
         <Route path='/peoplebyuser/:id' element={<PeopleByUser/>}/>
         <Route path='/people/poll/:id/:name' element={<PollsForm/>}/>
-        <Route path='/test' element={<Login/>}/>
       </Route>
 
+        <Route path='/test' element={<Login/>}/>
       <Route path='*' element={<Error404/>}/>
       <Route path='/preregister' element={<PreRegister/>}/>
       <Route path='/logout' element={<LogGout/>}/>
