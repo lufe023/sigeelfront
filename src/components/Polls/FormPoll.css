@@ -1,0 +1,12 @@
+
+  
+  .formcontent {
+    display: none;
+    padding: 20px;
+
+  }
+
+ 
+  .tab-content .active {
+    display: block;
+  }
