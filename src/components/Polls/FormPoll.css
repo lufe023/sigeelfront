@@ -10,3 +10,7 @@
   .tab-content .active {
     display: block;
   }
+
+  .margin{
+    margin: 0 5px
+  }

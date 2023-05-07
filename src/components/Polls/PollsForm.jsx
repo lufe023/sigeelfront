@@ -30,6 +30,7 @@ const PollsForm = () => {
         getPoll()
     }, [id])
 
+  
     const presidentes = candidates?.filter((filtro)=> filtro.nomination == "Presidente")
     const senadores = candidates?.filter((filtro)=> filtro.nomination == "Senador/a")
     const diputados = candidates?.filter((filtro)=> filtro.nomination == "Diputado/a")
@@ -38,8 +39,6 @@ const PollsForm = () => {
     const directoresMun = candidates?.filter((filtro)=> filtro.nomination == "Director Municipal")
     const consejalMun = candidates?.filter((filtro)=> filtro.nomination == "Consejal Distrital")
 
-
-    console.log(diputados)
 
 if(loading){
 return(
@@ -110,124 +109,10 @@ return(
   {/* form start */}
   <form>
     <div className="card-body">
-
-
-    
-
-
-      {/* Select de consejales Distritales */}
-      
-        <div className="form-group">
-        <label>Consejal Distrital</label>
-        <select className="custom-select">
-          <option>Null</option>
-          {
-            consejalMun?.map(consejal=>
-              <option value={consejal.candidateId}>{consejal.name} | {consejal.partyAcronym}</option>
-            )
-          }
-        </select>
-      </div>
-
-      {/* Select de directores Distritales */}
-        <div className="form-group">
-        <label>Directores distritales</label>
-        <select className="custom-select">
-          <option>Null</option>
-          {
-            directoresMun?.map(director=>
-              <option value={director.candidateId}>{director.name} | {director.partyAcronym}</option>
-            
-            )
-          }
-        </select>
-      </div>
-
-      {/* Select regidores municipales */}
-      <div className="form-group">
-        <label>Regidores Municipales</label>
-        <select className="custom-select">
-          <option>Null</option>
-          {
-            regidores?.map(regidor=>
-              <option value={regidor.candidateId}>{regidor.name} | {regidor.partyAcronym}</option>
-            )
-          }
-        </select>
-      </div>
-
-      {/* select de alcaldes municipales*/}
-      <div className="form-group">
-        <label>Alcaldes</label>
-        <select className="custom-select">
-          <option>Null</option>
-          {
-            alcaldes?.map(alcalde=>
-              <option value={alcalde.candidateId}>{alcalde.name} | {alcalde.partyAcronym}</option>
-            
-            )
-          }
-        </select>
-      </div>
-
-      {/* Select diputados */}
-      <div className="form-group">
-        <label>Diputados</label>
-        <select className="custom-select">
-          <option>Null</option>
-          {
-            diputados?.map(diputado=>
-              <option value={diputado.candidateId}>{diputado.name} | {diputado.partyAcronym} </option>
-            )
-          }
-        </select>
-    </div> 
-
-      {/*Selec de Senadores */}
-      <div className="form-group">
-        <label>Senadores</label>
-        <select className="custom-select">
-          <option>Null</option>
-          {
-            senadores?.map(senador=>
-              <option value={senador.candidateId}>{senador.name} | {senador.partyAcronym}</option>
-            
-            )
-          }
-        </select>
-      </div>
-
-      {/*Selec de Presidentes */}
-      <div className="form-group">
-        <label>Presidentes</label>
-        <select className="custom-select">
-          <option>Null</option>
-          {
-            presidentes?.map(presidente=>
-              <option value={presidente.candidateId}>{presidente.name} | {presidente.partyAcronym}</option>
-            
-            )
-          }
-        </select>
-      </div>
-    </div>
-  
-    <div className="card-footer">
-      <button type="submit" className="btn btn-primary">Guardar</button>
+    <FormPoll candidates={candidates}/>
     </div>
   </form> 
 </div>
-
-<div className="row mt-4">
-  <nav className="w-100">
-    <div className="nav nav-tabs" id="product-tab" role="tablist">
-      <a className="nav-item nav-link active" id="product-desc-tab" data-toggle="tab" href="#product-desc" role="tab" aria-controls="product-desc" aria-selected="true">Elector</a>
-    </div>
-  </nav>
-
-<FormPoll/>
-</div>
-
     </section>
     </div>
     
