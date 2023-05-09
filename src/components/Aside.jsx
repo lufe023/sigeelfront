@@ -8,7 +8,7 @@ const Aside = () => {
 
   const user = useSelector(state=> state.userSlice)
   
-  const first_name = user?.censu?.firstName
+  const first_name = user?.censu?.firstName 
   
   const last_name =  user?.censu?.lastName
   

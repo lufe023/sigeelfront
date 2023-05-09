@@ -30,16 +30,6 @@ const PollsForm = () => {
         getPoll()
     }, [id])
 
-  
-    const presidentes = candidates?.filter((filtro)=> filtro.nomination == "Presidente")
-    const senadores = candidates?.filter((filtro)=> filtro.nomination == "Senador/a")
-    const diputados = candidates?.filter((filtro)=> filtro.nomination == "Diputado/a")
-    const alcaldes = candidates?.filter((filtro)=> filtro.nomination == "Alcalde Municipal")
-    const regidores = candidates?.filter((filtro)=> filtro.nomination == "Regidor Municipal")
-    const directoresMun = candidates?.filter((filtro)=> filtro.nomination == "Director Municipal")
-    const consejalMun = candidates?.filter((filtro)=> filtro.nomination == "Consejal Distrital")
-
-
 if(loading){
 return(
 <>
