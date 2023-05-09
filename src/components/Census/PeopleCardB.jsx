@@ -65,6 +65,9 @@ const PeopleCard = ({people, getMypeople}) => {
         <Link to={`/mypeople/${people.id}`}>
           <h2 className="lead"><b>{people.firstName} {people.lastName} </b>{people.nickname?`(${people.nickname})`:" "}</h2>
         </Link>
+        <span>
+        {`${people.citizenID.substring(0,3)}-${people.citizenID.substring(3,10)}-${people.citizenID.substring(10,11)}`}
+        </span>
           <hr/>
           <ul className="ml-4 mb-0 fa-ul text-muted">
             <li className="small"><span className="fa-li">

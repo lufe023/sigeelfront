@@ -19,10 +19,6 @@ import PreRegister from './components/Users/PreRegister'
 import PeopleByUser from './components/UserDashboard/PeopleByUser'
 import PollsForm from './components/Polls/PollsForm'
 
-
-
-
-
 function App() {
   
   return (

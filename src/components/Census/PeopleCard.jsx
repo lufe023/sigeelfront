@@ -30,12 +30,12 @@ const PeopleCard = ({people}) => {
 
 
             {
-               people.districts?
-               <li className="small"><span className="fa-li">
-               <i className="far fa-map"></i></span> 
-               Distrito:{people.districts.name}
-               </li>
-               :''
+              people.districts?
+              <li className="small"><span className="fa-li">
+              <i className="far fa-map"></i></span> 
+              Distrito:{people.districts.name}
+              </li>
+              :''
             }
 
             <li className="small"><span className="fa-li">

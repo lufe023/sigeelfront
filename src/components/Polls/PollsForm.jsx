@@ -36,7 +36,6 @@ return(
     <Header/>
     <Aside/>
   <div className="content-wrapper">
-
     <div style={{display:"flex", justifyContent:"center", alignItems:"center", width:"100%", height:"50vh"}}>
   <Cargando escala="3"/>
     </div>
