@@ -10,6 +10,16 @@ const NewCandidate = ({getAllCandidates}) => {
     const [maps, setMaps] = useState()
     const [preMunicipios, setPreMunicipios] = useState()
     const [preDistritos, setPreDistritos] = useState()
+    const [parties, setParties] = useState()
+
+    const getAllParties = ()=> {
+        const URL = `${import.meta.env.VITE_API_SERVER}/api/v1/ballots/party`
+        axios.get(URL, getConfig())
+        .then(res => {
+        setParties(res.data.rows)
+        })
+    }
+
 
     const getAllMaps = ()=>{
         const URL = `${import.meta.env.VITE_API_SERVER}/api/v1/maps`
@@ -38,12 +48,15 @@ const NewCandidate = ({getAllCandidates}) => {
             })
             
         }
+
         useEffect(() => {
         getAllMaps()
-    }, [])
+        getAllParties()
+        }, [])
 
     /* fin de la llamada del mapa*/
     const [formLoading, setFormLoading] = useState(false)
+
     const handleSubmit = e =>{
         e.preventDefault()
         setFormLoading(true)
@@ -120,7 +133,7 @@ const NewCandidate = ({getAllCandidates}) => {
 if(formLoading){
     return <div className='loading' style={{height:"100px", marginBottom:"50px"}}><Cargando scala="3"/></div>
 }else{
-  return (
+return (
     <div className='card-body'>
     <h3>Agregar un nuevo candidato/a</h3>
 
@@ -137,10 +150,13 @@ if(formLoading){
     </div>
 
     <div className="col-2">
-        <input required type="text" placeholder="Partido" className="form-control" name='partido' />
-    </div>
-    <div className="col-2">
-        <input required type="text" placeholder="Acronimo" className="form-control" name='acronimo'/>
+        <select name='partido' className='form-control'>
+            <option value={null}>Seleccione</option>
+            {
+                parties?.map((party)=>
+                <option key={party.id} value={party.id} style={{backgroundColor:party.color}}>{party.partyAcronyms}</option>)
+            }
+        </select>
     </div>
     <div className="col-2">
     
@@ -162,7 +178,7 @@ if(formLoading){
         <option value='false'>Provincia</option>
         {
         provincias?.map((provincia)=>
-        <option value={provincia.id}>{provincia.name}</option>
+        <option key={provincia.id} value={provincia.id}>{provincia.name}</option>
         )
         }
         </select>
@@ -172,10 +188,9 @@ if(formLoading){
         <div className="col-11">
         <select className="form-control" name='municipio' onChange={handleChangeDistrito}>
         <option value={null}>Municipio</option>
-        <hr/>
         {
         municipios?.map((municipio)=>
-        <option value={municipio.id}>{municipio.name}</option>
+        <option key={municipio.id} value={municipio.id}>{municipio.name}</option>
         )
         }
         </select>
@@ -185,10 +200,9 @@ if(formLoading){
         <div className="col-11">
         <select className="form-control" name='distrito' defaultValue={null}>
         <option value={'null'}>Distrito Municipal</option>
-        <hr/>
         {
         distritos?.map((distrito)=>
-        <option value={distrito.id}>{distrito.name}</option>
+        <option key={distrito.id} value={distrito.id}>{distrito.name}</option>
         )
         }
         </select>

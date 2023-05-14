@@ -8,6 +8,7 @@ import Swal from 'sweetalert2'
 import NewCandidate from './NewCandidate'
 import Cargando from '../../utils/Cargando'
 import "./SeeBallot.css"
+import NewParty from './NewParty'
 
 const SeeBallot = () => {
     const [candidates, setCandidates] = useState()
@@ -174,16 +175,15 @@ const SeeBallot = () => {
               <li>{candidate.DistritoMunicipal[0]?.name}</li>
               </ul>
             </td>
-          
             <td>
             <div className="btn-group">
-  <button type="button" className="btn btn-default">Acciones</button>
-  <button type="button" className="btn btn-default dropdown-toggle dropdown-icon" data-toggle="dropdown" aria-expanded="false">
-    <span className="sr-only">Toggle Dropdown</span>
-  </button>
-  <div className="dropdown-menu" role="menu" style={{}}>
-    <a className="dropdown-item" href='#' onClick={()=>deleteCandidate(candidate.candidateId, candidate.name)}>Eliminar</a>
-  </div>
+            <button type="button" className="btn btn-default">Acciones</button>
+            <button type="button" className="btn btn-default dropdown-toggle dropdown-icon" data-toggle="dropdown" aria-expanded="false">
+              <span className="sr-only">Toggle Dropdown</span>
+            </button>
+            <div className="dropdown-menu" role="menu" style={{}}>
+              <a className="dropdown-item" href='#' onClick={()=>deleteCandidate(candidate.candidateId, candidate.name)}>Eliminar</a>
+            </div>
 </div>
 </td>
 </tr>
@@ -196,6 +196,11 @@ const SeeBallot = () => {
       <tr>
         <td colSpan={6}>
           <NewCandidate getAllCandidates={getAllCandidates}/>
+        </td>
+      </tr>
+      <tr>
+        <td colSpan={6}>
+          <NewParty/>
         </td>
       </tr>
       </tbody>

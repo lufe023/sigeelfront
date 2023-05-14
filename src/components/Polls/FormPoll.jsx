@@ -16,6 +16,7 @@ const FormPoll = ({candidates}) => {
   const directoresMun = candidates?.filter((filtro)=> filtro.nomination == "Director Municipal")
   const consejalMun = candidates?.filter((filtro)=> filtro.nomination == "Consejal Distrital")
 
+ 
   return (
     <>
 <div className="tabs">
@@ -29,9 +30,9 @@ const FormPoll = ({candidates}) => {
         
         <div className="form-group">
         <label>Partido de preferencia</label>
-        <select className="custom-select">
+        <select className="custom-select" name='preferedParty'>
         <optgroup>
-            <option>Elige</option>
+          <option>Elige</option>
           </optgroup>
           <option>PLD</option>
           <option style={{backgroundColor:"#2596be"}}>PRM</option>
@@ -179,12 +180,15 @@ const FormPoll = ({candidates}) => {
           
           <div style={{display:"flex", justifyContent:"space-between"}}>
           <a class="btn btn-primary margin" onClick={() => changeTab(activeTab-1)}>Atras</a>
-          <button type="submit" style={{marginRight:"0px"}} className="btn btn-success">Guardar</button>
+          
           </div>
         </div>
       </div>
+      
     </div>
-
+    <div className='card-footer' style={{display:"flex", justifyContent:"end"}}>
+          <button type="submit" className="btn btn-success">Guardar</button>
+        </div>
 
   </>
   )

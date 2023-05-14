@@ -74,7 +74,6 @@ const PeopleCard = ({people, getMypeople}) => {
             <i className="fas fa-lg fa-building" /></span> 
             Direccion: {people.adress}
             </li>
-
             {
                 people.neighbourhoods?
                 <li className="small"><span className="fa-li">
@@ -83,8 +82,6 @@ const PeopleCard = ({people, getMypeople}) => {
                 </li>
                 :''
             }
-
-
             {
               people.districts?
               <li className="small"><span className="fa-li">

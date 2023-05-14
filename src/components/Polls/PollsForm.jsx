@@ -30,6 +30,12 @@ const PollsForm = () => {
         getPoll()
     }, [id])
 
+    const handleSubmit = e =>{
+      e.preventDefault()
+      console.log(e.target.preferedParty.value)
+    }
+
+
 if(loading){
 return(
 <>
@@ -81,7 +87,7 @@ return(
       {/* /.widget-user-image */}
         <h3 className="widget-user-username">{poll?.citizen?.firstName}</h3>
         <h5 className="widget-user-desc">
-{`${poll?.citizen?.citizenID.substring(0,3)}-${poll?.citizen?.citizenID.substring(3,10)}-${poll?.citizen?.citizenID.substring(10,11)}`}
+        {`${poll?.citizen?.citizenID.substring(0,3)}-${poll?.citizen?.citizenID.substring(3,10)}-${poll?.citizen?.citizenID.substring(10,11)}`}
         </h5>
     </div>
   </div>
@@ -96,7 +102,7 @@ return(
   </div>
   {/* /.card-header */}
   {/* form start */}
-  <form>
+  <form onSubmit={handleSubmit}>
     <div className="card-body">
     <FormPoll candidates={candidates}/>
     </div>
