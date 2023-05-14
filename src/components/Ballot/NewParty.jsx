@@ -24,7 +24,6 @@ const NewParty = () => {
         getConfig())
             .then(res => {
                 setFormLoading(false)
-                getAllCandidates()
                 const Toast = Swal.mixin({
                     toast: true,
                     position: 'top-end',
@@ -36,7 +35,6 @@ const NewParty = () => {
                     toast.addEventListener('mouseleave', Swal.resumeTimer)
                     }
                 })
-
                 Toast.fire({
                     icon: 'success',
                     title: 'Candidato Agregado con exito'
