@@ -31,7 +31,6 @@ const SeeBallot = () => {
         setCandidates(res.data.rows)
       })
       .catch(err =>{
-        console.log(err)
         const Toast = Swal.mixin({
           toast: true,
           position: 'top-end',
@@ -86,9 +85,6 @@ const SeeBallot = () => {
           }
         }).then((result) => {
           /* Read more about handling dismissals below */
-          if (result.dismiss === Swal.DismissReason.timer) {
-            console.log('I was closed by the timer')
-          }
         })
         const URL = `${import.meta.env.VITE_API_SERVER}/api/v1/ballots/${candidateId}`
         axios.delete(URL,
@@ -166,7 +162,6 @@ const SeeBallot = () => {
         </tr>
       </thead>
       <tbody>
-        {console.log(candidates)}
       {
         candidates?
         candidates?.map((candidate) => 

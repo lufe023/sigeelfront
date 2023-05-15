@@ -1,6 +1,6 @@
 import React from 'react'
 import { useSelector } from 'react-redux'
-import {Link, NavLink} from 'react-router-dom'
+import {Link, NavLink, useParams} from 'react-router-dom'
 
 
 
@@ -13,7 +13,6 @@ const Aside = () => {
   const last_name =  user?.censu?.lastName
   
   const picture = user?.censu?.picture
-
 
   return (
   <aside className="main-sidebar sidebar-dark-primary elevation-4">
@@ -43,7 +42,7 @@ const Aside = () => {
             <ul className="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
               {/* Add icons to the links using the .nav-icon class
          with font-awesome or any other icon font library */}
-              <NavLink  className={({isActive}) => isActive ? 'nav-item menu-is-openig menu-open' : 'nav-item'}>
+              <Link  className={'nav-item menu-is-openig menu-open'}>
                 <NavLink  className={({isActive}) => isActive ? 'nav-link active' : 'nav-link'}>
                   <i className="nav-icon fas fa-tachometer-alt" />
                   <p>
@@ -56,7 +55,7 @@ const Aside = () => {
                   <NavLink className={({isActive}) => isActive ? 'nav-link active' : 'nav-link'} to='/dashboard'>
                       <i className="fas fa-calendar-check nav-icon"></i>
                       <p>Panel</p>
-                    </NavLink>
+                  </NavLink>
                   </li>
                   <li className="nav-item">
                   <NavLink to='/me' className="nav-link ">
@@ -91,7 +90,7 @@ const Aside = () => {
                   </NavLink>
                   </li>
                 </ul>
-              </NavLink>
+              </Link>
             </ul>
           </nav>
           {/* /.sidebar-menu */}

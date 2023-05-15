@@ -16,7 +16,7 @@ const FormPoll = ({candidates}) => {
   const directoresMun = candidates?.filter((filtro)=> filtro.nomination == "Director Municipal")
   const consejalMun = candidates?.filter((filtro)=> filtro.nomination == "Consejal Distrital")
 
- 
+
   return (
     <>
 <div className="tabs">
@@ -50,7 +50,7 @@ const FormPoll = ({candidates}) => {
         </select>
         </div>
 
-          <a class="btn btn-primary margin" onClick={() => changeTab(activeTab+1)}>Siguiente</a>
+          <a className="btn btn-primary margin" onClick={() => changeTab(activeTab+1)}>Siguiente</a>
         </div>
         
         <div
@@ -66,7 +66,7 @@ const FormPoll = ({candidates}) => {
           <option>Null</option>
           {
             consejalMun?.map(consejal=>
-              <option value={consejal.candidateId}>{consejal.name} | {consejal.partyAcronym}</option>
+              <option key={consejal.candidateId} value={consejal.candidateId}>{consejal.name} | {consejal.partyAcronym}</option>
             )
           }
         </select>
@@ -86,8 +86,8 @@ const FormPoll = ({candidates}) => {
         </select>
       </div>
 
-          <a class="btn btn-primary margin" onClick={() => changeTab(activeTab-1)}>Atras</a>
-          <a class="btn btn-primary margin" onClick={() => changeTab(activeTab+1)}>Siguiente</a>
+          <a className="btn btn-primary margin" onClick={() => changeTab(activeTab-1)}>Atras</a>
+          <a className="btn btn-primary margin" onClick={() => changeTab(activeTab+1)}>Siguiente</a>
         </div>
         <div
           id="content3"
@@ -103,7 +103,7 @@ const FormPoll = ({candidates}) => {
           <option>Null</option>
           {
             regidores?.map(regidor=>
-              <option value={regidor.candidateId}>{regidor.name} | {regidor.partyAcronym}</option>
+              <option key={regidor.candidateId} value={regidor.candidateId}>{regidor.name} | {regidor.partyAcronym}</option>
             )
           }
         </select>
@@ -116,14 +116,14 @@ const FormPoll = ({candidates}) => {
           <option>Null</option>
           {
             alcaldes?.map(alcalde=>
-              <option value={alcalde.candidateId}>{alcalde.name} | {alcalde.partyAcronym}</option>
+              <option key={alcalde.candidateId} value={alcalde.candidateId}>{alcalde.name} | {alcalde.partyAcronym}</option>
             
             )
           }
         </select>
       </div>
-          <a class="btn btn-primary margin" onClick={() => changeTab(activeTab-1)}>Atras</a>
-          <a class="btn btn-primary margin" onClick={() => changeTab(activeTab+1)}>Siguiente</a>
+          <a className="btn btn-primary margin" onClick={() => changeTab(activeTab-1)}>Atras</a>
+          <a className="btn btn-primary margin" onClick={() => changeTab(activeTab+1)}>Siguiente</a>
         </div>
         <div
           id="content4"
@@ -137,7 +137,7 @@ const FormPoll = ({candidates}) => {
           <option>Null</option>
           {
             diputados?.map(diputado=>
-              <option value={diputado.candidateId}>{diputado.name} | {diputado.partyAcronym} </option>
+              <option key={diputado.candidateId} value={diputado.candidateId}>{diputado.name} | {diputado.partyAcronym} </option>
             )
           }
         </select>
@@ -150,14 +150,14 @@ const FormPoll = ({candidates}) => {
           <option>Null</option>
           {
             senadores?.map(senador=>
-              <option value={senador.candidateId}>{senador.name} | {senador.partyAcronym}</option>
+              <option key={senador.candidateId} value={senador.candidateId}>{senador.name} | {senador.partyAcronym}</option>
             
             )
           }
         </select>
       </div>
-          <a class="btn btn-primary margin" onClick={() => changeTab(activeTab-1)}>Atras</a>
-          <a class="btn btn-primary margin" onClick={() => changeTab(activeTab+1)}>Siguiente</a>
+          <a className="btn btn-primary margin" onClick={() => changeTab(activeTab-1)}>Atras</a>
+          <a className="btn btn-primary margin" onClick={() => changeTab(activeTab+1)}>Siguiente</a>
         </div>
         <div
           id="content5"
@@ -171,7 +171,7 @@ const FormPoll = ({candidates}) => {
           <option>Null</option>
           {
             presidentes?.map(presidente=>
-              <option value={presidente.candidateId}>{presidente.name} | {presidente.partyAcronym}</option>
+              <option key={presidente.candidateId} value={presidente.candidateId}>{presidente.name} | {presidente.partyAcronym}</option>
             
             )
           }
@@ -179,7 +179,7 @@ const FormPoll = ({candidates}) => {
       </div>
           
           <div style={{display:"flex", justifyContent:"space-between"}}>
-          <a class="btn btn-primary margin" onClick={() => changeTab(activeTab-1)}>Atras</a>
+          <a className="btn btn-primary margin" onClick={() => changeTab(activeTab-1)}>Atras</a>
           
           </div>
         </div>
