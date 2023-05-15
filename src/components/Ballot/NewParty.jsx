@@ -4,7 +4,7 @@ import Swal from 'sweetalert2'
 import getConfig from '../../utils/getConfig'
 import axios from 'axios'
 
-const NewParty = () => {
+const NewParty = ({getAllParties}) => {
   const [formLoading, setFormLoading] = useState(false)
 
 
@@ -17,13 +17,13 @@ const NewParty = () => {
       partyAcronyms: e.target.partyAcronyms.value,
       color: e.target.color.value,
     }
-    console.log(e.target.color.value)
     const URL = `${import.meta.env.VITE_API_SERVER}/api/v1/ballots/party`
         axios.post(URL,
         data,
         getConfig())
             .then(res => {
                 setFormLoading(false)
+                getAllParties()
                 const Toast = Swal.mixin({
                     toast: true,
                     position: 'top-end',
@@ -37,7 +37,7 @@ const NewParty = () => {
                 })
                 Toast.fire({
                     icon: 'success',
-                    title: 'Candidato Agregado con exito'
+                    title: 'Partido Agregado con exito'
                 })
             })
             .catch(err =>{

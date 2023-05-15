@@ -9,9 +9,20 @@ import NewCandidate from './NewCandidate'
 import Cargando from '../../utils/Cargando'
 import "./SeeBallot.css"
 import NewParty from './NewParty'
+import SeeParties from './SeeParties'
 
 const SeeBallot = () => {
     const [candidates, setCandidates] = useState()
+    const [parties, setParties] = useState()
+
+    const getAllParties = ()=> {
+        const URL = `${import.meta.env.VITE_API_SERVER}/api/v1/ballots/party`
+        axios.get(URL, getConfig())
+        .then(res => {
+        setParties(res.data.rows)
+        })
+    }
+
 
   const getAllCandidates = ()=>{
     const URL = `${import.meta.env.VITE_API_SERVER}/api/v1/ballots`
@@ -42,6 +53,7 @@ const SeeBallot = () => {
   }
   useEffect(() => {
   getAllCandidates()
+  getAllParties()
   }, [])
 
 //funcion para eliminar un candidato
@@ -154,18 +166,23 @@ const SeeBallot = () => {
         </tr>
       </thead>
       <tbody>
+        {console.log(candidates)}
       {
         candidates?
         candidates?.map((candidate) => 
           <tr key={candidate.candidateId}>
             <td>
-          <img className="img-circle img-bordered-sm" src={`${import.meta.env.VITE_API_SERVER}/api/v1/images/candidate/${candidate.picture}`} alt="user image" style={{height:'40px'}} />
+          <img className="img-circle img-bordered-sm"
+          src={`${import.meta.env.VITE_API_SERVER}/api/v1/images/candidate/${candidate.picture}`}
+          alt="user image"
+          style={{height:'50px',
+          border:`inset 5px ${candidate.partyDetails.color}`}} />
             </td>
             <td>
               <ul>
                 <li>{candidate.name}</li>
                 <li>{candidate.nomination}</li>
-                <li>{candidate.party} - {candidate.partyAcronym}  </li>
+                <li>{candidate.partyDetails.partyName} - {candidate.partyDetails.partyAcronyms} </li>
               </ul>
             </td>
             <td>
@@ -195,12 +212,17 @@ const SeeBallot = () => {
 }
       <tr>
         <td colSpan={6}>
-          <NewCandidate getAllCandidates={getAllCandidates}/>
+          <NewCandidate getAllCandidates={getAllCandidates} getAllParties={getAllParties} parties={parties}/>
         </td>
       </tr>
       <tr>
         <td colSpan={6}>
-          <NewParty/>
+          <SeeParties getAllParties={getAllParties} parties={parties} />
+        </td>
+      </tr>
+      <tr>
+        <td colSpan={6}>
+          <NewParty getAllParties={getAllParties}/>
         </td>
       </tr>
       </tbody>

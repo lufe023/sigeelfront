@@ -5,21 +5,11 @@ import axios from 'axios'
 import Swal from 'sweetalert2'
 //import "./NewCandidate.css"
 
-const NewCandidate = ({getAllCandidates}) => {
+const NewCandidate = ({getAllCandidates, getAllParties, parties}) => {
     /* llamar el mapa */
     const [maps, setMaps] = useState()
     const [preMunicipios, setPreMunicipios] = useState()
     const [preDistritos, setPreDistritos] = useState()
-    const [parties, setParties] = useState()
-
-    const getAllParties = ()=> {
-        const URL = `${import.meta.env.VITE_API_SERVER}/api/v1/ballots/party`
-        axios.get(URL, getConfig())
-        .then(res => {
-        setParties(res.data.rows)
-        })
-    }
-
 
     const getAllMaps = ()=>{
         const URL = `${import.meta.env.VITE_API_SERVER}/api/v1/maps`
@@ -51,7 +41,6 @@ const NewCandidate = ({getAllCandidates}) => {
 
         useEffect(() => {
         getAllMaps()
-        getAllParties()
         }, [])
 
     /* fin de la llamada del mapa*/
@@ -65,10 +54,8 @@ const NewCandidate = ({getAllCandidates}) => {
         
         data.append('name', e.target.nombre.value)
         data.append('party', e.target.partido.value)
-        data.append('partyAcronym', e.target.acronimo.value)
         data.append('nomination', e.target.candidatura.value)
         data.append('file', e.target.file.files[0])
-        data.append('picture', 'hola')
         data.append('distritoMunicipal', e.target.distrito.value)
         data.append('municipio', e.target.municipio.value)
         data.append('provincia', e.target.provincia.value)
@@ -140,7 +127,7 @@ return (
     <form className='new-candidate-form' onSubmit={handleSubmit} encType='multipart/form-data'>
     <div className='row'>
     <div className="col-3">
-        <input type="file" className="custom-file-input" id="canditate-picture" accept="image/png, image/jpeg" name="file"/>
+        <input type="file" className="custom-file-input" id="canditate-picture" accept="image/png, image/jpeg" name="file" required/>
         <label className="custom-file-label" htmlFor="canditate-picture">Elige una foto</label>
 
     </div>
@@ -151,7 +138,7 @@ return (
 
     <div className="col-2">
         <select name='partido' className='form-control'>
-            <option value={null}>Seleccione</option>
+            <option value={null}>Partido</option>
             {
                 parties?.map((party)=>
                 <option key={party.id} value={party.id} style={{backgroundColor:party.color}}>{party.partyAcronyms}</option>)
