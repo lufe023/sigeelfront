@@ -113,7 +113,7 @@ const MyPeople = () => {
           {
         results?
         <GPSGeneralView peoples={results}/>
-       :"" 
+        :"" 
         }
         </div>
           

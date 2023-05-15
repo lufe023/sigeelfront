@@ -42,9 +42,8 @@ const GPSGeneralView = ({peoples}) => {
         defaultZoom={defaultProps.zoom}
       >
     {
-  
   locations.map((result) =>  
-        <AnyReactComponent
+        <AnyReactComponent key={result?.id}
         lat={result?.geolocation?.latitud}
         lng={result?.geolocation?.longitud}
         text={result.firstName}

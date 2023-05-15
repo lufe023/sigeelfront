@@ -179,18 +179,17 @@ const PeopleCard = ({people, getMypeople}) => {
         <hr/>
         {
           people?.Encuestas?.map((result) => 
-            <li>
-<div className="info-box">
-  <span className="info-box-icon bg-info"><i className="fas fa-poll"/></span>
-  <div className="info-box-content">
-    <span className="info-box-text">Encuesta</span>
-    <span className="info-box-number">Encuesta Pendiente</span>
-    <Link to={`/people/poll/${result.id}/${people.firstName} ${people.lastName}`} className='btn btn-block btn-default'>Completar</Link>
-</div>
-</div>
-</li>
-        ) 
-        }
+            <li key={result.id}>
+            <div className="info-box">
+              <span className="info-box-icon bg-info"><i className="fas fa-poll"/></span>
+              <div className="info-box-content">
+                <span className="info-box-text">Encuesta</span>
+                <span className="info-box-number">Encuesta Pendiente</span>
+                <Link to={`/people/poll/${result.id}/${people.firstName} ${people.lastName}`} className='btn btn-block btn-default'>Completar</Link>
+            </div>
+            </div>
+            </li>
+            )}
         </div>
       </div>
       
