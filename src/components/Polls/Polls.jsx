@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react'
+import "./Poll.css"
 import Header from '../Header'
 import Aside from '../Aside'
 import Footer from '../Footer'
@@ -14,7 +15,11 @@ const PollsForm = () => {
     const [poll, setPoll] = useState()
     const [loading, setLoading] = useState(true)
     const [candidates, setCandidates] = useState()
+    const [parties, setParties] = useState()
+    const [saved, setSaved] = useState(true)
     const {id} = useParams()
+
+
 
     const getPoll = ()=>{
         const URL = `${import.meta.env.VITE_API_SERVER}/api/v1/polls/${id}`
@@ -22,19 +27,36 @@ const PollsForm = () => {
         .then(res => {
             setPoll(res.data.poll[0])
             setCandidates(res.data.poll[1].availablesCandidates.rows)
+            setParties(res.data.poll[2].parties.rows)
             setLoading(false)
         })
         .catch(err => console.log(err))
     }
+
     useEffect(() => {
         getPoll()
     }, [id])
 
     const handleSubmit = e =>{
       e.preventDefault()
-      console.log(e.target.preferedParty.value)
+      // console.log(e.target.preferedParty.value)
+      const data = {
+        preferedParty: e.target.preferedParty.value != "Incompleto" ?e.target.preferedParty.value :null,
+        electorType: e.target.electorType.value != "Incompleto" ?e.target.electorType.value :null ,
+        president: e.target.president.value != "Incompleto" ?e.target.president.value :null,
+        senator: e.target.senator.value != "Incompleto" ?e.target.senator.value :null, 
+        diputy: e.target.diputy.value != "Incompleto" ?e.target.diputy.value :null,
+        mayor: e.target.mayor.value != "Incompleto" ?e.target.mayor.value :null,
+        councillor: e.target.councillor.value != "Incompleto" ?e.target.councillor.value :null,
+        districtDirector: e.target.districtDirector.value != "Incompleto" ?e.target.districtDirector.value :null,
+        districtCouncilor: e.target.districtCouncilor.value != "Incompleto" ?e.target.districtCouncilor.value :null
+      }
+console.log(data)
+      const URL = `${import.meta.env.VITE_API_SERVER}/api/v1/polls/${id}`
+        axios.patch(URL,data,  getConfig())
+        .then(res => {setSaved(true)})
+        .catch(err => console.log(err))
     }
-
 
 if(loading){
 return(
@@ -56,22 +78,21 @@ return(
     <Aside/>
     <div className="content-wrapper">
     <section className="content-header">
-    
-  <div className="container-fluid">
-    <div className="row mb-2">
-      <div className="col-sm-6">
-        <h1>Encuesta del Ciudadano</h1>
-      </div>
-      <div className="col-sm-6">
-        <ol className="breadcrumb float-sm-right">
-          <li className="breadcrumb-item"><a href="#">Home</a></li>
-          <li className="breadcrumb-item"><Link to='/mypeople' >My People</Link></li>
-          <li className="breadcrumb-item active">Perfil del  Ciudadano</li>
-        </ol>
+    <div className="container-fluid">
+      <div className="row mb-2">
+        <div className="col-sm-6">
+          <h1>Encuesta del Ciudadano</h1>
+        </div>
+        <div className="col-sm-6">
+          <ol className="breadcrumb float-sm-right">
+            <li className="breadcrumb-item"><a href="#">Home</a></li>
+            <li className="breadcrumb-item"><Link to='/mypeople' >My People</Link></li>
+            <li className="breadcrumb-item active">Perfil del  Ciudadano</li>
+          </ol>
+        </div>
       </div>
     </div>
-  </div>
-</section>
+    </section>
 <section className="content-header">
     <div className='row'>
     <div className="col-md-12">
@@ -96,7 +117,7 @@ return(
 
     </div>
 
-<div className="card card-warning">
+<div className={`card ${saved?"card-success":"card-warning"}`} >
   <div className="card-header">
     <h3 className="card-title">{poll?.Campain?.name}</h3>
   </div>
@@ -104,13 +125,14 @@ return(
   {/* form start */}
   <form onSubmit={handleSubmit}>
     <div className="card-body">
-    <FormPoll candidates={candidates}/>
+    {
+    poll?<FormPoll candidates={candidates} parties={parties} poll={poll} saved={saved} setSaved={setSaved}/>:""
+    }
     </div>
   </form> 
 </div>
     </section>
     </div>
-    
     <Footer/>
     </>
   )

@@ -81,7 +81,7 @@ const [defaultValue, setDefaultValue] = useState({
 
     return (
     <div className="card card-warning">
- 
+
     <div className="card-header">
       <h3 className="card-title">Editar Tarea </h3>
     </div>

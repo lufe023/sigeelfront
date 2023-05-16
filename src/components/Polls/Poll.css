@@ -14,3 +14,8 @@
   .margin{
     margin: 0 5px
   }
+
+  .saved{
+    padding: 5px;
+    border-radius: 3px;
+  }

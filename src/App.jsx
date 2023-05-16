@@ -17,7 +17,7 @@ import People from './components/Census/People'
 import SeeBallot from './components/Ballot/SeeBallot'
 import PreRegister from './components/Users/PreRegister'
 import PeopleByUser from './components/UserDashboard/PeopleByUser'
-import PollsForm from './components/Polls/PollsForm'
+import Polls from './components/Polls/Polls'
 
 function App() {
   
@@ -40,7 +40,7 @@ function App() {
         <Route path='/mypeople/:id' element={<People/>}/>
         <Route path='/ballot' element={<SeeBallot/>}/>
         <Route path='/peoplebyuser/:id' element={<PeopleByUser/>}/>
-        <Route path='/people/poll/:id/:name' element={<PollsForm/>}/>
+        <Route path='/people/poll/:id/:name' element={<Polls/>}/>
       </Route>
 
       <Route path='*' element={<Error404/>}/>
