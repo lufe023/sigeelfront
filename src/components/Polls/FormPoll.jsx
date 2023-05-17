@@ -59,7 +59,10 @@ null
 
         <div className="form-group">
         <label>Tipo de Elector </label>
-        <select className="custom-select" name="electorType" onChange={()=> setSaved(false)}>
+        <select className="custom-select" name="electorType"        
+        defaultValue={defaultValue.electorType}
+        onChange={(e) => setDefaultValue({...defaultValue, electorType: e.target.value}, setSaved(false))} 
+        >
           <option >Incompleto</option>
           <option>Duro</option>
           <option>Coyuntural</option>
@@ -127,7 +130,8 @@ null
           <option >Incompleto</option>
           {
             regidores?.map(regidor=>
-              <option key={regidor.candidateId} value={regidor.candidateId}>{regidor.name} | {regidor.partyAcronym}</option>
+              <option key={regidor.candidateId} value={regidor.candidateId} style={{backgroundColor:regidor.partyDetails.color, color:"#000"}}>
+                {regidor.name} ({regidor.partyDetails.partyAcronyms})</option>
             )
           }
         </select>
@@ -143,7 +147,8 @@ null
           <option >Incompleto</option>
           {
             alcaldes?.map(alcalde=>
-              <option key={alcalde.candidateId} value={alcalde.candidateId}>{alcalde.name} | {alcalde.partyAcronym}</option>
+              <option key={alcalde.candidateId} value={alcalde.candidateId} style={{backgroundColor:alcalde.partyDetails.color, color:"#000"}}>
+                {alcalde.name} ({alcalde.partyDetails.partyAcronyms})</option>
             
             )
           }
@@ -167,7 +172,9 @@ null
           <option >Incompleto</option>
           {
             diputados?.map(diputado=>
-              <option key={diputado.candidateId} value={diputado.candidateId}>{diputado.name} | {diputado.partyAcronym} </option>
+              <option key={diputado.candidateId} value={diputado.candidateId} style={{backgroundColor:diputado.partyDetails.color, color:"#000"}}>
+                {diputado.name} ( {diputado.partyDetails.partyAcronyms} )
+              </option>
             )
           }
         </select>
@@ -176,6 +183,7 @@ null
       {/*Selec de Senadores */}
       <div className="form-group">
         <label>Senadores</label>
+        
         <select className="custom-select" 
         name="senator"
         defaultValue={defaultValue.senator}
@@ -183,7 +191,9 @@ null
           <option >Incompleto</option>
           {
             senadores?.map(senador=>
-              <option key={senador.candidateId} value={senador.candidateId}>{senador.name} | {senador.partyAcronym}</option>
+              <option key={senador.candidateId} value={senador.candidateId} style={{backgroundColor:senador.partyDetails.color, color:"#000"}}>
+                {senador.name} ( {senador.partyDetails.partyAcronyms} ) 
+              </option>
             
             )
           }
@@ -207,7 +217,9 @@ null
           <option >Incompleto</option>
           {
             presidentes?.map(presidente=>
-              <option key={presidente.candidateId} value={presidente.candidateId}>{presidente.name} | {presidente.partyAcronym}</option>
+              <option key={presidente.candidateId} value={presidente.candidateId} style={{backgroundColor:presidente.partyDetails.color, color:"#000"}}>
+                {presidente.name} ({presidente.partyDetails.partyAcronyms})
+              </option>
             )
           }
         </select>
