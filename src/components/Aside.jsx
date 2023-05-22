@@ -1,12 +1,41 @@
-import React from 'react'
-import { useSelector } from 'react-redux'
+import axios from 'axios'
+import React, { useEffect, useState } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
 import {Link, NavLink, useParams} from 'react-router-dom'
-
+import getConfig from '../utils/getConfig'
+import { setUserData } from '../store/slices/user.slice'
 
 
 const Aside = () => {
+  
+const [user, setUser] = useState(useSelector(state=> state.userSlice))
 
-  const user = useSelector(state=> state.userSlice)
+  const dispatch = useDispatch()
+
+
+
+  const getUserbyId = () => { 
+    const URL = `${import.meta.env.VITE_API_SERVER}/api/v1/users/me`
+      axios.get(URL, getConfig())
+      .then(res => {
+        dispatch(setUserData(res.data))
+        setUser(res.data)
+
+      })
+      .catch(err => console.log(err))
+  }
+  useEffect(() => {
+  getUserbyId()
+  }, [])
+
+  if(user?.censu?.firstName=="Cargando"){
+    getUserbyId()
+  }
+
+
+
+
+
   
   const first_name = user?.censu?.firstName 
   
@@ -84,6 +113,10 @@ const Aside = () => {
                     </NavLink>
                   </li>
                   <li className="nav-item">
+                  <NavLink to="/teams" className="nav-link">
+                  <i className="fas fa-sitemap"/>
+                      <p> Teams</p>
+                  </NavLink>
                   <NavLink to="/ballot" className="nav-link">
                       <i className="fas fa-book-open nav-icon" />
                       <p>Boleta</p>

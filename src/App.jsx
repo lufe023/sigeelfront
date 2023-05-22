@@ -18,6 +18,7 @@ import SeeBallot from './components/Ballot/SeeBallot'
 import PreRegister from './components/Users/PreRegister'
 import PeopleByUser from './components/UserDashboard/PeopleByUser'
 import Polls from './components/Polls/Polls'
+import Teams from './components/Teams/Teams'
 
 function App() {
   
@@ -41,6 +42,7 @@ function App() {
         <Route path='/ballot' element={<SeeBallot/>}/>
         <Route path='/peoplebyuser/:id' element={<PeopleByUser/>}/>
         <Route path='/people/poll/:id/:name' element={<Polls/>}/>
+        <Route path='/teams' element={<Teams/>}/>
       </Route>
 
       <Route path='*' element={<Error404/>}/>

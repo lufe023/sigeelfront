@@ -1,10 +1,32 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { useLocation } from 'react-router-dom'
 import TodoCard from './Todo/TodoCard'
+import { useSelector } from 'react-redux'
+import axios from 'axios'
+import getConfig from '../utils/getConfig'
+import PartiesGraph from './Dashboard/PartiesGraph'
 
 
 const Content = () => {
   const {pathname} = useLocation()
+
+const [dashboard, setDashboard] = useState()
+
+  const {id} = useSelector(state=> state.userSlice) 
+
+  const getDashboard = ()=>{
+    const URL = `${import.meta.env.VITE_API_SERVER}/api/v1/dashboard/${id}`
+      axios.get(URL, getConfig())
+      .then(res => {
+        setDashboard(res.data.dashboard[0])
+      })
+      .catch(err => console.log(err))
+  }
+
+  useEffect(() => {
+    getDashboard()
+  }, [id])
+
   return (
     <div className="content-wrapper" style={{minHeight: 536}}>
   {/* Content Header (Page header) */}
@@ -34,7 +56,7 @@ const Content = () => {
           {/* small box */}
           <div className="small-box bg-info">
             <div className="inner">
-              <h3>15</h3>
+              <h3>{dashboard?.ciudadanos?.count}</h3>
               <p>Electores Asignados</p>
             </div>
             <div className="icon">
@@ -56,7 +78,8 @@ const Content = () => {
           {/* small box */}
           <div className="small-box bg-success">
             <div className="inner">
-              <h3>53<sup style={{fontSize: 20}}>%</sup></h3>
+            
+              <h3>{dashboard?.Encuestas?.percent_complete}<sup style={{fontSize: 20}}>%</sup></h3>
               <p>Completado</p>
             </div>
             <div className="icon">
@@ -71,8 +94,8 @@ const Content = () => {
           {/* small box */}
           <div className="small-box bg-warning">
             <div className="inner">
-              <h3>11</h3>
-              <p>Participación/Beneficio</p>
+              <h3>{dashboard?.Activities}</h3>
+              <p>Participación</p>
             </div>
             <div className="icon">
               <i className="ion ion-person-add" />
@@ -85,7 +108,7 @@ const Content = () => {
           {/* small box */}
           <div className="small-box bg-danger">
             <div className="inner">
-              <h3>47%</h3>
+              <h3>{dashboard?.Encuestas?.percent_incomplete}<sup style={{fontSize: 20}}>%</sup></h3>
               <p>Trabajo Pendiente</p>
             </div>
             <div className="icon">
@@ -301,13 +324,7 @@ const Content = () => {
         {/* /.Left col */}
         {/* right col (We are only adding the ID to make the widgets sortable)*/}
         <section className="col-lg-5 connectedSortable ui-sortable">
-          {/* Map card */}
-        
-          {/* /.card */}
-          {/* solid sales graph */}
-      
-          {/* /.card */}
-          {/* Calendar */}
+        <PartiesGraph/>
           <div className="card bg-gradient-success">
             <div className="card-header border-0 ui-sortable-handle" style={{cursor: 'move'}}>
               <h3 className="card-title">
