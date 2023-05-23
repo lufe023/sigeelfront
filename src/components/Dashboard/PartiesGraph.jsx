@@ -4,7 +4,7 @@ import React from 'react'
 
 const PartiesGraph = () => {
 
-    var xValues = ["Italy", "France", "Spain", "USA", "Argentina"];
+    var xValues = ["Italy", "France", "Spain", "USA", "Haiti"];
     var yValues = [55, 49, 44, 24, 15];
     var barColors = [
       "#b91d47",
