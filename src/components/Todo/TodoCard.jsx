@@ -1,4 +1,4 @@
-import React, {useEffect, useState } from 'react'
+
 import { Link } from 'react-router-dom'
 
 const TodoCard = ({task, setLoading}) => {
@@ -16,7 +16,6 @@ return (
             <i className="fas fa-minus" />
           </button>
         </div>
-  
     </div>
   </div>
   {/* /.card-header */}
@@ -28,18 +27,10 @@ return (
           <li key={tarea.id} className={tarea.isActive? '' : 'done'}>
           {/* checkbox */}
           <div className="icheck-primary d-inline ml-2">
-            <input type="checkbox"
-            name={tarea.id}
-            id={tarea.id}
-            defaultChecked={tarea.isActive? false : true}
-            />
-            <label htmlFor={tarea.id}>
-            <span className="text">{tarea.title}</span>
-            </label>
+          <Link to={`/tasks/${tarea.id}`} onClick={()=> setLoading(true)}>
+            <span className="text">{tarea.title} </span> 
+          </Link>
           </div>
-      
-          {/* Emphasis label */}
-
           {
           tarea.isActive?
           <small  className='badge  badge-danger'>
@@ -49,7 +40,10 @@ return (
           <i className="far fa-clock" />{tarea.limit}</small> 
           }
 
-          
+          <small className='badge'>
+          <i className="fas fa-lock" style={{marginRight:'5px'}}/> 
+          {tarea.Creador.email}
+          </small>
           {/* General tools such as edit or delete*/}
           <div className="tools">
           <Link to={`/tasks/${tarea.id}`} onClick={()=> setLoading(true)}>
@@ -64,11 +58,7 @@ return (
     </ul>
   </div>
   {/* /.card-body */}
-  <div className="card-footer clearfix">
-    <Link to='/tasks'>
-    <button type="button" className="btn btn-primary float-right"><i className="fas fa-plus" /> Nueva Tarea</button>
-    </Link>
-  </div>
+  
 </div>
 
 )

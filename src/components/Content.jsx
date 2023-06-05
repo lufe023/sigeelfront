@@ -6,10 +6,10 @@ import axios from 'axios'
 import getConfig from '../utils/getConfig'
 import PartiesGraph from './Dashboard/PartiesGraph'
 import BarsChart from './ChartJS/BarsChart'
+import Cargando from '../utils/Cargando'
 
 
 const Content = () => {
-  const {pathname} = useLocation()
 
 const [dashboard, setDashboard] = useState()
 const [preferedParties, setPreferedParties] = useState()
@@ -35,8 +35,14 @@ if(id !='Cargando'){
   if(!dashboard)
   {
     return (
-       <div className="content-header">
-    <div className="container-fluid">hola</div>
+    <div className="content-wrapper" style={{minHeight: 536}}>
+    <div className="content-header">
+    <div className="container-fluid">
+    <div className='loading' style={{height:"100px", marginBottom:"50px"}}>
+  <Cargando escala='2'/>
+  </div>
+    </div>
+    </div>
     </div>
     )
   }else {
@@ -47,12 +53,12 @@ if(id !='Cargando'){
     <div className="container-fluid">
       <div className="row mb-2">
         <div className="col-sm-6">
-          <h1 className="m-0">{pathname}</h1>
+          <h1 className="m-0">Panel Principal</h1>
         </div>{/* /.col */}
         <div className="col-sm-6">
           <ol className="breadcrumb float-sm-right">
             <li className="breadcrumb-item"><a href="#">Home</a></li>
-            <li className="breadcrumb-item active">Dashboard v1</li>
+            <li className="breadcrumb-item active">Panel</li>
             
           </ol>
         </div>{/* /.col */}

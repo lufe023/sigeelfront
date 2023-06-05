@@ -26,12 +26,12 @@ const Me = () => {
     <div className="container-fluid">
       <div className="row mb-2">
         <div className="col-sm-6">
-          <h1>Profile</h1>
+          <h1>Perfil</h1>
         </div>
         <div className="col-sm-6">
           <ol className="breadcrumb float-sm-right">
             <li className="breadcrumb-item"><a href="#">Home</a></li>
-            <li className="breadcrumb-item active">User Profile</li>
+            <li className="breadcrumb-item active">Perfil de usuario</li>
           </ol>
         </div>
       </div>
@@ -44,13 +44,14 @@ const Me = () => {
           <div className="card card-primary card-outline">
             <div className="card-body box-profile">
               <div className="text-center">
-                <img className="profile-user-img img-fluid img-circle" src="../../dist/img/user4-128x128.jpg" alt="User profile picture" />
+                {/* <img className="profile-user-img img-fluid img-circle" src="../../dist/img/user4-128x128.jpg" alt="User profile picture" /> */}
+                <img className="profile-user-img img-fluid img-circle" src={`${import.meta.env.VITE_API_SERVER}/api/v1/images/citizen/${picture}`} alt={`${first_name}' picture`}/>
               </div>
               <h3 className="profile-username text-center">{`${first_name} ${last_name}`
               }</h3>
               <p className="text-muted text-center">{role
               }</p>
-              <a href="#" className="btn btn-primary btn-block"><b>Follow</b></a>
+              <a href="#" className="btn btn-primary btn-block"><b>Teams</b></a>
             </div>
           </div>
         </div>
