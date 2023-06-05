@@ -27,7 +27,6 @@ function App() {
       <ScrollToTop/>
 
       <Routes>
-
       <Route path='/' element={<Home/>}/>
 
       <Route element={<ProtectedRoutes/>}>

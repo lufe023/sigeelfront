@@ -5,12 +5,14 @@ import { useSelector } from 'react-redux'
 import axios from 'axios'
 import getConfig from '../utils/getConfig'
 import PartiesGraph from './Dashboard/PartiesGraph'
+import BarsChart from './ChartJS/BarsChart'
 
 
 const Content = () => {
   const {pathname} = useLocation()
 
 const [dashboard, setDashboard] = useState()
+const [preferedParties, setPreferedParties] = useState()
 
   const {id} = useSelector(state=> state.userSlice) 
 
@@ -19,15 +21,26 @@ const [dashboard, setDashboard] = useState()
       axios.get(URL, getConfig())
       .then(res => {
         setDashboard(res.data.dashboard[0])
+        setPreferedParties(res.data.dashboard[0].preferedParty)
       })
       .catch(err => console.log(err))
   }
 
+if(id !='Cargando'){
   useEffect(() => {
     getDashboard()
   }, [id])
+}
 
-  return (
+  if(!dashboard)
+  {
+    return (
+       <div className="content-header">
+    <div className="container-fluid">hola</div>
+    </div>
+    )
+  }else {
+  return (    
     <div className="content-wrapper" style={{minHeight: 536}}>
   {/* Content Header (Page header) */}
   <div className="content-header">
@@ -60,15 +73,9 @@ const [dashboard, setDashboard] = useState()
               <p>Electores Asignados</p>
             </div>
             <div className="icon">
-           
               <i className='ion'>
               <ion-icon name="people-outline"></ion-icon>
             </i>
-                
-
-                
-
-             
             </div>
             <a href="#" className="small-box-footer">Ver más <i className="fas fa-arrow-circle-right" /></a>
           </div>
@@ -324,7 +331,8 @@ const [dashboard, setDashboard] = useState()
         {/* /.Left col */}
         {/* right col (We are only adding the ID to make the widgets sortable)*/}
         <section className="col-lg-5 connectedSortable ui-sortable">
-        <PartiesGraph/>
+            {preferedParties? <PartiesGraph preferedParties={preferedParties}/>: " "}
+            <BarsChart/>
           <div className="card bg-gradient-success">
             <div className="card-header border-0 ui-sortable-handle" style={{cursor: 'move'}}>
               <h3 className="card-title">
@@ -372,6 +380,7 @@ const [dashboard, setDashboard] = useState()
 </div>
 
   )
+}
 }
 
 export default Content

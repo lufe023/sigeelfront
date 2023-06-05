@@ -12,7 +12,7 @@ const Home = () => {
  <div className="layout-top-nav" >
  <video src={VideoURL} autoPlay={true} muted={true} loop={true} style={{marginLeft:0}}>
       
-      </video>
+</video>
 <div className="wrapper">
   {/* Navbar */}
  
@@ -46,7 +46,6 @@ const Home = () => {
           </div>
           {/* /.col-md-6 */}
           <div className="col-lg-6" >
-
         <Loging/>
       </div>
           {/* /.col-md-6 */}
@@ -60,10 +59,10 @@ const Home = () => {
   <footer className="main-footer" style={{marginLeft:0}}>
     {/* To the right */}
     <div className="float-right d-none d-sm-inline">
-      Anything you want
+      
     </div>
     {/* Default to the left */}
-    <strong>Copyright © 2014-2021 <a href="https://adminlte.io">AdminLTE.io</a>.</strong> All rights reserved.
+    <strong>Copyright © 2019-2023 <a href="mailto:lufe023@gmail.com">sigeel</a>.</strong> All rights reserved.
   </footer>
 </div>
 </div>
