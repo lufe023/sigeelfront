@@ -87,7 +87,7 @@ null
           <option >Incompleto</option>
           {
             consejalMun?.map(consejal=>
-              <option key={consejal.candidateId} value={consejal.candidateId}>{consejal.name} | {consejal.partyAcronym}</option>
+              <option key={consejal.candidateId} value={consejal.candidateId}>{consejal.name} ({consejal.partyDetails.partyAcronyms})</option>
             )
           }
         </select>
@@ -103,7 +103,7 @@ null
           <option >Incompleto</option>
           {
             directoresMun?.map(director=>
-              <option value={director.candidateId}>{director.name} | {director.partyAcronym}</option>
+              <option value={director.candidateId}>{director.name} ({director.partyDetails.partyAcronyms})</option>
             
             )
           }

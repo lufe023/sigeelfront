@@ -64,13 +64,13 @@ const Header = () => {
     </li>
     <li className="nav-item dropdown user-menu">
   <a href="#" className="nav-link dropdown-toggle" data-toggle="dropdown">
-    <img src="../../dist/img/user2-160x160.jpg" className="user-image img-circle elevation-2" alt="User Image" />
+    <img src={`${import.meta.env.VITE_API_SERVER}/api/v1/images/citizen/${picture}`} className="user-image img-circle elevation-2" alt="User Image" />
     <span className="d-none d-md-inline">{first_name} {last_name}</span>
   </a>
   <ul className="dropdown-menu dropdown-menu-lg dropdown-menu-right">
     {/* User image */}
     <li className="user-header bg-primary">
-      <img src="../../dist/img/user2-160x160.jpg" className="img-circle elevation-2" alt="User Image" />
+      <img src={`${import.meta.env.VITE_API_SERVER}/api/v1/images/citizen/${picture}`} className="img-circle elevation-2" alt="User Image" />
       <p>
       {first_name} {last_name}
         <small>{user?.nivel?.roleName}</small>
@@ -80,7 +80,7 @@ const Header = () => {
     
     {/* Menu Footer*/}
     <li className="user-footer">
-      <a href="#" className="btn btn-default btn-flat">Profile</a>
+      <Link to='/me' className="btn btn-default btn-flat">Profile</Link>
       <Link to='/logout' className="btn btn-default btn-flat float-right">Cerrar Session</Link>
       
     </li>

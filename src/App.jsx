@@ -23,7 +23,7 @@ import Teams from './components/Teams/Teams'
 function App() {
   
   return (
-    <div>
+    <div className='wrapper'>
       <ScrollToTop/>
 
       <Routes>

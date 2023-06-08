@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { useLocation } from 'react-router-dom'
+import { Link, useLocation } from 'react-router-dom'
 import TodoCard from './Todo/TodoCard'
 import { useSelector } from 'react-redux'
 import axios from 'axios'
@@ -83,7 +83,7 @@ if(id !='Cargando'){
               <ion-icon name="people-outline"></ion-icon>
             </i>
             </div>
-            <a href="#" className="small-box-footer">Ver más <i className="fas fa-arrow-circle-right" /></a>
+            <Link to='/mypeople' className="small-box-footer">Ver más <i className="fas fa-arrow-circle-right" /></Link>
           </div>
         </div>
         {/* ./col */}
