@@ -25,13 +25,11 @@ const MyTeams = () => {
 
         getMyteams()
         }, [])
-
-console.log(myTeams)
 return (
     <>
     <div className="card">
   <div className="card-header">
-    <h3 className="card-title">Mis Equipos <span> ({myTeams.count})</span></h3>
+    <h3 className="card-title">Mis Equipos <span> ({myTeams?.count})</span></h3>
     <div className="card-tools">
       <button type="button" className="btn btn-tool" data-card-widget="collapse" title="Collapse">
         <i className="fas fa-minus" />
