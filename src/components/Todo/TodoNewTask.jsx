@@ -77,13 +77,20 @@ useEffect(() => {
 
     
   return (
+    
+<form onSubmit={handleSubmit}>
     <div className="card card-primary">
-    <div className="card-header">
+    <div className="card-header ui-sortable-handle">
       <h3 className="card-title">Nueva Tarea </h3>
-      
+      <div className="card-tools">
+    <div className="card-tools">
+          <button type="button" className="btn btn-tool" data-card-widget="collapse" title="Collapse">
+            <i className="fas fa-minus" />
+          </button>
+        </div>
+    </div>
     </div>
 
-<form onSubmit={handleSubmit}>
     <div className="card-body">
       <div className="form-group">
         <label htmlFor="title">Nombre de la tarea</label>
@@ -145,8 +152,8 @@ useEffect(() => {
     </div>
     <div className="card-footer clearfix" style={{display: 'block'}}>
       <button type="submit" className="btn btn-primary float-right" onClick={getAllTask}><i className="fas fa-save"></i> Guardar</button></div>
-    </form>
   </div>
+    </form>
   )
 }
 

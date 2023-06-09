@@ -10,7 +10,7 @@ import GPSGeneralView from '../Census/GPSGeneralView'
 
 const PeopleByUser = () => {
     const [results, setResults] = useState()
-
+  const [counsultedUser, setConsultedUser] = useState()
     const {id} = useParams()
 
 const data = {
@@ -23,8 +23,8 @@ const data = {
             getConfig()
             )
             .then(res => {
-                setResults(res.data.rows)
-                
+              setConsultedUser(res.data[1])
+                setResults(res.data[0].rows)
         })
         .catch(err =>{
             setResults([])
@@ -42,11 +42,12 @@ const data = {
         <Aside/>
         <div className="content-wrapper">
   {/* Content Header (Page header) */}
-  <section className="content-header">
+  <section className="content-header"  style={{position:'sticky', top:'0px', zIndex:'1', backgroundColor:'#f8f9fa', boxShadow:'0px 1px 1px rgba(0, 0, 0, 0.19)', marginBottom:'20px' }}>
     <div className="container-fluid">
       <div className="row mb-2">
         <div className="col-sm-6">
-          <h1>Mi Gente<span style={{fontWeight  :"100", margin:"5px"}}>Luis Fernando</span></h1>
+          <h1>Padroncillo de: <span style={{fontWeight  :"100", margin:"5px"}}>{counsultedUser.censu.firstName} </span></h1>
+          {counsultedUser.censu?.nickname} <b>{counsultedUser.user_role.roleName}</b>
         </div>
         <div className="col-sm-6">
           <ol className="breadcrumb float-sm-right">
@@ -58,7 +59,7 @@ const data = {
     </div>{/* /.container-fluid */}
   </section>
   {/* Main content */}
-  <section className="content">
+  <section className="content" >
     {/* Default box */}
     
       
@@ -74,7 +75,7 @@ const data = {
    {/* /.card */}
     </div>
 
-    <div className="row">
+  <div className="row">
   <div className="col-md-12">
     <div className="card">
       <div className="card-header">

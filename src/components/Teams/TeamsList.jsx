@@ -31,7 +31,6 @@ const TeamsList = () => {
           <th>
             Progreso
           </th>
-         
           <th style={{width: '20%'}}>
           </th>
         </tr>

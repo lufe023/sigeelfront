@@ -5,6 +5,7 @@ import Content from '../Content'
 import Footer from '../Footer'
 import NewTeam from './NewTeam'
 import TeamsList from './TeamsList'
+import MyTeams from './MyTeams'
 
 const Teams = () => {
   
@@ -32,6 +33,7 @@ const Teams = () => {
   
 <section class="content">
 <NewTeam/>
+<MyTeams/>
 <TeamsList/>
 </section>
     </div>
