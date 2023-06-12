@@ -46,8 +46,8 @@ const data = {
     <div className="container-fluid">
       <div className="row mb-2">
         <div className="col-sm-6">
-          <h1>Padroncillo de: <span style={{fontWeight  :"100", margin:"5px"}}>{counsultedUser.censu.firstName} </span></h1>
-          {counsultedUser.censu?.nickname} <b>{counsultedUser.user_role.roleName}</b>
+          <h1>Padroncillo de: <span style={{fontWeight  :"100", margin:"5px"}}>{counsultedUser?.censu.firstName} </span></h1>
+          {counsultedUser?.censu?.nickname} <b>{counsultedUser?.user_role.roleName}</b>
         </div>
         <div className="col-sm-6">
           <ol className="breadcrumb float-sm-right">
