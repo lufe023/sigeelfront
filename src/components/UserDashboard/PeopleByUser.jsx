@@ -7,6 +7,7 @@ import Header from '../Header'
 import PeopleCardB from '../Census/PeopleCardB'
 import { useParams } from 'react-router-dom'
 import GPSGeneralView from '../Census/GPSGeneralView'
+import Swal from 'sweetalert2'
 
 const PeopleByUser = () => {
     const [results, setResults] = useState()
@@ -29,6 +30,23 @@ const data = {
         .catch(err =>{
             setResults([])
             console.log(err)
+
+            const Toast = Swal.mixin({
+              toast: true,
+              position: 'top-end',
+              showConfirmButton: false,
+              timer: 6000,
+              timerProgressBar: true,
+              didOpen: (toast) => {
+                toast.addEventListener('mouseenter', Swal.stopTimer)
+                toast.addEventListener('mouseleave', Swal.resumeTimer)
+              }
+            })
+            
+            Toast.fire({
+              icon: 'error',
+              title: `Accion no permitida: ${err.response.statusText}`
+            })
         })
         }
 
@@ -61,10 +79,7 @@ const data = {
   {/* Main content */}
   <section className="content" >
     {/* Default box */}
-    
-      
         <div className="row">
-        
             {
         results?.map((result) => 
         
@@ -108,7 +123,7 @@ const data = {
           {
         results?
         <GPSGeneralView peoples={results}/>
-       :"" 
+        :"" 
         }
         </div>
           

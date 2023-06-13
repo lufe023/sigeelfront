@@ -7,6 +7,8 @@ import getConfig from '../utils/getConfig'
 import PartiesGraph from './Dashboard/PartiesGraph'
 import BarsChart from './ChartJS/BarsChart'
 import Cargando from '../utils/Cargando'
+import DonutChart from './Dashboard/DonutChart'
+import VerticarBarChart from './Dashboard/VerticarBarChart'
 
 
 const Content = () => {
@@ -14,16 +16,17 @@ const Content = () => {
 const [dashboard, setDashboard] = useState()
 const [preferedParties, setPreferedParties] = useState()
 
-  const {id} = useSelector(state=> state.userSlice) 
 
-  const getDashboard = ()=>{
+const {id} = useSelector(state=> state.userSlice)
+
+    const getDashboard = ()=>{
     const URL = `${import.meta.env.VITE_API_SERVER}/api/v1/dashboard/${id}`
       axios.get(URL, getConfig())
       .then(res => {
         setDashboard(res.data.dashboard[0])
         setPreferedParties(res.data.dashboard[0].preferedParty)
       })
-      .catch(err => console.log(err))
+      .catch()
   }
 
 if(id !='Cargando'){
@@ -330,6 +333,12 @@ if(id !='Cargando'){
           </div>
           {/*/.direct-chat */}
           {/* TO DO List */}
+          <div className="card" >
+  <div className="card-header ui-sortable-handle">
+<VerticarBarChart/>
+  </div>
+</div>
+
           <TodoCard/>
         
           {/* /.card */}
@@ -337,7 +346,8 @@ if(id !='Cargando'){
         {/* /.Left col */}
         {/* right col (We are only adding the ID to make the widgets sortable)*/}
         <section className="col-lg-5 connectedSortable ui-sortable">
-            {preferedParties? <PartiesGraph preferedParties={preferedParties}/>: " "}
+          <DonutChart preferedParties={preferedParties}/>
+            {/* {preferedParties? <PartiesGraph preferedParties={preferedParties}/>: " "} */}
             <BarsChart/>
           <div className="card bg-gradient-success">
             <div className="card-header border-0 ui-sortable-handle" style={{cursor: 'move'}}>

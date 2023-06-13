@@ -31,10 +31,6 @@ const [user, setUser] = useState(useSelector(state=> state.userSlice))
     getUserbyId()
   }
 
-
-
-
-
   
   const first_name = user?.censu?.firstName 
   
@@ -66,7 +62,7 @@ const [user, setUser] = useState(useSelector(state=> state.userSlice))
           <ul className="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
               {/* Add icons to the links using the .nav-icon class
          with font-awesome or any other icon font library */}
-              <Link  className={'nav-item menu-is-openig menu-open'}>
+              <li  className={'nav-item menu-is-openig menu-open'}>
                 <NavLink  className={({isActive}) => isActive ? 'nav-link active' : 'nav-link'}>
                   <i className="nav-icon fas fa-tachometer-alt" />
                   <p>
@@ -118,7 +114,7 @@ const [user, setUser] = useState(useSelector(state=> state.userSlice))
                   </NavLink>
                   </li>
                 </ul>
-              </Link>
+              </li>
             </ul>
     </nav>
     {/* /.sidebar-menu */}

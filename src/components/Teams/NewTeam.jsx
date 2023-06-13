@@ -33,7 +33,7 @@ const NewTeam = () => {
     let data = new FormData();
     data.append('name', e.target.teamName.value);
     data.append('logo', e.target.logo.files[0]);
-    data.append('members', selectedMembers.join(','));
+    data.append('description', e.target.description.value);
 
     const URL = `${import.meta.env.VITE_API_SERVER}/api/v1/teams`;
     axios.post(URL, data, getConfig())
@@ -107,25 +107,11 @@ const NewTeam = () => {
               </div>
             </div>
             <div className="col-md-6" data-select2-id={30}>
-              <div className="form-group" data-select2-id={29}>
-                <label>Añade Miembros</label>
-                <select
-                  multiple className="custom-select"
-                  data-placeholder="Selecciona usuarios"
-                  style={{ width: '100%' }}
-                  name="members"
-                  value={selectedMembers}
-                  onChange={handleSelectChange}
-                > 
-                  {
-                    users.map(user =>
-                      <option key={user.id} value={user.id}>
-                        {user.censu.first_name.split(" ")[0]} {user.censu.last_name.split(" ")[0]} ({user.email})
-                      </option>
-                    )
-                  }
-                </select>
-              </div>
+            <div className="form-group">
+  <label>Descripción</label>
+  <textarea name="description" className="form-control" rows={3} placeholder="De que se trata tu grupo... ej: grupo que trabajará en las comunidades x, para que el candidato tal, junto a nuestro excelenticimo lider fulano llegue a" style={{height: 86}} defaultValue={""} />
+</div>
+
             </div>
           </div>
         </div>
