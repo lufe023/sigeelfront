@@ -16,7 +16,6 @@ const Loging = () => {
 
   const user = useSelector(state=> state.userSlice)
 
-
   const [message, setMessage] = useState('')
 
   const [loader, setLoader] =useState()
@@ -50,7 +49,6 @@ const URL = `${import.meta.env.VITE_API_SERVER}/api/v1/auth/login`
           icon: 'success',
           title: 'Ingreso Exitoso'
         })
-      
       }
     )
     .catch(err => {
@@ -73,7 +71,6 @@ const URL = `${import.meta.env.VITE_API_SERVER}/api/v1/auth/login`
         title: 'Algo anda mal'
       })
     })
-  
     reset({
     password:''
     })
@@ -98,9 +95,9 @@ if(isLogged)
       <a href="#" className="h1"><b>SIGEEL</b></a>
     </div>
     <div className="card-body">
-      <p className="login-box-msg">Session Iniciada</p>
+      <p className="login-box-msg">Bienvenido</p>
       <p>
-      <Link to='/logout' className="dropdown-footer btn-danger">LogOut</Link>
+      <Link to='/logout' className="dropdown-footer btn-danger">Cerrar Sesion</Link>
       </p>
       </div> 
   </div>
@@ -118,7 +115,7 @@ if(isLogged)
       <a href="../../index2.html" className="h1"><b>SIGEEL</b></a>
     </div>
     <div className="card-body">
-      <p className="login-box-msg">Inicia session</p>
+      <p className="login-box-msg">Inicia sesion</p>
       <form  onSubmit={handleSubmit(submit) }>
         <div className="input-group mb-3">
         <input 

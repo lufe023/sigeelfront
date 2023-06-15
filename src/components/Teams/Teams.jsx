@@ -79,7 +79,7 @@ const getAllteams = ()=>{
 }
 
 {
-  allTeams?<TeamsList allTeams={allTeams}/>:  <div className='loading' style={{height:"100px", marginBottom:"50px"}}><Cargando escala='1.5'/></div>
+  allTeams?<TeamsList getMyteams={getMyteams} allTeams={allTeams}/>:  <div className='loading' style={{height:"100px", marginBottom:"50px"}}><Cargando escala='1.5'/></div>
 }
 
 </section>

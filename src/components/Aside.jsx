@@ -121,6 +121,12 @@ const [user, setUser] = useState(useSelector(state=> state.userSlice))
                       <p>Boleta</p>
                   </NavLink>
                   </li>
+                  <li className='nav-item'>
+                  <NavLink to="/barcode" className="nav-link">
+                  <i className="fas fa-barcode"/>
+                      <p> Lector de Barra</p>
+                  </NavLink>
+                  </li>
                 </ul>
               </li>
             </ul>

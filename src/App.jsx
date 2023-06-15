@@ -20,6 +20,8 @@ import PeopleByUser from './components/UserDashboard/PeopleByUser'
 import Polls from './components/Polls/Polls'
 import Teams from './components/Teams/Teams'
 import TeamView from './components/Teams/TeamView'
+import BarcodeScanner from './utils/BarCodeScanner'
+
 
 function App() {
   
@@ -44,6 +46,7 @@ function App() {
         <Route path='/people/poll/:id/:name' element={<Polls/>}/>
         <Route path='/teams' element={<Teams/>}/>
         <Route path='/teams/:id' element={<TeamView/>}/>
+        <Route path='/barcode' element={<BarcodeScanner/>}/>
       </Route>
 
       <Route path='*' element={<Error404/>}/>

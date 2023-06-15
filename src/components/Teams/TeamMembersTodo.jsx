@@ -96,7 +96,6 @@ const obtenerFechaActual = () => {
 
 const fechaHoy = obtenerFechaActual();
 
-console.log(member)
   return (
     <>
         <div className='card collapsed-card'>

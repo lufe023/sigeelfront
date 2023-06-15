@@ -10,6 +10,7 @@ import Dropdown from './Dropdown'
 import AdUserToTeam from './AdUserToTeam'
 import TeamMembersTodo from './TeamMembersTodo'
 import Swal from 'sweetalert2'
+import Cargando from '../../utils/Cargando'
 
 const TeamView = () => {
   const [team, setTeam] = useState()
@@ -99,6 +100,9 @@ const getOneteam = (id)=>{
     <>
     <Header/>
     <Aside/>
+    {
+      team?
+   
     <div className='content-wrapper'>
     <section className="content-header">
       <div className="container-fluid">
@@ -136,7 +140,7 @@ const getOneteam = (id)=>{
                 <b>Tareas</b> <a className="float-right">10</a>
               </li>
             </ul>
-            <a href="#" className="btn btn-danger btn-block" onClick={()=> deleteTeam(id, team?.name)}><b>Eliminar Team</b></a>
+            <button className="btn btn-danger btn-block" onClick={()=> deleteTeam(id, team?.name)}><b>Eliminar Team</b></button>
           </div>
           {/* /.card-body */}
         </div>
@@ -205,14 +209,16 @@ const getOneteam = (id)=>{
 </section>
 
     </div>
-    
+    :<div className='loading' style={{height:"100px", marginBottom:"50px"}}><Cargando escala='1.5'/></div>
+  
+  }
     <Footer/>
     </>
 
   )
   }else{
     return(
-      <Navigate to='/' />
+      <Navigate to='/teams' />
     )
   }
 }

@@ -1,8 +1,57 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 import MembersMenu from './MembersMenu'
+import getConfig from '../../utils/getConfig';
+import Swal from 'sweetalert2';
+import axios from 'axios';
+import { useSelector } from 'react-redux';
 
-const TeamsList = ({allTeams}) => {
+const TeamsList = ({allTeams, getMyteams}) => {
+  const id = useSelector(state=> state.userSlice.id)
+
+  const joinToTeam = (teamId, id) => {
+
+    const URL = `${import.meta.env.VITE_API_SERVER}/api/v1/teams/${teamId}`;
+      
+    axios.post(URL, {members:[id]}, getConfig() )
+    
+      .then(res => {
+        const Toast = Swal.mixin({
+          toast: true,
+          position: 'top-end',
+          showConfirmButton: false,
+          timer: 3000,
+          timerProgressBar: true,
+          didOpen: (toast) => {
+            toast.addEventListener('mouseenter', Swal.stopTimer)
+            toast.addEventListener('mouseleave', Swal.resumeTimer)
+          }
+        });
+        Toast.fire({
+          icon: 'success',
+          title: `fue agregado con éxito`
+        });
+        getMyteams()
+      })
+      .catch(error => {
+        const Toast = Swal.mixin({
+          toast: true,
+          position: 'top-end',
+          showConfirmButton: false,
+          timer: 6000,
+          timerProgressBar: true,
+          didOpen: (toast) => {
+            toast.addEventListener('mouseenter', Swal.stopTimer)
+            toast.addEventListener('mouseleave', Swal.resumeTimer)
+          }
+        });
+  
+        Toast.fire({
+          icon: 'error',
+          title: `Hubo un error: `
+        });
+      });
+  };
 
   let count = allTeams?.length
   return (
@@ -31,9 +80,6 @@ const TeamsList = ({allTeams}) => {
           </th>
           <th style={{width: '30%'}}>
             Miembros
-          </th>
-          <th style={{width: '30%'}}> 
-            Progreso
           </th>
           
           <th style={{width: '10%'}}>
@@ -68,18 +114,9 @@ const TeamsList = ({allTeams}) => {
             )}
             </ul>
           </td>
-          <td className="project_progress">
-            <div className="progress progress-sm">
-              <div className="progress-bar bg-green" role="progressbar" aria-valuenow={87} aria-valuemin={0} aria-valuemax={100} style={{width: '87%'}}>
-              </div>
-            </div>
-            <small>
-              87% Complete
-            </small>
-          </td>
           <td className="project-actions text-right">
           <div className="btn-group">
-  <button type="button" className="btn btn-info btn-sm"><i className="fas fa-sign-in-alt"></i> unirme</button>
+  <button type="button" className="btn btn-info btn-sm" onClick={()=> joinToTeam(team.id, id)}><i className="fas fa-sign-in-alt"></i> unirme</button>
 </div>
           </td>
                 </tr>

@@ -22,7 +22,6 @@ const AdUserToTeam = ({teamId, getOneteam}) => {
         })
         .catch(err =>{
             setResults([])
-     
         })
         }
 
