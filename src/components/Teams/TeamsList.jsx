@@ -51,12 +51,11 @@ const TeamsList = ({allTeams}) => {
                     </td>
                     <td>
             <a>
-            
             {team.name}
             </a>
             <br />
             <small>
-            <Link  href="#">Ver Equipo</Link>
+            <Link to={`/teams/${team.id}`} href="#">Ver Equipo</Link>
             
             </small>
           </td>

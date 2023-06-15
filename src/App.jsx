@@ -19,6 +19,7 @@ import PreRegister from './components/Users/PreRegister'
 import PeopleByUser from './components/UserDashboard/PeopleByUser'
 import Polls from './components/Polls/Polls'
 import Teams from './components/Teams/Teams'
+import TeamView from './components/Teams/TeamView'
 
 function App() {
   
@@ -42,6 +43,7 @@ function App() {
         <Route path='/peoplebyuser/:id' element={<PeopleByUser/>}/>
         <Route path='/people/poll/:id/:name' element={<Polls/>}/>
         <Route path='/teams' element={<Teams/>}/>
+        <Route path='/teams/:id' element={<TeamView/>}/>
       </Route>
 
       <Route path='*' element={<Error404/>}/>

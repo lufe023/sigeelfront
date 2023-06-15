@@ -1,6 +1,7 @@
 const getConfig = () => ({
     headers: {
-      Authorization: `jwt ${localStorage.getItem('token')}`
+      Authorization: `jwt ${localStorage.getItem('token')}`,
+      
     }
   })
   

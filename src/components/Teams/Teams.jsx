@@ -9,6 +9,7 @@ import MyTeams from './MyTeams'
 import axios from 'axios'
 import getConfig from '../../utils/getConfig'
 import Cargando from '../../utils/Cargando'
+import { Link } from 'react-router-dom'
 
 const Teams = () => {
   
@@ -63,7 +64,7 @@ const getAllteams = ()=>{
           </div>
           <div className="col-sm-6">
             <ol className="breadcrumb float-sm-right">
-              <li className="breadcrumb-item"><a href="#">Home</a></li>
+              <li className="breadcrumb-item"><Link to="/dashboard" >Dashboard</Link></li>
               <li className="breadcrumb-item active">Equipos</li>
             </ol>
           </div>
@@ -72,9 +73,9 @@ const getAllteams = ()=>{
     </section>
   
 <section className="content">
-<NewTeam/>
+<NewTeam getAllteams={getAllteams} getMyteams={getMyteams}/>
 {
-  myTeams?<MyTeams myTeams={myTeams}/>: <div className='loading' style={{height:"100px", marginBottom:"50px"}}><Cargando escala='1.5'/></div>
+  myTeams?<MyTeams myTeams={myTeams} getMyteams={getMyteams}/>: <div className='loading' style={{height:"100px", marginBottom:"50px"}}><Cargando escala='1.5'/></div>
 }
 
 {

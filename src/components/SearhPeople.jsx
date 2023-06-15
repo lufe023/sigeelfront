@@ -29,7 +29,6 @@ const SearhPeople = () => {
     }
     const show = () => setIsShow(!isShow)
 
-        
     const findPeople = (findWord)=>{
         const URL = `${import.meta.env.VITE_API_SERVER}/api/v1/census/search`
             axios.post(URL,
