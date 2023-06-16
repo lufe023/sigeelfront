@@ -22,12 +22,34 @@ ChartJS.register(
     Filler
 );
 
-var beneficios = [72, 56, 20, 36, 80, 40, 30, -20, 25, 30, 12, 60];
-var meses = ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"];
+
+export default function Bars({preferedPresidents}) {
+
+    console.log(preferedPresidents)
+    const presidentes = []
+    const puntos = []
+    const colores = []
+    
+    
+         //acronimos de presidentes 
+        preferedPresidents.map(presidente => presidentes.push(presidente.presidentName))
+
+
+    //puntos de partidos 
+    preferedPresidents.map(presidente => puntos.push(presidente.total ))
+
+ 
+    
+      //Colores de partidos 
+    preferedPresidents.map(presidente => colores.push(presidente.partyDetails.color )) 
+
+var beneficios = puntos
+var meses = presidentes
+var coloresMeses = colores
 
 var misoptions = {
     responsive : true,
-    animation : false,
+    animation : true,
     plugins : {
         legend : {
             display : false
@@ -35,11 +57,11 @@ var misoptions = {
     },
     scales : {
         y : {
-            min : -25,
-            max : 100
+            min : 0,
+            max : 10
         },
         x: {
-            ticks: { color: 'rgba(0, 220, 195)'}
+            ticks: { color:coloresMeses},
         }
     }
 };
@@ -48,13 +70,13 @@ var midata = {
     labels: meses,
     datasets: [
         {
-            label: 'Beneficios',
+            label: 'Electores',
             data: beneficios,
-            backgroundColor: 'rgba(0, 220, 195, 0.5)'
+            backgroundColor: coloresMeses
         }
     ]
 };
 
-export default function Bars() {
+
     return <Bar data={midata} options={misoptions} />
 }

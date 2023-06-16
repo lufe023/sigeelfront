@@ -8,6 +8,7 @@ import PeopleCardB from './PeopleCardB'
 import Cargando from '../../utils/Cargando'
 import GPSGeneralView from './GPSGeneralView'
 import { Link } from 'react-router-dom'
+import Modal from './Modal'
 
 const MyPeople = () => {
 
@@ -36,6 +37,7 @@ const MyPeople = () => {
         }, [])
     return (
     <div>
+      <Modal/>
         <Header/>
         <Aside/>
         <div className="content-wrapper">

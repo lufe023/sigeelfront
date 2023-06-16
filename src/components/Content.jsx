@@ -7,7 +7,7 @@ import getConfig from '../utils/getConfig'
 import PartiesGraph from './Dashboard/PartiesGraph'
 import BarsChart from './ChartJS/BarsChart'
 import Cargando from '../utils/Cargando'
-import DonutChart from './Dashboard/DonutChart'
+import DonutChart from './ChartJS/DonutChart'
 import VerticarBarChart from './Dashboard/VerticarBarChart'
 
 
@@ -15,6 +15,7 @@ const Content = () => {
 
 const [dashboard, setDashboard] = useState()
 const [preferedParties, setPreferedParties] = useState()
+const [preferedPresidents, setPreferedPresidents] = useState()
 
 
 const {id} = useSelector(state=> state.userSlice)
@@ -25,6 +26,7 @@ const {id} = useSelector(state=> state.userSlice)
       .then(res => {
         setDashboard(res.data.dashboard[0])
         setPreferedParties(res.data.dashboard[0].preferedParty)
+        setPreferedPresidents(res.data.dashboard[0].preferedPresident)
       })
       .catch()
   }
@@ -348,7 +350,7 @@ if(id !='Cargando'){
         <section className="col-lg-5 connectedSortable ui-sortable">
           <DonutChart preferedParties={preferedParties}/>
             {/* {preferedParties? <PartiesGraph preferedParties={preferedParties}/>: " "} */}
-            <BarsChart/>
+            <BarsChart preferedPresidents={preferedPresidents}/>
           <div className="card bg-gradient-success">
             <div className="card-header border-0 ui-sortable-handle" style={{cursor: 'move'}}>
               <h3 className="card-title">

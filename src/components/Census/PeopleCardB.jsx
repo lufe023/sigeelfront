@@ -166,8 +166,12 @@ const PeopleCard = ({people, getMypeople}) => {
         
       <a href={`https://t.me/${people.celphone}`} className="btn btn-app" target={'_blank'}>
       <i className="fab fa-telegram-plane"></i> Telegram
-        </a>
-        </div>
+      </a>
+
+      <a href={`https://t.me/${people.celphone}`} className="btn btn-app" target={'_blank'}>
+      <i className="fas fa-running"></i> + Actividad
+      </a>
+      </div>
 
         <div className="tab-pane" id={`encuestar${people.id}`}>
           <div className='row'></div>
