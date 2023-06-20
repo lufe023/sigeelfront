@@ -36,7 +36,7 @@ const Header = () => {
     {/* Messages Dropdown Menu */}
  
     {/* Notifications Dropdown Menu */}
-    <li className="nav-item dropdown">
+    {/* <li className="nav-item dropdown">
       <Link className="nav-link" data-toggle="dropdown" href="#">
         <i className="far fa-bell" />
         <span className="badge badge-warning navbar-badge">15</span>
@@ -61,7 +61,7 @@ const Header = () => {
         <div className="dropdown-divider" />
         <a href="#" className="dropdown-item dropdown-footer">See All Notifications</a>
       </div>
-    </li>
+    </li> */}
     <li className="nav-item dropdown user-menu">
   <a href="#" className="nav-link dropdown-toggle" data-toggle="dropdown">
     <img src={`${import.meta.env.VITE_API_SERVER}/api/v1/images/citizen/${picture}`} className="user-image img-circle elevation-2" alt="User Image" />

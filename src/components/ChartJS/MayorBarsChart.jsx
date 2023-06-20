@@ -23,26 +23,24 @@ ChartJS.register(
 );
 
 
-export default function Bars({preferedPresidents}) {
+export default function Bars({preferedMayor}) {
 
-    const presidentes = []
+   
+    const alcaldes = []
     const puntos = []
     const colores = []
-    
-    
-         //acronimos de presidentes 
-        preferedPresidents?.map(presidente =>
-            presidentes.push(
-            presidente.locationDetails[0].municipalDistrict?presidente.presidentName+' - '+presidente.locationDetails[0].municipalDistrict:presidente.presidentName+' - '+presidente.locationDetails[1].municipality ))
+
+ //acronimos de dipitados 
+ preferedMayor?.map(alcalde =>alcaldes.push(alcalde.mayorName))
+
     //puntos de partidos 
-    preferedPresidents?.map(presidente => puntos.push(presidente.total ))
+    preferedMayor?.map(alcalde => puntos.push(alcalde.total ))
+
+ 
     
       //Colores de partidos 
-    preferedPresidents?.map(presidente => colores.push(presidente.partyDetails.color )) 
+      preferedMayor?.map(alcalde => colores.push(alcalde.partyDetails.color )) 
 
-var beneficios = puntos
-var meses = presidentes
-var coloresMeses = colores
 
 var misoptions = {
     responsive : true,
@@ -55,31 +53,31 @@ var misoptions = {
     scales : {
         y : {
             min : 0,
-            max : Math.max(...puntos)+1
+            max :  Math.max(...puntos)+1
         },
         x: {
-            ticks: { color:coloresMeses},
+            ticks: { color:colores},
         }
     }
 };
 
 var midata = {
-    labels: meses,
+    labels: alcaldes,
     datasets: [
         {
             label: 'Electores',
-            data: beneficios,
-            backgroundColor: coloresMeses
+            data: puntos,
+            backgroundColor: colores
         }
     ]
 };
 
 
     return (
-<div className="card" >
+<div className="card">
   <div className="card-header ui-sortable-handle">
     <h3 className="card-title">
-      Presidentes
+      Alcaldes
     </h3>
     <div className="card-tools">
     

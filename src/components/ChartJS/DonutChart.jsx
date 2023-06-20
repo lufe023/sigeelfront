@@ -42,14 +42,6 @@ return (
     <div className="card">
     <div className="card-header">
     <h3 className="card-title">Partidos</h3>
-    <div className="card-tools">
-        <button type="button" className="btn btn-tool" data-card-widget="collapse">
-        <i className="fas fa-minus" />
-        </button>
-        <button type="button" className="btn btn-tool" data-card-widget="remove">
-        <i className="fas fa-times" />
-        </button>
-    </div>
     </div>
     <div className="card-body" style={{backgroundColor:"#f1f1f1"}}>
     <Doughnut data={data} />

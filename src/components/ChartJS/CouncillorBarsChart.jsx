@@ -23,26 +23,24 @@ ChartJS.register(
 );
 
 
-export default function Bars({preferedPresidents}) {
+export default function Bars({preferedCouncillor}) {
 
-    const presidentes = []
+   
+    const regidores = []
     const puntos = []
     const colores = []
-    
-    
-         //acronimos de presidentes 
-        preferedPresidents?.map(presidente =>
-            presidentes.push(
-            presidente.locationDetails[0].municipalDistrict?presidente.presidentName+' - '+presidente.locationDetails[0].municipalDistrict:presidente.presidentName+' - '+presidente.locationDetails[1].municipality ))
+
+ //acronimos de dipitados 
+ preferedCouncillor?.map(regidor =>regidores.push(regidor.councillorName))
+
     //puntos de partidos 
-    preferedPresidents?.map(presidente => puntos.push(presidente.total ))
+    preferedCouncillor?.map(regidor => puntos.push(regidor.total ))
+
+ 
     
       //Colores de partidos 
-    preferedPresidents?.map(presidente => colores.push(presidente.partyDetails.color )) 
+      preferedCouncillor?.map(regidor => colores.push(regidor.partyDetails.color )) 
 
-var beneficios = puntos
-var meses = presidentes
-var coloresMeses = colores
 
 var misoptions = {
     responsive : true,
@@ -55,31 +53,31 @@ var misoptions = {
     scales : {
         y : {
             min : 0,
-            max : Math.max(...puntos)+1
+            max :  Math.max(...puntos)+1
         },
         x: {
-            ticks: { color:coloresMeses},
+            ticks: { color:colores},
         }
     }
 };
 
 var midata = {
-    labels: meses,
+    labels: regidores,
     datasets: [
         {
             label: 'Electores',
-            data: beneficios,
-            backgroundColor: coloresMeses
+            data: puntos,
+            backgroundColor: colores
         }
     ]
 };
 
 
     return (
-<div className="card" >
+<div className="card">
   <div className="card-header ui-sortable-handle">
     <h3 className="card-title">
-      Presidentes
+      Regidores
     </h3>
     <div className="card-tools">
     

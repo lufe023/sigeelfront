@@ -23,26 +23,26 @@ ChartJS.register(
 );
 
 
-export default function Bars({preferedPresidents}) {
+export default function Bars({preferedSenators}) {
 
-    const presidentes = []
+    const senadores = []
     const puntos = []
     const colores = []
     
     
-         //acronimos de presidentes 
-        preferedPresidents?.map(presidente =>
-            presidentes.push(
-            presidente.locationDetails[0].municipalDistrict?presidente.presidentName+' - '+presidente.locationDetails[0].municipalDistrict:presidente.presidentName+' - '+presidente.locationDetails[1].municipality ))
+ //acronimos de senadores 
+preferedSenators?.map(senador =>
+    senadores?.push(
+    senador.locationDetails[0].municipalDistrict?senador.senatorName+' - '+senador.locationDetails[0].municipalDistrict:senador.senatorName+' - '+senador.locationDetails[1].municipality ))
+
     //puntos de partidos 
-    preferedPresidents?.map(presidente => puntos.push(presidente.total ))
+    preferedSenators?.map(senador => puntos.push(senador.total ))
+
+ 
     
       //Colores de partidos 
-    preferedPresidents?.map(presidente => colores.push(presidente.partyDetails.color )) 
+    preferedSenators?.map(senador => colores.push(senador.partyDetails.color )) 
 
-var beneficios = puntos
-var meses = presidentes
-var coloresMeses = colores
 
 var misoptions = {
     responsive : true,
@@ -55,21 +55,21 @@ var misoptions = {
     scales : {
         y : {
             min : 0,
-            max : Math.max(...puntos)+1
+            max :  Math.max(...puntos)+1
         },
         x: {
-            ticks: { color:coloresMeses},
+            ticks: { color:colores},
         }
     }
 };
 
 var midata = {
-    labels: meses,
+    labels: senadores,
     datasets: [
         {
             label: 'Electores',
-            data: beneficios,
-            backgroundColor: coloresMeses
+            data: puntos,
+            backgroundColor: colores
         }
     ]
 };
@@ -79,7 +79,7 @@ var midata = {
 <div className="card" >
   <div className="card-header ui-sortable-handle">
     <h3 className="card-title">
-      Presidentes
+      senadores
     </h3>
     <div className="card-tools">
     

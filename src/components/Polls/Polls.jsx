@@ -51,7 +51,7 @@ const PollsForm = () => {
         districtDirector: e.target.districtDirector.value != "Incompleto" ?e.target.districtDirector.value :null,
         districtCouncilor: e.target.districtCouncilor.value != "Incompleto" ?e.target.districtCouncilor.value :null
       }
-console.log(data)
+
       const URL = `${import.meta.env.VITE_API_SERVER}/api/v1/polls/${id}`
         axios.patch(URL,data,  getConfig())
         .then(res => {setSaved(true)})
