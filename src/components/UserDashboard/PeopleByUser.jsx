@@ -4,7 +4,7 @@ import getConfig from '../../utils/getConfig'
 import Aside from '../Aside'
 import Footer from '../Footer'
 import Header from '../Header'
-import PeopleCardB from '../Census/PeopleCardB'
+import PeopleCard from '../Census/PeopleCard'
 import { useParams } from 'react-router-dom'
 import GPSGeneralView from '../Census/GPSGeneralView'
 import Swal from 'sweetalert2'
@@ -83,7 +83,7 @@ const data = {
             {
         results?.map((result) => 
         
-          <PeopleCardB key={result.id} people={result} getMypeople={getMypeople}/>
+          <PeopleCard key={result.id} people={result} getMypeople={getMypeople}/>
           )
         }
       

@@ -1,5 +1,5 @@
 import React from 'react'
-
+import "./ConcurrenciaPanel.css"
 const ConcurrenciaPanel = () => {
   return (
     <>
@@ -23,14 +23,16 @@ const ConcurrenciaPanel = () => {
     <div className='col-md-8' style={{backgroundColor:"rgb(241, 241, 241", padding:"5px", borderRadius:"20px"}}>
     <ul className="users-list clearfix">
   <li>
-    <img src="dist/img/user1-128x128.jpg" alt="User Image" style={{border:"solid 3px green"}}/>
+    <img src="dist/img/user1-128x128.jpg" alt="User Image" style={{border:"solid 3px green"}} className='concurrencia-citizen'/>
     <a className="users-list-name" href="#">Alexander Pierce</a>
-    <span className="users-list-date text-success">Votó</span>
+    <span className="users-list-date text-success">Votó</span><small>10:40 am</small>
   </li>
   <li>
     <img src="dist/img/user8-128x128.jpg" alt="User Image" style={{border:"solid 3px red"}}/>
     <a className="users-list-name" href="#">Norman</a>
-    <span className="users-list-date text-danger">No Votó</span>
+    <span className="users-list-date text-danger">No Votó
+    
+    </span>
   </li>
   <li>
     <img src="dist/img/user7-128x128.jpg" alt="User Image"  />

@@ -4,11 +4,10 @@ import getConfig from '../../utils/getConfig'
 import Aside from '../Aside'
 import Footer from '../Footer'
 import Header from '../Header'
-import PeopleCardB from './PeopleCardB'
+import PeopleCard from './PeopleCard'
 import Cargando from '../../utils/Cargando'
 import GPSGeneralView from './GPSGeneralView'
 import { Link } from 'react-router-dom'
-import Modal from './Modal'
 
 const MyPeople = () => {
 
@@ -37,7 +36,6 @@ const MyPeople = () => {
         }, [])
     return (
     <div>
-      <Modal/>
         <Header/>
         <Aside/>
         <div className="content-wrapper">
@@ -73,7 +71,7 @@ const MyPeople = () => {
         
             {
         results?.map((result) => 
-          <PeopleCardB key={result.id} people={result} getMypeople={getMypeople}/>
+          <PeopleCard key={result.id} people={result} getMypeople={getMypeople}/>
           )
         }
       
@@ -93,7 +91,7 @@ const MyPeople = () => {
           </button>
           <div className="btn-group">
             <button type="button" className="btn btn-tool dropdown-toggle" data-toggle="dropdown">
-              <i className="fas fa-wrench" />
+              <i className="fas fa-wren`ch`" />
             </button>
             <div className="dropdown-menu dropdown-menu-right" role="menu">
               <a href="#" className="dropdown-item">Action</a>
