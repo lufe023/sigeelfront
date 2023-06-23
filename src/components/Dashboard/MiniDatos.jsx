@@ -1,6 +1,7 @@
 import React from 'react'
 
-const MiniDatos = ({miniDatos, beneficios}) => {
+const MiniDatos = ({miniDatos, beneficios, citizens}) => {
+  
   return (
     <div className="row">
   <div className="col-12 col-sm-6 col-md-3">
@@ -49,7 +50,7 @@ const MiniDatos = ({miniDatos, beneficios}) => {
       <span className="info-box-icon bg-warning elevation-1"><i className="fab fa-accessible-icon"/></span>
       <div className="info-box-content">
         <span className="info-box-text">Discapacidades</span>
-        <span className="info-box-number">8 <small>Electores</small> </span>
+        <span className="info-box-number">{citizens.filter(citizen => citizen.condition).length} <small>Electores</small> </span>
       </div>
       {/* /.info-box-content */}
     </div>

@@ -1,6 +1,7 @@
 import React from 'react'
 import "./ConcurrenciaPanel.css"
-const ConcurrenciaPanel = () => {
+const ConcurrenciaPanel = ({citizens}) => {
+ 
   return (
     <>
     <div className='row'>
@@ -20,90 +21,171 @@ const ConcurrenciaPanel = () => {
 <div className='card-body'>
 <div className='row'>
     {/* contenido 1 */}
-    <div className='col-md-8' style={{backgroundColor:"rgb(241, 241, 241", padding:"5px", borderRadius:"20px"}}>
-    <ul className="users-list clearfix">
-  <li>
-    <img src="dist/img/user1-128x128.jpg" alt="User Image" style={{border:"solid 3px green"}} className='concurrencia-citizen'/>
-    <a className="users-list-name" href="#">Alexander Pierce</a>
-    <span className="users-list-date text-success">Votó</span><small>10:40 am</small>
-  </li>
-  <li>
-    <img src="dist/img/user8-128x128.jpg" alt="User Image" style={{border:"solid 3px red"}}/>
-    <a className="users-list-name" href="#">Norman</a>
-    <span className="users-list-date text-danger">No Votó
     
+    <div className='col-md-8' style={{ paddingTop:"20px", borderRadius:"20px"}}>
+    <ul className="users-list-panel clearfix">
+      {
+        citizens.map(citizen => 
+    <li key={citizen.id}>
+     <div className="info-box">
+  <span className="info-box-icon">
+  <img src={`${import.meta.env.VITE_API_SERVER}/api/v1/images/citizen/${citizen?.picture}`}
+    alt="User Image"
+    className='concurrencia-citizen-image'/>
     </span>
+  <div className="info-box-content">
+    <span className="info-box-text">{citizen.firstName.substring(0,15)}</span>
+    <span className="info-box-number"><small>Mesa: </small>5<small> Colegio: </small>11</span>
+  </div>
+  {/* /.info-box-content */}
+</div>
+{/* 
+    <img src={`${import.meta.env.VITE_API_SERVER}/api/v1/images/citizen/${citizen?.picture}`}
+    alt="User Image"
+    className='concurrencia-citizen-image'/>
+    <a className="users-list-name" href="#">Alexander Pierce</a>
+    <span className="users-list-date text-success">Votó</span><small>10:40 am</small> */}
   </li>
-  <li>
-    <img src="dist/img/user7-128x128.jpg" alt="User Image"  />
-    <a className="users-list-name" href="#">Jane</a>
-    <span className="users-list-date">12 Jan</span>
-  </li>
-  <li>
-    <img src="dist/img/user6-128x128.jpg" alt="User Image" />
-    <a className="users-list-name" href="#">John</a>
-    <span className="users-list-date">12 Jan</span>
-  </li>
-  <li>
-    <img src="dist/img/user2-160x160.jpg" alt="User Image" />
-    <a className="users-list-name" href="#">Alexander</a>
-    <span className="users-list-date">13 Jan</span>
-  </li>
-  <li>
-    <img src="dist/img/user5-128x128.jpg" alt="User Image" />
-    <a className="users-list-name" href="#">Sarah</a>
-    <span className="users-list-date">14 Jan</span>
-  </li>
-  <li>
-    <img src="dist/img/user4-128x128.jpg" alt="User Image" />
-    <a className="users-list-name" href="#">Nora</a>
-    <span className="users-list-date">15 Jan</span>
-  </li>
-  <li>
-    <img src="dist/img/user3-128x128.jpg" alt="User Image" />
-    <a className="users-list-name" href="#">Nadia</a>
-    <span className="users-list-date">15 Jan</span>
-  </li>
+          )
+      }
 </ul>
 
     </div>
 
     {/* contenido 2*/}
-    <div className="col-md-4">
+  <div className="col-md-4 condition-details" style={{backgroundColor:"#f8f9fa", borderRadius:"10px"}}>
   <p className="text-center">
-    <strong>Situaciones Especiales</strong>
+    <strong>Ayuda para Votar</strong>
   </p>
-  <div className="progress-group">
-    Alexander Pierce
-    <span className="float-right"><b>Silla de rueda</b> | Transportar</span>
-        <hr/>
+  <div style={{overflowY:"scroll", overflowX:'auto', height:"300px", minWidth:"200px"}}>
+  {citizens?.map(citizen =>
+  citizen?.condition?.id?
+  <div className='row'  key={citizen.id} style={{borderBottom:"solid 1px #495057", marginTop:"15px", paddingBottom:"5px"}}>
+    <div className='col-md-7'>
+    <b>{citizen.firstName}</b>
+    <span style={{display:"block"}}>
+    {citizen.condition.conditionDetails}
+    </span>
+    </div>
+    <span className='col-md-5'>
+      <ul>
+        <li>
+      <small>
+      {citizen.condition.dyslexia?
+      <div className="form-group">
+  <div className="custom-control custom-switch">
+    <input type="checkbox" className="custom-control-input" id="customSwitch1" defaultChecked={true} />
+    <label className="custom-control-label">Dislexia</label>
   </div>
-  {/* /.progress-group */}
-  <div className="progress-group">
-    Norman
-    <span className="float-right"><b>No Vidente</b> | Ayudar en urna</span>
-    <hr/>
+</div>
+      :""
+      }
+      {citizen.condition.visual?
+<div className="form-group">
+  <div className="custom-control custom-switch">
+    <input type="checkbox" className="custom-control-input" id="customSwitch1" defaultChecked={true} />
+    <label className="custom-control-label"> Visual</label>
   </div>
-  {/* /.progress-group */}
-  <div className="progress-group">
-    <span className="progress-text">Jane</span>
-    <span className="float-right"><b>Vota Solo</b> | Asegurar voto</span>
-    <hr/>
+</div>
+
+      :""
+      }
+      {citizen.condition.auditory?
+  <div className="form-group">
+  <div className="custom-control custom-switch">
+    <input type="checkbox" className="custom-control-input" id="customSwitch1" defaultChecked={true} />
+    <label className="custom-control-label"> Auditivo</label>
   </div>
-  {/* /.progress-group */}
-  <div className="progress-group">
-    John
-    <span className="float-right"><b>Anciano</b> | Transportar, Ayudar en urna</span>
-    <hr/>
+</div>
+
+       :""
+       }
+      {citizen.condition.motor?
+<div className="form-group">
+  <div className="custom-control custom-switch">
+    <input type="checkbox" className="custom-control-input" id="customSwitch1" defaultChecked={true} />
+    <label className="custom-control-label">Motor</label>
   </div>
-  {/* /.progress-group */}
+</div>
+
+       :""
+       }
+      {citizen.condition.cognitive?
+       <div className="form-group">
+  <div className="custom-control custom-switch">
+    <input type="checkbox" className="custom-control-input" id="customSwitch1" defaultChecked={true} />
+    <label className="custom-control-label"> Cognitivo</label>
+  </div>
+</div>
+
+       :""
+       }
+      {citizen.condition.outside?
+       <div className="form-group">
+  <div className="custom-control custom-switch">
+    <input type="checkbox" className="custom-control-input" id="customSwitch1" defaultChecked={true} />
+    <label className="custom-control-label"> Vive Fuera</label>
+  </div>
+</div>
+
+       :""
+       }
+      </small>
+      </li>
+      </ul>
+  </span>
+  </div>
+  :""
+  )}
+  </div>
 </div>
 
 </div>
 </div>
-            </div>
-        </div>
+<div className="card-footer">
+  <div className="row">
+    <div className="col-sm-3 col-6">
+      <div className="description-block border-right">
+      <span className="description-text">Transporte</span>
+        <h5 className="description-header">Santo Domingo</h5>
+        <span className="description-text"><a href='tel:829-685-0000'>829-685-0000</a></span>
+      </div>
+      {/* /.description-block */}
     </div>
+    {/* /.col */}
+    <div className="col-sm-3 col-6">
+      <div className="description-block border-right">
+      <span className="description-text">Transporte</span>
+        <h5 className="description-header">Interno Motocicleta </h5>
+        <span className="description-text"><a href='tel:829-685-0000'>829-685-0000</a></span>
+      </div>
+      {/* /.description-block */}
+    </div>
+    {/* /.col */}
+    <div className="col-sm-3 col-6">
+      <div className="description-block border-right">
+      <span className="description-text">Centro de Computo</span>
+        <h5 className="description-header">Lugar Pueblo</h5>
+        <span className="description-text"><a href='tel:829-685-0000'>829-685-0000</a></span>
+      </div>
+      {/* /.description-block */}
+    </div>
+    {/* /.col */}
+    <div className="col-sm-3 col-6">
+      <div className="description-block">
+      <span className="description-text">Coordinador Campaña</span>
+        <h5 className="description-header">Provincial</h5>
+        <span className="description-text"><a href='tel:829-685-0000'>829-685-0000</a></span>
+      </div>
+      {/* /.description-block */}
+    </div>
+  </div>
+  {/* /.row */}
+</div>
+
+</div>
+</div>
+</div>
     </>
   )
 }

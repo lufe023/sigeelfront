@@ -30,6 +30,7 @@ const [preferedCouncillor, setPreferedCouncillor] = useState()
 const [preferedVocal, setPreferedVocal] = useState()
 const [miniDatos, setMiniDatos] = useState()
 const [beneficios, setBeneficios] = useState()
+
 const {id} = useSelector(state=> state.userSlice)
 
     const getDashboard = ()=>{
@@ -47,6 +48,7 @@ const {id} = useSelector(state=> state.userSlice)
         setPreferedVocal(res.data.dashboard[0].preferedDistrictCouncillor)
         setMiniDatos(res.data.dashboard[0].Encuestas)
         setBeneficios(res.data.dashboard[0].Beneficios)
+        
       })
       .catch()
   }
@@ -156,11 +158,14 @@ if(id !='Cargando'){
         </div>
         {/* ./col */}
       </div>
-        <MiniDatos miniDatos={miniDatos} beneficios={beneficios}/>
-        <ConcurrenciaPanel/>
+        <MiniDatos miniDatos={miniDatos} beneficios={beneficios} citizens={dashboard.ciudadanos.rows}/>
+        {
+          dashboard.ciudadanos.rows?<ConcurrenciaPanel citizens={dashboard.ciudadanos.rows}/>:""
+        }
+        
       <div className="row">
         {/* Left col */}
-        <section className="col-lg-7 connectedSortable ui-sortable">
+        <section className="col-lg-6 connectedSortable ui-sortable">
           {/* Custom tabs (Charts with tabs)*/}
           <BarsChart preferedPresidents={preferedPresidents}/>
           {preferedSenators?
@@ -170,17 +175,17 @@ if(id !='Cargando'){
           {
             preferedDiputys?<DiputyBarsChart preferedDiputys={preferedDiputys}/>:""
           }
-          
+           {
+            preferedMayor?<MayorBarsChart preferedMayor={preferedMayor}/>: ""
+          }
           {/* /.card */}
         </section>
         {/* /.Left col */}
         {/* right col (We are only adding the ID to make the widgets sortable)*/}
-        <section className="col-lg-5 connectedSortable ui-sortable">
+        <section className="col-lg-6 connectedSortable ui-sortable">
           <DonutChart preferedParties={preferedParties}/>
 
-          {
-            preferedMayor?<MayorBarsChart preferedMayor={preferedMayor}/>: ""
-          }
+
 
           {
             preferedCouncillor?<CouncillorBarsChart preferedCouncillor={preferedCouncillor}/>:""

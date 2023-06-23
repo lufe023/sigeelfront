@@ -1,3 +1,16 @@
-.concurrencia-citizen{
-    
+.users-list-panel li{
+display: inline-block;
+border-radius: 50%;
+margin: 0 5px;
+text-align: left;
+}
+
+.concurrencia-citizen-image{
+width: 60px;
+border-radius: 50%;
+aspect-ratio: 1   ;
+}
+
+.condition-details{
+    padding: 40px;
 }
