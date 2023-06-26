@@ -5,9 +5,11 @@ import Aside from '../Aside'
 import Footer from '../Footer'
 import Header from '../Header'
 import PeopleCard from '../Census/PeopleCard'
-import { useParams } from 'react-router-dom'
+import { Link, useParams } from 'react-router-dom'
 import GPSGeneralView from '../Census/GPSGeneralView'
 import Swal from 'sweetalert2'
+import Content from '../Content'
+import CollaboratorDashboard from './CollaboratorDashboard.jsx'
 
 const PeopleByUser = () => {
     const [results, setResults] = useState()
@@ -60,7 +62,7 @@ const data = {
         <Aside/>
         <div className="content-wrapper">
   {/* Content Header (Page header) */}
-  <section className="content-header"  style={{position:'sticky', top:'0px', zIndex:'1', backgroundColor:'#f8f9fa', boxShadow:'0px 1px 1px rgba(0, 0, 0, 0.19)', marginBottom:'20px' }}>
+  <section className="content-header bg-dark"  style={{position:'sticky', top:'0px', zIndex:'1', backgroundColor:'#f8f9fa', boxShadow:'0px 1px 1px rgba(0, 0, 0, 0.19)', marginBottom:'20px' }}>
     <div className="container-fluid">
       <div className="row mb-2">
         <div className="col-sm-6">
@@ -69,8 +71,8 @@ const data = {
         </div>
         <div className="col-sm-6">
           <ol className="breadcrumb float-sm-right">
-            <li className="breadcrumb-item"><a href="#">Home</a></li>
-            <li className="breadcrumb-item active">Mi Gente</li>
+            <li className="breadcrumb-item"><Link to='users'>Colaboradores</Link></li>
+            <li className="breadcrumb-item active">Gente de Otro Usuario</li>
           </ol>
         </div>
       </div>
@@ -92,20 +94,20 @@ const data = {
 
   <div className="row">
   <div className="col-md-12">
-    <div className="card">
+    <div className="card collapsed-card">
       <div className="card-header">
         <h5 className="card-title">Donde está la gente</h5>
         <div className="card-tools">
           <button type="button" className="btn btn-tool" data-card-widget="collapse">
-            <i className="fas fa-minus" />
+            <i className="fas fa-plus" />
           </button>
           <div className="btn-group">
             <button type="button" className="btn btn-tool dropdown-toggle" data-toggle="dropdown">
               <i className="fas fa-wrench" />
             </button>
             <div className="dropdown-menu dropdown-menu-right" role="menu">
-              <a href="#" className="dropdown-item">Action</a>
-              <a href="#" className="dropdown-item">Another action</a>
+              <a href="#" className="dropdown-item">Accion</a>
+              <a href="#" className="dropdown-item">Otra accion</a>
               <a href="#" className="dropdown-item">Something else here</a>
               <a className="dropdown-divider" />
               <a href="#" className="dropdown-item">Separated link</a>
@@ -140,7 +142,7 @@ const data = {
   </section>
 
 </div>
-
+<CollaboratorDashboard UserId={id} UserName={counsultedUser?.censu.firstName}/>
         <Footer/>
     </div>
   )

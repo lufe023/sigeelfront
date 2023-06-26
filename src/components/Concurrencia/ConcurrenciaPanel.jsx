@@ -1,5 +1,6 @@
 import React from 'react'
 import "./ConcurrenciaPanel.css"
+import { Link } from 'react-router-dom'
 const ConcurrenciaPanel = ({citizens}) => {
  
   return (
@@ -34,7 +35,9 @@ const ConcurrenciaPanel = ({citizens}) => {
     className='concurrencia-citizen-image'/>
     </span>
   <div className="info-box-content">
+  <Link to={`/mypeople/${citizen.id}`}>
     <span className="info-box-text">{citizen.firstName.substring(0,15)}</span>
+  </Link>
     <span className="info-box-number"><small>Mesa: </small>5<small> Colegio: </small>11</span>
   </div>
   {/* /.info-box-content */}

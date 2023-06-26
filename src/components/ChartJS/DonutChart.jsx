@@ -4,8 +4,6 @@ import { Doughnut } from 'react-chartjs-2';
 
 ChartJS.register(ArcElement, Tooltip, Legend);
 
- 
-
 
 const DonutChart = ({preferedParties}) => {
 
@@ -29,7 +27,7 @@ const colores = []
         labels: partidos,
         datasets: [
         {
-            label: 'Simpatisantes',
+            label: 'Simpatizantes',
             data: puntos,
             backgroundColor: colores,
             borderWidth: 1,

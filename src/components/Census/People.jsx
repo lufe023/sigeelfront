@@ -7,6 +7,8 @@ import Footer from '../Footer'
 import Header from '../Header'
 import GPS from './GPS'
 import CitizenForm from './Forms/CitizenForm'
+import Cargando from '../../utils/Cargando'
+import AddTies from './AddTies'
 
 const People = () => {
   const [people, setPeople] = useState()
@@ -47,6 +49,8 @@ const People = () => {
 
   <section className="content">
   <div className="container-fluid">
+  {
+    people?
     <div className="row">
       <div className="col-md-3">
         {/* Profile Image */}
@@ -325,10 +329,61 @@ const People = () => {
             {/* /.tab-content */}
           </div>{/* /.card-body */}
         </div>
-        {/* /.card */}
-      </div>
+
+  <div className="card card-default">
+  <div className="card-header">
+    <h3 className="card-title">Vinculos</h3>
+    <div className="card-tools">
+      <button type="button" className="btn btn-tool" data-card-widget="collapse">
+        <i className="fas fa-minus" />
+      </button>
+    </div>
+  </div>
+  {/* /.card-header */}
+  <div className="card-body">
+  <div className="row">
+<div className='col-md-12'>
+    <AddTies/>
+    </div>
+</div>
+    <div className="row">
+    
+      <ul>
+        <li style={{display:"inline-block", margin:'0 10px'}}>
+        <div className="info-box">
+          <span className="info-box-icon">
+            <img src="http://10.0.0.8:9000/api/v1/images/citizen/11300000277.jpg" alt="User Image" className="concurrencia-citizen-image" />
+          </span>
+          <div className="info-box-content">
+          <a href="#/mypeople/79b6647e-af59-4e12-94b1-df1bde6c266b">
+          <span className="info-box-text">June</span>
+          </a>
+          <span className="info-box-number">
+          Tío</span></div></div>
+        </li>
+        <li style={{display:"inline-block", margin:'0 10px'}}>
+        <div className="info-box">
+          <span className="info-box-icon">
+            <img src="http://10.0.0.8:9000/api/v1/images/citizen/11300037618.jpg" alt="User Image" className="concurrencia-citizen-image" />
+          </span>
+          <div className="info-box-content">
+          <a href="#/mypeople/79b6647e-af59-4e12-94b1-df1bde6c266b">
+          <span className="info-box-text">Luis Fernando Gómez Mateo</span>
+          </a>
+          <span className="info-box-number">
+          Amigo</span></div></div>
+        </li>
+      </ul>
+    </div>
+</div>
+</div></div>
+    
       {/* /.col */}
     </div>
+    :<div className='loading' style={{height:"100px", marginBottom:"50px"}}>
+    <Cargando escala='2'/>
+    </div>
+  }
     {/* /.row */}
   </div>{/* /.container-fluid */}
 </section>

@@ -187,7 +187,6 @@ const PeopleCard = ({people, getMypeople}) => {
         </div>
         
         <hr/>
-        
         {
           people?.Encuestas?.map((result) => 
             <li key={result.id}>
@@ -201,7 +200,6 @@ const PeopleCard = ({people, getMypeople}) => {
             </div>
             </li>
             )}
-           
 {
   people.condition?<UpdateConditions condition={people.condition} citizenID={people?.citizenID} key={people?.citizenID.citizenID}/>: <NewConditions citizenID={people?.citizenID}  key={people?.citizenID.citizenID}/>
    /* <NewConditions/> */
