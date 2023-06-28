@@ -29,9 +29,7 @@ const ShowTies = ({ties, setPeople}) => {
         <img src={`${import.meta.env.VITE_API_SERVER}/api/v1/images/citizen/${tie.bties.picture}`} alt="User Image" className="concurrencia-citizen-image" />
         </span>
         </Link>
-  
-  {/* /.info-box-content */}
-</div>
+        </div>
         </li>
 
             )
