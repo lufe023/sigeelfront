@@ -62,7 +62,7 @@ const Home = () => {
       
     </div>
     {/* Default to the left */}
-    <strong>Copyright © 2019-2023 <a href="mailto:lufe023@gmail.com">sigeel</a>.</strong> All rights reserved.
+    <strong>Copyright © 2022-2023 <a href="mailto:lufe023@gmail.com">sigeel</a>.</strong> All rights reserved.
   </footer>
 </div>
 </div>

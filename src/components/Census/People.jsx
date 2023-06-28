@@ -9,9 +9,12 @@ import GPS from './GPS'
 import CitizenForm from './Forms/CitizenForm'
 import Cargando from '../../utils/Cargando'
 import AddTies from './AddTies'
+import ShowTies from './Ties/ShowTies'
 
 const People = () => {
   const [people, setPeople] = useState()
+  const [ties, setTies] = useState()
+
   const {id} = useParams()
 
   const getPeople = ()=>{
@@ -24,7 +27,21 @@ const People = () => {
   }
   useEffect(() => {
     getPeople()
+    getTies()
   }, [id])
+
+  const getTies = ()=>{
+    const URL = `${import.meta.env.VITE_API_SERVER}/api/v1/ties/${people?.citizenID}`
+      axios.get(URL, getConfig())
+      .then(res => {
+        setTies(res.data)
+      })
+      .catch(err => console.log(err))
+  }
+  useEffect(() => {
+    getTies()
+  }, [people])
+
   return (
     <div>
         <Header/>
@@ -139,8 +156,7 @@ const People = () => {
                   </div>
                   {
                   people?.Empleos.map((empleo) => 
-                  <div>
-                    
+                  <div key={empleo.id}>
                     <i className="fas fa-briefcase bg-primary" />
                     <div className="timeline-item">
                       <span className="time"><i className="far fa-clock" /> {empleo.startedAt}</span>
@@ -172,7 +188,7 @@ const People = () => {
                   </div>
                   {
                   people?.Beneficios.map((beneficio) => 
-                  <div>
+                  <div key={beneficio.id}>
                     <i className="fas fa-hand-holding-medical bg-success" />
                     <div className="timeline-item">
                       <span className="time"><i className="far fa-clock" /> {beneficio.receiveAt}</span>
@@ -204,7 +220,7 @@ const People = () => {
                   </div>
                   {
                   people?.Actividades.map((actividad) => 
-                  <div>
+                  <div key={actividad.id}>
                     
                     <i className="fas fa-people-arrows bg-info" />
                     <div className="timeline-item">
@@ -311,28 +327,21 @@ const People = () => {
                     <i className="far fa-clock bg-gray" />
                   </div>
                 </div>
-                  
-               
-
               </div>
               {/* /.tab-pane */}
               <div className="tab-pane" id="settings">
-             <CitizenForm/>
+              <CitizenForm/>
               </div>
-
               <div className='tab-pane' id="mapa">
               <GPS lat={people?.geolocation?.latitud} long={people?.geolocation?.longitud} peopleName={people?.firstName} picture={people?.picture}/>
-              
               </div>
-              {/* /.tab-pane */}
             </div>
-            {/* /.tab-content */}
-          </div>{/* /.card-body */}
+          </div>
         </div>
 
   <div className="card card-default">
   <div className="card-header">
-    <h3 className="card-title">Vinculos</h3>
+    <h3 className="card-title">Vinculos, relacionados y conocidos</h3>
     <div className="card-tools">
       <button type="button" className="btn btn-tool" data-card-widget="collapse">
         <i className="fas fa-minus" />
@@ -342,39 +351,17 @@ const People = () => {
   {/* /.card-header */}
   <div className="card-body">
   <div className="row">
+      {ties?<ShowTies ties={ties} setPeople={setPeople}/>: <div className='loading' style={{height:"100px", marginBottom:"50px", margin: "auto"}}>
+    <Cargando escala='1'/>
+    </div>}
+    </div>
+
+  <div className="row">
 <div className='col-md-12'>
-    <AddTies/>
-    </div>
+    {people?<AddTies aCitizenId={people?.citizenID} getTies={getTies} setTies={setTies}/>:""}
 </div>
-    <div className="row">
-    
-      <ul>
-        <li style={{display:"inline-block", margin:'0 10px'}}>
-        <div className="info-box">
-          <span className="info-box-icon">
-            <img src="http://10.0.0.8:9000/api/v1/images/citizen/11300000277.jpg" alt="User Image" className="concurrencia-citizen-image" />
-          </span>
-          <div className="info-box-content">
-          <a href="#/mypeople/79b6647e-af59-4e12-94b1-df1bde6c266b">
-          <span className="info-box-text">June</span>
-          </a>
-          <span className="info-box-number">
-          Tío</span></div></div>
-        </li>
-        <li style={{display:"inline-block", margin:'0 10px'}}>
-        <div className="info-box">
-          <span className="info-box-icon">
-            <img src="http://10.0.0.8:9000/api/v1/images/citizen/11300037618.jpg" alt="User Image" className="concurrencia-citizen-image" />
-          </span>
-          <div className="info-box-content">
-          <a href="#/mypeople/79b6647e-af59-4e12-94b1-df1bde6c266b">
-          <span className="info-box-text">Luis Fernando Gómez Mateo</span>
-          </a>
-          <span className="info-box-number">
-          Amigo</span></div></div>
-        </li>
-      </ul>
-    </div>
+</div>
+  
 </div>
 </div></div>
     

@@ -2,6 +2,7 @@ import React from 'react'
 import getConfig from '../../utils/getConfig';
 import Swal from 'sweetalert2';
 import axios from 'axios';
+import { Link } from 'react-router-dom';
 
 const TeamMembersTodo = ({member, getOneteam}) => {
 
@@ -115,7 +116,9 @@ const fechaHoy = obtenerFechaActual();
             <div className="text-center">
               <img className="profile-user-img img-fluid img-circle" src={`${import.meta.env.VITE_API_SERVER}/api/v1/images/citizen/${member.memberData.censu.picture}`} alt="User profile picture" />
             </div>
+            <Link to={`/peoplebyuser/${member?.memberId}`}>
             <h3 className="profile-username text-center">{member?.memberData.censu.firstName}</h3>
+            </Link>
             <p className="text-muted text-center">{member.teamLeader?"Team Leader":"Miembro"}</p>
             <ul className="list-group list-group-unbordered mb-3">
               <li className="list-group-item">
