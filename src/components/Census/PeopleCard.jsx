@@ -164,19 +164,15 @@ const PeopleCard = ({people, getMypeople}) => {
       </a>
       :''
       }
-
       
-      <a href="#" className="btn btn-app" target={'_blank'}>
+      <a href={`https://api.whatsapp.com/send?phone=${people.celphone.substring(1,people.celphone.length).split('-').join('')}&text=Hola ${people.firstName} ¿Qué tal?`} className="btn btn-app" target={'_blank'}>
       <i className="fab fa-whatsapp"></i> Whatsapp
-        </a>
+        </a>{people.celphone.split('-')}
         
       <a href={`https://t.me/${people.celphone}`} className="btn btn-app" target={'_blank'}>
       <i className="fab fa-telegram-plane"></i> Telegram
       </a>
 
-      <a href={`https://t.me/${people.celphone}`} className="btn btn-app" target={'_blank'}>
-      <i className="fas fa-running"></i> + Actividad
-      </a>
       </div>
 
         <div className="tab-pane" id={`encuestar${people.id}`}>
@@ -205,9 +201,9 @@ const PeopleCard = ({people, getMypeople}) => {
    /* <NewConditions/> */
 }
   
-  <ParticipationForm/>
-  <BenefitForm/>
-  <Jobs/>
+  <ParticipationForm citizenID={people?.citizenID} getPeople={getMypeople}/>
+  <BenefitForm citizenID={people?.citizenID} getPeople={getMypeople} />
+  <Jobs citizenID={people?.citizenID} getPeople={getMypeople}/>
   <LocationPicker/>
 
   </div>

@@ -129,7 +129,6 @@ return (
           <td>
           <ul className="list-inline navbar-nav ml-auto">
             {team.team.members.map(member=> 
-            
             <MembersMenu member={member} key={member.id}/> 
             )}
             </ul>

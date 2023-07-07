@@ -74,11 +74,7 @@ const MyPeople = () => {
           <PeopleCard key={result.id} people={result} getMypeople={getMypeople}/>
           )
         }
-      
-   {/* /.card */}
     </div>
-
-
       {/*vista de mapa*/}  
       <div className="row">
   <div className="col-md-12">

@@ -20,7 +20,7 @@ const updateConditions = ({condition, citizenID}) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-console.log(defaultCondition)
+
     const URL = `${import.meta.env.VITE_API_SERVER}/api/v1/intouch/condition/${citizenID}`;
     axios
       .patch(URL, defaultCondition, getConfig())

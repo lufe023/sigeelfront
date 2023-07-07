@@ -11,6 +11,12 @@ import Cargando from '../../utils/Cargando'
 import AddTies from './AddTies'
 import ShowTies from './Ties/ShowTies'
 import NearbyCitizen from './NearbyCitizen'
+import ActivityCard from './Complements/ActivityCard'
+import ParticipationForm from './Contact/Participation'
+import BenefitForm from './Contact/BenefitForm '
+import BenefitCard from './Complements/BenefitCard'
+import Jobs from './Contact/Jobs'
+import JobCard from './Complements/JobCard'
 
 const People = () => {
   const [people, setPeople] = useState()
@@ -98,22 +104,52 @@ const People = () => {
             <p className="text-muted">Esta persona vive bajando el rio, entrando detras de la mata de mango siempre anda con rosita</p>
             <a href="#" className="btn btn-primary btn-block"><b>Editar</b></a>
           </div>
-          {/* /.card-body */}
+
         </div>
-        {/* /.card */}
-        {/* About Me Box */}
+      
         {people?
         <NearbyCitizen citizenId={people?.citizenID} setPeople={setPeople}/>:""
           }       
-        {/* /.card */}
+        {
+          people?<ParticipationForm citizenID={people?.citizenID} getPeople={getPeople}/>:""
+        }
+        {
+          people?<BenefitForm citizenID={people?.citizenID} getPeople={getPeople} />:""
+        }
+        {
+          people?<Jobs citizenID={people?.citizenID} getPeople={getPeople}/>:""
+        }
       </div>
       {/* /.col */}
       <div className="col-md-9">
+      <div className="card card-default">
+  <div className="card-header">
+    <h3 className="card-title">Vinculos, relacionados y conocidos</h3>
+    <div className="card-tools">
+      <button type="button" className="btn btn-tool" data-card-widget="collapse">
+        <i className="fas fa-minus" />
+      </button>
+    </div>
+  </div>
+  <div className="card-body">
+  <div className="row">
+      {ties?<ShowTies ties={ties} setPeople={setPeople}/>: <div className='loading' style={{height:"100px", marginBottom:"50px", margin: "auto"}}>
+    <Cargando escala='1'/>
+    </div>}
+    </div>
+
+  <div className="row">
+<div className='col-md-12'>
+    {people?<AddTies aCitizenId={people?.citizenID} getTies={getTies} setTies={setTies}/>:""}
+</div>
+</div>
+  
+</div>
+</div>
         <div className="card">
           <div className="card-header p-2">
             <ul className="nav nav-pills">
               <li className="nav-item"><a className="nav-link active" href="#details" data-toggle="tab">Detalles</a></li>
-              <li className="nav-item"><a className="nav-link" href="#timeline" data-toggle="tab">Timeline</a></li>
               <li className="nav-item"><a className="nav-link" href="#settings" data-toggle="tab">Editar</a></li>
               <li className="nav-item"><a className="nav-link" href="#mapa" data-toggle="tab">Geolocalización</a></li>
             </ul>
@@ -121,7 +157,7 @@ const People = () => {
           <div className="card-body">
             <div className="tab-content">
               <div className="tab-pane active" id="details">
-                {/* Empleomania */ }
+                
                 <div className="timeline timeline-inverse">
                   {/* timeline time label */}
                   <div className="time-label">
@@ -131,22 +167,7 @@ const People = () => {
                   </div>
                   {
                   people?.Empleos.map((empleo) => 
-                  <div key={empleo.id}>
-                    <i className="fas fa-briefcase bg-primary" />
-                    <div className="timeline-item">
-                      <span className="time"><i className="far fa-clock" /> {empleo.startedAt}</span>
-                      <h3 className="timeline-header"><a href="#">{empleo.position}</a> en {empleo.institution}</h3>
-                      <div className="timeline-body">
-                      
-                      {empleo.positionDetails}
-                      </div>
-                      <p style={{margin:"10px"}}>
-                    <a href="#" className=" text-sm mr-2"><i className="fas fa-edit"></i> Editar</a>
-                    <a href="#" className=" text-sm"><i className="fas fa-trash-alt"></i> Eliminar</a>
-                  </p>
-                      
-                    </div>
-                  </div>
+                  <JobCard key={empleo.id} empleo={empleo} getPeople={getPeople}/>
                   )
                   }
                   <div>
@@ -155,7 +176,6 @@ const People = () => {
                 </div>    
                 {/* Beneficios*/}
                 <div className="timeline timeline-inverse">
-                  {/* timeline time label */}
                   <div className="time-label">
                     <span className="">
                     Beneficios
@@ -163,22 +183,7 @@ const People = () => {
                   </div>
                   {
                   people?.Beneficios.map((beneficio) => 
-                  <div key={beneficio.id}>
-                    <i className="fas fa-hand-holding-medical bg-success" />
-                    <div className="timeline-item">
-                      <span className="time"><i className="far fa-clock" /> {beneficio.receiveAt}</span>
-                      <h3 className="timeline-header"><a href="#">Beneficio</a></h3>
-                      <div className="timeline-body">
-                      
-                      {beneficio.benefitDescription}
-                      </div>
-                      <p style={{margin:"10px"}}>
-                    <a href="#" className=" text-sm mr-2"><i className="fas fa-edit"></i> Editar</a>
-                    <a href="#" className=" text-sm"><i className="fas fa-trash-alt"></i> Eliminar</a>
-                  </p>
-                      
-                    </div>
-                  </div>
+                    <BenefitCard key={beneficio.id} beneficio={beneficio} getPeople={getPeople}/>
                   )
                   }
                   <div>
@@ -195,23 +200,7 @@ const People = () => {
                   </div>
                   {
                   people?.Actividades.map((actividad) => 
-                  <div key={actividad.id}>
-                    
-                    <i className="fas fa-people-arrows bg-info" />
-                    <div className="timeline-item">
-                      <span className="time"><i className="far fa-clock" /> {actividad.receiveAt}</span>
-                      <h3 className="timeline-header"><a href="#">Actividad</a></h3>
-                      <div className="timeline-body">
-                      
-                      {actividad.activityDescription}
-                      </div>
-                      <p style={{margin:"10px"}}>
-                    <a href="#" className=" text-sm mr-2"><i className="fas fa-edit"></i> Editar</a>
-                    <a href="#" className=" text-sm"><i className="fas fa-trash-alt"></i> Eliminar</a>
-                  </p>
-                      
-                    </div>
-                  </div>
+                  <ActivityCard key={actividad.id} actividad={actividad} getPeople={getPeople}/>
                   )
                   }
                   <div>
@@ -220,89 +209,7 @@ const People = () => {
                 </div>  
               </div>
               {/* /.tab-pane */}
-              <div className="tab-pane" id="timeline">
-                {/* Beneficios */}
-                <div className="timeline timeline-inverse">
-                  {/* timeline time label */}
-                  <div className="time-label">
-                    <span className="bg-danger">
-                      10 Feb. 2014
-                    </span>
-                  </div>
-                  {/* /.timeline-label */}
-                  {/* timeline item */}
-                  <div>
-                    <i className="fas fa-envelope bg-primary" />
-                    <div className="timeline-item">
-                      <span className="time"><i className="far fa-clock" /> 12:05</span>
-                      <h3 className="timeline-header"><a href="#">Support Team</a> sent you an email</h3>
-                      <div className="timeline-body">
-                        Etsy doostang zoodles disqus groupon greplin oooj voxy zoodles,
-                        weebly ning heekya handango imeem plugg dopplr jibjab, movity
-                        jajah plickers sifteo edmodo ifttt zimbra. Babblely odeo kaboodle
-                        quora plaxo ideeli hulu weebly balihoo...
-                      </div>
-                      <div className="timeline-footer">
-                        <a href="#" className="btn btn-primary btn-sm">Read more</a>
-                        <a href="#" className="btn btn-danger btn-sm">Delete</a>
-                      </div>
-                    </div>
-                  </div>
-                  {/* END timeline item */}
-                  {/* timeline item */}
-                  <div>
-                    <i className="fas fa-user bg-info" />
-                    <div className="timeline-item">
-                      <span className="time"><i className="far fa-clock" /> 5 mins ago</span>
-                      <h3 className="timeline-header border-0"><a href="#">Sarah Young</a> accepted your friend request
-                      </h3>
-                    </div>
-                  </div>
-                  {/* END timeline item */}
-                  {/* timeline item */}
-                  <div>
-                    <i className="fas fa-comments bg-warning" />
-                    <div className="timeline-item">
-                      <span className="time"><i className="far fa-clock" /> 27 mins ago</span>
-                      <h3 className="timeline-header"><a href="#">Jay White</a> commented on your post</h3>
-                      <div className="timeline-body">
-                        Take me to your leader!
-                        Switzerland is small and neutral!
-                        We are more like Germany, ambitious and misunderstood!
-                      </div>
-                      <div className="timeline-footer">
-                        <a href="#" className="btn btn-warning btn-flat btn-sm">View comment</a>
-                      </div>
-                    </div>
-                  </div>
-                  {/* END timeline item */}
-                  {/* timeline time label */}
-                  <div className="time-label">
-                    <span className="bg-success">
-                      3 Jan. 2014
-                    </span>
-                  </div>
-                  {/* /.timeline-label */}
-                  {/* timeline item */}
-                  <div>
-                    <i className="fas fa-camera bg-purple" />
-                    <div className="timeline-item">
-                      <span className="time"><i className="far fa-clock" /> 2 days ago</span>
-                      <h3 className="timeline-header"><a href="#">Mina Lee</a> uploaded new photos</h3>
-                      <div className="timeline-body">
-                        <img src="https://placehold.it/150x100" alt="..." />
-                        <img src="https://placehold.it/150x100" alt="..." />
-                        <img src="https://placehold.it/150x100" alt="..." />
-                        <img src="https://placehold.it/150x100" alt="..." />
-                      </div>
-                    </div>
-                  </div>
-                  {/* END timeline item */}
-                  <div>
-                    <i className="far fa-clock bg-gray" />
-                  </div>
-                </div>
-              </div>
+              
               {/* /.tab-pane */}
               <div className="tab-pane" id="settings">
               <CitizenForm/>
@@ -313,32 +220,7 @@ const People = () => {
             </div>
           </div>
         </div>
-
-  <div className="card card-default">
-  <div className="card-header">
-    <h3 className="card-title">Vinculos, relacionados y conocidos</h3>
-    <div className="card-tools">
-      <button type="button" className="btn btn-tool" data-card-widget="collapse">
-        <i className="fas fa-minus" />
-      </button>
-    </div>
-  </div>
-  {/* /.card-header */}
-  <div className="card-body">
-  <div className="row">
-      {ties?<ShowTies ties={ties} setPeople={setPeople}/>: <div className='loading' style={{height:"100px", marginBottom:"50px", margin: "auto"}}>
-    <Cargando escala='1'/>
-    </div>}
-    </div>
-
-  <div className="row">
-<div className='col-md-12'>
-    {people?<AddTies aCitizenId={people?.citizenID} getTies={getTies} setTies={setTies}/>:""}
 </div>
-</div>
-  
-</div>
-</div></div>
     
       {/* /.col */}
     </div>

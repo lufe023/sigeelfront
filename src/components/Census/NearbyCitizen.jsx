@@ -22,9 +22,14 @@ const NearbyCitizen = ({citizenId, setPeople}) => {
   
   return (
     <>
-       <div className="card card-primary">
+      <div className="card card-warning collapsed-card">
           <div className="card-header">
             <h3 className="card-title"><i className="fas fa-map-marker-alt mr-1" /> Radar de Proximidad</h3>
+            <div className="card-tools">
+        <button type="button" className="btn btn-tool" data-card-widget="collapse">
+          <i className="fas fa-plus" />
+        </button>
+        </div>
           </div>
           {/* /.card-header */}
           <div className="card-body">

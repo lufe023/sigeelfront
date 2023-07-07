@@ -18,9 +18,9 @@ const ShowTies = ({ties, setPeople}) => {
         </span>
         </Link>
         <div className="info-box-content" >
-          <span className="info-box-text">{tie.aties.firstName}</span>
+          <span className="info-box-text"><Link to={`/mypeople/${tie.aties.id}`} onClick={()=> setPeople()} >{tie.aties.firstName}</Link></span>
           
-            {tie.tieType.tiesDescription} de  {tie.bties.firstName}
+            {tie.tieType.tiesDescription} de  <Link to={`/mypeople/${tie.bties.id}`}  onClick={()=> setPeople()}>{tie.bties.firstName}</Link>
       
             <span className="info-box-text"></span>
         </div>
