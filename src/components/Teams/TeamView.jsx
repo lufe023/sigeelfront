@@ -5,8 +5,6 @@ import Footer from '../Footer'
 import { Link , useParams, Navigate  } from 'react-router-dom'
 import axios from 'axios'
 import getConfig from '../../utils/getConfig'
-import SelectUsuarios from './SelectUsuarios'
-import Dropdown from './Dropdown'
 import AdUserToTeam from './AdUserToTeam'
 import TeamMembersTodo from './TeamMembersTodo'
 import Swal from 'sweetalert2'
@@ -102,7 +100,7 @@ const getOneteam = (id)=>{
     <Aside/>
     {
       team?
-   
+
     <div className='content-wrapper'>
     <section className="content-header">
       <div className="container-fluid">
@@ -177,10 +175,7 @@ const getOneteam = (id)=>{
                 {/* /.post */}
                 {/* Post */}
               </div>
-    
-
             </div>
-      
           </div>
         </div>
         <div className="card card-primary card-outline">
@@ -195,13 +190,11 @@ const getOneteam = (id)=>{
     </div>
 
     <div className="row">
-    <div className="col-md-12">
       {
     team?.members.map(member => 
       <TeamMembersTodo key={member.id} member={member} getOneteam={getOneteam}/>
     )
     }
-    </div>
     </div>
   </div>
   

@@ -11,6 +11,11 @@ import Cargando from '../../utils/Cargando'
 const UserDashBoard = () => {
   const [users, setUsers] = useState([])
   const [loading, setLoading] = useState(true)
+  const estilos = {
+    cursor:{
+      cursor: "pointer"
+    }
+  }
   const getAllUsers = ()=>{
     const URL = `${import.meta.env.VITE_API_SERVER}/api/v1/users?offset=0&limit=20`
       axios.get(URL, getConfig())
@@ -40,6 +45,50 @@ const UserDashBoard = () => {
       })
       
   }
+
+  const userDisable = (user, active) => {
+    const URL = `${import.meta.env.VITE_API_SERVER}/api/v1/users/${user}`
+        axios.patch(URL, {active:active}, getConfig())
+        .then(res =>
+          {
+            getAllUsers()
+            const Toast = Swal.mixin({
+              toast: true,
+              position: 'top-end',
+              showConfirmButton: false,
+              timer: 3000,
+              timerProgressBar: true,
+              didOpen: (toast) => {
+                toast.addEventListener('mouseenter', Swal.stopTimer)
+                toast.addEventListener('mouseleave', Swal.resumeTimer)
+              }
+            })
+            
+            Toast.fire({
+              icon: 'success',
+              title: 'Cambio Exitoso'
+            })
+          }
+        )
+        .catch(err => {
+          const Toast = Swal.mixin({
+            toast: true,
+            position: 'top-end',
+            showConfirmButton: false,
+            timer: 3000,
+            timerProgressBar: true,
+            didOpen: (toast) => {
+              toast.addEventListener('mouseenter', Swal.stopTimer)
+              toast.addEventListener('mouseleave', Swal.resumeTimer)
+            }
+          })
+          console.log(err)
+          Toast.fire({
+            icon: 'error',
+            title: 'Accion no realizada'
+          })
+        })
+    }
   useEffect(() => {
   getAllUsers()
   }, [])
@@ -94,7 +143,7 @@ const UserDashBoard = () => {
           <th>Nombre</th>
           <th>Tipo</th>
           <th>Correo</th>
-          <th>Estado</th>
+          <th>Activado</th>
           <th>Acciones</th>
         </tr>
       </thead>
@@ -103,13 +152,13 @@ const UserDashBoard = () => {
         users?.map((user) => 
           <tr key={user.id}>
             <td>
-           <img className="img-circle img-bordered-sm" src="dist/img/user7-128x128.jpg" alt="user image" style={{height:'40px'}} />
+            <img className="img-circle img-bordered-sm" src="dist/img/user7-128x128.jpg" alt="user image" style={{height:'40px'}} />
 
             </td>
             <td>{`${user.censu.first_name} ${user.censu.last_name}`}</td>
             <td>{user.user_role.roleName} </td>
             <td>{user.email} </td>
-            <td>{user.status} </td>
+            <td>{user.active?<i className="fas fa-circle" style={{color:"green"}}></i>:<i className="fas fa-circle" style={{color:"red"}}></i>} </td>
             <td>
             <div className="btn-group">
   <button type="button" className="btn btn-default">Acciones</button>
@@ -120,7 +169,10 @@ const UserDashBoard = () => {
     <a className="dropdown-item" href="#">Perfil</a>
     <Link className="dropdown-item" to={`/peoplebyuser/${user.id}`}>Seguimiento</Link>
     <div className="dropdown-divider" />
-    <a className="dropdown-item" href="#">Desactivar</a>
+    {
+      user.active?<a className="dropdown-item" style={estilos.cursor} onClick={()=> userDisable(user.id, false)}>Desactivar</a>
+      : <a className="dropdown-item" style={estilos.cursor} onClick={()=> userDisable(user.id, true)}>Activar</a>
+    }
     <a className="dropdown-item" href="#">Administrar</a>
   </div>
 </div>

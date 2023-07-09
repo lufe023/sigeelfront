@@ -24,7 +24,6 @@ const Loging = () => {
   
 
   const submit = data => {
-
 const URL = `${import.meta.env.VITE_API_SERVER}/api/v1/auth/login`
     axios.post(URL, data)
     .then(res =>
@@ -65,7 +64,6 @@ const URL = `${import.meta.env.VITE_API_SERVER}/api/v1/auth/login`
           toast.addEventListener('mouseleave', Swal.resumeTimer)
         }
       })
-      
       Toast.fire({
         icon: 'error',
         title: 'Algo anda mal'
@@ -75,6 +73,7 @@ const URL = `${import.meta.env.VITE_API_SERVER}/api/v1/auth/login`
     password:''
     })
 }
+
 
   const writenPassword = () =>{
     setMessage()

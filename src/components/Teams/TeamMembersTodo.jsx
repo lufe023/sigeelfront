@@ -99,6 +99,7 @@ const fechaHoy = obtenerFechaActual();
 
   return (
     <>
+     <div className="col-md-6">
         <div className='card collapsed-card'>
         <div className="card-header">
   <h3 className="card-title">{member?.memberData.censu.firstName}</h3>
@@ -122,7 +123,7 @@ const fechaHoy = obtenerFechaActual();
             <p className="text-muted text-center">{member.teamLeader?"Team Leader":"Miembro"}</p>
             <ul className="list-group list-group-unbordered mb-3">
               <li className="list-group-item">
-                <b>Telefono</b> <a className="float-right">{member.memberData.censu.celphone}</a>
+                <b>Telefono</b> <a href={`tel:${member.memberData.censu.celphone}`} className="float-right">{member.memberData.censu.celphone}</a>
               </li>
               <li className="list-group-item">
                 <b>Tareas</b> <a className="float-right">{member.memberData.tasks.length}</a>
@@ -162,7 +163,7 @@ const fechaHoy = obtenerFechaActual();
                 </div>
         </div>
         </div>
- 
+      </div>
     </>
   )
 }

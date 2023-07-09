@@ -109,7 +109,7 @@ const People = () => {
       
         {people?
         <NearbyCitizen citizenId={people?.citizenID} setPeople={setPeople}/>:""
-          }       
+        }       
         {
           people?<ParticipationForm citizenID={people?.citizenID} getPeople={getPeople}/>:""
         }

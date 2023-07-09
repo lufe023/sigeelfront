@@ -57,8 +57,7 @@ const PeopleCard = ({people, getMypeople}) => {
   <div className="card">
     <div className="card-header p-2">
       <ul className="nav nav-pills">
-      <li className="nav-item"><a className="nav-link active" href={`#presentacion${people.id}`} data-toggle="tab">Presentacion</a></li>
-      <li className="nav-item"><a className="nav-link" href={`#settings${people.id}`} data-toggle="tab">Acciones</a></li>
+      <li className="nav-item"><a className="nav-link active" href={`#presentacion${people.id}`} data-toggle="tab">Presentación</a></li>
       <li className="nav-item"><a className="nav-link" href={`#encuestar${people.id}`} data-toggle="tab">En contacto</a></li>
       </ul>
     </div>{/* /.card-header */}
@@ -74,6 +73,7 @@ const PeopleCard = ({people, getMypeople}) => {
         <span>
         {`${people.citizenID.substring(0,3)}-${people.citizenID.substring(3,10)}-${people.citizenID.substring(10,11)}`}
         </span>
+
           <hr/>
           <ul className="ml-4 mb-0 fa-ul text-muted">
             <li className="small"><span className="fa-li">
@@ -129,57 +129,19 @@ const PeopleCard = ({people, getMypeople}) => {
           </ul>
         </div>
         <div className="col-5 text-center">
+        <Link to={`/mypeople/${people.id}`}>
           <img src={`${import.meta.env.VITE_API_SERVER}/api/v1/images/citizen/${people?.picture}`} alt="user-avatar" className="img-circle img-fluid" />
+        </Link>
         </div>
       </div>
       </div>
         
-        <div className="tab-pane" id={`settings${people.id}`}>
-          <div className='row'>
-        <div className="col-7">
-        
-          <h2 className="lead"><b>{people.firstName} {people.lastName} </b>{people.nickname?`(${people.nickname})`:" "}</h2>
-          
-          </div>
-          </div>
-          <hr/>
-          
-
-        <Link to={`/mypeople/${people.id}`} className="btn btn-app">
-        <i className="fas fa-user" /> Ver Perfil
-        </Link>
-        <a className="btn btn-app">
-        <i className="fas fa-user-edit"></i> Editar
-        </a>
-        <a className="btn btn-app" onClick={()=>deletePeople(people.id, people.firstName)}>
-        <i className="fas fa-user-minus"></i> Quitar
-        </a>
-
-      {
-      people.geolocation?
-      <a href={`https://www.google.com/maps/search/${people.geolocation.latitud},+${people.geolocation.longitud}?shorturl=1`} 
-      className="btn btn-app" target={'_blank'}>
-      <i className="fas fa-location-arrow"></i>
-      Localizar
-      </a>
-      :''
-      }
-      
-      <a href={`https://api.whatsapp.com/send?phone=${people.celphone.substring(1,people.celphone.length).split('-').join('')}&text=Hola ${people.firstName} ¿Qué tal?`} className="btn btn-app" target={'_blank'}>
-      <i className="fab fa-whatsapp"></i> Whatsapp
-        </a>{people.celphone.split('-')}
-        
-      <a href={`https://t.me/${people.celphone}`} className="btn btn-app" target={'_blank'}>
-      <i className="fab fa-telegram-plane"></i> Telegram
-      </a>
-
-      </div>
-
         <div className="tab-pane" id={`encuestar${people.id}`}>
           <div className='row'></div>
           <div className="col-7">
-        
-        <h2 className="lead"><b>{people.firstName} {people.lastName} </b>{people.nickname?`(${people.nickname})`:" "}</h2>
+        <Link to={`/mypeople/${people.id}`}>
+          <h2 className="lead"><b>{people.firstName} {people.lastName} </b>{people.nickname?`(${people.nickname})`:" "}</h2>
+        </Link>
         </div>
         
         <hr/>
@@ -211,7 +173,33 @@ const PeopleCard = ({people, getMypeople}) => {
       
     </div>
     <div className="card-footer">
-      
+    <Link to={`/mypeople/${people.id}`} className="btn btn-app bg-info">
+      <i className="fas fa-user" /> Ver Perfil
+    </Link>
+
+    {
+      people.geolocation?
+      <a href={`https://www.google.com/maps/search/${people.geolocation.latitud},+${people.geolocation.longitud}?shorturl=1`} 
+      className="btn btn-app bg-dark" target={'_blank'}>
+      <i className="fas fa-location-arrow"></i>
+      Localizar
+      </a>
+      :''
+      }
+
+<a href={`https://api.whatsapp.com/send?phone=${people.celphone.substring(1,people.celphone.length).split('-').join('')}&text=Hola ${people.firstName} ¿Qué tal?`} className="btn btn-app bg-success" target={'_blank'}>
+      <i className="fab fa-whatsapp"></i> Whatsapp
+        </a>
+        
+      <a href={`https://t.me/${people.celphone}`} className="btn btn-app bg-primary" target={'_blank'}>
+      <i className="fab fa-telegram-plane"></i> Telegram
+      </a>
+
+
+    <a className="btn btn-app bg-danger" onClick={()=>deletePeople(people.id, people.firstName)}>
+        <i className="fas fa-user-minus"></i> Quitar
+        </a>
+
     </div>
   </div>
   

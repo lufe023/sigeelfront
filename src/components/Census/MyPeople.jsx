@@ -69,7 +69,7 @@ const MyPeople = () => {
       
         <div className="row">
         
-            {
+        {
         results?.map((result) => 
           <PeopleCard key={result.id} people={result} getMypeople={getMypeople}/>
           )
@@ -85,18 +85,6 @@ const MyPeople = () => {
           <button type="button" className="btn btn-tool" data-card-widget="collapse">
             <i className="fas fa-minus" />
           </button>
-          <div className="btn-group">
-            <button type="button" className="btn btn-tool dropdown-toggle" data-toggle="dropdown">
-              <i className="fas fa-wren`ch`" />
-            </button>
-            <div className="dropdown-menu dropdown-menu-right" role="menu">
-              <a href="#" className="dropdown-item">Action</a>
-              <a href="#" className="dropdown-item">Another action</a>
-              <a href="#" className="dropdown-item">Something else here</a>
-              <a className="dropdown-divider" />
-              <a href="#" className="dropdown-item">Separated link</a>
-            </div>
-          </div>
           <button type="button" className="btn btn-tool" data-card-widget="remove">
             <i className="fas fa-times" />
           </button>
