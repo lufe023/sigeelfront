@@ -158,7 +158,7 @@ const getOneteam = (id)=>{
                   </div></div>
                   </li>
 
-          </div>{/* /.card-header */}
+          </div>
           <div className="card-body">
             <div className="tab-content">
               <div className="active tab-pane" id="activity">

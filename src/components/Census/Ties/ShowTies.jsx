@@ -2,8 +2,10 @@ import axios from 'axios'
 import React, { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import getConfig from '../../../utils/getConfig'
+import Swal from 'sweetalert2'
 
-const ShowTies = ({ties, setPeople}) => {
+
+const ShowTies = ({ties, setPeople, getTies}) => {
 const estilo = {
   display:"flex",
   justifyContent: 'space-between',
@@ -15,49 +17,65 @@ const cursor = {
   cursor: "pointer"
 }
 
-const userDisable = (user, active) => {
-  const URL = `${import.meta.env.VITE_API_SERVER}/api/v1/users/${user}`
-      axios.patch(URL, {active:active}, getConfig())
-      .then(res =>
-        {
-          getAllUsers()
-          const Toast = Swal.mixin({
-            toast: true,
-            position: 'top-end',
-            showConfirmButton: false,
-            timer: 3000,
-            timerProgressBar: true,
-            didOpen: (toast) => {
-              toast.addEventListener('mouseenter', Swal.stopTimer)
-              toast.addEventListener('mouseleave', Swal.resumeTimer)
-            }
-          })
+const deleteTies= (tieId) => {
+  Swal.fire({
+    title: `¿Seguro quieres eliminar este vinculo?`,
+    text: `Esta acción no se puede deshacer`,
+    icon: 'warning',
+    showCancelButton: true,
+    cancelButtonText: "Dejar sin efecto",
+    confirmButtonColor: '#3085d6',
+    cancelButtonColor: '#d33',
+    confirmButtonText: 'Si, deseo Eliminar!'
+  }).then((result) => {
+    if (result.isConfirmed) {
+      let timerInterval
+      Swal.fire({
+        title: 'Eliminado!',
+        timer: 0,
+        timerProgressBar: true,
+        didOpen: () => {
+          Swal.showLoading()
+          const b = Swal.getHtmlContainer().querySelector('b')
+          timerInterval = setInterval(() => {
           
-          Toast.fire({
-            icon: 'success',
-            title: 'Cambio Exitoso'
-          })
+          }, 100)
+        },
+        willClose: () => {
+          clearInterval(timerInterval)
         }
-      )
-      .catch(err => {
-        const Toast = Swal.mixin({
-          toast: true,
-          position: 'top-end',
-          showConfirmButton: false,
-          timer: 3000,
-          timerProgressBar: true,
-          didOpen: (toast) => {
-            toast.addEventListener('mouseenter', Swal.stopTimer)
-            toast.addEventListener('mouseleave', Swal.resumeTimer)
-          }
-        })
-        console.log(err)
-        Toast.fire({
-          icon: 'error',
-          title: 'Accion no realizada'
-        })
+      }).then((result) => {
+        /* Read more about handling dismissals below */
       })
-  }
+
+      const URL = `${import.meta.env.VITE_API_SERVER}/api/v1/ties/${tieId}`
+      axios.delete(URL, {
+        headers:{
+          Authorization: getConfig().headers.Authorization,
+          'Content-Type': 'application/json'
+        }
+      })
+      .then(res => {
+        Swal.fire(
+          'Eliminando',
+          'Accion realizada con éxito',
+          'success'
+        )
+        getTies()
+  })
+  .catch(err =>{
+    console.log(err)
+      Swal.fire({
+        icon: 'error',
+        title: 'Oops...',
+        text: 'Hubo un error!',
+        
+      })
+  })
+    }
+  })
+
+}
 
   return (
     <>
@@ -75,44 +93,13 @@ const userDisable = (user, active) => {
     </Link>
     </div>
     
-    <a className="small-box-footer bg-gradient-danger" style={cursor}>
+    <a className="small-box-footer bg-gradient-danger" style={cursor} onClick={()=> deleteTies(tie.id)}>
     <i className="fas fa-trash" /> Eliminar 
     </a>
     
     </div>
     </div>
     )}
-
-    {/* <ul style={{padding:"7px"}}>
-        {
-        ties?.rows?.map(tie => 
-        <li key={tie.id} style={{display:"inline-block", margin:'0 10px'}}>
-        <div className="info-box" style={{maxWidth:"300px"}}>
-        <Link to={`/mypeople/${tie.aties.id}`} onClick={()=> setPeople()} >
-        <span className="info-box-icon">
-        <img src={`${import.meta.env.VITE_API_SERVER}/api/v1/images/citizen/${tie.aties.picture}`} alt="User Image" className="concurrencia-citizen-image" />
-        </span>
-        </Link>
-        <div className="info-box-content" >
-          <span className="info-box-text"><Link to={`/mypeople/${tie.aties.id}`} onClick={()=> setPeople()} >{tie.aties.firstName}</Link></span>
-          
-            <small>{tie.tieType.tiesDescription} de</small>  <Link to={`/mypeople/${tie.bties.id}`}  onClick={()=> setPeople()}>{tie.bties.firstName}</Link>
-      
-            <span className="info-box-text"></span>
-        </div>
-        <Link to={`/mypeople/${tie.bties.id}`}  onClick={()=> setPeople()}>
-        <span className="info-box-icon">
-        <img src={`${import.meta.env.VITE_API_SERVER}/api/v1/images/citizen/${tie.bties.picture}`} alt="User Image" className="concurrencia-citizen-image" />
-        </span>
-        </Link>
-        </div>
-        </li>
-
-            )
-        }
-
-
-    </ul> */}
     </>
   )
 }

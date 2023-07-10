@@ -2,12 +2,14 @@ import axios from 'axios';
 import React, { useEffect, useState } from 'react'
 import Swal from 'sweetalert2';
 import getConfig from '../../utils/getConfig';
+import Cargando from '../../utils/Cargando';
 //import "./AdUserToTeams.css"
 
 
 const AddTies = ({aCitizenId, getTies, setTies}) => {
     const [results, setResults] = useState([])
     const [tiesTypes, setTiesTypes] = useState()
+    const [finding, setFinding] = useState(false)
 
     const getTiesTypes = () => {
       const URL = `${import.meta.env.VITE_API_SERVER}/api/v1/ties/types`
@@ -32,18 +34,21 @@ const AddTies = ({aCitizenId, getTies, setTies}) => {
             )
             .then(res => {
                 setResults(res.data.data.rows)
+                setFinding(false)
         })
         .catch(err =>{
             setResults([])
+            setFinding(false)
         })
         }
 
     const findingWord = e => {
         const fn = e.target.value.trim()
         findPeople(fn)
-        if(fn!=''){
-        
-    }
+        setFinding(true)
+        if(fn=' '){
+          setFinding(false)
+        }
     }
 
 useEffect(() => {
@@ -100,12 +105,24 @@ const addTies = (aCitizenId, bCitizenId, tiesType) => {
 
 return (
     <div>
-        <div className="form-group">
+
+  <div className="form-group">
   <label htmlFor="exampleInputEmail1">Añadir Vinculo</label>
-  <input type="text" autoComplete='off' className="form-control" id="exampleInputEmail1" placeholder="Apodo, nombre, apellido o cedula sin guiones" onChange={findingWord}/>
+  <input type="text" autoComplete='off'
+  className="form-control"
+  id="exampleInputEmail1"
+  placeholder="Apodo, nombre, apellido o cedula sin guiones"
+  onChange={findingWord}/>
 </div>
 
-<ul style={{padding:0, marginBottom:"20px", backgroundColor:"red", height:'auto'}}>
+<ul style={{padding:0, marginBottom:"20px", height:'auto'}}>
+{
+  finding?<div className='loading' style={{height:"100px", marginBottom:"50px"}}>
+  <Cargando escala='1'/>
+  </div>
+:""
+}
+
     {
         results?.map(user=>
                 <li key={user.id} className='list-select-user-item'>

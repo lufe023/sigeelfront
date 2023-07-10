@@ -99,7 +99,7 @@ const fechaHoy = obtenerFechaActual();
 
   return (
     <>
-     <div className="col-md-6">
+    <div className="col-md-6">
         <div className='card collapsed-card'>
         <div className="card-header">
   <h3 className="card-title">{member?.memberData.censu.firstName}</h3>

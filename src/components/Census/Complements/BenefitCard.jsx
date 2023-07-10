@@ -65,20 +65,29 @@ const BenefitCard = ({beneficio, getPeople}) => {
       }
   return (
     <div>
-    <i className="fas fa-hand-holding-medical bg-success" />
-    <div className="timeline-item">
-      <span className="time"><i className="far fa-clock" /> {beneficio.receiveAt.substr(0,10)}</span>
-      <h3 className="timeline-header"><a href="#">{beneficio.benefitDescription.substr(0,20)}</a></h3>
-      <div className="timeline-body">
+      <h3 className="timeline-header"><a>{beneficio.benefitDescription.substr(0,20)}</a></h3>
+      <p>
       {beneficio.benefitDescription}
+      </p>
+      <div className="row">  
+    <div className="col-md-3" style={{minWidth:"200px"}}>
+    <div className="info-box">
+      <span className="info-box-icon bg-info"><i className="fas fa-calendar-alt"></i></span>
+      <div className="info-box-content">
+        <span className="info-box-text">Recibido en</span>
+        <span className="info-box-number">{beneficio.receiveAt.substr(0,10)}</span>
       </div>
-      <p style={{margin:"10px"}}>
-    
-      <button className="btn btn-danger text-sm" onClick={()=> deleteBenefit(beneficio.id, beneficio.benefitDescription)}><i className="fas fa-trash-alt"></i> Eliminar</button>
-  </p>
-      
+      {/* /.info-box-content */}
     </div>
+    {/* /.info-box */}
   </div>
+  </div>
+  <p style={{margin:"10px"}}>
+  <button className="btn btn-danger text-sm" onClick={()=> deleteBenefit(beneficio.id, beneficio.benefitDescription)}><i className="fas fa-trash-alt"></i> Eliminar</button>
+  </p>
+  
+  <hr />
+    </div>
   )
 }
 

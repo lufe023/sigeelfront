@@ -66,19 +66,29 @@ const ActivityCard = ({actividad, getPeople}) => {
 
   return (
     <div>
-    <i className="fas fa-people-arrows bg-info" />
-    <div className="timeline-item">
-      <span className="time"><i className="far fa-clock" /> {actividad.receiveAt.substr(0,10)}</span>
       <h3 className="timeline-header"><a>{actividad.activityDescription.substr(0,20)}</a></h3>
       <div className="timeline-body">
       {actividad.activityDescription}
+      <div className="row">  
+      <div className="col-md-3" style={{minWidth:"200px"}}>
+      <div className="info-box">
+      <span className="info-box-icon bg-info"><i className="fas fa-calendar-alt"></i></span>
+      <div className="info-box-content">
+        <span className="info-box-text">Fecha</span>
+        <span className="info-box-number">{actividad.receiveAt.substr(0,10)}</span>
+      </div>
+      </div>
+      </div>
+      {/* /.info-box-content */}
+    </div>
+      
       </div>
       <p style={{margin:"10px"}}>
     <button className="btn btn-danger text-sm" onClick={()=> deleteActivity(actividad.id, actividad.activityDescription)}><i className="fas fa-trash-alt"></i> Eliminar</button>
   </p>
-      
+      <hr/>
     </div>
-  </div>
+
   )
 }
 

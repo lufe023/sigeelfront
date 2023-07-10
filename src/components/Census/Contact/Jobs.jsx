@@ -1,15 +1,26 @@
 import axios from 'axios';
 import React, { useState } from 'react'
+import getConfig from '../../../utils/getConfig';
+import Swal from 'sweetalert2';
 
-const Jobs = () => {
-  const [benefitDescription, setBenefitDescription] = useState("");
-  const [receiveAt, setReceiveAt] = useState("");
+const Jobs = ({citizenID, getPeople}) => {
+  
+
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    const URL = `${import.meta.env.VITE_API_SERVER}/api/v1/intouch/benefit/${citizenID}`;
+
+    const  data = {
+      institution: e.target.institution.value,
+      position: e.target.position.value,
+      positionDetails: e.target.positionDetails.value,
+      startedAt: e.target.startedAt.value,
+      finishAt: e.target.finishAt.value || null
+    }
+
+    const URL = `${import.meta.env.VITE_API_SERVER}/api/v1/intouch/job/${citizenID}`;
     axios
-      .post(URL, {benefitDescription, receiveAt}, getConfig())
+      .post(URL, data, getConfig())
       .then((res) => {
         const Toast = Swal.mixin({
           toast: true,
@@ -27,13 +38,10 @@ const Jobs = () => {
           icon: 'success',
           title: 'Beneficio Guardado'
         });
-        setBenefitDescription("")
-        setReceiveAt("")
         getPeople()
       })
       .catch((err) => {
-        console.log(URL)
-        console.log(err);
+    
         const Toast = Swal.mixin({
           toast: true,
           position: 'top-end',
@@ -67,7 +75,12 @@ const Jobs = () => {
     <div>
     <div className="form-group">
       <label htmlFor="institution">Institution</label>
-      <input type="text" className="form-control" id="institution" name="institution" required  placeholder='Donde trabajó'/>
+      <input type="text"
+      className="form-control"
+      id="institution"
+      name="institution"
+      required  placeholder='Donde trabajó'
+      />
     </div>
       <div className="form-group">
         <label htmlFor="position">Position</label>
@@ -82,12 +95,15 @@ const Jobs = () => {
         <input type="date" className="form-control" id="startedAt" name="startedAt" />
       </div>
       <div className="form-group">
-        <label htmlFor="startedAt">Finalizó</label>
-        <input type="date" className="form-control" id="startedAt" name="startedAt"/>
+        <label htmlFor="finishAt">Finalizó</label>
+        <input type="date" className="form-control" id="finishAt" name="finishAt"/>
       </div>
     </div>
     <button type="submit" className="btn btn-primary">
         Registrar
+      </button> 
+      <button type="reset" className="btn btn-warning" style={{marginLeft:"5px"}}>
+        Reininiar
       </button>
     </form>
     </div>

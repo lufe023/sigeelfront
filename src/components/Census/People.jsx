@@ -133,7 +133,7 @@ const People = () => {
   </div>
   <div className="card-body">
   <div className="row">
-      {ties?<ShowTies ties={ties} setPeople={setPeople}/>: <div className='loading' style={{height:"100px", marginBottom:"50px", margin: "auto"}}>
+      {ties?<ShowTies ties={ties} setPeople={setPeople} getTies={getTies}/>: <div className='loading' style={{height:"100px", marginBottom:"50px", margin: "auto"}}>
     <Cargando escala='1'/>
     </div>}
     </div>
@@ -145,6 +145,71 @@ const People = () => {
 </div>
   
 </div>
+</div>
+<div className='row'>
+
+  <div className="col-md-6">
+  <div className='card collapsed-card card-orange'>
+  <div className="card-header">
+  <h3 className="card-title"><i className="fas fa-chart-line"></i> Participacion</h3>
+  <div className="card-tools">
+    <button type="button" className="btn btn-tool" data-card-widget="collapse">
+      <i className="fas fa-plus" />
+    </button>
+  </div>
+</div>
+<div className='card-body'>
+{
+  people?.Actividades.map((actividad) => 
+  <ActivityCard key={actividad.id} actividad={actividad} getPeople={getPeople}/>
+  )
+  }
+</div>
+</div>
+</div>
+
+<div className="col-md-6">
+  <div className='card collapsed-card card-lime'>
+  <div className="card-header">
+  <h3 className="card-title">Beneficios</h3>
+  <div className="card-tools">
+    <button type="button" className="btn btn-tool" data-card-widget="collapse">
+      <i className="fas fa-plus" />
+    </button>
+  </div>
+</div>
+<div className='card-body'>
+{
+  people?.Beneficios.map((beneficio) => 
+    <BenefitCard key={beneficio.id} beneficio={beneficio} getPeople={getPeople}/>
+  )
+}
+</div>
+</div>
+</div>
+
+<div className="col-md-6">
+  <div className='card collapsed-card card-maroon'>
+  <div className="card-header">
+  <h3 className="card-title">Empleomania</h3>
+  <div className="card-tools">
+    <button type="button" className="btn btn-tool" data-card-widget="collapse">
+      <i className="fas fa-plus" />
+    </button>
+  </div>
+</div>
+<div className='card-body'>
+{
+        people?.Empleos.map((empleo) => 
+        <JobCard key={empleo.id} empleo={empleo} getPeople={getPeople}/>
+        )
+} 
+</div>
+</div>
+</div>
+
+
+
 </div>
         <div className="card">
           <div className="card-header p-2">
@@ -158,22 +223,7 @@ const People = () => {
             <div className="tab-content">
               <div className="tab-pane active" id="details">
                 
-                <div className="timeline timeline-inverse">
-                  {/* timeline time label */}
-                  <div className="time-label">
-                    <span className="">
-                      Empleomania
-                    </span>
-                  </div>
-                  {
-                  people?.Empleos.map((empleo) => 
-                  <JobCard key={empleo.id} empleo={empleo} getPeople={getPeople}/>
-                  )
-                  }
-                  <div>
-                    <i className="far fa-clock bg-gray" />
-                  </div>
-                </div>    
+                
                 {/* Beneficios*/}
                 <div className="timeline timeline-inverse">
                   <div className="time-label">
@@ -181,11 +231,6 @@ const People = () => {
                     Beneficios
                     </span>
                   </div>
-                  {
-                  people?.Beneficios.map((beneficio) => 
-                    <BenefitCard key={beneficio.id} beneficio={beneficio} getPeople={getPeople}/>
-                  )
-                  }
                   <div>
                     <i className="far fa-clock bg-gray" />
                   </div>
@@ -198,11 +243,6 @@ const People = () => {
                     Actividades
                     </span>
                   </div>
-                  {
-                  people?.Actividades.map((actividad) => 
-                  <ActivityCard key={actividad.id} actividad={actividad} getPeople={getPeople}/>
-                  )
-                  }
                   <div>
                     <i className="far fa-clock bg-gray" />
                   </div>
