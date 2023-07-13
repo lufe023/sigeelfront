@@ -9,7 +9,7 @@ const ConcurrenciaPanel = ({citizens}) => {
         <div className='col-md-12'>
             <div className='card'>
             <div className="card-header">
-  <h5 className="card-title">Concurrencia</h5>
+  <h5 className="card-title">Concurrencia (Faltan por votar)</h5>
   <div className="card-tools">
     <button type="button" className="btn btn-tool" data-card-widget="collapse">
       <i className="fas fa-minus" />
@@ -24,15 +24,18 @@ const ConcurrenciaPanel = ({citizens}) => {
     {/* contenido 1 */}
     
     <div className='col-md-8' style={{ paddingTop:"20px", borderRadius:"20px"}}>
+      
     <ul className="users-list-panel clearfix">
       {
         citizens.map(citizen => 
     <li key={citizen.id}>
      <div className="info-box">
   <span className="info-box-icon">
+  <Link to={`/mypeople/${citizen.id}`}>
   <img src={`${import.meta.env.VITE_API_SERVER}/api/v1/images/citizen/${citizen?.picture}`}
     alt="User Image"
     className='concurrencia-citizen-image'/>
+    </Link>
     </span>
   <div className="info-box-content">
   <Link to={`/mypeople/${citizen.id}`}>

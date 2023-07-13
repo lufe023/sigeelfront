@@ -46,7 +46,7 @@ const AddTies = ({aCitizenId, getTies, setTies}) => {
         const fn = e.target.value.trim()
         findPeople(fn)
         setFinding(true)
-        if(fn=' '){
+        if(fn==''){
           setFinding(false)
         }
     }
@@ -133,6 +133,7 @@ return (
                             <button type="button" className="btn btn-default dropdown-toggle dropdown-icon" data-toggle="dropdown" aria-expanded="false">
                             </button>
                             <div className="dropdown-menu" role="menu">
+                              
                             {
                               tiesTypes?.map(type => 
                                 <button key={type.id} className="dropdown-item" onClick={()=> addTies(aCitizenId, user.citizenID, type.id)}>{type.tiesDescription}</button>

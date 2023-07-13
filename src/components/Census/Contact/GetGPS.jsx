@@ -37,8 +37,8 @@ class GetGPS extends React.Component {
           onClick={this.handleGetLocation}
           disabled={buttonClicked}
         >
-            <i className="fas fa-map-pin"></i>
-          {buttonClicked ? ' GPS Obtenido' : ' Obtener Locacion GPS Actual'}
+          <i className="fas fa-map-pin"></i>
+          {buttonClicked ? ' Guardar GPS Automatico' : ' Obtener Locacion GPS Actual'}
         </button>
       </div>
     );

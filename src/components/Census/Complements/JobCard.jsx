@@ -66,15 +66,15 @@ const JobCard = ({empleo, getPeople}) => {
 
   return (
     <div>
-      <h3><a>{empleo.position}</a> en {empleo.institution}</h3>
-      <p>{empleo.positionDetails}</p>
+      <h3><a>{empleo?.position}</a> en {empleo?.institution}</h3>
+      <p>{empleo?.positionDetails}</p>
       <div className="row">
   <div className="col-md-3" style={{minWidth:"200px"}}>
     <div className="info-box">
       <span className="info-box-icon bg-info"><i className="fas fa-calendar-alt"></i></span>
       <div className="info-box-content">
         <span className="info-box-text">Inició</span>
-        <span className="info-box-number">{empleo.startedAt.substring(0,10)}</span>
+        <span className="info-box-number">{empleo?.startedAt?.substring(0,10)}</span>
       </div>
       {/* /.info-box-content */}
     </div>
@@ -85,14 +85,14 @@ const JobCard = ({empleo, getPeople}) => {
       <span className="info-box-icon bg-info"><i className="fas fa-calendar-alt"></i></span>
       <div className="info-box-content">
         <span className="info-box-text">Finalizó</span>
-        <span className="info-box-number">{empleo.finishAt.substring(0,10)}</span>
+        <span className="info-box-number">{empleo?.finishAt?.substring(0,10)}</span>
       </div>
       {/* /.info-box-content */}
     </div>
 </div>
       </div>
       <p style={{margin:"10px"}}>
-      <button className="btn btn-danger text-sm" onClick={()=> deleteJob(empleo.id, empleo.position)}><i className="fas fa-trash-alt"></i> Eliminar</button>
+      <button className="btn btn-danger text-sm" onClick={()=> deleteJob(empleo?.id, empleo?.position)}><i className="fas fa-trash-alt"></i> Eliminar</button>
   </p>
 
   <hr />

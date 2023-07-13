@@ -69,8 +69,8 @@ const updateConditions = ({condition, citizenID}) => {
       <div className="card-header">
         <h3 className="card-title">
           {
-            isSave?<i className="fas fa-save"> Cambios pendientes</i>
-            :<i className='fas fa-hands-helping'> Condición </i>
+            isSave?<div><i className="fas fa-save"/> Cambios pendientes</div>
+            :<div><i className='fas fa-hands-helping'/> Condición </div>
           }
         </h3>
         <div className="card-tools">

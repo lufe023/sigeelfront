@@ -166,7 +166,7 @@ const PeopleCard = ({people, getMypeople}) => {
   <ParticipationForm citizenID={people?.citizenID} getPeople={getMypeople}/>
   <BenefitForm citizenID={people?.citizenID} getPeople={getMypeople} />
   <Jobs citizenID={people?.citizenID} getPeople={getMypeople}/>
-  <LocationPicker/>
+  <LocationPicker citizenID={people?.citizenID} getPeople={getMypeople}/>
 
   </div>
   </div>

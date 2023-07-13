@@ -3,9 +3,9 @@ import getConfig from '../../../utils/getConfig';
 import axios from 'axios';
 import Swal from 'sweetalert2';
 
-const NewConditions = (citizenID) => {
+const NewConditions = ({citizenID, getPeople}) => {
   const [defaultCondition, setDefaultCondition] = useState({
-    citizenID: citizenID.citizenID,
+    citizenID: citizenID,
     conditionDetails: '',
     dyslexia: false,
     visual: false,
@@ -19,11 +19,12 @@ const NewConditions = (citizenID) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-
-    const URL = `${import.meta.env.VITE_API_SERVER}/api/v1/intouch/condition/${defaultCondition.citizenID}`;
+    console.log(citizenID)
+    const URL = `${import.meta.env.VITE_API_SERVER}/api/v1/intouch/condition/${citizenID}`;
     axios
       .post(URL, defaultCondition, getConfig())
       .then((res) => {
+        getPeople()
         const Toast = Swal.mixin({
           toast: true,
           position: 'top-end',
@@ -69,8 +70,8 @@ const NewConditions = (citizenID) => {
         <h3 className="card-title">
           {
             
-            isSave?<i className="fas fa-save"> Cambios pendientes</i>
-            :<i className='fas fa-hands-helping'> Condición </i>
+            isSave?<div><i className="fas fa-save"/> Cambios pendientes</div>
+            :<div><i className='fas fa-hands-helping'/>Condición</div>
           }
         </h3>
         <div className="card-tools">
@@ -174,7 +175,7 @@ const NewConditions = (citizenID) => {
             </div>
           </div>
 
-          <button className="btn btn-block btn-default">Guardar</button>
+          <button className="btn btn-block btn-primary">Guardar</button>
         </form>
       </div>
       {/* /.card-body */}

@@ -10,13 +10,16 @@ import CitizenForm from './Forms/CitizenForm'
 import Cargando from '../../utils/Cargando'
 import AddTies from './AddTies'
 import ShowTies from './Ties/ShowTies'
-import NearbyCitizen from './NearbyCitizen'
+import NearbyCitizen from './Complements/NearbyCitizen'
 import ActivityCard from './Complements/ActivityCard'
 import ParticipationForm from './Contact/Participation'
 import BenefitForm from './Contact/BenefitForm '
 import BenefitCard from './Complements/BenefitCard'
 import Jobs from './Contact/Jobs'
 import JobCard from './Complements/JobCard'
+import LocationPicker from './Contact/LocationPicker'
+import NewConditions from './Contact/NewCondition'
+import UpdateConditions from './Contact/UpdateConditions'
 
 const People = () => {
   const [people, setPeople] = useState()
@@ -104,12 +107,7 @@ const People = () => {
             <p className="text-muted">Esta persona vive bajando el rio, entrando detras de la mata de mango siempre anda con rosita</p>
             <a href="#" className="btn btn-primary btn-block"><b>Editar</b></a>
           </div>
-
         </div>
-      
-        {people?
-        <NearbyCitizen citizenId={people?.citizenID} setPeople={setPeople}/>:""
-        }       
         {
           people?<ParticipationForm citizenID={people?.citizenID} getPeople={getPeople}/>:""
         }
@@ -119,143 +117,151 @@ const People = () => {
         {
           people?<Jobs citizenID={people?.citizenID} getPeople={getPeople}/>:""
         }
+        {
+          people?<LocationPicker/>:""
+        }
       </div>
       {/* /.col */}
       <div className="col-md-9">
       <div className="card card-default">
-  <div className="card-header">
-    <h3 className="card-title">Vinculos, relacionados y conocidos</h3>
-    <div className="card-tools">
-      <button type="button" className="btn btn-tool" data-card-widget="collapse">
-        <i className="fas fa-minus" />
-      </button>
-    </div>
-  </div>
-  <div className="card-body">
-  <div className="row">
-      {ties?<ShowTies ties={ties} setPeople={setPeople} getTies={getTies}/>: <div className='loading' style={{height:"100px", marginBottom:"50px", margin: "auto"}}>
-    <Cargando escala='1'/>
-    </div>}
-    </div>
+      <div className="card-header">
+        <h3 className="card-title">Vinculos, relacionados y conocidos</h3>
+        <div className="card-tools">
+          <button type="button" className="btn btn-tool" data-card-widget="collapse">
+            <i className="fas fa-minus" />
+          </button>
+        </div>
+      </div>
+        <div className="card-body">
+        <div className="row">
+            {ties?<ShowTies ties={ties} setPeople={setPeople} getTies={getTies}/>: <div className='loading' style={{height:"100px", marginBottom:"50px", margin: "auto"}}>
+          <Cargando escala='1'/>
+          </div>}
+          </div>
 
-  <div className="row">
-<div className='col-md-12'>
-    {people?<AddTies aCitizenId={people?.citizenID} getTies={getTies} setTies={setTies}/>:""}
-</div>
-</div>
-  
-</div>
-</div>
-<div className='row'>
+        <div className="row">
+      <div className='col-md-12'>
+          {people?<AddTies aCitizenId={people?.citizenID} getTies={getTies} setTies={setTies}/>:""}
+      </div>
+      </div>
+        
+      </div>
+      </div>
+      <div className='row'>
 
-  <div className="col-md-6">
-  <div className='card collapsed-card card-orange'>
-  <div className="card-header">
-  <h3 className="card-title"><i className="fas fa-chart-line"></i> Participacion</h3>
-  <div className="card-tools">
-    <button type="button" className="btn btn-tool" data-card-widget="collapse">
-      <i className="fas fa-plus" />
-    </button>
-  </div>
-</div>
-<div className='card-body'>
-{
-  people?.Actividades.map((actividad) => 
-  <ActivityCard key={actividad.id} actividad={actividad} getPeople={getPeople}/>
-  )
-  }
-</div>
-</div>
-</div>
+        <div className="col-md-6">
+        {
+                people?.condition?<UpdateConditions condition={people?.condition} citizenID={people?.citizenID}/>:<NewConditions citizenID={people?.citizenID} getPeople={getPeople}/>
+              }
+      {/* 
+        <div className="card card-warning collapsed-card">
+            <div className="card-header">
+              <h3 className="card-title">
+              <i className='fas fa-hands-helping'/> Condición 
+              </h3>
+              <div className="card-tools">
+                <button type="button" className="btn btn-tool" data-card-widget="collapse">
+                  <i className="fas fa-plus" />
+                </button>
+              </div>
+            </div>
+            <div className="card-body">
+              hola
+            </div>
+          </div> */}
 
-<div className="col-md-6">
-  <div className='card collapsed-card card-lime'>
-  <div className="card-header">
-  <h3 className="card-title">Beneficios</h3>
-  <div className="card-tools">
-    <button type="button" className="btn btn-tool" data-card-widget="collapse">
-      <i className="fas fa-plus" />
-    </button>
-  </div>
-</div>
-<div className='card-body'>
-{
-  people?.Beneficios.map((beneficio) => 
-    <BenefitCard key={beneficio.id} beneficio={beneficio} getPeople={getPeople}/>
-  )
-}
-</div>
-</div>
-</div>
-
-<div className="col-md-6">
-  <div className='card collapsed-card card-maroon'>
-  <div className="card-header">
-  <h3 className="card-title">Empleomania</h3>
-  <div className="card-tools">
-    <button type="button" className="btn btn-tool" data-card-widget="collapse">
-      <i className="fas fa-plus" />
-    </button>
-  </div>
-</div>
-<div className='card-body'>
-{
-        people?.Empleos.map((empleo) => 
-        <JobCard key={empleo.id} empleo={empleo} getPeople={getPeople}/>
+        <div className='card collapsed-card card-orange'>
+        <div className="card-header">
+        <h3 className="card-title"><i className="fas fa-chart-line"></i> Participacion</h3>
+        <div className="card-tools">
+          <button type="button" className="btn btn-tool" data-card-widget="collapse">
+            <i className="fas fa-plus" />
+          </button>
+        </div>
+      </div>
+      <div className='card-body'>
+      {
+        people?.Actividades.map((actividad) => 
+        <ActivityCard key={actividad.id} actividad={actividad} getPeople={getPeople}/>
         )
-} 
-</div>
-</div>
-</div>
+        }
+      </div>
+      </div>
 
 
 
-</div>
-        <div className="card">
-          <div className="card-header p-2">
+      </div>
+
+
+      <div className="col-md-6">
+      <div className='card collapsed-card card-lime'>
+        <div className="card-header">
+        <h3 className="card-title"><i className="fas fa-hand-holding-medical"></i> Beneficios</h3>
+        <div className="card-tools">
+          <button type="button" className="btn btn-tool" data-card-widget="collapse">
+            <i className="fas fa-plus" />
+          </button>
+        </div>
+      </div>
+      <div className='card-body'>
+      {
+        people?.Beneficios.map((beneficio) => 
+          <BenefitCard key={beneficio.id} beneficio={beneficio} getPeople={getPeople}/>
+        )
+      }
+      </div>
+      </div>
+        <div className='card collapsed-card card-maroon'>
+        <div className="card-header">
+        <h3 className="card-title"><i className="far fa-building"></i> Empleomania</h3>
+        <div className="card-tools">
+          <button type="button" className="btn btn-tool" data-card-widget="collapse">
+            <i className="fas fa-plus" />
+          </button>
+        </div>
+      </div>
+      <div className='card-body'>
+      {
+              people?.Empleos.map((empleo) => 
+              <JobCard key={empleo.id} empleo={empleo} getPeople={getPeople}/>
+              )
+      } 
+      </div>
+      </div>
+
+
+      </div>
+      </div>
+      {people?
+              <NearbyCitizen citizenId={people?.citizenID} setPeople={setPeople}/>:""
+              } 
+      <div className="card card-default">
+      <div className="card-header">
+        <h3 className="card-title">GPS Location</h3>
+        <div className="card-tools">
+          <button type="button" className="btn btn-tool" data-card-widget="collapse">
+            <i className="fas fa-minus" />
+          </button>
+        </div>
+      </div>
+        <div className="card-body">
+        <GPS lat={people?.geolocation?.latitud} long={people?.geolocation?.longitud} peopleName={people?.firstName} picture={people?.picture}/>
+        </div>
+        </div>
+      <div className="card">
+          <div className="card-header p-1">
             <ul className="nav nav-pills">
-              <li className="nav-item"><a className="nav-link active" href="#details" data-toggle="tab">Detalles</a></li>
-              <li className="nav-item"><a className="nav-link" href="#settings" data-toggle="tab">Editar</a></li>
-              <li className="nav-item"><a className="nav-link" href="#mapa" data-toggle="tab">Geolocalización</a></li>
+              <li className="nav-item"><a className="nav-link" href="#editar" data-toggle="tab">Editar</a></li>
+              <li className="nav-item"><a className="nav-link" href="#mapa" data-toggle="tab">Galeria</a></li>
             </ul>
           </div>{/* /.card-header */}
           <div className="card-body">
             <div className="tab-content">
-              <div className="tab-pane active" id="details">
-                
-                
-                {/* Beneficios*/}
-                <div className="timeline timeline-inverse">
-                  <div className="time-label">
-                    <span className="">
-                    Beneficios
-                    </span>
-                  </div>
-                  <div>
-                    <i className="far fa-clock bg-gray" />
-                  </div>
-                </div> 
-
-                <div className="timeline timeline-inverse">
-                  {/* timeline time label */}
-                  <div className="time-label">
-                    <span className="">
-                    Actividades
-                    </span>
-                  </div>
-                  <div>
-                    <i className="far fa-clock bg-gray" />
-                  </div>
-                </div>  
-              </div>
-              {/* /.tab-pane */}
-              
-              {/* /.tab-pane */}
-              <div className="tab-pane" id="settings">
+              <div className="tab-pane" id="editar">
               <CitizenForm/>
               </div>
               <div className='tab-pane' id="mapa">
-              <GPS lat={people?.geolocation?.latitud} long={people?.geolocation?.longitud} peopleName={people?.firstName} picture={people?.picture}/>
+              
               </div>
             </div>
           </div>
