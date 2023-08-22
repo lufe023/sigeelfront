@@ -7,8 +7,11 @@ class GetGPS extends React.Component {
       latitude: null,
       longitude: null,
       buttonClicked: false
-    };
-  }
+    } 
+  ,this.state.setGpsLocation
+}
+
+
 
   handleGetLocation = () => {
     if (navigator.geolocation) {
@@ -16,7 +19,12 @@ class GetGPS extends React.Component {
         position => {
           const { latitude, longitude } = position.coords;
           this.setState({ latitude, longitude, buttonClicked: true });
-          console.log(`Latitude: ${latitude}, Longitude: ${longitude}`);
+          //console.log(`Latitude: ${latitude}, Longitude: ${longitude}`);
+          setGpsLocation({
+            latitud: latitude,
+            longitud: longitude,
+            mode: 'automatic'
+          })
         },
         error => {
           console.log(error.message);

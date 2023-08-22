@@ -109,6 +109,7 @@ const NewCandidate = ({getAllCandidates, getAllParties, parties}) => {
     const provincias = maps?.filter((map)=> map.type == 'Provincia' )
     const municipios = maps?.filter((map)=> map.parent == preMunicipios )
     const distritos = maps?.filter((map)=> map.parent == preDistritos )
+    
     const handleChangeMunicipio = event => {
         setPreMunicipios(event.target.value);
     };

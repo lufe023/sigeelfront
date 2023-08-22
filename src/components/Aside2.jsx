@@ -48,7 +48,7 @@ const [user, setUser] = useState(useSelector(state=> state.userSlice))
 
   {/* Brand Logo */}
   <Link to="/" className="brand-link">
-    <img src="img/SIGEVO-LOGO.png" alt="AdminLTE Logo" className="brand-image img-circle elevation-3" style={{opacity: '.8'}} />
+    <img src="img/MIELECTOR-Isotipo.png" alt="AdminLTE Logo" className="brand-image img-circle elevation-3" style={{opacity: '.8'}} />
     <span className="brand-text font-weight-light">SIGEEL</span>
   </Link>
   {/* Sidebar */}

@@ -58,8 +58,11 @@ var misoptions = {
             max : Math.max(...puntos)+1
         },
         x: {
-            ticks: { color:coloresMeses},
-        }
+            ticks: { color:coloresMeses,
+            display:false},
+            
+        },
+
     }
 };
 

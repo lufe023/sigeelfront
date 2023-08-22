@@ -13,6 +13,7 @@
     "@googlemaps/react-wrapper": "^1.1.35",
     "@reduxjs/toolkit": "^1.9.2",
     "axios": "^1.2.3",
+    "chart.js": "^4.3.0",
     "form-data": "^4.0.0",
     "google-map-react": "^2.2.0",
     "jsqr": "^1.4.0",
@@ -23,6 +24,7 @@
     "react-hook-form": "^7.42.1",
     "react-redux": "^8.0.5",
     "react-router-dom": "^6.13.0",
+    "socket.io-client": "^4.7.1",
     "sweetalert2": "^11.7.1"
   },
   "devDependencies": {

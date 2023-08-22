@@ -102,10 +102,6 @@ const People = () => {
               </li>
               
             </ul>
-
-            <strong><i className="far fa-file-alt mr-1" /> Notas</strong>
-            <p className="text-muted">Esta persona vive bajando el rio, entrando detras de la mata de mango siempre anda con rosita</p>
-            <a href="#" className="btn btn-primary btn-block"><b>Editar</b></a>
           </div>
         </div>
         {
@@ -118,7 +114,7 @@ const People = () => {
           people?<Jobs citizenID={people?.citizenID} getPeople={getPeople}/>:""
         }
         {
-          people?<LocationPicker/>:""
+          people?<LocationPicker citizenID={people?.citizenID} getPeople={getPeople} />:""
         }
       </div>
       {/* /.col */}
@@ -245,7 +241,7 @@ const People = () => {
         </div>
       </div>
         <div className="card-body">
-        <GPS lat={people?.geolocation?.latitud} long={people?.geolocation?.longitud} peopleName={people?.firstName} picture={people?.picture}/>
+        <GPS lat={people?.geolocation?.latitud} long={people?.geolocation?.longitud} peopleName={people?.firstName} picture={people?.picture} gotAutomatic={people?.geolocation?.gotAutomatic}/>
         </div>
         </div>
       <div className="card">

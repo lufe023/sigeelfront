@@ -42,8 +42,8 @@ const [user, setUser] = useState(useSelector(state=> state.userSlice))
 <aside className="main-sidebar sidebar-dark-primary elevation-4">
   {/* Brand Logo */}
   <Link to="/" className="brand-link">
-    <img src="img/SIGEVO-LOGO.png" alt="AdminLTE Logo" className="brand-image img-circle elevation-3" style={{opacity: '.8'}} />
-    <span className="brand-text font-weight-light">SIGEEL</span>
+    <img src="img/MIELECTOR-Isotipo-64x75.png" alt="AdminLTE Logo" className="brand-image img-circle elevation-3" style={{opacity: '.8'}} />
+    <span className="brand-text font-weight-light">Mi Elector</span>
   </Link>
   {/* Sidebar */}
   <div className="sidebar">
@@ -107,8 +107,7 @@ const [user, setUser] = useState(useSelector(state=> state.userSlice))
                   
           
                   </li>
-                  
-                  
+
                   <li className="nav-item">
                   <NavLink to="/teams" className="nav-link">
                   <i className="fas fa-sitemap"/>
@@ -122,14 +121,42 @@ const [user, setUser] = useState(useSelector(state=> state.userSlice))
                   </NavLink>
                   </li>
                   <li className='nav-item'>
-                  <NavLink to="/barcode" className="nav-link">
-                  <i className="fas fa-barcode"/>
-                      <p> Lector de Barra</p>
-                  </NavLink>
                   </li>
                 </ul>
               </li>
             </ul>
+          
+            <ul className="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+              {/* Add icons to the links using the .nav-icon class
+         with font-awesome or any other icon font library */}
+              <li  className={'nav-item menu-open'}>
+                <NavLink  className={'nav-link'}>
+                <i className="fas fa-lock"></i> 
+                  <p> Administración<i className="right fas fa-angle-left" />
+                  </p>
+                </NavLink>
+                <ul className="nav nav-treeview">
+                  <li className="nav-item" >
+                  <NavLink to="/admin" className="nav-link">
+                  <i className="fas fa-person-booth"></i>
+                      <p> Registros</p>
+                  </NavLink>
+                  </li>
+                  <li className="nav-item" >
+                  <NavLink to="/campains" className="nav-link">
+                  <i className="fas fa-puzzle-piece"></i>
+                      <p> Campañas</p>
+                  </NavLink>
+                  </li>
+                  <li className="nav-item" >
+                  <NavLink to="/campains" className="nav-link">
+                  <i className="fas fa-chart-bar"></i>
+                      <p> Informes</p>
+                  </NavLink>
+                  </li>
+                  </ul>
+                  </li>
+                  </ul>
     </nav>
     {/* /.sidebar-menu */}
   </div>

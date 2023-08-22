@@ -8,6 +8,7 @@ import axios from 'axios'
 import getConfig from '../../utils/getConfig'
 import Cargando from '../../utils/Cargando'
 import FormPoll from './FormPoll'
+import Swal from 'sweetalert2'
 
 
 const PollsForm = () => {
@@ -54,8 +55,46 @@ const PollsForm = () => {
 
       const URL = `${import.meta.env.VITE_API_SERVER}/api/v1/polls/${id}`
         axios.patch(URL,data,  getConfig())
-        .then(res => {setSaved(true)})
-        .catch(err => console.log(err))
+        .then(res => 
+          {
+            setSaved(true)
+            const Toast = Swal.mixin({
+              toast: true,
+              position: 'top-end',
+              showConfirmButton: false,
+              timer: 3000,
+              timerProgressBar: true,
+              didOpen: (toast) => {
+                toast.addEventListener('mouseenter', Swal.stopTimer)
+                toast.addEventListener('mouseleave', Swal.resumeTimer)
+              }
+            })
+            Toast.fire({
+              icon: 'success',
+              title: `Encuesta Guardada`
+            });
+
+          })
+        .catch(err =>           
+          {
+            const Toast = Swal.mixin({
+              toast: true,
+              position: 'top-end',
+              showConfirmButton: false,
+              timer: 6000,
+              timerProgressBar: true,
+              didOpen: (toast) => {
+                toast.addEventListener('mouseenter', Swal.stopTimer)
+                toast.addEventListener('mouseleave', Swal.resumeTimer)
+              }
+            });
+      
+            Toast.fire({
+              icon: 'error',
+              title: `Hubo un error: La encuesta no se pudo guardar`
+            });
+
+            console.log(err)})
     }
 
 if(loading){

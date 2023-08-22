@@ -23,7 +23,7 @@ const Loging = () => {
   const {register, handleSubmit, reset} = useForm()
   
 
-  const submit = data => {
+const submit = data => {
 const URL = `${import.meta.env.VITE_API_SERVER}/api/v1/auth/login`
     axios.post(URL, data)
     .then(res =>
@@ -91,7 +91,7 @@ if(isLogged)
 <div className="login-box" style={{margin:'0 auto 40px auto'}}>
   <div className="card card-outline card-primary">
     <div className="card-header text-center">
-      <a href="#" className="h1"><b>SIGEEL</b></a>
+      <a href="#" className="h1"><b>MI ELECTOR</b></a>
     </div>
     <div className="card-body">
       <p className="login-box-msg">Bienvenido</p>
@@ -111,7 +111,7 @@ if(isLogged)
   {/* /.login-logo */}
   <div className="card card-outline card-primary">
     <div className="card-header text-center">
-      <a href="../../index2.html" className="h1"><b>SIGEEL</b></a>
+      <a href="../../index2.html" className="h1"><b>MI ELECTOR</b></a>
     </div>
     <div className="card-body">
       <p className="login-box-msg">Inicia sesion</p>

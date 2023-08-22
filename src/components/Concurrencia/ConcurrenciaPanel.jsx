@@ -39,9 +39,9 @@ const ConcurrenciaPanel = ({citizens}) => {
     </span>
   <div className="info-box-content">
   <Link to={`/mypeople/${citizen.id}`}>
-    <span className="info-box-text">{citizen.firstName.substring(0,15)}</span>
+    <span className="info-box-text">{citizen.firstName.substring(0,15)} {citizen.lastName.substring(0,15)}</span>
   </Link>
-    <span className="info-box-number"><small>Mesa: </small>5<small> Colegio: </small>11</span>
+    <span className="info-box-number"><small>Mesa: </small>5<small> Recinto: </small>Ulpina Gonzales</span>
   </div>
   {/* /.info-box-content */}
 </div>
@@ -63,17 +63,17 @@ const ConcurrenciaPanel = ({citizens}) => {
   <p className="text-center">
     <strong>Ayuda para Votar</strong>
   </p>
-  <div style={{overflowY:"scroll", overflowX:'auto', height:"300px", minWidth:"200px"}}>
+  <div className='scroll' style={{overflowY:"scroll", overflowX:"hidden", height:"300px", minWidth:"200px"}}>
   {citizens?.map(citizen =>
   citizen?.condition?.id?
   <div className='row'  key={citizen.id} style={{borderBottom:"solid 1px #495057", marginTop:"15px", paddingBottom:"5px"}}>
-    <div className='col-md-7'>
+    <div className='col-md-6'>
     <b>{citizen.firstName}</b>
     <span style={{display:"block"}}>
     {citizen.condition.conditionDetails}
     </span>
     </div>
-    <span className='col-md-5'>
+    <span className='col-md-6'>
       <ul>
         <li>
       <small>

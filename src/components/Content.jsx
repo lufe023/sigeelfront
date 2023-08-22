@@ -14,10 +14,11 @@ import Cargando from '../utils/Cargando'
 import DonutChart from './ChartJS/DonutChart'
 import MiniDatos from './Dashboard/MiniDatos'
 import ConcurrenciaPanel from './Concurrencia/ConcurrenciaPanel'
-
+import Advertisiments from './Dashboard/Advertisiments'
 
 
 const Content = () => {
+
 
 const [dashboard, setDashboard] = useState()
 const [preferedParties, setPreferedParties] = useState()
@@ -61,7 +62,7 @@ if(id !='Cargando'){
   if(!dashboard)
   {
     return (
-    <div className="content-wrapper" style={{minHeight: 536}}>
+    <div className="content-wrapper">
     <div className="content-header">
     <div className="container-fluid">
     <div className='loading' style={{height:"100px", marginBottom:"50px"}}>
@@ -73,7 +74,7 @@ if(id !='Cargando'){
     )
   }else {
   return (    
-    <div className="content-wrapper" style={{minHeight: 536}}>
+  <div className="content-wrapper">
   {/* Content Header (Page header) */}
   <div className="content-header">
     <div className="container-fluid">
@@ -97,11 +98,16 @@ if(id !='Cargando'){
     <div className="container-fluid">
       {/* Small boxes (Stat box) */}
       <div className="row">
+      <div className="col-12">
+      <Advertisiments/> 
+      </div>
         <div className="col-lg-3 col-6">
+
+          
           {/* small box */}
           <div className="small-box bg-info">
             <div className="inner">
-              <h3>{dashboard?.ciudadanos?.count}</h3>
+              <h3>{dashboard?.ciudadanos?.rows?.length}</h3>
               <p>Electores Asignados</p>
             </div>
             <div className="icon">
@@ -158,11 +164,12 @@ if(id !='Cargando'){
         </div>
         {/* ./col */}
       </div>
+     
         <MiniDatos miniDatos={miniDatos} beneficios={beneficios} citizens={dashboard.ciudadanos.rows}/>
         {
           dashboard.ciudadanos.rows?<ConcurrenciaPanel citizens={dashboard.ciudadanos.rows}/>:""
         }
-        
+      
       <div className="row">
         {/* Left col */}
         <section className="col-lg-6 connectedSortable ui-sortable">

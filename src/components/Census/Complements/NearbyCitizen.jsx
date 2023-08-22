@@ -4,15 +4,16 @@ import getConfig from '../../../utils/getConfig'
 import { Link } from 'react-router-dom'
 import Radar from './Radar'
 
-
 const NearbyCitizen = ({citizenId, setPeople}) => {
 
   const [near, setNear] = useState()
   const [rangeValue, setRangeValue] = useState(100);
   const [radarLoading, setRadarLoading] = useState(true)
 
-  const FindNearbyCitizen = (e)=>{
+  const FindNearbyCitizen = (e) => {
     e.preventDefault;
+    setRadarLoading(true)
+    setNear()
     const URL = `${import.meta.env.VITE_API_SERVER}/api/v1/gps/nearby/${rangeValue}/${citizenId}`
       axios.get(URL, getConfig())
       .then(res => {
@@ -27,7 +28,6 @@ const NearbyCitizen = ({citizenId, setPeople}) => {
     setRadarLoading(true)
   }, [citizenId])
 
- 
   return (
     <>
       <div className="card card-info">
@@ -44,7 +44,7 @@ const NearbyCitizen = ({citizenId, setPeople}) => {
           <div>
             <form onSubmit={FindNearbyCitizen}>
             <div className="form-group">
-            <label htmlFor="customRange1">{rangeValue} Metros</label>
+            <label htmlFor="customRange1">{rangeValue} <small>Metros</small></label>
             <input
             type="range"
             min="100"
@@ -54,14 +54,11 @@ const NearbyCitizen = ({citizenId, setPeople}) => {
             onChange={(e) => setRangeValue(e.target.value)}
           />
           </div>
-
         <div className="form-group">
-        <button type='submit' className='btn btn-primary' onClick={()=> {setRadarLoading(true), setNear()}}>Encontrar</button>
+        <button className='btn btn-primary'>Encontrar</button>
         </div>
         </form>
-    
     </div>
-
           {
             radarLoading?<Radar/>:""
           }
