@@ -65,18 +65,25 @@ const MyPeople = () => {
   }
   <section className="content">
     {/* Default box */}
+    <div className="row no-print" style={{marginBottom:'20px'}}> 
+  <div className="col-12">
+    <Link to={'/printmypeople/?variable=2'} type="button" className="btn btn-danger "><i className="fas fa-print" /> Formulario de Captura
+    </Link>
     
-      
+    <Link to={'/printmyconcurrencia'} type="button" className="btn btn-primary float-right"><i className="fas fa-print" /> Formulario de Concurrencia
+    </Link>
+  </div>
+</div>
         <div className="row">
-        
         {
         results?.map((result) => 
           <PeopleCard key={result.id} people={result} getMypeople={getMypeople}/>
           )
         }
     </div>
+    
       {/*vista de mapa*/}  
-      <div className="row">
+  <div className="row">
   <div className="col-md-12">
     <div className="card">
       <div className="card-header">

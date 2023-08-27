@@ -24,13 +24,16 @@ import UpdateConditions from './Contact/UpdateConditions'
 const People = () => {
   const [people, setPeople] = useState()
   const [ties, setTies] = useState()
+  const [updates, setUpdates] = useState()
   const {id} = useParams()
-
   const getPeople = ()=>{
     const URL = `${import.meta.env.VITE_API_SERVER}/api/v1/census/${id}`
       axios.get(URL, getConfig())
       .then(res => {
-        setPeople(res.data)
+        console.log()
+        setPeople(res.data.data)
+        setUpdates(res.data.pendingUpdates)
+        
       })
       .catch(err => console.log(err))
   }
@@ -101,6 +104,7 @@ const People = () => {
                 <b>Provincia</b> <a className="float-right">{people?.provinces?.name}</a>
               </li>
               
+              
             </ul>
           </div>
         </div>
@@ -119,6 +123,24 @@ const People = () => {
       </div>
       {/* /.col */}
       <div className="col-md-9">
+      <div className="card">
+          <div className="card-header p-1">
+            <ul className="nav nav-pills">
+              <li className="nav-item"><a className="nav-link" href="#editar" data-toggle="tab">Editar</a></li>
+              <li className="nav-item"><a className="nav-link" href="#galeria" data-toggle="tab">Galeria</a></li>
+            </ul>
+          </div>{/* /.card-header */}
+          <div className="card-body">
+            <div className="tab-content">
+              <div className="tab-pane active" id="editar">
+              <CitizenForm updates={updates} citizen={people} getPeople={getPeople} />
+              </div>
+              <div className='tab-pane' id="galeria">
+              hola
+              </div>
+            </div>
+          </div>
+        </div>
       <div className="card card-default">
       <div className="card-header">
         <h3 className="card-title">Vinculos, relacionados y conocidos</h3>
@@ -244,24 +266,7 @@ const People = () => {
         <GPS lat={people?.geolocation?.latitud} long={people?.geolocation?.longitud} peopleName={people?.firstName} picture={people?.picture} gotAutomatic={people?.geolocation?.gotAutomatic}/>
         </div>
         </div>
-      <div className="card">
-          <div className="card-header p-1">
-            <ul className="nav nav-pills">
-              <li className="nav-item"><a className="nav-link" href="#editar" data-toggle="tab">Editar</a></li>
-              <li className="nav-item"><a className="nav-link" href="#mapa" data-toggle="tab">Galeria</a></li>
-            </ul>
-          </div>{/* /.card-header */}
-          <div className="card-body">
-            <div className="tab-content">
-              <div className="tab-pane" id="editar">
-              <CitizenForm/>
-              </div>
-              <div className='tab-pane' id="mapa">
-              
-              </div>
-            </div>
-          </div>
-        </div>
+  
 </div>
     
       {/* /.col */}

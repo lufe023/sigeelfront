@@ -1,7 +1,9 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 
-const CitizenForm = () => {
+const CitizenForm = ({updates, citizen, getPeople}) => {
+ 
+
   const [apodo, setApodo] = useState('');
   const [picture, setPicture] = useState('');
   const [celular, setCelular] = useState('');

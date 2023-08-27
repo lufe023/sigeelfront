@@ -99,7 +99,6 @@ const SearhPeople = () => {
       </thead>
       <tbody>
         {
-
         results?.map((people)=>
         <tr key={people.id} className="people-finding">
         <td>
@@ -112,13 +111,13 @@ const SearhPeople = () => {
             {people.nickname?'Le Dicen:':''} <span>{people.nickname?people.nickname: ''}</span>
           </li>
           <li>
-            Cedula: <span>{people.citizenID}</span>
+            Cedula: <span>{`${people.citizenID.substr(0,3)}-${people.citizenID.substr(3,10)}-${people.citizenID.substr(10,1)}`}</span>
           </li>
           <li>
-            Edad: <span>{people.age}</span>
+            Colegio: <span>{people.colegio.id.toString().padStart(4, '0')}</span>
           </li>
           <li>
-            Género: <span>{people.gender}</span>
+          Recinto: <span>{people.colegio.precinctData.recintoNombre}</span>
           </li>
           </ul>
         </td>
@@ -140,12 +139,14 @@ const SearhPeople = () => {
         
         <td>
           <div className='search-tools-box'>
-          <Link to={`/mypeople/${people.id}`}>
+        <Link to={`/mypeople/${people.id}`}>
         <i className="far fa-eye search-tool"></i></Link>
         {people.leader
         ?<i className="fas fa-user-check search-tool less"></i>
         :<i className="fas fa-user-plus search-tool" onClick={()=>addPeople(people.id, people.citizenID)}></i> }
+        <Link to={`/mypeople/${people.id}`}>
         <i className="fas fa-user-edit search-tool"></i>
+        </Link>
         </div>
         </td>
         </tr>

@@ -155,7 +155,7 @@ const PrecinctForm = ({getAllPrecints}) => {
     <div className="card-body">
     <form onSubmit={handleSubmit}>
     <div className="row">
-  <div className="col-md-6">
+    <div className="col-md-6">
           
           <div className="form-group">
               <label>Numero</label>
@@ -242,7 +242,7 @@ const PrecinctForm = ({getAllPrecints}) => {
                 onChange={handleChange}
               />
             </div>
-            </div>
+    </div>
             <div className="col-md-6">
             <div className="form-group">
               <label>Provincia:</label>
@@ -276,7 +276,9 @@ const PrecinctForm = ({getAllPrecints}) => {
         </select>
             </div>
             <button type="submit" className="btn btn-primary">Enviar</button>
-          </div></div> </form>
+          </div>
+    </div>
+    </form>
     </div>
     </div>
   );

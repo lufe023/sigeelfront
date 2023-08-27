@@ -50,6 +50,16 @@ const PeopleCard = ({people, getMypeople}) => {
   })
 
 }
+const pendingFields = ["latitud", "adress", "celphone", "telephone", "otherPhone", "nickname"];
+
+// const pendingFieldsB = [{latitud:{fieldName:'latitud',fieldNameSpanish:'gps'}},];
+
+const isFieldUpdated = (fieldName) => {
+  return people.pendingUpdates.some(
+    (update) => update.changedFields[fieldName] !== undefined
+  );
+};
+
 
 
   return (
@@ -59,6 +69,7 @@ const PeopleCard = ({people, getMypeople}) => {
       <ul className="nav nav-pills">
       <li className="nav-item"><a className="nav-link active" href={`#presentacion${people.id}`} data-toggle="tab">Presentación</a></li>
       <li className="nav-item"><a className="nav-link" href={`#encuestar${people.id}`} data-toggle="tab">En contacto</a></li>
+      <li className="nav-item"><a className="nav-link" href={`#actualizar${people.id}`} data-toggle="tab">Pendiente</a></li>
       </ul>
     </div>{/* /.card-header */}
     <div className="card-body">
@@ -76,10 +87,12 @@ const PeopleCard = ({people, getMypeople}) => {
 
           <hr/>
           <ul className="ml-4 mb-0 fa-ul text-muted">
-            <li className="small"><span className="fa-li">
-            <i className="fas fa-lg fa-building" /></span> 
-            Direccion: {people.adress}
-            </li>
+          <li className={`small  ${isFieldUpdated("adress") ? "" : "not-updated"}`}>
+          <span className="fa-li">
+          <i className="fas fa-lg fa-building" />
+          </span>
+            Dir: {people.adress}
+          </li>
             {
                 people.neighbourhoods?
                 <li className="small"><span className="fa-li">
@@ -107,30 +120,41 @@ const PeopleCard = ({people, getMypeople}) => {
             Provincia:{people.provinces.name}
             </li>
 
-            <li className="small">
+            <li className={`small  ${isFieldUpdated("celphone") ? "" : "not-updated"}`}>
                 <span className="fa-li">
                 <i className="fas fa-lg fa-phone" />
                 </span>
                 Celular: <a href={`tel:${people.celphone}`}>{people.celphone}</a>
             </li>
-            <li className="small">
+            <li className={`small  ${isFieldUpdated("telephone") ? "" : "not-updated"}`}>
                 <span className="fa-li">
                 <i className="fas fa-lg fa-phone" />
                 </span>
                 Telefono: <a href={`tel:${people.telephone}`}>{people.telephone}</a>
             </li>
-            <li className="small">
+            <li className={`small  ${isFieldUpdated("otherPhone") ? "" : "not-updated"}`}>
                 <span className="fa-li">
                 <i className="fas fa-lg fa-phone" />
                 </span>
                 Otro Telefono: {people.otherPhone}
             </li>
-
+            <li className="small">
+                <span className="fa-li">
+                <i className="fas fa-person-booth" />
+                </span>
+                Colegio: {people.colegio.id.toString().padStart(4, '0')}
+            </li>
+            <li className="small">
+                <span className="fa-li">
+                <i className="fas fa-hotel" />
+                </span>
+                Recinto: {people.colegio.precinctData.recintoNombre.toString().padStart(4, '0')}
+            </li>
           </ul>
         </div>
         <div className="col-5 text-center">
         <Link to={`/mypeople/${people.id}`}>
-          <img src={`${import.meta.env.VITE_API_SERVER}/api/v1/images/citizen/${people?.picture}`} alt="user-avatar" className="img-circle img-fluid" />
+          <img src={`${import.meta.env.VITE_API_SERVER}/api/v1/images/citizen/${people?.picture}`} alt="Foto del Ciudadano" className="img-circle img-fluid" />
         </Link>
         </div>
       </div>
@@ -169,12 +193,26 @@ const PeopleCard = ({people, getMypeople}) => {
   <LocationPicker citizenID={people?.citizenID} getPeople={getMypeople}/>
 
   </div>
+
+
+  <div className="tab-pane" id={`actualizar${people.id}`}>
+    <h5>Campos Pendientes de Actualización</h5>
+    <ul>
+      {pendingFields.map((fieldName, index) => (
+        !people.pendingUpdates.some((update) => update.changedFields[fieldName]) && (
+          <li key={index}>
+            {fieldName}
+            </li>
+        )
+      ))}
+    </ul>
   </div>
-      
+</div>
     </div>
     <div className="card-footer">
     <Link to={`/mypeople/${people.id}`} className="btn btn-app bg-info">
-      <i className="fas fa-user" /> Ver Perfil
+    <i className="fas fa-user-edit" />
+ Editar
     </Link>
 
     {
@@ -198,7 +236,7 @@ const PeopleCard = ({people, getMypeople}) => {
 
     <a className="btn btn-app bg-danger" onClick={()=>deletePeople(people.id, people.firstName)}>
         <i className="fas fa-user-minus"></i> Quitar
-        </a>
+    </a>
 
     </div>
   </div>

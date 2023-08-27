@@ -25,6 +25,9 @@ import LockScreen from './components/Admin/LockScreen';
 import { io } from 'socket.io-client';
 import ProtectedAdmin from './components/ProtectedAdmin';
 import Campains from './components/Admin/Campains';
+import MyPeoplePrint from './components/Census/MyPeoplePrint';
+import CitizenByCollege from './components/Precints/CitizenByCollege';
+import MyPeoplePrintB from './components/Census/MyPeoplePrintB';
 
 
 function App() {
@@ -64,6 +67,8 @@ function App() {
         <Route path='/tasks/:id' element={<TasksBoard/>}/>
         <Route path='/users' element={<UserDashBoard/>}/>
         <Route path='/mypeople' element={<MyPeople/>}/>
+        <Route path='/printmypeople' element={<MyPeoplePrint/>}/>
+        <Route path='/printmyconcurrencia' element={<MyPeoplePrintB/>}/>
         <Route path='/mypeople/:id' element={<People/>}/>
         <Route path='/ballot' element={<SeeBallot/>}/>
         <Route path='/peoplebyuser/:id' element={<PeopleByUser/>}/>
@@ -71,6 +76,7 @@ function App() {
         <Route path='/teams' element={<Teams/>}/>
         <Route path='/teams/:id' element={<TeamView/>}/>
         <Route path='/admin' element={<LockScreen/>}/>
+        <Route path='/precints' element={<CitizenByCollege/>}/>
       </Route>
 
       {/* Proteccion para administracion */}

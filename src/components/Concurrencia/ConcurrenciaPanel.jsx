@@ -2,7 +2,7 @@ import React from 'react'
 import "./ConcurrenciaPanel.css"
 import { Link } from 'react-router-dom'
 const ConcurrenciaPanel = ({citizens}) => {
- 
+ console.log(citizens)
   return (
     <>
     <div className='row'>
@@ -39,9 +39,15 @@ const ConcurrenciaPanel = ({citizens}) => {
     </span>
   <div className="info-box-content">
   <Link to={`/mypeople/${citizen.id}`}>
-    <span className="info-box-text">{citizen.firstName.substring(0,15)} {citizen.lastName.substring(0,15)}</span>
+    <span className="info-box-text">{citizen.firstName.substring(0,10)} {citizen.lastName.substring(0,10)}</span>
   </Link>
-    <span className="info-box-number"><small>Mesa: </small>5<small> Recinto: </small>Ulpina Gonzales</span>
+    <span className="info-box-number"><small>Mesa: </small>{citizen.colegio.id.toString().padStart(4, '0')}
+    <br/>
+    <small> Recinto: </small>
+    <Link to={`/precints`}>
+    {citizen.colegio.precinctData.recintoNombre.substring(0,25)}
+    </Link>
+    </span>
   </div>
   {/* /.info-box-content */}
 </div>

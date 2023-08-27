@@ -1,0 +1,15 @@
+.impresora{
+width: 99%;
+box-sizing:'border-box';
+}
+
+.inforecolecter{
+    margin: 0;
+    padding: 0;
+}
+
+.inforecolecter li{
+    border-bottom: solid 1px #000;
+    min-width: 100px;
+    padding: 20px 0;
+}

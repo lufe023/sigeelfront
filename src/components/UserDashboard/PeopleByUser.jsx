@@ -26,8 +26,10 @@ const data = {
             getConfig()
             )
             .then(res => {
-              setConsultedUser(res.data[1])
-                setResults(res.data[0].rows)
+              console.log(res)
+              setConsultedUser(res.data.user)
+              setResults(res.data.rows)
+  
         })
         .catch(err =>{
             setResults([])
@@ -60,7 +62,7 @@ const data = {
     <div>
         <Header/>
         <Aside/>
-        <div className="content-wrapper">
+  <div className="content-wrapper">
   {/* Content Header (Page header) */}
   <section className="content-header bg-dark"  style={{position:'sticky', top:'0px', zIndex:'1', backgroundColor:'#f8f9fa', boxShadow:'0px 1px 1px rgba(0, 0, 0, 0.19)', marginBottom:'20px' }}>
     <div className="container-fluid">
@@ -80,17 +82,17 @@ const data = {
   </section>
   {/* Main content */}
   <section className="content" >
-    {/* Default box */}
-        <div className="row">
-            {
-        results?.map((result) => 
-        
-          <PeopleCard key={result.id} people={result} getMypeople={getMypeople}/>
-          )
-        }
+    
+         <div className="row">
+            
+           {
+            results?.map((result) => 
+              <PeopleCard key={result.id} people={result} getMypeople={getMypeople}/>
+              )
+            }
       
-   {/* /.card */}
-    </div>
+
+    </div> 
 
   <div className="row">
   <div className="col-md-12">

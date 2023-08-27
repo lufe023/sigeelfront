@@ -40,3 +40,15 @@ li{
 .img-circle{
     aspect-ratio: 1.1;
 }
+
+@media print{
+    body{
+             writing-mode:sideways-lr;
+            
+     }
+}
+
+body{
+    writing-mode:sideways-lr;
+
+}
