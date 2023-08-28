@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react'
 import Header from '../Header'
 import Aside from '../Aside'
 import Footer from '../Footer'
-
 import CampainList from './Campains/CampainList'
 import axios from 'axios'
 import getConfig from '../../utils/getConfig'

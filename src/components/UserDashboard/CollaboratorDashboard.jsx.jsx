@@ -35,9 +35,10 @@ const [beneficios, setBeneficios] = useState()
 const id = UserId
 
     const getDashboard = ()=>{
-    const URL = `${import.meta.env.VITE_API_SERVER}/api/v1/dashboard/${id}`
+    const URL = `${import.meta.env.VITE_API_SERVER}/api/v1/dashboard?user=${id}`
       axios.get(URL, getConfig())
       .then(res => {
+
         setDashboard(res.data.dashboard[0])
         setPreferedParties(res.data.dashboard[0].preferedParty)
         setPreferedPresidents(res.data.dashboard[0].preferedPresident)

@@ -159,7 +159,7 @@ const findingWord = e => {
         </div>
   
         <div className="input-group mb-3">
-          <input type="email" className="form-control" placeholder="Email" name='email' required />
+          <input type="text" className="form-control" placeholder="Email" name='email' />
           <div className="input-group-append">
             <div className="input-group-text">
               <span className="fas fa-envelope" />

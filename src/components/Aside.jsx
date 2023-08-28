@@ -155,7 +155,7 @@ const [user, setUser] = useState(useSelector(state=> state.userSlice))
                   </NavLink>
                   </li>
                   <li className="nav-item" >
-                  <NavLink to="/campains" className="nav-link">
+                  <NavLink to="/informs" className="nav-link">
                   <i className="fas fa-chart-bar"></i>
                       <p> Informes</p>
                   </NavLink>

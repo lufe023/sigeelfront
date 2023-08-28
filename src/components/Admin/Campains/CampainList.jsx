@@ -2,6 +2,7 @@ import axios from 'axios';
 import React, { useState } from 'react'
 import getConfig from '../../../utils/getConfig';
 import Swal from 'sweetalert2';
+import { Link } from 'react-router-dom';
 
 
 
@@ -114,15 +115,12 @@ const CampainList = ({campain, getCampains}) => {
       {campain.isActive?'Desactivar':'Activar'}
       </button>
             
-            {/* <label className={`btn  ${campain.active?'btn-warning':'btn-success'}`}>
-             
-           <input type="radio" name="options" id="option_a1" autoComplete="off" defaultChecked /> 
-            {campain.active?'Desactivar':'Activar'}
-          </label> */}
+            
+   
           
-          <label className="btn btn-primary">
-            <input type="radio" name="options" id="option_a2" autoComplete="off" /> Informe
-          </label>
+          <Link to='/informs' className="btn btn-primary">Informe </Link>
+         
+          
           <label className="btn btn-danger">
             <input type="radio" name="options" id="option_a2" autoComplete="off" /> Eliminar
           </label>

@@ -2,7 +2,7 @@ import axios from 'axios';
 import React, { useState } from 'react'
 import { useForm } from "react-hook-form";
 import { useDispatch, useSelector } from 'react-redux';
-import { Link } from 'react-router-dom';
+import { Link, Navigate } from 'react-router-dom';
 import Swal from 'sweetalert2'
 import { setUserData } from '../../store/slices/user.slice';
 import Cargando from '../../utils/Cargando';
@@ -46,7 +46,7 @@ const URL = `${import.meta.env.VITE_API_SERVER}/api/v1/auth/login`
         
         Toast.fire({
           icon: 'success',
-          title: 'Ingreso Exitoso'
+          title: 'Bienvenido'
         })
       }
     )
@@ -86,22 +86,24 @@ const URL = `${import.meta.env.VITE_API_SERVER}/api/v1/auth/login`
 
 if(isLogged)
 {
-  
+
   return(
-<div className="login-box" style={{margin:'0 auto 40px auto'}}>
-  <div className="card card-outline card-primary">
-    <div className="card-header text-center">
-      <a href="#" className="h1"><b>MI ELECTOR</b></a>
-    </div>
-    <div className="card-body">
-      <p className="login-box-msg">Bienvenido</p>
-      <p>
-      <Link to='/logout' className="dropdown-footer btn-danger">Cerrar Sesion</Link>
-      </p>
-      </div> 
-  </div>
+    <Navigate to='dashboard'/>
+//     <div className="login-box" style={{margin:'0 auto 40px auto'}}>
+//   <div className="card card-outline card-primary">
+//     <div className="card-header text-center">
+//       <a href="#" className="h1"><b>MI ELECTOR</b></a>
+//     </div>
+//     <div className="card-body">
+//       <p className="login-box-msg">Bienvenido</p>
+//       <p>
+//       <Link to='/logout' className="dropdown-footer btn-danger">Cerrar Sesion</Link>
+//       </p>
+//       </div> 
+//   </div>
       
-</div>)
+// </div>
+)
 
 }else{
   
@@ -120,7 +122,7 @@ if(isLogged)
         <input 
             {...register('email')}
             className='form-control' 
-            type="email" 
+            type="text" 
             id="email" 
             placeholder="Pon tu email"
             required/>

@@ -87,7 +87,7 @@ const CreateCampain = ({getCampains}) => {
             finishAt: '',
             isActive: true
           });
-          console.log(response)
+
           getCampains()
           setPreDistritos(null)
           setPreMunicipios(null)
@@ -129,7 +129,7 @@ const CreateCampain = ({getCampains}) => {
         })
     };
 
-    console.log(formData)
+ 
   return (
 <div className="col-md-12">
   <div className="card card-primary">

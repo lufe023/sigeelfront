@@ -16,6 +16,8 @@ const UserDashBoard = () => {
       cursor: "pointer"
     }
   }
+
+  
   const getAllUsers = ()=>{
     const URL = `${import.meta.env.VITE_API_SERVER}/api/v1/users?offset=0&limit=20`
       axios.get(URL, getConfig())
@@ -142,22 +144,33 @@ const UserDashBoard = () => {
           <th></th>
           <th>Nombre</th>
           <th>Tipo</th>
-          <th>Correo</th>
-          <th>Activado</th>
+          <th>Contacto</th>
+          <th>Estado</th>
           <th>Acciones</th>
         </tr>
       </thead>
       <tbody>
+        {console.log(users)}
       {
         users?.map((user) => 
           <tr key={user.id}>
             <td>
-            <img className="img-circle img-bordered-sm" src="dist/img/user7-128x128.jpg" alt="user image" style={{height:'40px'}} />
-
+            <img className="img-circle img-bordered-sm" src={`${import.meta.env.VITE_API_SERVER}/api/v1/images/citizen/${user?.censu?.picture}`}  alt="user image" style={{height:'40px'}} />
             </td>
             <td>{`${user.censu.first_name} ${user.censu.last_name}`}</td>
             <td>{user.user_role.roleName} </td>
-            <td>{user.email} </td>
+            <td>
+              <ul style={{padding:'0'}}>
+                <li>
+              {user.email}
+              </li>
+              <li>
+                <a href={`tel:{user.censu.celphone}`}>
+              {user.censu.celphone}
+              </a>
+              </li>
+              </ul>
+               </td>
             <td>{user.active?<i className="fas fa-circle" style={{color:"green"}}></i>:<i className="fas fa-circle" style={{color:"red"}}></i>} </td>
             <td>
             <div className="btn-group">

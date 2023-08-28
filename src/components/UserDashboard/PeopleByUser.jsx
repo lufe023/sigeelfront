@@ -19,6 +19,7 @@ const PeopleByUser = () => {
 const data = {
     leaderId:id
 }
+
     const getMypeople = ()=>{
         const URL = `${import.meta.env.VITE_API_SERVER}/api/v1/census/peoplebyuser/`
             axios.post(URL,
@@ -26,7 +27,6 @@ const data = {
             getConfig()
             )
             .then(res => {
-              console.log(res)
               setConsultedUser(res.data.user)
               setResults(res.data.rows)
   
@@ -83,9 +83,9 @@ const data = {
   {/* Main content */}
   <section className="content" >
     
-         <div className="row">
+        <div className="row">
             
-           {
+          {
             results?.map((result) => 
               <PeopleCard key={result.id} people={result} getMypeople={getMypeople}/>
               )

@@ -20,6 +20,7 @@ import JobCard from './Complements/JobCard'
 import LocationPicker from './Contact/LocationPicker'
 import NewConditions from './Contact/NewCondition'
 import UpdateConditions from './Contact/UpdateConditions'
+import PeopleGallery from './PeopleGallery'
 
 const People = () => {
   const [people, setPeople] = useState()
@@ -126,7 +127,7 @@ const People = () => {
       <div className="card">
           <div className="card-header p-1">
             <ul className="nav nav-pills">
-              <li className="nav-item"><a className="nav-link" href="#editar" data-toggle="tab">Editar</a></li>
+              <li className="nav-item"><a className="nav-link active" href="#editar" data-toggle="tab">Editar</a></li>
               <li className="nav-item"><a className="nav-link" href="#galeria" data-toggle="tab">Galeria</a></li>
             </ul>
           </div>{/* /.card-header */}
@@ -136,7 +137,7 @@ const People = () => {
               <CitizenForm updates={updates} citizen={people} getPeople={getPeople} />
               </div>
               <div className='tab-pane' id="galeria">
-              hola
+              <PeopleGallery/>
               </div>
             </div>
           </div>

@@ -139,9 +139,10 @@ useEffect(() => {
         <label htmlFor='responsible'>Responsable</label>
           <select className="form-control" id='responsible' name='responsible'>
             <option value=''></option>
+            {console.log(users)}
           {
             users?.map((user) =>
-              <option key={user.id} value={user.id}>{user.email}</option>
+              <option key={user.id} value={user.id}>{user.censu.first_name} {user.censu.last_name} ({user.email})</option>
             )
           }
         </select>

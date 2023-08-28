@@ -28,6 +28,7 @@ import Campains from './components/Admin/Campains';
 import MyPeoplePrint from './components/Census/MyPeoplePrint';
 import CitizenByCollege from './components/Precints/CitizenByCollege';
 import MyPeoplePrintB from './components/Census/MyPeoplePrintB';
+import Informs from './components/Admin/Informs/Informs';
 
 
 function App() {
@@ -82,6 +83,7 @@ function App() {
       {/* Proteccion para administracion */}
       <Route element={<ProtectedAdmin/>}>
       <Route path='/campains' element={<Campains/>}/>
+      <Route path='/informs' element={<Informs/>}/>
       </Route>
 
       <Route path='*' element={<Error404/>}/>

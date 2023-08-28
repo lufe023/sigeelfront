@@ -7,6 +7,7 @@ import getConfig from '../../utils/getConfig'
 import Cargando from '../../utils/Cargando'
 import './CitizenByCollege.css'
 import { Link } from 'react-router-dom'
+import Swal from 'sweetalert2'
 const CitizenByCollege = () => {
     const [precints, setPrecints] = useState()
     const [selectedPrecint, setSelectedPrecint] = useState()
@@ -41,8 +42,6 @@ const CitizenByCollege = () => {
       const [isLoading, setIsloading] = useState(false)
 
       const getAllPeopleyByCollege = (collegeId)=>{
-   
-   
         const URL = `${import.meta.env.VITE_API_SERVER}/api/v1/census/colegio/${collegeId}`
           axios.get(URL, getConfig())
           .then(res => {
@@ -65,6 +64,53 @@ const CitizenByCollege = () => {
         }));
       };
       
+      const addPeople = (people)=>{
+        const URL = `${import.meta.env.VITE_API_SERVER}/api/v1/census/addpeople`
+        axios.post(URL,
+            {
+              peopleId:people 
+            },
+        getConfig(),
+        )
+        .then(res => {
+          const Toast = Swal.mixin({
+            toast: true,
+            position: 'top-end',
+            showConfirmButton: false,
+            timer: 3000,
+            timerProgressBar: true,
+            didOpen: (toast) => {
+              toast.addEventListener('mouseenter', Swal.stopTimer)
+              toast.addEventListener('mouseleave', Swal.resumeTimer)
+            }
+          })
+          
+          Toast.fire({
+            icon: 'success',
+            title: 'Ciudadano agregado con exito'
+          })
+    })
+    .catch(err =>{
+        console.log(err)
+        const Toast = Swal.mixin({
+          toast: true,
+          position: 'top-end',
+          showConfirmButton: false,
+          timer: 3000,
+          timerProgressBar: true,
+          didOpen: (toast) => {
+            toast.addEventListener('mouseenter', Swal.stopTimer)
+            toast.addEventListener('mouseleave', Swal.resumeTimer)
+          }
+        })
+        console.log(error)
+        Toast.fire({
+          icon: 'error',
+          title: 'Algo anda mal, no se agregó el ciudadano'
+        })
+    })
+      }
+
   return (
     <>
     <Header/>
@@ -187,9 +233,16 @@ const CitizenByCollege = () => {
                         Dir: {item.adress}
                     </li>
                     <li>
+                    
+                        {
+                          item.leaders?.id? <span> Lider:  <Link to={`/peoplebyuser/${item.leaders?.id}`}>{item.leaders?.censu?.firstName}</Link></span>:
+                          <a className='btn btn-xs btn-primary' onClick={()=>addPeople(item.id)}> <i className="fas fa-user-plus"/> Agregar a Mi Gente</a>
+                        }
                         
-                        Lider: <Link to={`/peoplebyuser/${item.leaders?.id}`}>{item.leaders?.censu?.firstName} </Link>
-                        
+                        {/* {people.leader
+        ?<i className="fas fa-user-check search-tool less"></i>
+        :<i className="fas fa-user-plus search-tool" onClick={()=>addPeople(people.id, people.citizenID)}></i> } */}
+                    
                     </li>
                     
                 </ul>
@@ -211,12 +264,10 @@ const CitizenByCollege = () => {
                 </li>
                 :""
                 }
-
                 <li>
                     <b>Votó:</b> {item.sufragio?"Si":"No"}
                 </li>
                 </ul>
-                
                 </td>
                 <td>
                 
