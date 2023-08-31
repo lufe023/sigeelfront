@@ -16,7 +16,6 @@ import MiniDatos from './Dashboard/MiniDatos'
 import ConcurrenciaPanel from './Concurrencia/ConcurrenciaPanel'
 import Advertisiments from './Dashboard/Advertisiments'
 
-
 const Content = () => {
 
 
@@ -51,8 +50,22 @@ const {id} = useSelector(state=> state.userSlice)
         setBeneficios(res.data.dashboard[0].Beneficios)
         
       })
-      .catch()
+      .catch(err =>{
+        setDashboard(err.response.data.dashboard[0])
+        setPreferedParties(err.response.data.dashboard[0].preferedParty)
+        setPreferedPresidents(err.response.data.dashboard[0].preferedPresident)
+        setPreferedSenators(err.response.data.dashboard[0].preferedSenator)
+        setPreferedDiputys(err.response.data.dashboard[0].preferedDiputy)
+        setPreferedMayor(err.response.data.dashboard[0].preferedMayor)
+        setPreferedDirector(err.response.data.dashboard[0].preferedDistrictDirector)
+        setPreferedCouncillor(err.response.data.dashboard[0].preferedCouncillor)
+        setPreferedVocal(err.response.data.dashboard[0].preferedDistrictCouncillor)
+        setMiniDatos(err.response.data.dashboard[0].Encuestas)
+        setBeneficios(err.response.data.dashboard[0].Beneficios)
+    })
   }
+
+
 
 if(id !='Cargando'){
   useEffect(() => {
@@ -164,7 +177,6 @@ if(id !='Cargando'){
         </div>
         {/* ./col */}
       </div>
-     
         <MiniDatos miniDatos={miniDatos} beneficios={beneficios} citizens={dashboard.ciudadanos.rows}/>
         {
           dashboard.ciudadanos.rows?<ConcurrenciaPanel citizens={dashboard.ciudadanos.rows}/>:""

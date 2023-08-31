@@ -2,7 +2,6 @@ import React from 'react'
 import "./ConcurrenciaPanel.css"
 import { Link } from 'react-router-dom'
 const ConcurrenciaPanel = ({citizens}) => {
- console.log(citizens)
   return (
     <>
     <div className='row'>

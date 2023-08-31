@@ -52,7 +52,19 @@ const id = UserId
         setBeneficios(res.data.dashboard[0].Beneficios)
         
       })
-      .catch()
+      .catch(err =>{
+        setDashboard(err.response.data.dashboard[0])
+        setPreferedParties(err.response.data.dashboard[0].preferedParty)
+        setPreferedPresidents(err.response.data.dashboard[0].preferedPresident)
+        setPreferedSenators(err.response.data.dashboard[0].preferedSenator)
+        setPreferedDiputys(err.response.data.dashboard[0].preferedDiputy)
+        setPreferedMayor(err.response.data.dashboard[0].preferedMayor)
+        setPreferedDirector(err.response.data.dashboard[0].preferedDistrictDirector)
+        setPreferedCouncillor(err.response.data.dashboard[0].preferedCouncillor)
+        setPreferedVocal(err.response.data.dashboard[0].preferedDistrictCouncillor)
+        setMiniDatos(err.response.data.dashboard[0].Encuestas)
+        setBeneficios(err.response.data.dashboard[0].Beneficios)
+    })
   }
 
 if(id !='Cargando'){

@@ -31,7 +31,7 @@ const People = () => {
     const URL = `${import.meta.env.VITE_API_SERVER}/api/v1/census/${id}`
       axios.get(URL, getConfig())
       .then(res => {
-        console.log()
+  
         setPeople(res.data.data)
         setUpdates(res.data.pendingUpdates)
         
@@ -68,8 +68,8 @@ const People = () => {
       </div>
       <div className="col-sm-6">
         <ol className="breadcrumb float-sm-right">
-          <li className="breadcrumb-item"><Link to='/dashboard'>Dashboard</Link></li>
-          <li className="breadcrumb-item"><Link to='/mypeople' >My People</Link></li>
+          <li className="breadcrumb-item"><Link to='/dashboard'>Panel</Link></li>
+          <li className="breadcrumb-item"><Link to='/mypeople' >Mi Gente</Link></li>
           <li className="breadcrumb-item active">Perfil del  Ciudadano</li>
         </ol>
       </div>
@@ -92,12 +92,19 @@ const People = () => {
             <h3 className="profile-username text-center">{people?.firstName} {people?.lastName}</h3>
             <p className="text-muted text-center">{people?.nickname}</p>
             <ul className="list-group list-group-unbordered mb-3">
-              <li className="list-group-item">
-                <b>Vecindario</b> <a className="float-right">{people?.neighbourhoods?.name}</a>
+            <li className="list-group-item">
+                <b>Recinto</b> <a className="float-right">{people?.colegio.precinctData.recintoNombre}</a>
               </li>
+
               <li className="list-group-item">
+                <b>Mesa</b> <a className="float-right">{people?.college.toString().padStart(4, '0')}</a>
+              </li>
+              {
+                people?.districts?.name?  <li className="list-group-item">
                 <b>Distrito Municipal</b> <a className="float-right">{people?.districts?.name}</a>
-              </li>
+              </li>:""
+              }
+            
               <li className="list-group-item">
                 <b>Municipio</b> <a className="float-right">{people?.municipalities?.name}</a>
               </li>
@@ -264,6 +271,7 @@ const People = () => {
         </div>
       </div>
         <div className="card-body">
+          
         <GPS lat={people?.geolocation?.latitud} long={people?.geolocation?.longitud} peopleName={people?.firstName} picture={people?.picture} gotAutomatic={people?.geolocation?.gotAutomatic}/>
         </div>
         </div>

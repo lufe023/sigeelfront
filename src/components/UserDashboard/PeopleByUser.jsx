@@ -29,7 +29,6 @@ const data = {
             .then(res => {
               setConsultedUser(res.data.user)
               setResults(res.data.rows)
-  
         })
         .catch(err =>{
             setResults([])

@@ -1,6 +1,5 @@
 import axios from 'axios'
-import React from 'react'
-import { useSelector } from 'react-redux'
+import React, { useState } from 'react'
 import { Link } from 'react-router-dom'
 import Swal from 'sweetalert2'
 import getConfig from '../../utils/getConfig'
@@ -13,9 +12,7 @@ import BenefitForm from './Contact/BenefitForm '
 import NewConditions from './Contact/NewCondition'
 const PeopleCard = ({people, getMypeople}) => {
 
-  const user = useSelector(state=> state.userSlice)
-
-  const deletePeople = (peopleId, peopleName) => {
+  const deletePeople = (peopleId, peopleName, leaderId) => {
   Swal.fire({
     title: `¿Seguro quieres eliminar a <p>${peopleName}</p> de tu padrón personal?`,
     text: `Esta acción hará que ${peopleName} quede disponible para otro lider`,
@@ -36,7 +33,7 @@ const PeopleCard = ({people, getMypeople}) => {
       axios.post(URL,
           {
             peopleId:peopleId,
-            leaderId: user.id
+            leaderId: leaderId
           },
       getConfig(),
       )
@@ -59,8 +56,6 @@ const isFieldUpdated = (fieldName) => {
     (update) => update.changedFields[fieldName] !== undefined
   );
 };
-
-
 
   return (
   <div className="col-12 col-sm-6 col-md-4 d-flex align-items-stretch flex-column">
@@ -196,12 +191,13 @@ const isFieldUpdated = (fieldName) => {
 
 
   <div className="tab-pane" id={`actualizar${people.id}`}>
-    <h5>Campos Pendientes de Actualización</h5>
+    <h6>Campos Pendientes de Actualización</h6>
     <ul>
       {pendingFields.map((fieldName, index) => (
         !people.pendingUpdates.some((update) => update.changedFields[fieldName]) && (
+         
           <li key={index}>
-            {fieldName}
+            {` ${fieldName}`}
             </li>
         )
       ))}
@@ -233,8 +229,7 @@ const isFieldUpdated = (fieldName) => {
       <i className="fab fa-telegram-plane"></i> Telegram
       </a>
 
-
-    <a className="btn btn-app bg-danger" onClick={()=>deletePeople(people.id, people.firstName)}>
+    <a className="btn btn-app bg-danger" onClick={()=>deletePeople(people.id, people.firstName, people.leader)}>
         <i className="fas fa-user-minus"></i> Quitar
     </a>
 

@@ -10,6 +10,7 @@ const GPS = ({lat, long, peopleName, picture, gotAutomatic}) => {
     },
     zoom: 9
   }
+
   const AnyReactComponent = ({ text }) => 
   <div >
       <i className="fas fa-map-marker" style={{color:"#bd0000"}}></i>
@@ -28,6 +29,7 @@ const GPS = ({lat, long, peopleName, picture, gotAutomatic}) => {
         </div>
       </div>
     
+    if(lat){
     return (
       <>
   <div style={{ height: '100vh', width: '100%' }}>
@@ -45,6 +47,14 @@ const GPS = ({lat, long, peopleName, picture, gotAutomatic}) => {
     </div>
   </>
   )
+  }else{
+    return (
+      <>
+      <h2>No hay Datos de GPS</h2>
+      <p><i className="fas fa-map-pin" /> Debe agregar una ubicación GPS al ciudadano, de forma automática o manual.</p>
+      </>
+    )
+  }
 }
 
 
