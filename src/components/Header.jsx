@@ -11,6 +11,7 @@ const Header = () => {
   const last_name =  user?.censu?.lastName
   
   const picture = user?.censu?.picture
+  
   return (
 <nav className="main-header navbar navbar-expand navbar-white navbar-light">
   {/* Left navbar links */}

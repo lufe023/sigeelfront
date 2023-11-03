@@ -40,22 +40,41 @@ const CitizenByCollege = () => {
       const [citizens, setCitizens] = useState() 
       const [collegeData, setCollegeData] = useState()
       const [isLoading, setIsloading] = useState(false)
+      const [pagination, setPagination] = useState({
+        offset: 0,
+        limit: 10,
+        count: 0,
+        next: '',
+        prev: '',
+        includeExterior: false
+      });
 
-      const getAllPeopleyByCollege = (collegeId)=>{
-        const URL = `${import.meta.env.VITE_API_SERVER}/api/v1/census/colegio/${collegeId}`
+      const getAllPeopleyByCollege = (collegeId, offset, limit) => {
+        
+      let URL = `${import.meta.env.VITE_API_SERVER}/api/v1/census/colegio/${collegeId}?offset=${offset}&limit=${limit}`
+        if(pagination.includeExterior){
+        URL = `${import.meta.env.VITE_API_SERVER}/api/v1/census/colegio/${collegeId}?offset=${offset}&limit=${limit}&includeExterior=${pagination.includeExterior}`
+        }
+        
           axios.get(URL, getConfig())
           .then(res => {
-            setCitizens(res.data[0].rows)
-            setCollegeData(res.data[1])
+
+            setCitizens(res.data.results)
+            setCollegeData(res.data.precinctData)
             setIsloading(false)
+              setPagination({
+                offset: res.data.offset,
+                limit: res.data.limit,
+                count: res.data.count,
+                next: res.data.next,
+                prev: res.data.prev,
+                includeExterior: res.data.includeExterior
+              })
           })
           .catch(err =>
             console.log(err))
             setIsloading(false)
       }
-    
-      console.log(citizens)
-
       const handleChange = (e) => {
         const { name, value } = e.target;
         setFormData((prevData) => ({
@@ -63,7 +82,15 @@ const CitizenByCollege = () => {
           [name]: value,
         }));
       };
-      
+
+      const handleChangePagination = (e) => {
+        const { name, value, checked } = e.target;
+        setPagination((prevData) => ({
+          ...prevData,
+          [name]: name === 'includeExterior' ? checked : value,
+        }));
+      };
+
       const addPeople = (people)=>{
         const URL = `${import.meta.env.VITE_API_SERVER}/api/v1/census/addpeople`
         axios.post(URL,
@@ -89,6 +116,7 @@ const CitizenByCollege = () => {
             icon: 'success',
             title: 'Ciudadano agregado con exito'
           })
+          getAllPeopleyByCollege(formData.college, pagination.offset, pagination.limit)
     })
     .catch(err =>{
         console.log(err)
@@ -111,11 +139,54 @@ const CitizenByCollege = () => {
     })
       }
 
+      const totalPages = Math.ceil(pagination.count / pagination.limit);
+      const currentPage = Math.floor(pagination.offset / pagination.limit) + 1;
+      
+      const maxPagesToShow = 5; // Número máximo de páginas a mostrar
+      let startPage = Math.max(1, currentPage - Math.floor(maxPagesToShow / 2));
+      let endPage = startPage + maxPagesToShow - 1;
+      
+      if (endPage > totalPages) {
+        endPage = totalPages;
+        startPage = Math.max(1, endPage - maxPagesToShow + 1);
+      }
+      
+      const pageNumbers = [...Array(endPage - startPage + 1).keys()].map(
+        (num) => num + startPage
+      );
+      
+      const paginationElements = pageNumbers.map((pageNumber) => (
+        <li
+          key={pageNumber}
+          className={`paginate_button page-item ${
+            pageNumber === currentPage ? "active" : ""
+          }`}
+        >
+          <button
+            href="#"
+            aria-controls="example2"
+            className="page-link"
+            onClick={() =>
+              getAllPeopleyByCollege(
+                formData.college,
+                (pageNumber - 1) * pagination.limit,
+                pagination.limit,
+                pagination.includeExterior
+              )
+            }
+          >
+            {pageNumber}
+          </button>
+        </li>
+      ));
+      
+
+
   return (
     <>
     <Header/>
     <Aside/>
-   <div className="content-wrapper" style={{minHeight: '1258.94px'}}>
+  <div className="content-wrapper" style={{minHeight: '1258.94px'}}>
   {/* Main content */}
   <section className="content">
     <div className="container-fluid">
@@ -126,7 +197,6 @@ const CitizenByCollege = () => {
           <div className="col-md-10 offset-md-1" >
             <form>
             <div className="row">
- 
               <div className="col-6">
               <div className="form-group">
                   <label>Recinto</label>
@@ -168,10 +238,54 @@ const CitizenByCollege = () => {
       
             </div>
             <div className="form-group">
-  <div className="col-md-12">
-    <button type="button" className="btn btn-primary btn-block" onClick={()=>{getAllPeopleyByCollege(formData.college), setIsloading(true)}}><i className="fa fa-search" /> Ver</button>
-  </div>
 
+
+
+  <div className='row'>
+<div className="col-md-6">
+ <div className="form-group">
+  <label>Personas por Paginas</label>
+  <select className="form-control"
+  value={pagination.limit}
+  onChange={(e) => {
+    const newLimit = parseInt(e.target.value);
+    setPagination((prevPagination) => ({
+      ...prevPagination,
+      limit: newLimit,
+    }));
+  }}
+  >
+  <option>10</option>
+  <option>20</option>
+    <option>50</option>
+    <option>70</option>
+    <option>100</option>
+  </select>
+</div>
+</div>
+<div className="col-md-6">
+ <div className="form-group">
+  <label>Incluir Padrón Exterior</label>
+ <div className="form-group">
+  <div className="custom-control custom-switch custom-switch-off-danger custom-switch-on-success">
+    <input type="checkbox" className="custom-control-input" id="customSwitch3"
+    name="includeExterior"
+    checked={pagination.includeExterior}
+    onChange={handleChangePagination} 
+     />
+    <label className="custom-control-label" htmlFor="customSwitch3">{pagination.includeExterior?"Incluyendo": "Excluyendo"}</label>
+  </div>
+</div>
+
+
+</div>
+</div>
+
+
+</div>
+<div className="col-md-12">
+<button type="button" className="btn btn-primary btn-block" onClick={()=>{getAllPeopleyByCollege(formData.college, pagination.offset, pagination.limit ), setIsloading(true)}}><i className="fa fa-search" /> Ver</button>
+  </div>
 </div>
 </form>
 
@@ -184,23 +298,55 @@ const CitizenByCollege = () => {
 
 </div>
 </div>
+
+{
+  paginationElements.length>0?
+  <div className="col-sm-12 col-md-12 " style={{ textAlign:"center"}}> {/* Agrega la clase text-center para centrar horizontalmente */}
+
+  <div className="dataTables_paginate paging_simple_numbers" id="example2_paginate">
+    <ul className="pagination" style={{display:"flex", justifyContent:"center"}}>
+      <li className="paginate_button page-item previous" id="example2_previous">
+        <button href="#" aria-controls="example2" onClick={() => getAllPeopleyByCollege(formData.college, pagination.offset - pagination.limit, pagination.limit)} className="page-link">
+          Anterior
+        </button>
+      </li>
+
+      {paginationElements}
+
+      <li className="paginate_button page-item next" id="example2_next">
+        <button href="#" aria-controls="example2" onClick={() => getAllPeopleyByCollege(formData.college, pagination.offset + pagination.limit, pagination.limit)} className="page-link">
+          Siguiente
+        </button>
+      </li>
+    </ul>
+  </div>
+</div>
+:""
+}
+{
+  citizens?
 <div className="card">
+  
   <div className="card-header">
     <h3 className="card-title">{collegeData?.precinctData.recintoNombre} 
     <small style={{marginLeft:"10px"}}>
         <b>Mesa:</b>  {collegeData?.id.toString().padStart(4, '0')}
     </small>
+    <small style={{marginLeft:"10px"}}>
+        <b>Total Colegio:</b>  {pagination.count}
+    </small>
     </h3>
-    
+   
   </div>
   {/* /.card-header */}
+  
   <div className="card-body table-responsive p-0">
   <table className="table table-hover text-nowrap">
           <thead>
             <tr>
               <th>Foto</th>
               <th>Datos</th>
-              <th>Colegio</th>
+          
             </tr>
           </thead>
           <tbody>
@@ -236,9 +382,9 @@ const CitizenByCollege = () => {
                     
                         {
                           item.leaders?.id? <span> Lider:  <Link to={`/peoplebyuser/${item.leaders?.id}`}>{item.leaders?.censu?.firstName}</Link></span>:
-                          <a className='btn btn-xs btn-primary' onClick={()=>addPeople(item.id)}> <i className="fas fa-user-plus"/> Agregar a Mi Gente</a>
+                          <a className='btn btn-xs btn-primary' onClick={()=>{addPeople(item.id)}}> <i className="fas fa-user-plus"/> Agregar a Mi Gente</a>
                         }
-                        
+
                         {/* {people.leader
         ?<i className="fas fa-user-check search-tool less"></i>
         :<i className="fas fa-user-plus search-tool" onClick={()=>addPeople(people.id, people.citizenID)}></i> } */}
@@ -269,17 +415,54 @@ const CitizenByCollege = () => {
                 </li>
                 </ul>
                 </td>
-                <td>
-                
-                </td>
+            
                 </tr>
             ))}
           </tbody>
         </table>
+        <div className="row">
+          <div className="col-sm-12 col-md-5">
+            <div className="dataTables_info" id="example2_info" role="status" aria-live="polite">
+              {/* Mostrando {pagination.offset+1} to {pagination.limit+pagination.offset} de {pagination.count} ciudadanos */}
+              </div>
+          </div>
+  
+          </div>
+        
+
 </div>
 
-  {/* /.card-body */}
 </div>
+:""
+}
+
+{
+  paginationElements.length>0?
+  <div className="col-sm-12 col-md-12 " style={{ textAlign:"center"}}> {/* Agrega la clase text-center para centrar horizontalmente */}
+
+  <div className="dataTables_paginate paging_simple_numbers" id="example2_paginate">
+    <ul className="pagination" style={{display:"flex", justifyContent:"center"}}>
+      <li className="paginate_button page-item previous" id="example2_previous">
+        <button href="#" aria-controls="example2" onClick={() => getAllPeopleyByCollege(formData.college, pagination.offset - pagination.limit, pagination.limit)} className="page-link">
+          Anterior
+        </button>
+      </li>
+
+      {paginationElements}
+
+      <li className="paginate_button page-item next" id="example2_next">
+        <button href="#" aria-controls="example2" onClick={() => getAllPeopleyByCollege(formData.college, pagination.offset + pagination.limit, pagination.limit)} className="page-link">
+          Siguiente
+        </button>
+      </li>
+    </ul>
+  </div>
+</div>
+:""
+}
+
+
+
 </div>
   </section>
 </div>

@@ -1,19 +1,56 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import Header from '../Header'
 import Aside from '../Aside'
 import { Link } from 'react-router-dom'
 import Footer from '../Footer'
 import { useState } from 'react'
-import { useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { useForm } from 'react-hook-form'
 import Swal from 'sweetalert2'
 import axios from 'axios'
+import getConfig from '../../utils/getConfig'
 
-const LockAdmin = ({setAccess}) => {
+const LockAdmin = ({setAccess,setPasswordFail, passwordFail}) => {
+
     const [user, setUser] = useState(useSelector(state=> state.userSlice))
     const [msg, setMsg] = useState() 
     const {register, handleSubmit, reset} = useForm()
+    
 
+    const getUserbyId = () => { 
+      const URL = `${import.meta.env.VITE_API_SERVER}/api/v1/users/me`
+        axios.get(URL, getConfig())
+        .then(res => {
+          setUser(res.data)
+        })
+        .catch(err => {
+          console.log(err)
+          setPasswordFail(passwordFail+1)
+          const Toast = Swal.mixin({
+            toast: true,
+            position: 'top-end',
+            showConfirmButton: false,
+            timer: 3000,
+            timerProgressBar: true,
+            didOpen: (toast) => {
+              toast.addEventListener('mouseenter', Swal.stopTimer)
+              toast.addEventListener('mouseleave', Swal.resumeTimer)
+            }
+          })
+          Toast.fire({
+            icon: 'error',
+            title: `Contraseña erronea, intentelo de  nuevo`
+          })
+        })
+        
+    }
+    useEffect(() => {
+    getUserbyId()
+    }, [])
+
+if(user?.censu?.firstName=="Cargando"){
+  getUserbyId()
+}
 
     const submit = data => {
         const URL = `${import.meta.env.VITE_API_SERVER}/api/v1/auth/login`
@@ -40,7 +77,7 @@ const LockAdmin = ({setAccess}) => {
                   })
                   }
                   else{
-                    setMsg('No cumple permisos')
+                    setMsg('No cumple con los permisos')
                     Toast.fire({
                       icon: 'success',
                       title: `Credenciales Correctas, pero no autorizado`
@@ -93,11 +130,13 @@ const LockAdmin = ({setAccess}) => {
   {/* START LOCK SCREEN ITEM */}
   <div className="lockscreen-item">
     {/* lockscreen image */}
+    
+    {
+      msg=="No cumple con los permisos"?"":
+<>
     <div className="lockscreen-image">
       <img src={`${import.meta.env.VITE_API_SERVER}/api/v1/images/citizen/${user?.censu?.picture}`} alt="User Image" />
     </div>
-    {/* /.lockscreen-image */}
-    {/* lockscreen credentials (contains the form) */}
     
     <form className="lockscreen-credentials"onSubmit={handleSubmit(submit) }>
       <div className="input-group">
@@ -117,12 +156,15 @@ const LockAdmin = ({setAccess}) => {
         </div>
       </div>
     </form>
+    </>
+    }
     {/* /.lockscreen credentials */}
   </div>
   {/* /.lockscreen-item */}
   <div className="help-block text-center">
-    
+    <p  style={{display:"block"}}>
     Se nececita confirmar identidad para acceder a esta área
+    </p>
   </div>
   <div className="text-center">
     <Link to='/logout'>Iniciar con otro usuario</Link>

@@ -51,11 +51,14 @@ const SearhPeople = () => {
 
     const findingWord = e => {
                 const fn = e.target.value.trim()
-                findPeople(fn)
-                if(fn!=''){
-                setIsloading(true)
+            
+                if(fn!='' && fn.length >= 3){
+                  setIsloading(true)
+                  findPeople(fn)
             }else{
                 setIsloading(false)
+                setResults('')
+                setCount('')
             }
           }
       

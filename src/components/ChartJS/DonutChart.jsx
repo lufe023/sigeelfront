@@ -30,7 +30,8 @@ const colores = []
             label: 'Simpatizantes',
             data: puntos,
             backgroundColor: colores,
-            borderWidth: 1,
+            borderWidth: 0,
+          
         },
         ],
         };
@@ -39,7 +40,7 @@ return (
     <>
     <div className="card">
     <div className="card-header">
-    <h3 className="card-title">Partidos</h3>
+    <h3 className="card-title">Grafico Partidos</h3>
     </div>
     <div className="card-body" style={{backgroundColor:"#f1f1f1"}}>
     <Doughnut data={data} />

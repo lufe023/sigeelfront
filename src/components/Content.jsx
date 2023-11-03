@@ -15,6 +15,7 @@ import DonutChart from './ChartJS/DonutChart'
 import MiniDatos from './Dashboard/MiniDatos'
 import ConcurrenciaPanel from './Concurrencia/ConcurrenciaPanel'
 import Advertisiments from './Dashboard/Advertisiments'
+import Calendar from './Todo/Calendar'
 
 const Content = () => {
 
@@ -113,6 +114,7 @@ if(id !='Cargando'){
       <div className="row">
       <div className="col-12">
       <Advertisiments/> 
+      <Calendar/>
       </div>
         <div className="col-lg-3 col-6">
 

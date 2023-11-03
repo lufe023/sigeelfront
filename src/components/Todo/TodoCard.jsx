@@ -33,19 +33,19 @@ return (
           </div>
           {
           tarea.isActive?
-          <small  className='badge  badge-danger'>
+          <small  className='badge  badge-danger' >
             <i className="far fa-clock" />{tarea.limit}</small>
           :
           <small  className='badge  badge-success'>
           <i className="far fa-clock" />{tarea.limit}</small> 
           }
 
-          <small className='badge'>
+          <small className='badge'style={{display:"block", textAlign:'left'}} >
           <i className="fas fa-lock" style={{marginRight:'5px'}}/> 
           {tarea.Creador.email}
           </small>
           {/* General tools such as edit or delete*/}
-          <div className="tools">
+          <div className="tools" style={{marginTop:"-30px"}}>
           <Link to={`/tasks/${tarea.id}`} onClick={()=> setLoading(true)}>
             <i className="fas fa-edit" />
             <i className="fas fa-trash-o" />

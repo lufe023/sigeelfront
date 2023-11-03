@@ -7,6 +7,7 @@ import Aside from '../Aside'
 import Footer from '../Footer'
 import Header from '../Header'
 import Cargando from '../../utils/Cargando'
+import AllUsers from './AllUsers'
 
 const UserDashBoard = () => {
   const [users, setUsers] = useState([])
@@ -117,6 +118,11 @@ const UserDashBoard = () => {
   <section className="content">
   <div className="row">
     <div className="col-12">
+      <AllUsers users={users}/>
+    </div>
+    </div>
+  <div className="row">
+    <div className="col-12">
   <div className="card">
   <div className="card-header">
     <h3 className="card-title">Colaboradores</h3>
@@ -150,7 +156,6 @@ const UserDashBoard = () => {
         </tr>
       </thead>
       <tbody>
-        {console.log(users)}
       {
         users?.map((user) => 
           <tr key={user.id}>

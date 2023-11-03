@@ -10,6 +10,7 @@ import GPSGeneralView from '../Census/GPSGeneralView'
 import Swal from 'sweetalert2'
 import Content from '../Content'
 import CollaboratorDashboard from './CollaboratorDashboard.jsx'
+import FindAndAddPeople from '../Census/FindAndAddPeople'
 
 const PeopleByUser = () => {
     const [results, setResults] = useState()
@@ -80,9 +81,11 @@ const data = {
     </div>{/* /.container-fluid */}
   </section>
   {/* Main content */}
+  
   <section className="content" >
-    
+  <FindAndAddPeople getMypeople={getMypeople} leaderId={id}/>
         <div className="row">
+
             
           {
             results?.map((result) => 

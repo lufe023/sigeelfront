@@ -124,7 +124,7 @@ if(isLogged)
             className='form-control' 
             type="text" 
             id="email" 
-            placeholder="Pon tu email"
+            placeholder="Usuario"
             required/>
           <div className="input-group-append">
             <div className="input-group-text">
@@ -138,7 +138,7 @@ if(isLogged)
               className='form-control' 
               type="password" 
               id="password" 
-              placeholder="Pon tu contraseña"
+              placeholder="Contraseña"
               onInput={writenPassword}
               required
           />

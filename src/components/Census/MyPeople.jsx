@@ -8,8 +8,13 @@ import PeopleCard from './PeopleCard'
 import Cargando from '../../utils/Cargando'
 import GPSGeneralView from './GPSGeneralView'
 import { Link } from 'react-router-dom'
+import SearhPeople from '../SearhPeople'
+import FindAndAddPeople from './FindAndAddPeople'
+import { useSelector } from 'react-redux'
 
 const MyPeople = () => {
+
+  const user = useSelector(state=> state.userSlice)
 
     const [results, setResults] = useState()
     const [isLoading, setIsloading] = useState(true)
@@ -64,14 +69,22 @@ const MyPeople = () => {
     :""
   }
   <section className="content">
+  <FindAndAddPeople getMypeople={getMypeople} leaderId={user?.id}/>
+
     {/* Default box */}
-    <div className="row no-print" style={{marginBottom:'20px'}}> 
+  <div className="row no-print" style={{marginBottom:'20px'}}> 
   <div className="col-12">
     <Link to={'/printmypeople/?variable=2'} type="button" className="btn btn-danger "><i className="fas fa-print" /> Formulario de Captura
     </Link>
     
     <Link to={'/printmyconcurrencia'} type="button" className="btn btn-primary float-right"><i className="fas fa-print" /> Formulario de Concurrencia
     </Link>
+  </div>
+</div>
+<div className="row">
+  <div className="col-12">
+
+
   </div>
 </div>
         <div className="row">

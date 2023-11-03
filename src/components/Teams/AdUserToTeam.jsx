@@ -29,6 +29,7 @@ const AdUserToTeam = ({teamId, getOneteam}) => {
 
 
 const handleSubmit = (teamId, id) => {
+  
   const URL = `${import.meta.env.VITE_API_SERVER}/api/v1/teams/${teamId}`;
   const data = { members:[id] };
   
@@ -95,11 +96,10 @@ const findingWord = e => {
                 <li key={user.id} className={user?.colaborador?.email?'list-select-user-item': 'ist-select-user-item notPosible'}>
                             <div className="user-block list-select-user">
                             <div>
-                            <a href="#" 
+                            <button  
                             className={ user?.colaborador?.email?'float-right  btn  btn-success' :'float-right  btn  btn-success disabled'}
-                            onClick={()=>handleSubmit(teamId,user?.colaborador.id)}
-                            >
-                                <i className="fas fa-plus-circle"/> Agregar</a>
+                            onClick={()=>handleSubmit(teamId,user?.colaborador.id)}>
+                                <i className="fas fa-plus-circle"/> Agregar</button>
                             </div>
                                 <div>
                                 <img className="img-circle img-bordered-sm" src={`${import.meta.env.VITE_API_SERVER}/api/v1/images/citizen/${user?.picture}`} alt="user image" />

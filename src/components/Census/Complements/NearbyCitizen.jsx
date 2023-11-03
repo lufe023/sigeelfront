@@ -10,8 +10,7 @@ const NearbyCitizen = ({citizenId, setPeople}) => {
   const [rangeValue, setRangeValue] = useState(100);
   const [radarLoading, setRadarLoading] = useState(true)
 
-  const FindNearbyCitizen = (e) => {
-    e.preventDefault;
+  const FindNearbyCitizen = () => {
     setRadarLoading(true)
     setNear()
     const URL = `${import.meta.env.VITE_API_SERVER}/api/v1/gps/nearby/${rangeValue}/${citizenId}`
@@ -42,7 +41,7 @@ const NearbyCitizen = ({citizenId, setPeople}) => {
           {/* /.card-header */}
           <div className="card-body">
           <div>
-            <form onSubmit={FindNearbyCitizen}>
+            <form>
             <div className="form-group">
             <label htmlFor="customRange1">{rangeValue} <small>Metros</small></label>
             <input
@@ -55,7 +54,7 @@ const NearbyCitizen = ({citizenId, setPeople}) => {
           />
           </div>
         <div className="form-group">
-        <button className='btn btn-primary'>Encontrar</button>
+        <button className='btn btn-primary' type="button" onClick={FindNearbyCitizen}>Encontrar</button>
         </div>
         </form>
     </div>

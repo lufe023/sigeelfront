@@ -18,7 +18,7 @@ const Error404 = () => {
     </div>{/* /.container-fluid */}
   </section>
   {/* Main content */}
-  <section className="content">
+  <section className="content" style={{minHeight:"90vh"}}>
     <div className="error-page">
       <h2 className="headline text-warning"> 404</h2>
       <div className="error-content">

@@ -29,6 +29,7 @@ import MyPeoplePrint from './components/Census/MyPeoplePrint';
 import CitizenByCollege from './components/Precints/CitizenByCollege';
 import MyPeoplePrintB from './components/Census/MyPeoplePrintB';
 import Informs from './components/Admin/Informs/Informs';
+import SistemConfiguration from './components/Admin/SistemConfiguration';
 
 
 function App() {
@@ -71,12 +72,10 @@ function App() {
         <Route path='/printmypeople' element={<MyPeoplePrint/>}/>
         <Route path='/printmyconcurrencia' element={<MyPeoplePrintB/>}/>
         <Route path='/mypeople/:id' element={<People/>}/>
-        <Route path='/ballot' element={<SeeBallot/>}/>
         <Route path='/peoplebyuser/:id' element={<PeopleByUser/>}/>
         <Route path='/people/poll/:id/:name' element={<Polls/>}/>
         <Route path='/teams' element={<Teams/>}/>
         <Route path='/teams/:id' element={<TeamView/>}/>
-        <Route path='/admin' element={<LockScreen/>}/>
         <Route path='/precints' element={<CitizenByCollege/>}/>
       </Route>
 
@@ -84,6 +83,8 @@ function App() {
       <Route element={<ProtectedAdmin/>}>
       <Route path='/campains' element={<Campains/>}/>
       <Route path='/informs' element={<Informs/>}/>
+      <Route path='/admin' element={<SistemConfiguration/>}/>
+      <Route path='/ballot' element={<SeeBallot/>}/>
       </Route>
 
       <Route path='*' element={<Error404/>}/>

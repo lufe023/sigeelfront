@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import {Link, NavLink, useParams} from 'react-router-dom'
 import getConfig from '../utils/getConfig'
 import { setUserData } from '../store/slices/user.slice'
+import ScroolTop from './Miscelaneos/ScroolTop'
 
 
 const Aside = () => {
@@ -40,6 +41,7 @@ const [user, setUser] = useState(useSelector(state=> state.userSlice))
 
   return (
 <aside className="main-sidebar sidebar-dark-primary elevation-4">
+  <ScroolTop/>
   {/* Brand Logo */}
   <Link to="/" className="brand-link">
     <img src="img/MIELECTOR-Isotipo-64x75.png" alt="AdminLTE Logo" className="brand-image img-circle elevation-3" style={{opacity: '.8'}} />
@@ -78,7 +80,8 @@ const [user, setUser] = useState(useSelector(state=> state.userSlice))
                   </NavLink>
                   </li>
                   <li className="nav-item">
-                  <NavLink to='/me' className="nav-link ">
+                    
+                  <NavLink to={`/mypeople/${user?.censu?.id}`} className="nav-link ">
                       <i className="fas fa-user-alt nav-icon"></i>
                       <p>Perfil</p>
                   </NavLink>
@@ -121,12 +124,6 @@ const [user, setUser] = useState(useSelector(state=> state.userSlice))
                   </NavLink>
                   </li>
                   <li className='nav-item'>
-                  <NavLink to="/ballot" className="nav-link">
-                      <i className="fas fa-book-open nav-icon" />
-                      <p>Boleta</p>
-                  </NavLink>
-                  </li>
-                  <li className='nav-item'>
                   </li>
                 </ul>
               </li>
@@ -142,6 +139,12 @@ const [user, setUser] = useState(useSelector(state=> state.userSlice))
                   </p>
                 </NavLink>
                 <ul className="nav nav-treeview">
+                <li className='nav-item'>
+                  <NavLink to="/ballot" className="nav-link">
+                      <i className="fas fa-book-open nav-icon" />
+                      <p>Boleta</p>
+                  </NavLink>
+                  </li>
                   <li className="nav-item" >
                   <NavLink to="/admin" className="nav-link">
                   <i className="fas fa-person-booth"></i>

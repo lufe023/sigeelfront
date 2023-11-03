@@ -59,7 +59,6 @@ const NewCandidate = ({getAllCandidates, getAllParties, parties}) => {
         data.append('distritoMunicipal', e.target.distrito.value)
         data.append('municipio', e.target.municipio.value)
         data.append('provincia', e.target.provincia.value)
-
         const URL = `${import.meta.env.VITE_API_SERVER}/api/v1/ballots/`
         axios.post(URL,
         data,

@@ -9,12 +9,14 @@ import AdUserToTeam from './AdUserToTeam'
 import TeamMembersTodo from './TeamMembersTodo'
 import Swal from 'sweetalert2'
 import Cargando from '../../utils/Cargando'
+import Error404 from '../Error404'
 
 const TeamView = () => {
   const [team, setTeam] = useState()
   const {id} = useParams()
   const [eliminado, setEliminado] = useState() 
- 
+  const [isLoading, setIsloading] = useState(true)
+  
   //llamando todos los grupos en el sistema
 const getOneteam = (id)=>{
   const URL = `${import.meta.env.VITE_API_SERVER}/api/v1/teams/team/${id}`
@@ -22,17 +24,20 @@ const getOneteam = (id)=>{
       getConfig()
       )
       .then(res => {
+
         setTeam(res.data)
+        setIsloading(false)
   })
   .catch(err =>{
       console.log(err)
+      setIsloading(3)
   })
   }
 
   useEffect(() => {
     getOneteam(id)
   }, [])
-  
+
   const deleteTeam = (teamId, teamName) => {
     Swal.fire({
       title: `¿Seguro quieres Elimnar a ${teamName}?`,
@@ -100,7 +105,6 @@ const getOneteam = (id)=>{
     <Aside/>
     {
       team?
-
     <div className='content-wrapper'>
     <section className="content-header">
       <div className="container-fluid">
@@ -202,8 +206,15 @@ const getOneteam = (id)=>{
 </section>
 
     </div>
-    :<div className='loading' style={{height:"100px", marginBottom:"50px"}}><Cargando escala='1.5'/></div>
+    :""
   
+  }
+  {
+  isLoading ==true?<div className='loading' style={{height:"100px", marginBottom:"50px"}}><Cargando escala='1.5'/></div>:""
+  }
+
+{
+  isLoading ===3?<Error404/>:""
   }
     <Footer/>
     </>

@@ -111,7 +111,9 @@ const People = () => {
               <li className="list-group-item">
                 <b>Provincia</b> <a className="float-right">{people?.provinces?.name}</a>
               </li>
-              
+              <li className="list-group-item">
+                <b>Provincia</b> <a className="float-right">{people?.provinces?.name}</a>
+              </li>
               
             </ul>
           </div>
