@@ -30,6 +30,7 @@ import CitizenByCollege from './components/Precints/CitizenByCollege';
 import MyPeoplePrintB from './components/Census/MyPeoplePrintB';
 import Informs from './components/Admin/Informs/Informs';
 import SistemConfiguration from './components/Admin/SistemConfiguration';
+import UserAdministrator from './components/UserDashboard/UserAdministrator';
 
 
 function App() {
@@ -67,12 +68,10 @@ function App() {
         <Route path='/me/' element={<Me/>}/>
         <Route path='/tasks' element={<TasksBoard/>}/>
         <Route path='/tasks/:id' element={<TasksBoard/>}/>
-        <Route path='/users' element={<UserDashBoard/>}/>
         <Route path='/mypeople' element={<MyPeople/>}/>
         <Route path='/printmypeople' element={<MyPeoplePrint/>}/>
         <Route path='/printmyconcurrencia' element={<MyPeoplePrintB/>}/>
         <Route path='/mypeople/:id' element={<People/>}/>
-        <Route path='/peoplebyuser/:id' element={<PeopleByUser/>}/>
         <Route path='/people/poll/:id/:name' element={<Polls/>}/>
         <Route path='/teams' element={<Teams/>}/>
         <Route path='/teams/:id' element={<TeamView/>}/>
@@ -85,6 +84,9 @@ function App() {
       <Route path='/informs' element={<Informs/>}/>
       <Route path='/admin' element={<SistemConfiguration/>}/>
       <Route path='/ballot' element={<SeeBallot/>}/>
+      <Route path='/users' element={<UserDashBoard/>}/>
+      <Route path='/users/:id/' element={<UserAdministrator/>}/>
+      <Route path='/peoplebyuser/:id' element={<PeopleByUser/>}/>
       </Route>
 
       <Route path='*' element={<Error404/>}/>

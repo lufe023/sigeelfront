@@ -15,7 +15,7 @@ const CitizenForm = ({updates, citizen, getPeople}) => {
   })
 
   const [isLoading, setIsloading] = useState(false)
-
+  const [updating, setUpdating] = useState(false)
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -32,14 +32,8 @@ const CitizenForm = ({updates, citizen, getPeople}) => {
     axios.patch(`${import.meta.env.VITE_API_SERVER}/api/v1/census/${citizen.citizenID}`, formData, getConfig())
       .then((response) => {
         // Restablecer el formulario después de enviar los datos (opcional)
-        setFormData({
-          nickname: '',
-          adress: '',
-          celphone: '',
-          telephone: '',
-          otherPhone: '',
-        });
         getPeople()
+        setUpdating(false)
         setIsloading(false)
         const Toast = Swal.mixin({
           toast: true,
@@ -88,7 +82,15 @@ const CitizenForm = ({updates, citizen, getPeople}) => {
   }else
   {
   return (
-    <form className="form-horizontal" onSubmit={handleSubmit}>
+    <div className={updating?'card-body bg-warning':'card-body'}>
+       <div  style={{textAlign:"center", padding:"5px"}}>
+      {
+      updating?
+     
+      <h4><i className="fas fa-info-circle"></i> Hay cambios pendiente por guardar </h4>:""
+  }
+  </div>
+    <form className="form-horizontal " onSubmit={handleSubmit} onChange={()=> setUpdating(true)}>
       <div className="form-group row">
         <label htmlFor="apodo" className="col-sm-2 col-form-label">Apodo</label>
         <div className="col-sm-10">
@@ -157,10 +159,14 @@ const CitizenForm = ({updates, citizen, getPeople}) => {
       </div>
       <div className="form-group row">
         <div className="offset-sm-2 col-sm-10">
-          <button type="submit" onClick={handleSubmit} className="btn btn-danger">Submit</button>
+          {
+            updating?<button type="submit" onClick={handleSubmit} className="btn btn-success">Guardar Cambios</button>:""
+          }
+          
         </div>
       </div>
     </form>
+    </div>
   );
   }
 };

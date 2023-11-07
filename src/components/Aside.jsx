@@ -106,16 +106,7 @@ const [user, setUser] = useState(useSelector(state=> state.userSlice))
                       <p>Tareas</p>
                   </NavLink>
                   </li>
-                  <li className="nav-item">
-                    <NavLink to="/users" className="nav-link">
-                      <i className="fas fa-users nav-icon" />
-                      <p>Colaboradores</p>
-                    </NavLink>
-                  </li>
-                  <li className="nav-item">
                   
-          
-                  </li>
 
                   <li className="nav-item">
                   <NavLink to="/teams" className="nav-link">
@@ -139,6 +130,12 @@ const [user, setUser] = useState(useSelector(state=> state.userSlice))
                   </p>
                 </NavLink>
                 <ul className="nav nav-treeview">
+                <li className="nav-item">
+                    <NavLink to="/users" className="nav-link">
+                      <i className="fas fa-users nav-icon" />
+                      <p>Colaboradores</p>
+                    </NavLink>
+                  </li>
                 <li className='nav-item'>
                   <NavLink to="/ballot" className="nav-link">
                       <i className="fas fa-book-open nav-icon" />

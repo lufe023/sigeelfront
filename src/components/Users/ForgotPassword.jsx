@@ -84,7 +84,7 @@ const ForgotPassword = () => {
       <form onSubmit={handleSubmit}>
       
 <div className="input-group mb-3">
-<input type="email" className="form-control" disabled={sent?true:false} name='email' placeholder="Correo Electronico" />
+<input type="text" className="form-control" disabled={sent?true:false} name='email' placeholder="Correo Electronico" />
 <div className="input-group-append">
   <div className="input-group-text">
     <span className="fas fa-envelope" />

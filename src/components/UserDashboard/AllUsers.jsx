@@ -1,7 +1,7 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 
-const AllUsers = ({users}) => {
+const AllUsers = ({users, userDisable, getAllUsers}) => {
   return (
    <div className="card">
   <div className="card-header">
@@ -21,7 +21,7 @@ const AllUsers = ({users}) => {
     { 
     users?.map((user) => 
     <li className="item" key={user.id}> 
-    {console.log(user)}
+
      <div className="product-img">
           <img src={`${import.meta.env.VITE_API_SERVER}/api/v1/images/citizen/${user?.censu?.picture}`} alt="Product Image" className="img-size-50" />
         </div>
@@ -34,8 +34,14 @@ const AllUsers = ({users}) => {
           <Link to={`/peoplebyuser/${user.id}`}>
           <button className='btn btn-primary btn-xs'>Seguimiento</button></Link>
           {' '}
-          <Link to={`/mypeople/${user.censu.id}`}>
-          <button className='btn btn-warning btn-xs'>Adminsitrar</button></Link>
+          <Link to={`/users/${user.id}`}>
+          <button className='btn btn-warning btn-xs'>Adminsitrar</button></Link> 
+          {' '}
+          {
+      user.active?<button className='btn btn-danger btn-xs' onClick={()=> (userDisable(user.id, false), getAllUsers())}> Desactivar</button>
+      : <button className='btn btn-success btn-xs' onClick={()=> (userDisable(user.id, true), getAllUsers())}> Activar</button>
+    }
+          
         </div>
     </li>
     )}
@@ -44,7 +50,7 @@ const AllUsers = ({users}) => {
   </div>
   {/* /.card-body */}
   <div className="card-footer text-center" style={{display: 'block'}}>
-    <a href="javascript:void(0)" className="uppercase">View All Products</a>
+    
   </div>
   {/* /.card-footer */}
 </div>

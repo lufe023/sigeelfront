@@ -73,7 +73,7 @@ const data = {
         </div>
         <div className="col-sm-6">
           <ol className="breadcrumb float-sm-right">
-            <li className="breadcrumb-item"><Link to='users'>Colaboradores</Link></li>
+          <li className="breadcrumb-item"><Link to='/users' >Colaboradores</Link></li>
             <li className="breadcrumb-item active">Gente de Otro Usuario</li>
           </ol>
         </div>
@@ -81,7 +81,6 @@ const data = {
     </div>{/* /.container-fluid */}
   </section>
   {/* Main content */}
-  
   <section className="content" >
   <FindAndAddPeople getMypeople={getMypeople} leaderId={id}/>
         <div className="row">
