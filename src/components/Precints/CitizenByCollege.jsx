@@ -243,7 +243,7 @@ const CitizenByCollege = () => {
 
   <div className='row'>
 <div className="col-md-6">
- <div className="form-group">
+<div className="form-group">
   <label>Personas por Paginas</label>
   <select className="form-control"
   value={pagination.limit}

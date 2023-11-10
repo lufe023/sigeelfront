@@ -11,7 +11,6 @@ import AllUsers from './AllUsers'
 import userDisable from '../UserDashboard/userDisable'
 const UserDashBoard = () => {
   const [users, setUsers] = useState([])
-  const [allData, setAllData] = useState()
   const [loading, setLoading] = useState(true)
   const [pagination, setPagination] = useState({
     offset: 0,
@@ -23,13 +22,6 @@ const UserDashBoard = () => {
 
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
-
-  const estilos = {
-    cursor:{
-      cursor: "pointer"
-    }
-  }
-
   
   const getAllUsers = (page = 1) => {
 
@@ -108,15 +100,15 @@ const UserDashBoard = () => {
       }));
       setCurrentPage(1);
     }}
-  >
-
+  > 
+    <option value={2}>2</option>
     <option value={10}>10</option>
     <option value={20}>20</option>
     <option value={50}>50</option>
     <option value={70}>70</option>
     <option value={100}>100</option>
   </select>
-  <div className="input-group-append" onClick={() => getAllUsers(1)} style={{cursor:"pointer"}}>
+  <div className="input-group-append" onClick={()=> getAllUsers(1)} style={{cursor:"pointer"}}>
     <span className="input-group-text"><i className="fas fa-search"/></span>
   </div>
 </div>
@@ -149,7 +141,7 @@ const UserDashBoard = () => {
     <Cargando escala='1.5'/>
     </div>
   :
-      <AllUsers users={users} userDisable={userDisable} getAllUsers={getAllUsers(currentPage)}/>
+      <AllUsers users={users} userDisable={userDisable} getAllUsers={getAllUsers} currentPage={currentPage}/>
 }
     </div>
     </div>

@@ -11,18 +11,19 @@ import CitizenForm from '../Census/Forms/CitizenForm'
 import userDisable from '../UserDashboard/userDisable'
 import copy from 'clipboard-copy';
 import Swal from 'sweetalert2'
+import changeUserRole from '../UserDashboard/changeUserRole'
 
 const UserAdministrator = () => {
 
         const [people, setPeople] = useState()
         const [user, setUser] = useState()
         const [updates, setUpdates] = useState()
+        const [selectedRole, setSelectedRole] = useState("");
         const {id} = useParams()
         const getPeople = ()=>{
           const URL = `${import.meta.env.VITE_API_SERVER}/api/v1/users/${id}`
             axios.get(URL, getConfig())
             .then(res => {
-                console.log(res)
             setPeople(res.data.censu)
             setUser(res.data)
             })
@@ -151,12 +152,38 @@ const urlRecuperation =  `${import.meta.env.VITE_FRONT_DOMAIN}/#recoverypassword
             </div>
           </div>
         </div>
-   
-  
-  
+      {
+        user.passwordRequest?
+        <div className="card card-default">
+        <div className="card-header">
+          <h3 className="card-title">Recuperar de Clave</h3>
+          <div className="card-tools">
+            <button type="button" className="btn btn-tool" data-card-widget="collapse">
+              <i className="fas fa-minus" />
+            </button>
+            <button type="button" className="btn btn-tool" data-card-widget="remove">
+              <i className="fas fa-times" />
+            </button>
+          </div>
+        </div>
+        {/* /.card-header */}
+        <div className="card-body">
+        <ul className="list-group list-group-unbordered mb-3">
+            <li className="list-group-item">
+                <b>Codigo:</b> {user.passwordRequest}<a className="float-right">
+                  
+                  <button className='btn btn-primary' onClick={()=> copiarUrlRecupeacion()}>Copiar URL</button>
+                  
+                  </a>
+              </li>
+    </ul>
+    </div>
+    </div>
+:""
+}
   <div className="card card-default">
   <div className="card-header">
-    <h3 className="card-title">Otros Detalles</h3>
+    <h3 className="card-title">Roles de Usuario</h3>
     <div className="card-tools">
       <button type="button" className="btn btn-tool" data-card-widget="collapse">
         <i className="fas fa-minus" />
@@ -169,60 +196,92 @@ const urlRecuperation =  `${import.meta.env.VITE_FRONT_DOMAIN}/#recoverypassword
   {/* /.card-header */}
   <div className="card-body">
 
-    <h5>Herramientas del usuario</h5>
-  
-    <ul className="list-group list-group-unbordered mb-3">
-      {
-        user.passwordRequest?
-            <li className="list-group-item">
-                <b>Recuperar de Clave</b> <a className="float-right">
-                  
-                  <button className='btn btn-primary' onClick={()=> copiarUrlRecupeacion()}>Copiar URL</button>
-                  
-                  </a>
-              </li>:""
-}
-    </ul>
     <div className="row">
   <div className="col-sm-6">
     {/* Select multiple*/}
     <div className="form-group">
       <label>Cambiar Rango</label>
-      <select multiple className="form-control">
-        <option>option 1</option>
-        <option>option 2</option>
-        <option>option 3</option>
-        <option>option 4</option>
-        <option>option 5</option>
+      <select className="form-control"
+      value={selectedRole}
+      onChange={(e) => setSelectedRole(e.target.value)}
+      size={5}
+      >
+        <option value={1}>Colaborador</option>
+        <option value={2}>Delegado</option>
+        <option value={3}>Administrador</option>
+        <option value={4}>It Support</option>
+        <option value={5}>Super Admin</option>
       </select>
     </div>
   </div>
   <div className="col-sm-6">
   <div className="form-group">
   <label>Descripción</label>
- <div className="alert alert-info alert-dismissible">
- 
-  <h5><i className="icon fas fa-info" /> Importante!</h5>
-  Info alert preview. This alert is dismissable.
+ <div id="accordion">
+  <div className="card card-primary">
+    <div className="card-header">
+      <h4 className="card-title w-100">
+        <a className="d-block w-100" data-toggle="collapse" href="#collapseOne">
+        Colaborador (Nivel 1)
+        </a>
+      </h4>
+    </div>
+    <div id="collapseOne" className="collapse show" data-parent="#accordion">
+      <div className="card-body">
+      El Colaborador desempeña un papel vital en el proceso electoral al interactuar directamente con los electores en la comunidad.
+      Utiliza dispositivos como teléfonos móviles, tabletas, computadoras o formularios para recolectar datos. 
+      Su función principal es recopilar información valiosa de los ciudadanos y mantener una comunicación cercana con ellos. 
+      A pesar de tener un rango más bajo en el sistema, su contribución es fundamental para el éxito del proceso electoral. 
+      El Colaborador actúa como un enlace esencial entre la comunidad y el sistema electoral, desempeñando un papel valioso a pesar de sus limitaciones dentro del sistema.
+      </div>
+    </div>
+  </div>
+  <div className="card card-danger">
+    <div className="card-header">
+      <h4 className="card-title w-100">
+        <a className="d-block w-100" data-toggle="collapse" href="#collapseTwo">
+        Delegado (Nivel 2)
+        </a>
+      </h4>
+    </div>
+    <div id="collapseTwo" className="collapse" data-parent="#accordion">
+      <div className="card-body">
+      El Delegado ocupa una posición de gran importancia en el sistema electoral, con la autoridad para supervisar las operaciones electorales y tomar decisiones clave en el terreno. 
+      Similar a un Colaborador, el Delegado interactúa directamente con los electores y recopila datos. 
+      Sin embargo, el Delegado tiene la facultad adicional de decidir qué electores han votado y cuáles no. 
+      Esta responsabilidad añadida implica un mayor nivel de confianza y autoridad en el proceso electoral. 
+      Los Delegados desempeñan un papel crucial en garantizar un registro preciso de la participación electoral y contribuyen significativamente a la transparencia y confiabilidad del proceso.
+      </div>
+    </div>
+  </div>
+  <div className="card card-success">
+    <div className="card-header">
+      <h4 className="card-title w-100">
+        <a className="d-block w-100" data-toggle="collapse" href="#collapseThree">
+        Administrador (Nivel 3)
+        </a>
+      </h4>
+    </div>
+    <div id="collapseThree" className="collapse" data-parent="#accordion">
+      <div className="card-body">
+      El Administrador ostenta el rango más alto en el sistema electoral y tiene acceso privilegiado a información crítica, como datos estadísticos y resultados de encuestas. 
+      Su rol es fundamental en la administración y supervisión del centro de cómputo y el sistema de datos. 
+      Los Administradores tienen la autoridad para otorgar roles de Colaborador y Delegado, además de tener privilegios adicionales que les permiten tomar decisiones estratégicas y asegurar la integridad y seguridad de los datos durante todo el proceso electoral. 
+      Su experiencia y conocimientos son esenciales para el funcionamiento fluido del sistema y la toma de decisiones informadas.
+      </div>
+    </div>
+  </div>
 </div>
 </div>
-    {/* <div className="form-group">
-      <label>Select Multiple Disabled</label>
-      <select multiple className="form-control" disabled>
-        <option>option 1</option>
-        <option>option 2</option>
-        <option>option 3</option>
-        <option>option 4</option>
-        <option>option 5</option>
-      </select>
-    </div> */}
+
+  
   </div>
 </div>
 
   </div>
 
   <div className="card-footer">
-   
+  <button className='btn btn-primary' onClick={()=> changeUserRole(user.id, selectedRole, getPeople)}>Asignar Rol</button>
   </div>
 </div>
 

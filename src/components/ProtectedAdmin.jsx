@@ -13,7 +13,7 @@ const ProtectedAdmin = () => {
     
     if(isLogged && access){
         return <>
-        <MouseInactiveLogout timeoutInMinutes={60} />
+        <MouseInactiveLogout timeoutInMinutes={5} />
          <Outlet/>
          </>
     }

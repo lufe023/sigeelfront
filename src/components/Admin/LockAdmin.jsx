@@ -68,7 +68,7 @@ if(user?.censu?.firstName=="Cargando"){
                     toast.addEventListener('mouseleave', Swal.resumeTimer)
                   }
                 })
-                if(res.data.nivel>3){
+                if(res.data.nivel>2){
                   setAccess(true)
                   setMsg('Cumple permisos')
                   Toast.fire({

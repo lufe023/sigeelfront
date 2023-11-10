@@ -1,11 +1,11 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 
-const AllUsers = ({users, userDisable, getAllUsers}) => {
+const AllUsers = ({users, userDisable, getAllUsers, currentPage}) => {
   return (
    <div className="card">
   <div className="card-header">
-    <h3 className="card-title">Recently Added Products</h3>
+    <h3 className="card-title">Lista de Colaboradores</h3>
     <div className="card-tools">
       <button type="button" className="btn btn-tool" data-card-widget="collapse">
         <i className="fas fa-minus" />
@@ -22,12 +22,15 @@ const AllUsers = ({users, userDisable, getAllUsers}) => {
     users?.map((user) => 
     <li className="item" key={user.id}> 
 
-     <div className="product-img">
+    <div className="product-img">
           <img src={`${import.meta.env.VITE_API_SERVER}/api/v1/images/citizen/${user?.censu?.picture}`} alt="Product Image" className="img-size-50" />
         </div>
         <div className="product-info">
-          <Link to={`/peoplebyuser/${user.id}`} className="product-title">{`${user.censu.first_name} ${user.censu.last_name}`}
-            <span className="badge badge-warning float-right">{user.user_role.roleName}</span></Link>
+          <Link to={`/mypeople/${user.censu.id}`} className="product-title">{`${user.censu.first_name} ${user.censu.last_name}`}
+          <span className={`badge float-right ${user.user_role.roleName=='Administrador'?'badge-warning':user.user_role.roleName=='Super Admin'?'badge-danger':user.user_role.roleName=='Delegado'?'badge-info':'badge-success'}`}>{user.user_role.roleName}</span>
+          
+          </Link>
+            
           <span className="product-description">
           {user.email}
           </span>
@@ -37,11 +40,6 @@ const AllUsers = ({users, userDisable, getAllUsers}) => {
           <Link to={`/users/${user.id}`}>
           <button className='btn btn-warning btn-xs'>Adminsitrar</button></Link> 
           {' '}
-          {
-      user.active?<button className='btn btn-danger btn-xs' onClick={()=> (userDisable(user.id, false), getAllUsers())}> Desactivar</button>
-      : <button className='btn btn-success btn-xs' onClick={()=> (userDisable(user.id, true), getAllUsers())}> Activar</button>
-    }
-          
         </div>
     </li>
     )}
