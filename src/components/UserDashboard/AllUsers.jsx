@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom'
 
 const AllUsers = ({users, userDisable, getAllUsers, currentPage}) => {
   return (
-   <div className="card">
+  <div className="card">
   <div className="card-header">
     <h3 className="card-title">Lista de Colaboradores</h3>
     <div className="card-tools">
@@ -24,6 +24,7 @@ const AllUsers = ({users, userDisable, getAllUsers, currentPage}) => {
 
     <div className="product-img">
           <img src={`${import.meta.env.VITE_API_SERVER}/api/v1/images/citizen/${user?.censu?.picture}`} alt="Product Image" className="img-size-50" />
+          
         </div>
         <div className="product-info">
           <Link to={`/mypeople/${user.censu.id}`} className="product-title">{`${user.censu.first_name} ${user.censu.last_name}`}
@@ -34,6 +35,11 @@ const AllUsers = ({users, userDisable, getAllUsers, currentPage}) => {
           <span className="product-description">
           {user.email}
           </span>
+          
+          <Link to={`/users/${user.id}`}>
+          {user.active?<button className='btn btn-success btn-xs'>Activado</button>:<button className='btn btn-danger btn-xs'>Desactivado</button>}
+          </Link>
+          {' '}
           <Link to={`/peoplebyuser/${user.id}`}>
           <button className='btn btn-primary btn-xs'>Seguimiento</button></Link>
           {' '}

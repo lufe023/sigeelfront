@@ -12,6 +12,7 @@ import userDisable from '../UserDashboard/userDisable'
 import copy from 'clipboard-copy';
 import Swal from 'sweetalert2'
 import changeUserRole from '../UserDashboard/changeUserRole'
+import TransferCensus from './TransferCensus'
 
 const UserAdministrator = () => {
 
@@ -113,20 +114,9 @@ const urlRecuperation =  `${import.meta.env.VITE_FRONT_DOMAIN}/#recoverypassword
                     </a>
                   :<a className="float-right">
                     <button className='btn btn-success btn-xs' onClick={()=> (userDisable(user.id, true), getPeople())}> Activar</button>
+                    
                     </a> 
                 }
-
-
-                {/* {
-                  user.active?
-                
-                <a className="float-right bg-success">
-                  Activado
-                </a>
-                :<a className="float-right bg-danger">
-                Desactivado
-              </a>
-                } */}
               </li>
             </ul>
           </div>
@@ -171,9 +161,7 @@ const urlRecuperation =  `${import.meta.env.VITE_FRONT_DOMAIN}/#recoverypassword
         <ul className="list-group list-group-unbordered mb-3">
             <li className="list-group-item">
                 <b>Codigo:</b> {user.passwordRequest}<a className="float-right">
-                  
                   <button className='btn btn-primary' onClick={()=> copiarUrlRecupeacion()}>Copiar URL</button>
-                  
                   </a>
               </li>
     </ul>
@@ -221,12 +209,12 @@ const urlRecuperation =  `${import.meta.env.VITE_FRONT_DOMAIN}/#recoverypassword
   <div className="card card-primary">
     <div className="card-header">
       <h4 className="card-title w-100">
-        <a className="d-block w-100" data-toggle="collapse" href="#collapseOne">
-        Colaborador (Nivel 1)
+        <a className="d-block w-100 collapsed" data-toggle="collapse" href="#collapseOne">
+        <i className="fas fa-user" /> Colaborador (Nivel 1)
         </a>
       </h4>
     </div>
-    <div id="collapseOne" className="collapse show" data-parent="#accordion">
+    <div id="collapseOne" className="collapse" data-parent="#accordion">
       <div className="card-body">
       El Colaborador desempeña un papel vital en el proceso electoral al interactuar directamente con los electores en la comunidad.
       Utiliza dispositivos como teléfonos móviles, tabletas, computadoras o formularios para recolectar datos. 
@@ -240,7 +228,7 @@ const urlRecuperation =  `${import.meta.env.VITE_FRONT_DOMAIN}/#recoverypassword
     <div className="card-header">
       <h4 className="card-title w-100">
         <a className="d-block w-100" data-toggle="collapse" href="#collapseTwo">
-        Delegado (Nivel 2)
+        <i className="fas fa-user-tag" /> Delegado (Nivel 2)
         </a>
       </h4>
     </div>
@@ -258,7 +246,7 @@ const urlRecuperation =  `${import.meta.env.VITE_FRONT_DOMAIN}/#recoverypassword
     <div className="card-header">
       <h4 className="card-title w-100">
         <a className="d-block w-100" data-toggle="collapse" href="#collapseThree">
-        Administrador (Nivel 3)
+        <i className="fas fa-user-cog"/> Administrador (Nivel 3)
         </a>
       </h4>
     </div>
@@ -284,7 +272,7 @@ const urlRecuperation =  `${import.meta.env.VITE_FRONT_DOMAIN}/#recoverypassword
   <button className='btn btn-primary' onClick={()=> changeUserRole(user.id, selectedRole, getPeople)}>Asignar Rol</button>
   </div>
 </div>
-
+<TransferCensus/>
 </div>
     
       {/* /.col */}
