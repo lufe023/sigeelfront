@@ -55,7 +55,7 @@ const [user, setUser] = useState(useSelector(state=> state.userSlice))
       <img src={`${import.meta.env.VITE_API_SERVER}/api/v1/images/citizen/${picture}`} className="img-circle elevation-2" alt="User Image" />
       </div>
       <div className="info">
-      <NavLink to='/me' className="d-block">{`${first_name} ${last_name}`}</NavLink>
+      <NavLink to={`/mypeople/${user?.censu?.id}`} className="d-block">{`${first_name} ${last_name}`}</NavLink>
       </div>
     </div>
 
@@ -134,6 +134,12 @@ const [user, setUser] = useState(useSelector(state=> state.userSlice))
                     <NavLink to="/users" className="nav-link">
                       <i className="fas fa-users nav-icon" />
                       <p>Colaboradores</p>
+                    </NavLink>
+                  </li>
+                  <li className="nav-item">
+                    <NavLink to="/delegate" className="nav-link">
+                    <i className="fas fa-user-tag" />
+                      <p> Delegados</p>
                     </NavLink>
                   </li>
                 <li className='nav-item'>

@@ -25,9 +25,6 @@ const AdUserToTeam = ({teamId, getOneteam}) => {
         })
         }
 
-
-
-
 const handleSubmit = (teamId, id) => {
   
   const URL = `${import.meta.env.VITE_API_SERVER}/api/v1/teams/${teamId}`;
@@ -73,19 +70,16 @@ const handleSubmit = (teamId, id) => {
     });
 };
 
-
 const findingWord = e => {
     const fn = e.target.value.trim()
     findPeople(fn)
     if(fn!=''){
     
-}else{
-    
 }
 }
  return (
     <div>
-        <div className="form-group">
+  <div className="form-group">
   <label htmlFor="exampleInputEmail1">Añadir colaborador al equipo</label>
   <input type="text" className="form-control" id="exampleInputEmail1" placeholder="Apodo, nombre, apellido o cedula sin guiones" onChange={findingWord}/>
 </div>

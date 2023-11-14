@@ -81,7 +81,7 @@ const Header = () => {
     
     {/* Menu Footer*/}
     <li className="user-footer">
-      <Link to='/me' className="btn btn-default btn-flat">Profile</Link>
+      <Link to={`/mypeople/${user?.censu?.id}`} className="btn btn-default btn-flat">Profile</Link>
       <Link to='/logout' className="btn btn-default btn-flat float-right">Cerrar Session</Link>
       
     </li>

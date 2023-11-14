@@ -5,7 +5,6 @@ import Aboutme from './components/Aboutme';
 import Dashboard from './components/Dashboard/Dashboard';
 import Home from './components/Home/Home';
 import Error404 from './components/Error404';
-import Me from './components/Users/Me';
 import TasksBoard from './components/Todo/TasksBoard';
 import ScrollToTop from './components/ScrollToTop';
 import ProtectedRoutes from './components/ProtectedRoutes';
@@ -22,7 +21,6 @@ import Polls from './components/Polls/Polls';
 import Teams from './components/Teams/Teams';
 import TeamView from './components/Teams/TeamView';
 import LockScreen from './components/Admin/LockScreen';
-import { io } from 'socket.io-client';
 import ProtectedAdmin from './components/ProtectedAdmin';
 import Campains from './components/Admin/Campains';
 import MyPeoplePrint from './components/Census/MyPeoplePrint';
@@ -31,27 +29,11 @@ import MyPeoplePrintB from './components/Census/MyPeoplePrintB';
 import Informs from './components/Admin/Informs/Informs';
 import SistemConfiguration from './components/Admin/SistemConfiguration';
 import UserAdministrator from './components/UserDashboard/UserAdministrator';
+import Delegate from './components/Admin/Delegate/Delegate';
 
 
 function App() {
-  const [notification, setNotification] = useState('');
-  useEffect(() => {
-    // Conectar al servidor WebSocket
-    const socket = io('http://localhost:3000'); // Reemplaza 'http://localhost:3000' con la URL de tu servidor WebSocket
 
-    // Escuchar mensajes recibidos desde el servidor
-    socket.on('message', (message) => {
-      const data = JSON.parse(message);
-      if (data.type === 'notification') {
-        setNotification(data.message);
-      }
-    });
-
-    // Limpia el WebSocket cuando el componente se desmonta
-    return () => {
-      socket.disconnect();
-    };
-  }, []);
 
   return (
     <div className='wrapper'>
@@ -65,7 +47,6 @@ function App() {
       <Route element={<ProtectedRoutes/>}>
         <Route path='/dashboard' element={<Dashboard/>}/>
         <Route path='/aboutme' element={<Aboutme/>}/>
-        <Route path='/me/' element={<Me/>}/>
         <Route path='/tasks' element={<TasksBoard/>}/>
         <Route path='/tasks/:id' element={<TasksBoard/>}/>
         <Route path='/mypeople' element={<MyPeople/>}/>
@@ -87,6 +68,7 @@ function App() {
       <Route path='/users' element={<UserDashBoard/>}/>
       <Route path='/users/:id/' element={<UserAdministrator/>}/>
       <Route path='/peoplebyuser/:id' element={<PeopleByUser/>}/>
+      <Route path='/Delegate' element={<Delegate/>}/>
       </Route>
 
       <Route path='*' element={<Error404/>}/>
