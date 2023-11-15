@@ -57,6 +57,7 @@ function App() {
         <Route path='/teams' element={<Teams/>}/>
         <Route path='/teams/:id' element={<TeamView/>}/>
         <Route path='/precints' element={<CitizenByCollege/>}/>
+        <Route path='/Delegate' element={<Delegate/>}/>
       </Route>
 
       {/* Proteccion para administracion */}
@@ -68,7 +69,7 @@ function App() {
       <Route path='/users' element={<UserDashBoard/>}/>
       <Route path='/users/:id/' element={<UserAdministrator/>}/>
       <Route path='/peoplebyuser/:id' element={<PeopleByUser/>}/>
-      <Route path='/Delegate' element={<Delegate/>}/>
+   
       </Route>
 
       <Route path='*' element={<Error404/>}/>

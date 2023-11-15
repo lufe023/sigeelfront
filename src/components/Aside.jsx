@@ -94,7 +94,7 @@ const [user, setUser] = useState(useSelector(state=> state.userSlice))
                   </NavLink>
                   </li>
                   <li className="nav-item">
-                  <NavLink to='/precints' className="nav-link ">
+                  <NavLink to='/delegate' className="nav-link ">
                   <i className="fas fa-hotel nav-icon" />
                       <p> Colegios</p>
                   </NavLink>
@@ -136,12 +136,12 @@ const [user, setUser] = useState(useSelector(state=> state.userSlice))
                       <p>Colaboradores</p>
                     </NavLink>
                   </li>
-                  <li className="nav-item">
+                  {/* <li className="nav-item">
                     <NavLink to="/delegate" className="nav-link">
                     <i className="fas fa-user-tag" />
                       <p> Delegados</p>
                     </NavLink>
-                  </li>
+                  </li> */}
                 <li className='nav-item'>
                   <NavLink to="/ballot" className="nav-link">
                       <i className="fas fa-book-open nav-icon" />

@@ -64,6 +64,7 @@ const FindAndAddPeople = ({getMypeople, leaderId}) => {
       });
   })
     }
+    
     const findPeople = (findWord)=>{
         const URL = `${import.meta.env.VITE_API_SERVER}/api/v1/census/search`
             axios.post(URL,
@@ -83,7 +84,6 @@ const FindAndAddPeople = ({getMypeople, leaderId}) => {
             setCount()
         })
         }
-console.log(results)
         const findingWord = e => {
           const fn = e.target.value.trim()
       

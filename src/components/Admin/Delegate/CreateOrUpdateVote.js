@@ -49,7 +49,7 @@ console.log('ocurrio: '+response?.data?.suffrage)
       })
       Toast.fire({
         icon: 'error',
-        title: 'Algo anda mal'
+        title: `${error.response.data.message}`
       })
     });
     

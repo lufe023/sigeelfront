@@ -64,8 +64,6 @@ const ListByCollege = ({citizens, addPeople}) => {
                         }
                     </li>
                     
-                    {console.log(item)}
-                    
         </ul>
     </div>
 </div>
