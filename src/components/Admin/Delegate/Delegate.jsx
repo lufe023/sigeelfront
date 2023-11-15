@@ -327,24 +327,8 @@ const Delegate = () => {
 {
   citizens?
   <>
-  <h5 className="mb-2">
-  {collegeData?.precinctData.recintoNombre} 
-    <small style={{marginLeft:"10px"}}>
-        <b>Mesa:</b>  {collegeData?.id.toString().padStart(4, '0')}
-    </small>
-    <small style={{marginLeft:"10px"}}>
-        <b>Total Colegio:</b>  {pagination.count}
-    </small>
-    </h5>
-    <ListByCollege  
-    citizens={citizens} 
-    getAllPeopleyByCollege={getAllPeopleyByCollege}
-    formData={formData.college}
-    pagination={pagination.limit} />
-
-<div className="card">
-  
-  <div className="card-header">
+  <div className="card">
+  <div className="card-header bg-dark">
     <h3 className="card-title">{collegeData?.precinctData.recintoNombre} 
     <small style={{marginLeft:"10px"}}>
         <b>Mesa:</b>  {collegeData?.id.toString().padStart(4, '0')}
@@ -355,100 +339,14 @@ const Delegate = () => {
     </h3>
   </div>
   {/* /.card-header */}
- 
-  <div className="card-body ">
-    
-  <table className="table table-hover text-nowrap">
-          <thead>
-            <tr>
-              <th>Foto</th>
-              <th>Datos</th>
-          
-            </tr>
-          </thead>
-          <tbody>
-           
-            {citizens?.map(item => (
-              <tr key={item.id}>
-                <td style={{width:'150px'}}>
-                <Link to={`/mypeople/${item.id}`}>
-                <img src={`${import.meta.env.VITE_API_SERVER}/api/v1/images/citizen/${item?.picture}`} alt="user-avatar" className="img-fluid" />
-                </Link>
-                    </td>
-                <td>
-                <ul className='ciudadanosColegio'>
-                    <li>
-                    <Link to={`/mypeople/${item.id}`}>
-                    {item.firstName} {item.lastName} {item.nickname? `(${item.nickname})`:""} </Link>
-                    </li>
-                    <li>
-                        {item.citizenID.substring(0,3)+'-'+item.citizenID.substring(3,10)+'-'+item.citizenID.substring(10,11)}
-                    </li>
-                    <li>
-                        <b>Cel:</b> {item.celphone}
-                    </li>
-                    <li>
-                        <b>Tel: </b>{item.telephone}
-                    </li>
-                    <li>
-                        <b>Otro Tel: </b>{item.otherphone}
-                    </li>
-                    <li>
-                        Dir: {item.adress}
-                    </li>
-                    <li>
-                    
-                        {
-                          item.leaders?.id? <span> Lider:  <Link to={`/peoplebyuser/${item.leaders?.id}`}>{item.leaders?.censu?.firstName}</Link></span>:
-                          <a className='btn btn-xs btn-primary' onClick={()=>{addPeople(item.id)}}> <i className="fas fa-user-plus"/> Agregar a Mi Gente</a>
-                        }
-
-                      
-                    </li>
-                    
-                </ul>
-                <ul className='ciudadanosColegio'>
-                    <li>
-                <b>Posicion: </b>{item.position}
-                </li>
-                {item.outside?
-                <li>
-                {item.outside?'Exterior':''}
-                </li>
-                :""
-                }
-
-                {item.condition?
-                <li>
-                <b>Condicion:</b> {item.condition.conditionDetails}
-                
-                </li>
-                :""
-                }
-                <li>
-                    <b>Votó:</b> {item.sufragio?"Si":"No"}
-                </li>
-                </ul>
-                </td>
-            
-                </tr>
-            ))}
-
-          </tbody>
-        </table>
-        <div className="row">
-          <div className="col-sm-12 col-md-5">
-            <div className="dataTables_info" id="example2_info" role="status" aria-live="polite">
-              {/* Mostrando {pagination.offset+1} to {pagination.limit+pagination.offset} de {pagination.count} ciudadanos */}
-              </div>
-          </div>
+</div>
   
-          </div>
-        
-
-</div>
-
-</div>
+    <ListByCollege  
+    citizens={citizens} 
+    getAllPeopleyByCollege={getAllPeopleyByCollege}
+    formData={formData.college}
+    pagination={pagination.limit} 
+    addPeople={addPeople}/>
 </>
 :""
 }

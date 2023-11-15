@@ -3,15 +3,15 @@ import { Link } from 'react-router-dom'
 import '../../Precints/CitizenByCollege.css'
 import CreateOrUpdateVote from './CreateOrUpdateVote'
 
-const ListByCollege = ({citizens, getAllPeopleyByCollege, formData, pagination}) => {
+const ListByCollege = ({citizens, addPeople}) => {
 
   
   return (
     <div className="row">
         
     {citizens?.map(item => (
-    <div key={item.id} className="col-md-4 col-sm-6 col-xl-4 col-12">
-    <div className="info-box">
+    <div key={item.id} className="col-md-4 col-sm-6 col-xl-4 col-12" style={{minWidth:"400px"}}>
+    <div className="info-box" >
         <span className=" " style={{width:"auto"}}>
         <Link to={`/mypeople/${item.id}`}>
         <img
@@ -55,12 +55,16 @@ const ListByCollege = ({citizens, getAllPeopleyByCollege, formData, pagination})
                         <b>Dir:</b> {item.adress}
                     </li>
                     <li>
-                    
+                        <b>Posición:</b> {item.position}
+                    </li>
+                    <li>
                         {
                         item.leaders?.id? <span> Lider:  <Link to={`/peoplebyuser/${item.leaders?.id}`}>{item.leaders?.censu?.firstName}</Link></span>:
                         <a className='btn btn-xs btn-primary' onClick={()=>{addPeople(item.id)}}> <i className="fas fa-user-plus"/> Agregar a Mi Gente</a>
                         }
                     </li>
+                    
+                    {console.log(item)}
                     
         </ul>
     </div>
