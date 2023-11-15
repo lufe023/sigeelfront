@@ -8,6 +8,7 @@ import Cargando from '../../../utils/Cargando'
 import '../../Precints/CitizenByCollege.css'
 import { Link } from 'react-router-dom'
 import Swal from 'sweetalert2'
+import ListByCollege from './ListByCollege'
 const Delegate = () => {
     const [precints, setPrecints] = useState()
     const [selectedPrecint, setSelectedPrecint] = useState()
@@ -272,7 +273,7 @@ const Delegate = () => {
     name="includeExterior"
     checked={pagination.includeExterior}
     onChange={handleChangePagination} 
-     />
+    />
     <label className="custom-control-label" htmlFor="customSwitch3">{pagination.includeExterior?"Incluyendo": "Excluyendo"}</label>
   </div>
 </div>
@@ -325,6 +326,22 @@ const Delegate = () => {
 }
 {
   citizens?
+  <>
+  <h5 className="mb-2">
+  {collegeData?.precinctData.recintoNombre} 
+    <small style={{marginLeft:"10px"}}>
+        <b>Mesa:</b>  {collegeData?.id.toString().padStart(4, '0')}
+    </small>
+    <small style={{marginLeft:"10px"}}>
+        <b>Total Colegio:</b>  {pagination.count}
+    </small>
+    </h5>
+    <ListByCollege  
+    citizens={citizens} 
+    getAllPeopleyByCollege={getAllPeopleyByCollege}
+    formData={formData.college}
+    pagination={pagination.limit} />
+
 <div className="card">
   
   <div className="card-header">
@@ -336,11 +353,11 @@ const Delegate = () => {
         <b>Total Colegio:</b>  {pagination.count}
     </small>
     </h3>
-   
   </div>
   {/* /.card-header */}
-  
-  <div className="card-body table-responsive p-0">
+ 
+  <div className="card-body ">
+    
   <table className="table table-hover text-nowrap">
           <thead>
             <tr>
@@ -350,6 +367,7 @@ const Delegate = () => {
             </tr>
           </thead>
           <tbody>
+           
             {citizens?.map(item => (
               <tr key={item.id}>
                 <td style={{width:'150px'}}>
@@ -385,10 +403,7 @@ const Delegate = () => {
                           <a className='btn btn-xs btn-primary' onClick={()=>{addPeople(item.id)}}> <i className="fas fa-user-plus"/> Agregar a Mi Gente</a>
                         }
 
-                        {/* {people.leader
-        ?<i className="fas fa-user-check search-tool less"></i>
-        :<i className="fas fa-user-plus search-tool" onClick={()=>addPeople(people.id, people.citizenID)}></i> } */}
-                    
+                      
                     </li>
                     
                 </ul>
@@ -418,6 +433,7 @@ const Delegate = () => {
             
                 </tr>
             ))}
+
           </tbody>
         </table>
         <div className="row">
@@ -433,6 +449,7 @@ const Delegate = () => {
 </div>
 
 </div>
+</>
 :""
 }
 
