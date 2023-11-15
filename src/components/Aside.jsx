@@ -90,7 +90,7 @@ const [user, setUser] = useState(useSelector(state=> state.userSlice))
                   <li className="nav-item">
                   <NavLink to='/mypeople' className="nav-link ">
                       <i className="fas fa-id-card  nav-icon"></i>
-                      <p>Mi Gente</p>
+                      <p>Padroncillo</p>
                   </NavLink>
                   </li>
                   <li className="nav-item">
