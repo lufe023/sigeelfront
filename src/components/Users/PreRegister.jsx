@@ -22,6 +22,7 @@ const findingWord = e => {
     if(fn!='' && fn.length==11){
     setInputsLoader(true)
     findPeople(fn)
+    console.log(fn)
   }else{
     setPeople({firstName:'', lastName:''})
   }

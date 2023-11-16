@@ -37,13 +37,9 @@ function App() {
 
   return (
     <div className='wrapper'>
-      
-    
       <ScrollToTop/>
-
       <Routes>
       <Route path='/' element={<Home/>}/>
-
       <Route element={<ProtectedRoutes/>}>
         <Route path='/dashboard' element={<Dashboard/>}/>
         <Route path='/aboutme' element={<Aboutme/>}/>

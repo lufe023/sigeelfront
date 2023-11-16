@@ -129,7 +129,7 @@ const fechaHoy = obtenerFechaActual();
                 <b>Tareas</b> <a className="float-right">{member.memberData.tasks.length}</a>
               </li>
             </ul>
-            <a href="#" className="btn btn-danger btn-block" onClick={()=> exitFromTeam(member.memberId, member.teamId, member.memberData.censu.firstName)}><b>Expulsar</b></a>
+            <button href="#" className="btn btn-danger btn-block" onClick={()=> exitFromTeam(member.memberId, member.teamId, member.memberData.censu.firstName)}><b>Expulsar</b></button>
           </div>
           {/* /.card-body */}
         </div>

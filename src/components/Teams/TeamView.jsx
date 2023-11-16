@@ -10,12 +10,15 @@ import TeamMembersTodo from './TeamMembersTodo'
 import Swal from 'sweetalert2'
 import Cargando from '../../utils/Cargando'
 import Error404 from '../Error404'
+import { useNavigate } from 'react-router-dom';
 
 const TeamView = () => {
   const [team, setTeam] = useState()
   const {id} = useParams()
   const [eliminado, setEliminado] = useState() 
   const [isLoading, setIsloading] = useState(true)
+
+  const navigate = useNavigate();
   
   //llamando todos los grupos en el sistema
 const getOneteam = (id)=>{
@@ -39,6 +42,7 @@ const getOneteam = (id)=>{
   }, [])
 
   const deleteTeam = (teamId, teamName) => {
+
     Swal.fire({
       title: `¿Seguro quieres Elimnar a ${teamName}?`,
       text: `Esta accion no se puede deshacer y los miembros de ${teamName} quedarán sin dirección`,
@@ -66,10 +70,10 @@ const getOneteam = (id)=>{
             clearInterval(timerInterval)
             setEliminado(true)
           }
-        }).then((result) => {
-          /* Read more about handling dismissals below */
+      
+            
+            
         })
-
         const URL = `${import.meta.env.VITE_API_SERVER}/api/v1/teams/${teamId}`
         axios.delete(URL, {
           headers:{
@@ -83,7 +87,9 @@ const getOneteam = (id)=>{
             'Eliminado!',
             'El Equipo se eliminó con éxito',
             'success'
+            
             )
+            navigate('/teams');
     })
     .catch(err =>{
   
@@ -138,9 +144,15 @@ const getOneteam = (id)=>{
               <li className="list-group-item">
                 <b>Miembros</b> <a className="float-right">{team?.members.length}</a>
               </li>
-              <li className="list-group-item">
-                <b>Tareas</b> <a className="float-right">10</a>
-              </li>
+              {
+              team?.members.map(member => 
+                <li className="list-group-item">
+                  <Link to={`/peoplebyuser/${member?.memberId}`}>
+                  {member.memberData.censu.firstName}
+                  </Link>
+                </li>
+              )
+              }
             </ul>
             <button className="btn btn-danger btn-block" onClick={()=> deleteTeam(id, team?.name)}><b>Eliminar Team</b></button>
           </div>
@@ -166,10 +178,9 @@ const getOneteam = (id)=>{
           <div className="card-body">
             <div className="tab-content">
               <div className="active tab-pane" id="activity">
-                {/* Post */}
+                
                 <div className="post">
                   
-                  {/* /.user-block */}
                   <p>
                     {
                       team?.description
