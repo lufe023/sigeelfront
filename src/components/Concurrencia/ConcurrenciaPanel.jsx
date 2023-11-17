@@ -24,11 +24,12 @@ const ConcurrenciaPanel = ({citizens}) => {
     
     <div className='col-md-8' style={{ paddingTop:"20px", borderRadius:"20px"}}>
       
-    <ul className="users-list-panel clearfix">
+    <ul className="users-list-panel clearfix" style={{margin:"0", padding:"0"}}>
       {
         citizens.map(citizen => 
-    <li key={citizen.id}>
-     <div className="info-box">
+        citizen?.sufragio?.suffrage?"":
+  <li key={citizen.id}>
+  <div className="info-box">
   <span className="info-box-icon">
   <Link to={`/mypeople/${citizen.id}`}>
   <img src={`${import.meta.env.VITE_API_SERVER}/api/v1/images/citizen/${citizen?.picture}`}
@@ -57,6 +58,7 @@ const ConcurrenciaPanel = ({citizens}) => {
     <a className="users-list-name" href="#">Alexander Pierce</a>
     <span className="users-list-date text-success">Votó</span><small>10:40 am</small> */}
   </li>
+  
           )
       }
 </ul>

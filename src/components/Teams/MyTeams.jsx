@@ -94,14 +94,8 @@ return (
     <table className="table table-striped projects">
       <thead>
         <tr>
-          <th style={{width: '1%'}}>
-            
-          </th>
           <th style={{width: '20%'}}>
             Nombre del Equipo
-          </th>
-          <th style={{width: '30%'}}>
-            Miembros
           </th>
           <th style={{width: '10%'}}>
             tools
@@ -123,15 +117,9 @@ return (
             <br />
             <small>
             <Link to={`/teams/${team.teamId}`} href="#">Ver Equipo</Link>
-            
             </small>
           </td>
           <td>
-          <ul className="list-inline navbar-nav ml-auto">
-            {team.team.members.map(member=> 
-            <MembersMenu member={member} key={member.id}/> 
-            )}
-            </ul>
           </td>
           <td className="project-actions text-right">
           <div className="btn-group">

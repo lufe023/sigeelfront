@@ -19,7 +19,6 @@ import Calendar from './Todo/Calendar'
 
 const Content = () => {
 
-
 const [dashboard, setDashboard] = useState()
 const [preferedParties, setPreferedParties] = useState()
 const [preferedPresidents, setPreferedPresidents] = useState()
@@ -49,7 +48,6 @@ const {id} = useSelector(state=> state.userSlice)
         setPreferedVocal(res.data.dashboard[0].preferedDistrictCouncillor)
         setMiniDatos(res.data.dashboard[0].Encuestas)
         setBeneficios(res.data.dashboard[0].Beneficios)
-        
       })
       .catch(err =>{
         setDashboard(err.response.data.dashboard[0])
@@ -114,10 +112,9 @@ if(id !='Cargando'){
       <div className="row">
       <div className="col-12">
       <Advertisiments/> 
-      <Calendar/>
+      {/* <Calendar/> */}
       </div>
         <div className="col-lg-3 col-6">
-
           
           {/* small box */}
           <div className="small-box bg-info">
@@ -179,6 +176,7 @@ if(id !='Cargando'){
         </div>
         {/* ./col */}
       </div>
+
         <MiniDatos miniDatos={miniDatos} beneficios={beneficios} citizens={dashboard.ciudadanos.rows}/>
         {
           dashboard.ciudadanos.rows?<ConcurrenciaPanel citizens={dashboard.ciudadanos.rows}/>:""
