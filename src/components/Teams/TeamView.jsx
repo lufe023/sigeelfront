@@ -11,12 +11,14 @@ import Swal from 'sweetalert2'
 import Cargando from '../../utils/Cargando'
 import Error404 from '../Error404'
 import { useNavigate } from 'react-router-dom';
+import TeamEdit from './TeamEdit'
 
 const TeamView = () => {
   const [team, setTeam] = useState()
   const {id} = useParams()
   const [eliminado, setEliminado] = useState() 
   const [isLoading, setIsloading] = useState(true)
+  const [isEditing, setIsEditing] = useState(false)
 
   const navigate = useNavigate();
   
@@ -132,8 +134,7 @@ const getOneteam = (id)=>{
   <div className="container-fluid">
     <div className="row">
       <div className="col-md-3">
-        {/* Profile Image */}
-        <div className="card card-primary card-outline">
+          <div className="card card-primary card-outline">
           <div className="card-body box-profile">
             <div className="text-center">
               <img className="profile-user-img img-fluid img-circle" src={`${import.meta.env.VITE_API_SERVER}/api/v1/images/teams/${team?.logo}`} alt="User profile picture" />
@@ -146,7 +147,7 @@ const getOneteam = (id)=>{
               </li>
               {
               team?.members.map(member => 
-                <li className="list-group-item">
+                <li key={member.id} className="list-group-item">
                   <Link to={`/peoplebyuser/${member?.memberId}`}>
                   {member.memberData.censu.firstName}
                   </Link>
@@ -154,20 +155,27 @@ const getOneteam = (id)=>{
               )
               }
             </ul>
-            <button className="btn btn-danger btn-block" onClick={()=> deleteTeam(id, team?.name)}><b>Eliminar Team</b></button>
+            <div className="btn-group col-12">
+
+            <button className="btn btn-danger  " onClick={()=> deleteTeam(id, team?.name)}><b>Eliminar</b></button>
+
+            <button className="btn btn-warning  " onClick={()=> setIsEditing(true)}><b>Editar</b></button>
+            </div>
           </div>
           {/* /.card-body */}
         </div>
       </div>
 
       <div className="col-md-9">
+      {
+          isEditing?<TeamEdit team={team} setIsEditing={setIsEditing} getOneteam={getOneteam}/>:
         <div className="card card-primary card-outline">
           <div className="card-header p-2">
               <li className="nav-item">
                 <div className="nav-link active" href="#activity" data-toggle="tab"><div className="user-block">
                     <img className="img-circle img-bordered-sm" src={`${import.meta.env.VITE_API_SERVER}/api/v1/images/teams/${team?.logo}`} alt="user image" />
                     <span className="username">
-                      <a href="#">{team?.name}</a>
+                      <Link>{team?.name}</Link>
                       
                     </span>
                     <span className="description">Creado en  - {team?.createdAt.substr(0,10)}</span>
@@ -178,21 +186,33 @@ const getOneteam = (id)=>{
           <div className="card-body">
             <div className="tab-content">
               <div className="active tab-pane" id="activity">
-                
                 <div className="post">
-                  
                   <p>
                     {
                       team?.description
                     }
                   </p>
+                  <h5>Link grupo de Whatsapp</h5>
+                    <p style={{display:"flex", alignItems:"center", gap:"20px"}}>
+                    <i className="fab fa-whatsapp"  style={{fontSize:"50px", color:"green"}}/>
+                    <Link>
+                      {
+                        team?.whatsapp
+                      }
+                      </Link>
+                    </p>
+          
                 </div>
-                {/* /.post */}
-                {/* Post */}
               </div>
+              
             </div>
+            
+          </div>
+          <div className="card-footer">
+          
           </div>
         </div>
+  }
         <div className="card card-primary card-outline">
         <div className="card-body">
         {/* <SelectUsuarios/>  */}

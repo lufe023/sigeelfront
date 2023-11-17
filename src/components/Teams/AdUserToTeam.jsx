@@ -81,7 +81,7 @@ const findingWord = e => {
     <div>
   <div className="form-group">
   <label htmlFor="exampleInputEmail1">Añadir colaborador al equipo</label>
-  <input type="text" className="form-control" id="exampleInputEmail1" placeholder="Apodo, nombre, apellido o cedula sin guiones" onChange={findingWord}/>
+  <input autoComplete='off' type="text" className="form-control" id="exampleInputEmail1" placeholder="Apodo, nombre, apellido o cedula sin guiones" onChange={findingWord}/>
 </div>
 
 <ul style={{padding:0}}>

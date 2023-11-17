@@ -9,6 +9,7 @@ const NewTeam = ({getAllteams,getMyteams}) => {
   const [selectedMembers, setSelectedMembers] = useState([]);
   const [logoFile, setLogoFile] = useState(null);
   const [formSubmitted, setFormSubmitted] = useState(false);
+  const [previewImage, setPreviewImage] = useState()
 
   const getAllUsers = () => {
     const URL = `${import.meta.env.VITE_API_SERVER}/api/v1/users?offset=0&limit=20`;
@@ -31,6 +32,20 @@ const NewTeam = ({getAllteams,getMyteams}) => {
 
   const handleLogoChange = (event) => {
     setLogoFile(event.target.files[0]);
+
+    const file = event.target.files[0];
+
+  if (file) {
+    const reader = new FileReader();
+
+    reader.onloadend = () => {
+      // El contenido de la imagen se almacena en reader.result
+      // Puedes asignar esto a un estado o directamente a un elemento de imagen
+      setPreviewImage(reader.result);
+    };
+
+    reader.readAsDataURL(file);
+  }
   };
 
   const handleSubmit = (e) => {
@@ -40,6 +55,8 @@ const NewTeam = ({getAllteams,getMyteams}) => {
     data.append('name', e.target.teamName.value);
     data.append('logo', logoFile);
     data.append('description', e.target.description.value);
+    data.append('whatsapp', e.target.whatsapp.value);
+    //whsatpp
 
     const URL = `${import.meta.env.VITE_API_SERVER}/api/v1/teams`;
     axios.post(URL, data, getConfig())
@@ -65,6 +82,7 @@ const NewTeam = ({getAllteams,getMyteams}) => {
         // Reset form after submission
         e.target.reset();
         setLogoFile(null);
+        setPreviewImage(null)
         setFormSubmitted(true);
       })
       .catch(error => {
@@ -86,6 +104,7 @@ const NewTeam = ({getAllteams,getMyteams}) => {
         });
       });
   };
+
 
   return (
     <form onSubmit={handleSubmit} encType='multipart/form-data'>
@@ -110,6 +129,13 @@ const NewTeam = ({getAllteams,getMyteams}) => {
               </div>
               <div className="form-group">
                 <label htmlFor="exampleInputFile">Logo</label>
+
+                {previewImage && (
+                  <div className="preview-container" >
+                    <img src={previewImage} alt="Preview" style={{width:"200px"}} className="preview-image" />
+                  </div>
+                )}
+
                 <div className="input-group">
                   <div className="custom-file">
                     <input type="file" accept="image/png, image/jpeg" name="logo" className="custom-file-input" id="exampleInputFile" onChange={handleLogoChange} />
@@ -123,6 +149,12 @@ const NewTeam = ({getAllteams,getMyteams}) => {
                 <label>Descripción</label>
                 <textarea name="description" className="form-control" rows={3} placeholder="De qué se trata tu grupo..." style={{ height: 86 }} defaultValue={""} />
               </div>
+
+              <div className="form-group">
+                <label htmlFor="exampleInputEmail1">Link del grupo de Whatsapp</label>
+                <input type="text" name='whatsapp' className="form-control" placeholder="pon un link del grupo de Whatsapp para que tus miembros se unan" />
+              </div>
+
             </div>
           </div>
         </div>
