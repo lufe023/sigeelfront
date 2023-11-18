@@ -63,7 +63,7 @@ const PeopleCard = ({people, getMypeople}) => {
     "nickname"];
 
     const translations = {
-      latitud: "Latitud",
+      latitud: "GPS",
       adress: "Direccion",
       celphone: "Celular",
       telephone: "Telefono",
@@ -71,8 +71,12 @@ const PeopleCard = ({people, getMypeople}) => {
       nickname: "Apodo"
     };
 
+
+
     // Utilizar el objeto de traducciones para obtener las versiones en español
-const translatedFields = pendingFields.map(field => translations[field]);
+    const translateField = (fieldName) => translations[fieldName] || fieldName;
+
+    // const translatedFields = pendingFields.map(field => translations[field]);
 
 
 const isFieldUpdated = (fieldName) => {
@@ -217,13 +221,22 @@ const isFieldUpdated = (fieldName) => {
   <div className="tab-pane" id={`actualizar${people.id}`}>
     <h6>Campos Pendientes de Actualización</h6>
     <ul>
-    {translatedFields.map((fieldName, index) => (
+    {pendingFields.map((fieldName, index) => (
   !people.pendingUpdates.some((update) => update.changedFields[fieldName]) && (
     <li key={index}>
-      {` ${fieldName}`}
+      {translateField(fieldName)}
     </li>
   )
 ))}
+
+    {/* {pendingFields.map((fieldName, index) => (
+        !people.pendingUpdates.some((update) => update.changedFields[fieldName]) && (
+          <li key={index}>
+            {translations[0]}
+            {` ${fieldName}`}
+            </li>
+        )
+      ))} */}
     </ul>
   </div>
 </div>
@@ -231,7 +244,7 @@ const isFieldUpdated = (fieldName) => {
     <div className="card-footer">
     <Link to={`/mypeople/${people.id}`} className="btn btn-app bg-info">
     <i className="fas fa-user-edit" />
- Editar
+    Editar
     </Link>
 
     {

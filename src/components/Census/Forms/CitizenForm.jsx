@@ -7,11 +7,11 @@ import Swal from 'sweetalert2';
 const CitizenForm = ({updates, citizen, getPeople}) => {
  
   const [formData, setFormData] = useState({
-    nickname: citizen.nickname || "",
-    adress: citizen.adress || "",
-    celphone: citizen.celphone || "",
-    telephone: citizen.telephone || "",
-    otherPhone: citizen.otherPhone || "",
+    nickname: citizen.nickname,
+    adress: citizen.adress,
+    celphone: citizen.celphone,
+    telephone: citizen.telephone,
+    otherPhone: citizen.otherPhone,
   })
 
   const [isLoading, setIsloading] = useState(false)
@@ -99,7 +99,7 @@ const CitizenForm = ({updates, citizen, getPeople}) => {
             className="form-control"
             name='nickname'
             value={formData.nickname}
-            onChange={ handleChange}
+            onChange={handleChange}
             placeholder="Apodo"
           />
         </div>
@@ -160,7 +160,7 @@ const CitizenForm = ({updates, citizen, getPeople}) => {
       <div className="form-group row">
         <div className="offset-sm-2 col-sm-10">
           {
-            updating?<button type="submit" onClick={handleSubmit} className="btn btn-success">Guardar Cambios</button>:""
+            updating?<button type="submit"  className="btn btn-success">Guardar Cambios</button>:""
           }
           
         </div>
