@@ -27,6 +27,8 @@ const Delegate = () => {
           axios.get(URL, getConfig())
           .then(res => {
             setPrecints(res.data.rows)
+            console.log(res)
+            //setSelectedPrecint(recinto?.colegios)
           })
           .catch(err =>
             console.log(err))
@@ -77,6 +79,7 @@ const Delegate = () => {
             setIsloading(false)
       }
       const handleChange = (e) => {
+  
         const { name, value } = e.target;
         setFormData((prevData) => ({
           ...prevData,
@@ -195,29 +198,25 @@ const Delegate = () => {
   
         
         <div className="row">
-          <div className="col-md-10 offset-md-1" >
+          <div className="col-md-10 offset-md-1">
             <form>
             <div className="row">
-              <div className="col-6">
+              <div className="col-sm-6">
               <div className="form-group">
-                  <label>Recinto</label>
-                  <select
-                    className="form-control"
-                    name="precinct"
-                    value={formData.precinct}
-                    onChange={handleChange}
-                    required
-                    size={4}
-                    >
-                  {
-                    precints?.map((recinto) => 
-                    <option onClick={()=>setSelectedPrecint(recinto?.colegios)} key={recinto?.id} value={recinto?.id}>{recinto?.id.toString().padStart(5, '0')} {recinto?.recintoNombre}</option>
-                    )
-                  }
-                  </select>
-                </div>
+              <label>Recinto</label>
+              <div style={{backgroundColor:"white", padding:"20px", overflowX:"hidden", overFlowY:'scroll',  height:"150px"}}>
+              {precints?.map((recinto) => (
+                      
+                      <div  key={recinto?.id}  className="custom-control custom-radio">
+                      <input className="custom-control-input" type="radio" id={recinto?.id} name="precinct" onChange={() => setSelectedPrecint(recinto?.colegios)}/>
+                      <label htmlFor={recinto?.id} className="custom-control-label">{recinto?.id.toString().padStart(5, '0')}
+                      {recinto?.recintoNombre}</label>
+                    </div>
+                  ))}
               </div>
-              <div className="col-6">
+              </div>    
+              </div>
+              <div className="col-sm-6">
               <div className="form-group">
                   <label>Colegios en este recinto</label>
                   <select

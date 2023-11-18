@@ -7,11 +7,11 @@ import Swal from 'sweetalert2';
 const CitizenForm = ({updates, citizen, getPeople}) => {
  
   const [formData, setFormData] = useState({
-    nickname: citizen.nickname,
-    adress: citizen.adress,
-    celphone: citizen.celphone,
-    telephone: citizen.telephone,
-    otherPhone: citizen.otherPhone,
+    nickname: citizen.nickname || "",
+    adress: citizen.adress || "",
+    celphone: citizen.celphone || "",
+    telephone: citizen.telephone || "",
+    otherPhone: citizen.otherPhone || "",
   })
 
   const [isLoading, setIsloading] = useState(false)

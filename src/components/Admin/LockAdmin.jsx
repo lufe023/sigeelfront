@@ -150,7 +150,7 @@ if(user?.censu?.firstName=="Cargando"){
         placeholder="Contraseña" 
         autoComplete='new-password'/>
         <div className="input-group-append">
-          <button type="button" className="btn">
+          <button type="submit" className="btn">
             <i className="fas fa-arrow-right text-muted" />
           </button>
         </div>
