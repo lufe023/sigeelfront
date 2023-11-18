@@ -143,7 +143,7 @@ if(id !='Cargando'){
               
               <i className="ion ion-stats-bars" />
             </div>
-            <a href="#" className="small-box-footer">Ver más <i className="fas fa-arrow-circle-right" /></a>
+            <Link to='/mypeople' className="small-box-footer">Ver más <i className="fas fa-arrow-circle-right" /></Link>
           </div>
         </div>
         {/* ./col */}
@@ -157,7 +157,7 @@ if(id !='Cargando'){
             <div className="icon">
               <i className="ion ion-person-add" />
             </div>
-            <a href="#" className="small-box-footer">Ver más <i className="fas fa-arrow-circle-right" /></a>
+            <Link to='/mypeople' className="small-box-footer">Ver más <i className="fas fa-arrow-circle-right" /></Link>
           </div>
         </div>
         {/* ./col */}
@@ -171,7 +171,7 @@ if(id !='Cargando'){
             <div className="icon">
               <i className="ion ion-pie-graph" />
             </div>
-            <a href="#" className="small-box-footer">Ver más <i className="fas fa-arrow-circle-right" /></a>
+            <Link to='/mypeople' className="small-box-footer">Ver más <i className="fas fa-arrow-circle-right" /></Link>
           </div>
         </div>
         {/* ./col */}

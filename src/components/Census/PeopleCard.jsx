@@ -47,9 +47,33 @@ const PeopleCard = ({people, getMypeople}) => {
   })
 
 }
-const pendingFields = ["latitud", "adress", "celphone", "telephone", "otherPhone", "nickname"];
+// const pendingFields = [
+//   {latitud:"latitud"},
+//   {adress:"adress"}, 
+//   {celphone:"celphone"}, 
+//   {telephone:"telephone"}, 
+//   {otherPhone:"otherPhone"}, 
+//   {nickname:"nickname"}];
+  const pendingFields = [
+    "latitud",
+    "adress", 
+    "celphone", 
+    "telephone", 
+    "otherPhone", 
+    "nickname"];
 
-// const pendingFieldsB = [{latitud:{fieldName:'latitud',fieldNameSpanish:'gps'}},];
+    const translations = {
+      latitud: "Latitud",
+      adress: "Direccion",
+      celphone: "Celular",
+      telephone: "Telefono",
+      otherPhone: "Otro Telefono",
+      nickname: "Apodo"
+    };
+
+    // Utilizar el objeto de traducciones para obtener las versiones en español
+const translatedFields = pendingFields.map(field => translations[field]);
+
 
 const isFieldUpdated = (fieldName) => {
   return people.pendingUpdates.some(
@@ -193,14 +217,13 @@ const isFieldUpdated = (fieldName) => {
   <div className="tab-pane" id={`actualizar${people.id}`}>
     <h6>Campos Pendientes de Actualización</h6>
     <ul>
-      {pendingFields.map((fieldName, index) => (
-        !people.pendingUpdates.some((update) => update.changedFields[fieldName]) && (
-         
-          <li key={index}>
-            {` ${fieldName}`}
-            </li>
-        )
-      ))}
+    {translatedFields.map((fieldName, index) => (
+  !people.pendingUpdates.some((update) => update.changedFields[fieldName]) && (
+    <li key={index}>
+      {` ${fieldName}`}
+    </li>
+  )
+))}
     </ul>
   </div>
 </div>
