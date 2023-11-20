@@ -106,6 +106,73 @@ const getOneteam = (id)=>{
   
   }
 
+  
+const setTeamLeader = (memberId, teamId, value, liderName) => {
+
+  Swal.fire({
+    title: `¿Seguro quieres ${value?' establecer ': 'quitar'} a este lider de equipo`,
+    text: `con esta acción ${liderName}${value?' será ': ' ya no será '} Lider de este equipo`,
+    icon: 'warning',
+    showCancelButton: true,
+    cancelButtonText: "Dejar sin efecto",
+    confirmButtonColor: '#3085d6',
+    cancelButtonColor: '#d33',
+    confirmButtonText: 'Si, Proceder!'
+  }).then((result) => {
+    if (result.isConfirmed) {
+      let timerInterval
+      Swal.fire({
+        title: 'Eliminado!',
+        timer: 0,
+        timerProgressBar: true,
+        didOpen: () => {
+          Swal.showLoading()
+          const b = Swal.getHtmlContainer().querySelector('b')
+          timerInterval = setInterval(() => {
+          
+          }, 100)
+        },
+        willClose: () => {
+          clearInterval(timerInterval)
+          setEliminado(true)
+        }
+    
+          
+          
+      })
+      const URL = `${import.meta.env.VITE_API_SERVER}/api/v1/teams/setteamleader`;
+    axios.patch(URL, {memberId, teamId, value}, getConfig())
+      .then(res => {
+        getOneteam(team.id)
+        
+      })
+      .catch(error => {
+        console.log(error)
+      })
+      .then(res => {
+        
+        Swal.fire(
+          'Lider Cambiado',
+          'El lider ha sido cambiado con éxito',
+          'success'
+          )
+  })
+  .catch(err =>{
+
+      Swal.fire({
+        icon: 'error',
+        title: 'Oops...',
+        text: 'Hubo un error!',
+      })
+  })
+    }
+  })
+
+}
+  
+  
+  
+
   if(eliminado!=false){
   return (
     <>
@@ -148,9 +215,15 @@ const getOneteam = (id)=>{
               {
               team?.members.map(member => 
                 <li key={member.id} className="list-group-item">
+                  <div style={{display:"flex", justifyContent:"space-between"}}>
                   <Link to={`/peoplebyuser/${member?.memberId}`}>
                   {member.memberData.censu.firstName}
                   </Link>
+                    <div className="custom-control custom-checkbox">
+                    <input className="custom-control-input" type="checkbox" id={member.id} checked={member.teamLeader} onClick={()=> setTeamLeader(member.memberId, team.id, !member.teamLeader, member.memberData.censu.firstName)} />
+                    <label htmlFor={member.id} className="custom-control-label">Lider</label>
+                  </div>
+                  </div>
                 </li>
               )
               }

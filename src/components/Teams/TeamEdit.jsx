@@ -72,7 +72,7 @@ const TeamEdit = ({team, setIsEditing, getOneteam}) => {
         
         Toast.fire({
           icon: 'success',
-          title: `El equipo ${res.data.name}, fue agregado con éxito`
+          title: `El equipo fue editado con éxito`
         });
 
         // Reset form after submission
@@ -98,7 +98,7 @@ const TeamEdit = ({team, setIsEditing, getOneteam}) => {
 
         Toast.fire({
           icon: 'error',
-          title: `Hubo un error: ${error.response.data.message.error}`
+          title: `Hubo un error: ${error.response.data.message}`
         });
       });
   };

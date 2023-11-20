@@ -67,9 +67,7 @@ const TeamsList = ({allTeams, getMyteams}) => {
     {
     allTeams?.map(team => 
 
-<div key={team.id} className="col-md-4" >
-{console.log(team)}
-  
+<div key={team.id} className="col-md-4" > 
   <div className="card card-widget widget-user">
   
     <div className="widget-user-header bg-info">

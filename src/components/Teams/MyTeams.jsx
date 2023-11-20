@@ -78,63 +78,72 @@ const MyTeams = ({myTeams, getMyteams}) => {
         let count = myTeams?.length
 return (
     <>
-    <div className="card">
+
+<div className="card">
   <div className="card-header">
     <h3 className="card-title">Mis Equipos <span className="badge bg-teal">{count}</span></h3>
-    <div className="card-tools">
-      <button type="button" className="btn btn-tool" data-card-widget="collapse" title="Collapse">
-        <i className="fas fa-minus" />
-      </button>
-      <button type="button" className="btn btn-tool" data-card-widget="remove" title="Remove">
-        <i className="fas fa-times" />
-      </button>
-    </div>
+    
   </div>
-  <div className="card-body p-0">
-    <table className="table table-striped projects">
-      <thead>
-        <tr>
-          <th style={{width: '20%'}}>
-            Nombre del Equipo
-          </th>
-          <th style={{width: '10%'}}>
-            tools
-          </th>
-        </tr>
-      </thead>
-      <tbody>
+  </div>
 
-        {
-            myTeams?.map(team => 
-                <tr key={team.id}>
-                    <td>
-                    <img alt="logo" className="table-avatar" src={`${import.meta.env.VITE_API_SERVER}/api/v1/images/teams/${team.team.logo}`} style={{height:"40px"}} />
-                    </td>
-                    <td>
-            <a>
-            {team.team.name}
-            </a>
-            <br />
-            <small>
-            <Link to={`/teams/${team.teamId}`} href="#">Ver Equipo</Link>
-            </small>
-          </td>
-          <td>
-          </td>
-          <td className="project-actions text-right">
-          <div className="btn-group">
-  <button type="button" className="btn btn-danger btn-sm" onClick={()=> exitFromTeam(team.memberId, team.teamId,team.team.name)}><i className="fas fa-sign-out-alt"></i> Abandonar</button>
-</div>
-          </td>
-                </tr>
-            )
-        } 
-        
-      </tbody>
-    </table>
+ <div  className="row">
+{
+  myTeams?.map(team => 
+
+  <div key={team.id} className=" col-md-4">
+      {console.log(team)}
+    <div className="card card-primary collapsed-card">
+      <div className="card-header">
+        <h3 className="card-title">{team.team.name}</h3>
+        <div className="card-tools">
+          <button type="button" className="btn btn-tool" data-card-widget="collapse"><i className="fas fa-plus" />
+          </button>
+        </div>
+        {/* /.card-tools */}
+      </div>
+      {/* /.card-header */}
+      <div className="card-body">
+        <p>
+        <img alt="logo" className="" src={`${import.meta.env.VITE_API_SERVER}/api/v1/images/teams/${team.team.logo}`} style={{width:"100%"}} />
+        {team.team.description}
+        </p>
+
+      <ul className='products-list product-list-in-card pl-2 pr-2'>
+      {team?.team?.members.map(member=>   
+    <li key={member.id} className="item" style={{backgroundColor:"#00000008"}}>
+    <div className="product-img">
+    <Link className="product-title" to={`/mypeople/${member.memberData.censu.id}`}>
+    <img src={`${import.meta.env.VITE_API_SERVER}/api/v1/images/citizen/${member.memberData.censu.picture}`} alt="Product Image" className="img-size-50" />
+    </Link>
+    </div>
+    <div className="product-info">
+      <Link className="product-title" to={`/mypeople/${member.memberData.censu.id}`}>{member.memberData.censu.firstName}
+      {member.teamLeader?
+      <span className="badge float-right badge-success">Lider del Equipo</span>
+      :""}
+      </Link>
+      <span className="product-description">{member.memberData.email}</span>
+      </div>
+      </li>
+    )}
+</ul> 
+      </div>
+      <div className="card-footer">
+      <div className="btn-group col-12">
+      <Link className='btn btn-info' to={`/teams/${team.teamId}`} href="#">Ver Equipo</Link>
+
+      <button type="button" className="btn btn-danger btn-sm" onClick={()=> exitFromTeam(team.memberId, team.teamId,team.team.name)}>
+        <i className="fas fa-sign-out-alt"></i> Abandonar
+      </button>
   </div>
-  {/* /.card-body */}
+      </div>
+    </div>
+    {/* /.card */}
+  </div>
+)}
 </div>
+
+
 </>
   )
 }
