@@ -137,7 +137,7 @@ let totalExterior = 0
                     size={5}>
                   {
                     precints?.map(recinto => 
-                    <option onClick={()=> selecciones(recinto)} key={recinto?.id} value={recinto?.id}>{recinto?.id.toString().padStart(5, '0')} {recinto?.recintoNombre}</option>
+                    <option onClick={()=> selecciones(recinto)} key={recinto?.id} value={recinto?.id}>{recinto?.precintNumber.toString().padStart(5, '0')} {recinto?.recintoNombre}</option>
                     )
                   }
                   </select>
@@ -156,7 +156,7 @@ let totalExterior = 0
                     size={5}>
                       {
                       selectedPrecint?.map((colegio) => 
-                      <option key={colegio?.id} value={colegio?.id}>Colegio {colegio?.id.toString().padStart(4, '0')}</option>)
+                      <option key={colegio?.id} value={colegio?.id}>Colegio {colegio?.collegeNumber.toString().padStart(4, '0')}</option>)
                       }
                   </select>
                 </div>
@@ -257,7 +257,7 @@ let totalExterior = 0
           outside: exteriorN,
           telephone: formattedTelN,
           celphone: formattedCelN,
-          college: Number(colegioN),
+          college: colegioN,
           picture:nombreFoto,
           province: mapa?.provincia,
           municipality: mapa?.municipio,

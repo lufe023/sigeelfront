@@ -165,7 +165,7 @@ const isFieldUpdated = (fieldName) => {
                 <span className="fa-li">
                 <i className="fas fa-person-booth" />
                 </span>
-                Colegio: {people.colegio.id.toString().padStart(4, '0')}
+                Colegio: {people.colegio.collegeNumber.toString().padStart(4, '0')}
             </li>
             <li className="small">
                 <span className="fa-li">
@@ -173,6 +173,15 @@ const isFieldUpdated = (fieldName) => {
                 </span>
                 Recinto: {people.colegio.precinctData.recintoNombre.toString().padStart(4, '0')}
             </li>
+            {/*backgroundColor:"#00000008" */}
+            <li className="small">
+                <span className="fa-li ">
+                <i className="fas fa-vote-yea" />
+                </span>
+                Votó: {people?.sufragio?.suffrage?"Si":"No"}
+            </li>
+            {/* sufragio.suffrage*/}
+            {console.log(people)}
           </ul>
         </div>
         <div className="col-5 text-center">
@@ -214,10 +223,7 @@ const isFieldUpdated = (fieldName) => {
   <BenefitForm citizenID={people?.citizenID} getPeople={getMypeople} />
   <Jobs citizenID={people?.citizenID} getPeople={getMypeople}/>
   <LocationPicker citizenID={people?.citizenID} getPeople={getMypeople}/>
-
   </div>
-
-
   <div className="tab-pane" id={`actualizar${people.id}`}>
     <h6>Campos Pendientes de Actualización</h6>
     <ul>
@@ -228,15 +234,6 @@ const isFieldUpdated = (fieldName) => {
     </li>
   )
 ))}
-
-    {/* {pendingFields.map((fieldName, index) => (
-        !people.pendingUpdates.some((update) => update.changedFields[fieldName]) && (
-          <li key={index}>
-            {translations[0]}
-            {` ${fieldName}`}
-            </li>
-        )
-      ))} */}
     </ul>
   </div>
 </div>

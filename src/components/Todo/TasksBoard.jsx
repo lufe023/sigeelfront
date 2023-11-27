@@ -41,7 +41,6 @@ getAllTask()
 
 
 //peticion a api por id usando useparans
-
   useEffect(() => {
     if(id){
     const URL = `${import.meta.env.VITE_API_SERVER}/api/v1/todo/${id}`
@@ -94,15 +93,17 @@ getAllTask()
     </div>
     {
       id? ""
-    : <div className="row">
+    :<div className="row">
     <div className="col-md-6"><TodoNewTask getAllTask={getAllTask}/></div>
     <div className="col-md-6">
       <TodoCard task={task} setLoading={setLoading}/>
     </div>
+
   </div>
   }
   </section>
   </div>
+
 <Footer/>
 </div>
   )

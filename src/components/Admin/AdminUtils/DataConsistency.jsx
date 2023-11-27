@@ -2,33 +2,26 @@ import axios from 'axios'
 import React, { useEffect, useState } from 'react'
 import getConfig from '../../../utils/getConfig'
 
-const DataConsistency = () => {
-const [data, setData] = useState()
+const DataConsistency = ({data}) => {
 
-  const getAllData = ()=> {
-    const URL = `${import.meta.env.VITE_API_SERVER}/api/v1/jce/dataConsistency`
-    axios.get(URL, getConfig())
-    .then(res => {
-      setData(res.data)
-    })
-}
 
-useEffect(() => {
-  getAllData()
-  }, [])
-
-console.log(data)
   return (
     <>
-
 {
     data?.map((recinto) =>
-    <div className={`card collapsed-card ${recinto.electLocal === recinto.localCitizens && recinto.electExterior == recinto.exteriorCitizens?`` :`card-warning` }`}>
+    <div key={recinto.id} className={`card collapsed-card ${recinto.electLocal === recinto.localCitizens && recinto.electExterior == recinto.exteriorCitizens?`` :`card-warning` }`}>
   <div className="card-header">
-    <h3 className="card-title">{recinto.id.toString().padStart(5, '0')} {recinto.recintoNombre}
-    <small>{recinto.electLocal === recinto.localCitizens && recinto.electExterior == recinto.exteriorCitizens?'':' (Recinto Incompleto)'}</small>
+    <h3 className="card-title">{recinto.precintNumber.toString().padStart(5, '0')} {recinto.recintoNombre} <b>{recinto?.PrecinctsMunicipio[0]?.name}, {recinto?.PrecinctsProvincia[0]?.name}</b>
+    
+
     </h3>
     <div className="card-tools">
+    {recinto.electLocal === recinto.localCitizens && recinto.electExterior == recinto.exteriorCitizens?
+    <small className="badge badge-success"><i className="fas fa-check"/> Completo</small>
+    :
+
+    <small className="badge badge-danger"><i className="fas fa-exclamation-circle" /> Incompleto</small>
+    }
         <button type="button" className="btn btn-tool" data-card-widget="collapse">
           <i className="fas fa-plus" />
         </button>
@@ -62,22 +55,21 @@ console.log(data)
     <table className="table table-sm">
       <thead>
         <tr>
-          <th >colegio</th>
+          <th>Colegio</th>
           <th>En Padrón Local</th>
           <th>En Sistema Local</th>
-          <th >Diferencia Local</th>
-          
-          <th >En Padron Exterior</th>
-          <th >En Sistema Exterior</th>
-          <th >Diferencia Exterior</th>
+          <th>Diferencia Local</th>
+          <th>En Padron Exterior</th>
+          <th>En Sistema Exterior</th>
+          <th>Diferencia Exterior</th>
         </tr>
       </thead>
       <tbody>
       {recinto.colegios?.map((colegio) => (
-  <tr key={colegio.id}>
+    <tr key={colegio.id}>
     <td>
     <span className={`badge ${colegio.electExterior === colegio.collegeCitizensExterior && colegio.electLocal === colegio.collegeCitizensLocal ? "bg-success" : "bg-danger"}`}>
-    {colegio.id.toString().padStart(4, '0')}
+    {colegio.collegeNumber.toString().padStart(4, '0')}
       </span>
     </td>
     <td>{colegio.electLocal}</td>

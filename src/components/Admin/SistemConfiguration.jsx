@@ -11,6 +11,7 @@ import DataConsistency from './AdminUtils/DataConsistency'
 
 const SistemConfiguration = () => {
 const [precints, setPrecints] = useState()
+const [data, setData] = useState()
 
   const getAllPrecints = ()=>{
     const URL = `${import.meta.env.VITE_API_SERVER}/api/v1/jce/precints`
@@ -22,8 +23,20 @@ const [precints, setPrecints] = useState()
         console.log(err))
   }
 
+
+
+  const getAllData = ()=> {
+    const URL = `${import.meta.env.VITE_API_SERVER}/api/v1/jce/dataConsistency`
+    axios.get(URL, getConfig())
+    .then(res => {
+      setData(res.data)
+    })
+}
+
+
   useEffect(() => {
     getAllPrecints()
+    getAllData()
   }, [])
 
   return (
@@ -59,18 +72,17 @@ const [precints, setPrecints] = useState()
       {/*/.col (left) */}
       {/* right column */}
       <div className="col-md-6">
-    <CollegeForm precints={precints} getAllPrecints={getAllPrecints}/>
+    <CollegeForm precints={precints} getAllPrecints={getAllPrecints} getAllData={getAllData}/>
     </div>
 
     <div className="col-md-6">
     <DataProcessor precints={precints} getAllPrecints={getAllPrecints}/>
       </div>
-     
     </div>
     <div className='row'>
     <div className="col-md-12">
       <h1 style={{textAlign:"center"}}>Consistencia de los Datos</h1>
-      <DataConsistency/>
+      <DataConsistency getAllData={getAllData} data={data}/>
       </div>
     </div>
   </div>

@@ -13,22 +13,24 @@ const Header = () => {
   const picture = user?.censu?.picture
   
   return (
+    <>
 <nav className="main-header navbar navbar-expand navbar-white navbar-light">
-  {/* Left navbar links */}
   <ul className="navbar-nav">
     <li className="nav-item">
     <Link className="nav-link" href="#" data-widget="pushmenu" role="button"><i className="fas fa-bars" /></Link>
     </li>
-    <li className="nav-item">
-          <NavLink to='/' className="nav-link">
-            Home
+
+          <li className="nav-item">
+          <NavLink to='/dashboard' className="nav-link">
+            Panel
           </NavLink>
           </li>
           <li className="nav-item">
-          <Link to='/dashboard' className="nav-link">
-            Dashboard
-          </Link>
+          <NavLink to='/mypeople' className="nav-link">
+            Padroncillo
+          </NavLink>
           </li>
+      
   </ul>
   {/* Right navbar links */}
   <ul className="navbar-nav ml-auto">
@@ -89,6 +91,7 @@ const Header = () => {
 </li>
   </ul>
 </nav>
+</>
 )
 }
 

@@ -108,7 +108,7 @@ const NewTeam = ({getAllteams,getMyteams}) => {
 
   return (
     <form onSubmit={handleSubmit} encType='multipart/form-data'>
-      <div className="card card-default">
+      <div className="card card-primary">
         <div className="card-header">
           <h3 className="card-title">Crear un nuevo equipo</h3>
           <div className="card-tools">

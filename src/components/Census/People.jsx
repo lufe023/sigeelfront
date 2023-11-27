@@ -21,6 +21,7 @@ import LocationPicker from './Contact/LocationPicker'
 import NewConditions from './Contact/NewCondition'
 import UpdateConditions from './Contact/UpdateConditions'
 import PeopleGallery from './PeopleGallery'
+import Swal from 'sweetalert2'
 
 const People = () => {
   const [people, setPeople] = useState()
@@ -54,6 +55,66 @@ const People = () => {
   useEffect(() => {
     getTies()
   }, [people])
+
+  const addPeople = (peopleId)=>{
+    const URL = `${import.meta.env.VITE_API_SERVER}/api/v1/census/addpeople`
+
+
+    Swal.fire({
+      title: `¿Seguro quieres agregar a esta persona a tu padroncillo?`,
+      text: `si procedes serás responsable de que ${people.firstName} vaya a votar`,
+      icon: 'warning',
+      showCancelButton: true,
+      cancelButtonText: "Dejar sin efecto",
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Si, Proceder!'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        let timerInterval
+        Swal.fire({
+          title: 'Agregando!',
+          timer: 0,
+          timerProgressBar: true,
+          didOpen: () => {
+            Swal.showLoading()
+            const b = Swal.getHtmlContainer().querySelector('b')
+            timerInterval = setInterval(() => {
+            
+            }, 100)
+          },
+          willClose: () => {
+            clearInterval(timerInterval)
+            setEliminado(true)
+          }
+        })
+        
+        axios.post(URL,
+          {
+            peopleId
+          },
+      getConfig(),
+      )
+        .then(res => {
+          getPeople()
+          Swal.fire(
+            'Operación exitosa',
+            'La persona ahora se encuentra en tu padroncillo, ver el modulo padroncillo para mas detalles',
+            'success'
+            )
+         
+        })
+        .catch(error => {
+          console.log(error)
+          Swal.fire({
+            icon: 'error',
+            title: `Oops...`,
+            text: `${error.response.data.message}`,
+          })
+        })
+      }
+    })
+  }
 
   return (
     <div>
@@ -91,13 +152,14 @@ const People = () => {
             </div>
             <h3 className="profile-username text-center">{people?.firstName} {people?.lastName}</h3>
             <p className="text-muted text-center">{people?.nickname}</p>
+            <p className="text-muted text-center">{people?.citizenID.substring(0,3)}-{people?.citizenID.substring(3,10)}-{people?.citizenID.substring(10,11)}</p>
             <ul className="list-group list-group-unbordered mb-3">
             <li className="list-group-item">
                 <b>Recinto</b> <a className="float-right">{people?.colegio.precinctData.recintoNombre}</a>
               </li>
 
               <li className="list-group-item">
-                <b>Mesa</b> <a className="float-right">{people?.college.toString().padStart(4, '0')}</a>
+                <b>Mesa</b> <a className="float-right">{people?.colegio?.collegeNumber.toString().padStart(4, '0')}</a>
               </li>
               {
                 people?.districts?.name?  <li className="list-group-item">
@@ -111,10 +173,17 @@ const People = () => {
               <li className="list-group-item">
                 <b>Provincia</b> <a className="float-right">{people?.provinces?.name}</a>
               </li>
+              {
+                people.leaders?
               <li className="list-group-item">
-                <b>Provincia</b> <a className="float-right">{people?.provinces?.name}</a>
-              </li>
-              
+                <b>Lider</b> 
+                <Link to={`/mypeople/${people?.leaders?.censu?.id}`} className="float-right">{people?.leaders?.censu?.firstName}</Link>
+                </li>
+                :
+                <button className=' btn btn-success ' onClick={()=>addPeople(people?.id)}>
+                    <i className="fas fa-user-plus search-tool" ></i> Agregar a mi padroncillo
+                </button>
+              }
             </ul>
           </div>
         </div>

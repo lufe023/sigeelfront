@@ -3,11 +3,11 @@ import axios from 'axios';
 import getConfig from '../../../utils/getConfig';
 import Swal from 'sweetalert2';
 
-const CollegeForm = ({precints, getAllPrecints}) => {
+const CollegeForm = ({precints, getAllPrecints, getAllData}) => {
   const [selectedPrecint, setSelectedPrecint] = useState()
 
   const [formData, setFormData] = useState({
-    id: 0,
+    collegeNumber: 0,
     precinct: '',
     electLocal: 0,
     electExterior: 0,
@@ -29,13 +29,14 @@ const CollegeForm = ({precints, getAllPrecints}) => {
       .then((response) => {
         // Restablecer el formulario después de enviar los datos (opcional)
         setFormData({
-          id: 0,
+          collegeNumber: 0,
           precinct: '',
           electLocal: 0,
           electExterior: 0,
           meta: 0,
         });
         getAllPrecints()
+        getAllData()
         const Toast = Swal.mixin({
           toast: true,
           position: 'top-end',
@@ -94,8 +95,8 @@ const CollegeForm = ({precints, getAllPrecints}) => {
                   <input
                     type="number"
                     className="form-control"
-                    name="id"
-                    value={formData.id}
+                    name="collegeNumber"
+                    value={formData.collegeNumber}
                     onChange={handleChange}
                     required
                     min={1}
@@ -146,10 +147,10 @@ const CollegeForm = ({precints, getAllPrecints}) => {
                     onChange={handleChange}
                     required
                     size={5}>
-                    
                   {
+                  
                     precints?.map((recinto) => 
-                    <option onClick={()=>setSelectedPrecint(recinto?.colegios)} key={recinto?.id} value={recinto?.id}>{recinto?.id.toString().padStart(5, '0')} {recinto?.recintoNombre}</option>
+                    <option onClick={()=>setSelectedPrecint(recinto?.colegios)} key={recinto?.id} value={recinto?.id}>{recinto?.precintNumber.toString().padStart(5, '0')} {recinto?.recintoNombre}</option>
                     )
                   }
                   </select>
@@ -164,10 +165,9 @@ const CollegeForm = ({precints, getAllPrecints}) => {
                     onChange={handleChange}
                     required
                     size={5}>
-                      
                       {
                       selectedPrecint?.map((colegio) => 
-                          <option key={colegio?.id} value={colegio?.id}>Colegio {colegio?.id.toString().padStart(4, '0')}</option>
+                          <option key={colegio?.id} value={colegio?.id}>Colegio {colegio?.collegeNumber.toString().padStart(4, '0')}</option>
                           )
                       }
                   </select>

@@ -38,6 +38,7 @@ const SearhPeople = () => {
             getConfig(),
             )
             .then(res => {
+              console.log(res)
                 setResults(res.data.data.rows)
                 setCount(res.data.data.count)
                 setIsloading(false)
@@ -117,7 +118,7 @@ const SearhPeople = () => {
             Cedula: <span>{`${people.citizenID.substr(0,3)}-${people.citizenID.substr(3,10)}-${people.citizenID.substr(10,1)}`}</span>
           </li>
           <li>
-            Colegio: <span>{people.colegio.id.toString().padStart(4, '0')}</span>
+            Colegio: <span>{people.colegio.collegeNumber.toString().padStart(4, '0')}</span>
           </li>
           <li>
           Recinto: <span>{people.colegio.precinctData.recintoNombre}</span>

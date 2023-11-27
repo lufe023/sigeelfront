@@ -121,10 +121,8 @@ const [user, setUser] = useState(useSelector(state=> state.userSlice))
             </ul>
           
             <ul className="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
-              {/* Add icons to the links using the .nav-icon class
-         with font-awesome or any other icon font library */}
-              <li  className={'nav-item menu-open'}>
-                <NavLink  className={'nav-link'}>
+              <li  className='nav-item menu-open'>
+                <NavLink  className='nav-link'>
                 <i className="fas fa-lock"/> 
                   <p> Administración<i className="right fas fa-angle-left" />
                   </p>

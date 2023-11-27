@@ -13,8 +13,7 @@ const MyPeoplePrintB = () => {
     const [results, setResults] = useState()
     const [currentDate, setCurrentDate] = useState(new Date());
     const [isLoading, setIsloading] = useState(true)
-  const user= useSelector(state=> state.userSlice)
-    console.log(useSelector(state=> state.userSlice))
+    const user= useSelector(state=> state.userSlice)
     const getMypeople = ()=>{
         const URL = `${import.meta.env.VITE_API_SERVER}/api/v1/census/mypeople`
             axios.get(URL,
@@ -66,8 +65,8 @@ const MyPeoplePrintB = () => {
   <div className="col-sm-4">
     Colaborador
     <address>
-      <strong>{user.censu.firstName} {user.censu.lastName}</strong><br />
-      Celular: {user.censu.celphone.substring(0,3)+'-'+ user.censu.celphone.substring(3,6)+'-'+user.censu.celphone.substring(6,10)}<br />
+      <strong>{user?.censu?.firstName} {user?.censu?.lastName}</strong><br />
+      Celular: {user?.censu?.celphone?.substring(0,3)+'-'+ user?.censu?.celphone?.substring(3,6)+'-'+user?.censu?.celphone?.substring(6,10)}<br />
       
     </address>
   </div>
@@ -75,7 +74,7 @@ const MyPeoplePrintB = () => {
   <div className="col-sm-4 invoice-col">
     Usuario
     <address>
-      <strong>{user.email}</strong><br />
+      <strong>{user?.email}</strong><br />
     </address>
 
   </div>
@@ -112,7 +111,7 @@ const MyPeoplePrintB = () => {
           {
             people.telephone?<span><b>Tel: </b>{people.telephone}<br/></span>:''
           }
-          <b>Mesa:</b> {people.colegio.id.toLocaleString().padStart(4,'0')}<br/>
+          <b>Mesa:</b> {people.colegio.collegeNumber.toLocaleString().padStart(4,'0')}<br/>
           <b>Recinto: </b>{people.colegio.precinctData.recintoNombre.substring(0,30)}
           </li>
           </ul>

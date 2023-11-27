@@ -91,7 +91,7 @@ return (
   myTeams?.map(team => 
 
   <div key={team.id} className=" col-md-4">
-      {console.log(team)}
+
     <div className="card card-primary collapsed-card">
       <div className="card-header">
         <h3 className="card-title">{team.team.name}</h3>

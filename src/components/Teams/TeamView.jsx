@@ -136,35 +136,25 @@ const setTeamLeader = (memberId, teamId, value, liderName) => {
           clearInterval(timerInterval)
           setEliminado(true)
         }
-    
-          
-          
       })
       const URL = `${import.meta.env.VITE_API_SERVER}/api/v1/teams/setteamleader`;
     axios.patch(URL, {memberId, teamId, value}, getConfig())
       .then(res => {
         getOneteam(team.id)
-        
-      })
-      .catch(error => {
-        console.log(error)
-      })
-      .then(res => {
-        
         Swal.fire(
           'Lider Cambiado',
           'El lider ha sido cambiado con éxito',
           'success'
           )
-  })
-  .catch(err =>{
-
-      Swal.fire({
-        icon: 'error',
-        title: 'Oops...',
-        text: 'Hubo un error!',
       })
-  })
+      .catch(error => {
+        console.log(error)
+        Swal.fire({
+          icon: 'error',
+          title: `Oops...`,
+          text: `${error.response.data.message}`,
+        })
+      })
     }
   })
 

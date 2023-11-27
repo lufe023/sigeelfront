@@ -5,7 +5,7 @@ import getConfig from '../../../utils/getConfig';
 
 const PrecinctForm = ({getAllPrecints}) => {
   const [formData, setFormData] = useState({
-    id: '',
+    precintNumber:'',
     recintoNombre: '',
     direccionRecinto: '',
     latitud: '',
@@ -35,7 +35,7 @@ const PrecinctForm = ({getAllPrecints}) => {
 
         // Restablecer el formulario después de enviar los datos (opcional)
         setFormData({
-          id: '',
+          precintNumber: '',
           recintoNombre: '',
           direccionRecinto: '',
           latitud: '',
@@ -162,8 +162,8 @@ const PrecinctForm = ({getAllPrecints}) => {
               <input
                 type="number"
                 className="form-control"
-                name="id"
-                value={formData.id}
+                name="precintNumber"
+                value={formData.precintNumber}
                 onChange={handleChange}
               />
             </div>

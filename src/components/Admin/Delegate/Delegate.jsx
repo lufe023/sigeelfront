@@ -209,7 +209,7 @@ const Delegate = () => {
                       
                       <div  key={recinto?.id}  className="custom-control custom-radio">
                       <input className="custom-control-input" type="radio" id={recinto?.id} name="precinct" onChange={() => setSelectedPrecint(recinto?.colegios)}/>
-                      <label htmlFor={recinto?.id} className="custom-control-label">{recinto?.id.toString().padStart(5, '0')}
+                      <label htmlFor={recinto?.id} className="custom-control-label">{recinto?.precintNumber.toString().padStart(5, '0')}
                       {recinto?.recintoNombre}</label>
                     </div>
                   ))}
@@ -229,7 +229,7 @@ const Delegate = () => {
                       
                       {
                       selectedPrecint?.map((colegio) => 
-                        <option key={colegio?.id} value={colegio?.id}>Colegio {colegio?.id.toString().padStart(4, '0')}</option>
+                        <option key={colegio?.id} value={colegio?.id}>Colegio {colegio?.collegeNumber.toString().padStart(4, '0')}</option>
                         )
                     }
                 </select>
@@ -330,7 +330,7 @@ const Delegate = () => {
   <div className="card-header bg-dark">
     <h3 className="card-title">{collegeData?.precinctData.recintoNombre} 
     <small style={{marginLeft:"10px"}}>
-        <b>Mesa:</b>  {collegeData?.id.toString().padStart(4, '0')}
+        <b>Mesa:</b>  {collegeData?.collegeNumber.toString().padStart(4, '0')}
     </small>
     <small style={{marginLeft:"10px"}}>
         <b>Total Colegio:</b>  {pagination.count}

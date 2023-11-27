@@ -41,7 +41,7 @@ const ConcurrenciaPanel = ({citizens}) => {
   <Link to={`/mypeople/${citizen.id}`}>
     <span className="info-box-text">{citizen.firstName.substring(0,10)} {citizen.lastName.substring(0,10)}</span>
   </Link>
-    <span className="info-box-number"><small>Mesa: </small>{citizen.colegio.id.toString().padStart(4, '0')}
+    <span className="info-box-number"><small>Mesa: </small>{citizen.colegio.collegeNumber.toString().padStart(4, '0')}
     <br/>
     <small> Recinto: </small>
     <Link to={`/precints`}>
