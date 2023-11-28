@@ -38,7 +38,6 @@ const SearhPeople = () => {
             getConfig(),
             )
             .then(res => {
-              console.log(res)
                 setResults(res.data.data.rows)
                 setCount(res.data.data.count)
                 setIsloading(false)
