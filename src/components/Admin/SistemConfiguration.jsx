@@ -68,7 +68,6 @@ const [data, setData] = useState()
   
   </div>
     <div className="row">
-   
       {/*/.col (left) */}
       {/* right column */}
       <div className="col-md-6">

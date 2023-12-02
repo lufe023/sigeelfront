@@ -65,7 +65,6 @@ function App() {
       <Route path='/users' element={<UserDashBoard/>}/>
       <Route path='/users/:id/' element={<UserAdministrator/>}/>
       <Route path='/peoplebyuser/:id' element={<PeopleByUser/>}/>
-   
       </Route>
 
       <Route path='*' element={<Error404/>}/>
