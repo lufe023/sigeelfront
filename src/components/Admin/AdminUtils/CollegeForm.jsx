@@ -91,16 +91,14 @@ const CollegeForm = ({precints, getAllPrecints, getAllData}) => {
             <div className="col-md-6">
               <form onSubmit={handleSubmit}>
                 <div className="form-group">
-                  <label>Numero:</label>
+                  <label>Número:</label>
                   <input
-                    type="number"
+                    type="text"
                     className="form-control"
                     name="collegeNumber"
                     value={formData.collegeNumber}
                     onChange={handleChange}
                     required
-                    min={1}
-                    max={500}
                   />
                 </div>
                 <div className="form-group">
@@ -166,7 +164,7 @@ const CollegeForm = ({precints, getAllPrecints, getAllData}) => {
                     required
                     size={5}>
                       {
-                      selectedPrecint?.map((colegio) => 
+                      selectedPrecint?.sort((a, b) => a.collegeNumber - b.collegeNumber).map((colegio) => 
                           <option key={colegio?.id} value={colegio?.id}>Colegio {colegio?.collegeNumber.toString().padStart(4, '0')}</option>
                           )
                       }

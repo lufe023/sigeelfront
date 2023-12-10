@@ -1,6 +1,5 @@
 import axios from 'axios'
 import React, { useEffect, useState } from 'react'
-import getConfig from '../../../utils/getConfig'
 
 const DataConsistency = ({data}) => {
 
@@ -42,6 +41,7 @@ const DataConsistency = ({data}) => {
 </div>
 
 <div className="form-group">
+
   Exterior: <small> {recinto.electExterior}</small> Actuales: <small>{recinto.exteriorCitizens}</small>
   <div className="custom-control custom-switch custom-switch-off-danger custom-switch-on-success">
     {recinto.electExterior == recinto.exteriorCitizens? 
@@ -65,7 +65,7 @@ const DataConsistency = ({data}) => {
         </tr>
       </thead>
       <tbody>
-      {recinto.colegios?.map((colegio) => (
+      {recinto.colegios?.sort((a, b) => a.collegeNumber - b.collegeNumber).map((colegio) => (
     <tr key={colegio.id}>
     <td>
     <span className={`badge ${colegio.electExterior === colegio.collegeCitizensExterior && colegio.electLocal === colegio.collegeCitizensLocal ? "bg-success" : "bg-danger"}`}>

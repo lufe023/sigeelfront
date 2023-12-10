@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react';
 import Swal from 'sweetalert2';
 import getConfig from '../../../utils/getConfig';
 
-const PrecinctForm = ({getAllPrecints}) => {
+const PrecinctForm = ({getAllPrecints, getAllData}) => {
   const [formData, setFormData] = useState({
     precintNumber:'',
     recintoNombre: '',
@@ -48,6 +48,7 @@ const PrecinctForm = ({getAllPrecints}) => {
           circunscripcion: '',
         });
         getAllPrecints()
+        getAllData()
         const Toast = Swal.mixin({
           toast: true,
           position: 'top-end',

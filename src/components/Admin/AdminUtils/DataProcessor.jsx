@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import Swal from 'sweetalert2';
 import getConfig from '../../../utils/getConfig';
 
-const DataProcessor = ({precints, getAllPrecints}) => {
+const DataProcessor = ({precints, getAllPrecints, getAllData}) => {
   const [textValue, setTextValue] = useState('');
   const [selectedPrecint, setSelectedPrecint] = useState()
   const [mapa, setMapa] = useState([])
@@ -53,7 +53,6 @@ let totalExterior = 0
 
     axios.post(`${import.meta.env.VITE_API_SERVER}/api/v1/jce/citizens`, formData, getConfig())
       .then((response) => {
-        console.log(response)
         const Toast = Swal.mixin({
           toast: true,
           position: 'top-end',
@@ -70,6 +69,8 @@ let totalExterior = 0
           icon: 'success',
           title: 'Colegio registrado'
         })
+        getAllData()
+        getAllPrecints()
       })
       .catch((error) => {
         console.log( error);
@@ -155,7 +156,7 @@ let totalExterior = 0
                     onChange={selectHandleChange}
                     size={5}>
                       {
-                      selectedPrecint?.map((colegio) => 
+                      selectedPrecint?.sort((a, b) => a.collegeNumber - b.collegeNumber).map((colegio) => 
                       <option key={colegio?.id} value={colegio?.id}>Colegio {colegio?.collegeNumber.toString().padStart(4, '0')}</option>)
                       }
                   </select>
@@ -201,6 +202,7 @@ let totalExterior = 0
         <div className='mt-4 col-md-12'>
       <div className="form-group">
       <button className='btn btn-success btn-lg' onClick={()=>processCitizen(citizens)}>Subir</button>
+
       </div>
       </div>
       </div>

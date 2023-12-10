@@ -63,7 +63,7 @@ const [data, setData] = useState()
   <div className="container-fluid">
   <div className="row">
   <div className="col-md-12">
-  <PrecinctForm getAllPrecints={getAllPrecints}/>       
+  <PrecinctForm getAllPrecints={getAllPrecints}  getAllData={getAllData}/>       
   </div>
   
   </div>
@@ -75,7 +75,7 @@ const [data, setData] = useState()
     </div>
 
     <div className="col-md-6">
-    <DataProcessor precints={precints} getAllPrecints={getAllPrecints}/>
+    <DataProcessor precints={precints} getAllPrecints={getAllPrecints} getAllData={getAllData}/>
       </div>
     </div>
     <div className='row'>

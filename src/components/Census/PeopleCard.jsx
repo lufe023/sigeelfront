@@ -180,8 +180,6 @@ const isFieldUpdated = (fieldName) => {
                 </span>
                 Votó: {people?.sufragio?.suffrage?"Si":"No"}
             </li>
-            {/* sufragio.suffrage*/}
-            {console.log(people)}
           </ul>
         </div>
         <div className="col-5 text-center">

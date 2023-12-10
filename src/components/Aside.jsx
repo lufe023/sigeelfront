@@ -31,7 +31,6 @@ const [user, setUser] = useState(useSelector(state=> state.userSlice))
   if(user?.censu?.firstName=="Cargando"){
     getUserbyId()
   }
-
   
   const first_name = user?.censu?.firstName 
   
@@ -49,7 +48,6 @@ const [user, setUser] = useState(useSelector(state=> state.userSlice))
   </Link>
   {/* Sidebar */}
   <div className="sidebar">
-    {/* Sidebar user panel (optional) */}
     <div className="user-panel mt-3 pb-3 mb-3 d-flex">
       <div className="image">
       <img src={`${import.meta.env.VITE_API_SERVER}/api/v1/images/citizen/${picture}`} className="img-circle elevation-2" alt="User Image" />
@@ -58,7 +56,6 @@ const [user, setUser] = useState(useSelector(state=> state.userSlice))
       <NavLink to={`/mypeople/${user?.censu?.id}`} className="d-block">{`${first_name} ${last_name}`}</NavLink>
       </div>
     </div>
-
     {/* Sidebar Menu */}
     <nav className="mt-2">
           <ul className="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
@@ -86,7 +83,6 @@ const [user, setUser] = useState(useSelector(state=> state.userSlice))
                       <p>Perfil</p>
                   </NavLink>
                   </li>
-
                   <li className="nav-item">
                   <NavLink to='/mypeople' className="nav-link ">
                       <i className="fas fa-id-card  nav-icon"></i>
@@ -107,7 +103,6 @@ const [user, setUser] = useState(useSelector(state=> state.userSlice))
                   </NavLink>
                   </li>
                   
-
                   <li className="nav-item">
                   <NavLink to="/teams" className="nav-link">
                   <i className="fas fa-sitemap"/>
@@ -131,37 +126,27 @@ const [user, setUser] = useState(useSelector(state=> state.userSlice))
                 <li className="nav-item">
                     <NavLink to="/users" className="nav-link">
                       <i className="fas fa-users nav-icon" />
-                      <p>Colaboradores</p>
+                      <p> Colaboradores</p>
                     </NavLink>
                   </li>
-                  {/* <li className="nav-item">
-                    <NavLink to="/delegate" className="nav-link">
-                    <i className="fas fa-user-tag" />
-                      <p> Delegados</p>
-                    </NavLink>
-                  </li> */}
                 <li className='nav-item'>
                   <NavLink to="/ballot" className="nav-link">
-                      <i className="fas fa-book-open nav-icon" />
-                      <p>Boleta</p>
+                      <i className="fas fa-book-open nav-icon" /> <p> Boleta</p>
                   </NavLink>
                   </li>
                   <li className="nav-item" >
                   <NavLink to="/admin" className="nav-link">
-                  <i className="fas fa-person-booth"></i>
-                      <p> Registros</p>
+                  <i className="fas fa-person-booth"/> <p> Registros</p>
                   </NavLink>
                   </li>
                   <li className="nav-item" >
                   <NavLink to="/campains" className="nav-link">
-                  <i className="fas fa-puzzle-piece"></i>
-                      <p> Campañas</p>
+                  <i className="fas fa-puzzle-piece"/> <p> Campañas</p>
                   </NavLink>
                   </li>
                   <li className="nav-item" >
-                  <NavLink to="/informs" className="nav-link">
-                  <i className="fas fa-chart-bar"></i>
-                      <p> Informes</p>
+                  <NavLink to="/informs" className="nav-link"> 
+                  <i className="fas fa-chart-bar"/> <p> Informes</p>
                   </NavLink>
                   </li>
                   </ul>

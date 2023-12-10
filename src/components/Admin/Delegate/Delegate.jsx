@@ -27,8 +27,6 @@ const Delegate = () => {
           axios.get(URL, getConfig())
           .then(res => {
             setPrecints(res.data.rows)
-            console.log(res)
-            //setSelectedPrecint(recinto?.colegios)
           })
           .catch(err =>
             console.log(err))
@@ -206,11 +204,13 @@ const Delegate = () => {
               <label>Recinto</label>
               <div style={{backgroundColor:"white", padding:"20px", overflowX:"hidden", overFlowY:'scroll',  height:"150px"}}>
               {precints?.map((recinto) => (
-                      
                       <div  key={recinto?.id}  className="custom-control custom-radio">
                       <input className="custom-control-input" type="radio" id={recinto?.id} name="precinct" onChange={() => setSelectedPrecint(recinto?.colegios)}/>
-                      <label htmlFor={recinto?.id} className="custom-control-label">{recinto?.precintNumber.toString().padStart(5, '0')}
-                      {recinto?.recintoNombre}</label>
+                      <label htmlFor={recinto?.id} className="custom-control-label">
+                      <small className="badge badge-primary">
+
+                        {recinto?.precintNumber.toString().padStart(5, '0')} </small>{recinto?.recintoNombre}
+                        </label>
                     </div>
                   ))}
               </div>

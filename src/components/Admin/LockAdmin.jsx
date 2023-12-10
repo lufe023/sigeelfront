@@ -142,7 +142,7 @@ if(user?.censu?.firstName=="Cargando"){
       <div className="input-group">
         <input
         {...register('password')} 
-        
+        autoFocus
         id="password" 
         required
         className="form-control"
