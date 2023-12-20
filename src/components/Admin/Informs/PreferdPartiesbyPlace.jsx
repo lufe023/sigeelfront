@@ -16,7 +16,7 @@ const PreferdParties = ({campainId}) => {
         
         axios.get(URL, getConfig())
         .then((res) => {
-          console.log(res)
+
           if(res.data[0]?.encuestas){
             setData(res.data[0])
             setLoading(false)

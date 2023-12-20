@@ -30,6 +30,7 @@ import Informs from './components/Admin/Informs/Informs';
 import SistemConfiguration from './components/Admin/SistemConfiguration';
 import UserAdministrator from './components/UserDashboard/UserAdministrator';
 import Delegate from './components/Admin/Delegate/Delegate';
+import WarRoom from './components/Admin/Informs/WarRoom';
 
 
 function App() {
@@ -52,7 +53,7 @@ function App() {
         <Route path='/people/poll/:id/:name' element={<Polls/>}/>
         <Route path='/teams' element={<Teams/>}/>
         <Route path='/teams/:id' element={<TeamView/>}/>
-        <Route path='/precints' element={<CitizenByCollege/>}/>
+        <Route path='/precints' element={<Delegate/>}/>
         <Route path='/Delegate' element={<Delegate/>}/>
       </Route>
 
@@ -65,6 +66,7 @@ function App() {
       <Route path='/users' element={<UserDashBoard/>}/>
       <Route path='/users/:id/' element={<UserAdministrator/>}/>
       <Route path='/peoplebyuser/:id' element={<PeopleByUser/>}/>
+      <Route path='/warroom' element={<WarRoom/>}/>
       </Route>
 
       <Route path='*' element={<Error404/>}/>

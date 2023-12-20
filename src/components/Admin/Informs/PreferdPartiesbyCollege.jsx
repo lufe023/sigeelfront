@@ -16,7 +16,7 @@ const PreferdPartiesByCollege = ({campainId, collegeId}) => {
         
         axios.get(URL, getConfig())
         .then((res) => {
-          console.log(res)
+
           if(res.data[1].undefined[0].preferedParty){
             setData(res.data)
             setLoading(false)
@@ -44,7 +44,6 @@ const PreferdPartiesByCollege = ({campainId, collegeId}) => {
     };
 
     let nameMunicipality = data?.[0]?.[0].municipalities.name.replace(/[áéíóúÁÉÍÓÚ]/g, (letra) => acentos[letra] || letra);
-console.log(data?.[0]?.[0].municipalities.name)
 
     function convertToExcel(data) {
       
@@ -111,7 +110,7 @@ const resultArray = Object.values(partyData);
   </div>
   <div className="card-body">
 
-      <p className="d-flex flex-column">
+      <div className="d-flex flex-column">
         <span className="text-bold text-lg"> {data[0]?.[0]?.name}</span>
         <span> {data[0]?.[0]?.details}</span>
         
@@ -122,7 +121,7 @@ const resultArray = Object.values(partyData);
           
         }
 
-      </p>
+      </div>
 
       {
       

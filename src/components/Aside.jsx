@@ -118,7 +118,7 @@ const [user, setUser] = useState(useSelector(state=> state.userSlice))
             <ul className="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
               <li  className='nav-item menu-open'>
                 <NavLink  className='nav-link'>
-                <i className="fas fa-lock"/> 
+                <i className="fas fa-lock nav-icon"/> 
                   <p> Administración<i className="right fas fa-angle-left" />
                   </p>
                 </NavLink>
@@ -136,18 +136,25 @@ const [user, setUser] = useState(useSelector(state=> state.userSlice))
                   </li>
                   <li className="nav-item" >
                   <NavLink to="/admin" className="nav-link">
-                  <i className="fas fa-person-booth"/> <p> Registros</p>
+                  <i className="fas fa-person-booth nav-icon"/> <p> Registros</p>
                   </NavLink>
                   </li>
                   <li className="nav-item" >
                   <NavLink to="/campains" className="nav-link">
-                  <i className="fas fa-puzzle-piece"/> <p> Campañas</p>
+                  <i className="fas fa-puzzle-piece nav-icon"/> <p> Campañas</p>
                   </NavLink>
                   </li>
-                  <li className="nav-item" >
+                  <li className="nav-item">
                   <NavLink to="/informs" className="nav-link"> 
-                  <i className="fas fa-chart-bar"/> <p> Informes</p>
+                      <i className="fas fa-chart-bar nav-icon"/>
+                      <p> Informe</p>
                   </NavLink>
+                  </li>
+                  <li className="nav-item">
+                    <NavLink to="/warroom" className="nav-link">
+                      <i className="fas fa-users nav-icon"/>
+                      <p> WarRoom</p>
+                    </NavLink>
                   </li>
                   </ul>
                   </li>

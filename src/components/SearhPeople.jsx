@@ -88,8 +88,96 @@ const SearhPeople = () => {
         {
           count? <span className="dropdown-item dropdown-header">{`${count} coincidencia`}</span>:''
         }
+         <div className='table-responsive p-0 container-table-search'>
+        {
+        count?
+      <table className="table ">
+      <thead>
+      </thead>
+      <tbody>
+        {
+        results?.map((people)=>
+        <tr key={people.id} className="people-finding">
+        <td>
+            
+        <img style={{float: 'left', width:'125px', marginRight:'5px'}} src={`${import.meta.env.VITE_API_SERVER}/api/v1/images/citizen/${people?.picture}`} alt="message user image"/>
+         
+           <ul className='demographic-information' style={{margin:"0", padding:"0"}}>
+           
+            <li>
+           <span>{people.firstName} {people.lastName} {people.nickname?<small>({people.nickname})</small>: ''}</span>
+            </li>
+            <li>
+            <span></span>
+          </li>
+          <li>
+         <span>{`${people.citizenID.substr(0,3)}-${people.citizenID.substr(3,10)}-${people.citizenID.substr(10,1)}`}</span>
+          </li>
       
-      <div className='table-responsive p-0 container-table-search'>
+          
+            <li>
+              Distritto: <span>{people?.districts?.name} </span>
+            </li>
+            <li>
+              Municipio: <span>{people?.municipalities?.name}</span>
+            </li>
+            <li>
+              Provincia: <span>{people?.provinces?.name} </span>
+            </li>
+            <li>
+          Colegio: <span>{people?.colegio?.collegeNumber.toString().padStart(4, '0')}</span>
+          </li>
+          <li>
+          Recinto: <span>{people?.colegio?.precinctData?.recintoNombre}</span>
+          </li>
+          <li>
+          {  
+          people.leaders?
+          <Link to={`/mypeople/${ people.leaders.censu.id}`}>
+          {people?.leaders?.censu?.firstName}
+          </Link>
+          :""
+          }
+          </li>
+          </ul>
+          
+        <div className='card-footer' style={{display: 'flex', justifyContent:'flex-start', gap:'20px' }}>
+        <Link to={`/mypeople/${people.id}`}>
+        <button className='btn btn-primary'>
+        <i className="far fa-eye search-tool "></i>
+        </button>
+        </Link>
+        {people.leader
+        ?
+        <Link to={`/mypeople/${ people.leaders.censu.id}`} className=' btn btn-default'>
+        <i className="fas fa-user-check search-tool less"></i>
+        </Link>
+        :
+        <button className=' btn btn-success ' onClick={()=>addPeople(people.id, people.citizenID)}>
+            <i className="fas fa-user-plus search-tool" ></i> 
+        </button>
+            }
+        <Link to={`/mypeople/${people.id}`}>
+        <button className=' btn btn-warning'>
+        <i className="fas fa-user-edit search-tool"></i>
+        </button>
+        </Link>
+        </div>
+        </td>
+
+        </tr>
+        )
+      }
+      </tbody>
+      </table>
+      : 
+      <div>
+  <h5>Sin resultados</h5>
+  <p>Intente buscar por nombre, apellido o apodo numero de cedula sin los guiones</p>
+</div>
+}
+      </div>
+      {/* <div className='table-responsive p-0 container-table-search'>
         {
         count?
       <table className="table table-striped table-valign-middle">
@@ -165,7 +253,7 @@ const SearhPeople = () => {
 </div>
 
 }
-      </div>
+      </div> */}
      
       <div className="dropdown-divider" />
         {

@@ -61,7 +61,7 @@ const SelectCollege = ({collegeData, setCollegeData, setCampains}) => {
             >
           {
             precints?.map((recinto) => 
-            <option onClick={()=>setSelectedPrecint(recinto?.colegios)} key={recinto?.id} value={recinto?.id}>{recinto?.id.toString().padStart(5, '0')} {recinto?.recintoNombre}</option>
+            <option onClick={()=>setSelectedPrecint(recinto?.colegios)} key={recinto?.id} value={recinto?.id}>{recinto?.precintNumber.toString().padStart(5, '0')} {recinto?.recintoNombre}</option>
             )
           }
           </select>
@@ -79,7 +79,7 @@ const SelectCollege = ({collegeData, setCollegeData, setCampains}) => {
             >
               {
               selectedPrecint?.map((colegio) => 
-                <option key={colegio?.id} value={colegio?.id}>Colegio {colegio?.id.toString().padStart(4, '0')}</option>
+                <option key={colegio?.id} value={colegio?.id}> {colegio?.collegeNumber.toString().padStart(4, '0')}</option>
                 )
             }
         </select>

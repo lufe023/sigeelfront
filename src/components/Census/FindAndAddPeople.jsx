@@ -138,7 +138,6 @@ const FindAndAddPeople = ({getMypeople, leaderId}) => {
         count?
       <table className="table ">
       <thead>
-     
       </thead>
       <tbody>
         {
