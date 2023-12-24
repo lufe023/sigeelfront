@@ -185,38 +185,38 @@ if(id !='Cargando'){
       <div className="row">
         {/* Left col */}
         <section className="col-lg-6 connectedSortable ui-sortable">
-          {/* Custom tabs (Charts with tabs)*/}
-          <BarsChart preferedPresidents={preferedPresidents}/>
-          {preferedSenators?
+          {
+          preferedPresidents.length>0?<BarsChart preferedPresidents={preferedPresidents}/>:""
+          }
+          {preferedSenators.length>0?
           <SenatorsBarsChart preferedSenators={preferedSenators}/>:""
           }
 
           {
-            preferedDiputys?<DiputyBarsChart preferedDiputys={preferedDiputys}/>:""
+            preferedDiputys.length>0?<DiputyBarsChart preferedDiputys={preferedDiputys}/>:""
           }
-           {
-            preferedMayor?<MayorBarsChart preferedMayor={preferedMayor}/>: ""
+          {
+            preferedMayor.length>0?<MayorBarsChart preferedMayor={preferedMayor}/>: ""
           }
           {/* /.card */}
         </section>
         {/* /.Left col */}
         {/* right col (We are only adding the ID to make the widgets sortable)*/}
         <section className="col-lg-6 connectedSortable ui-sortable">
-          <DonutChart preferedParties={preferedParties}/>
-
-
-
           {
-            preferedCouncillor?<CouncillorBarsChart preferedCouncillor={preferedCouncillor}/>:""
+            preferedParties.length>0? <DonutChart preferedParties={preferedParties}/>:""
+          }
+          {
+            preferedCouncillor.length>0?<CouncillorBarsChart preferedCouncillor={preferedCouncillor}/>:""
           }
 
           {
-            preferedDirector?<DirectorBarsChart preferedDirector={preferedDirector}/>: ""
+            preferedDirector.length>0?<DirectorBarsChart preferedDirector={preferedDirector}/>: ""
           }
 
-
+        
           {
-            preferedVocal?<VocalBarsChart preferedVocal={preferedVocal}/>:""
+            preferedVocal.length>0?<VocalBarsChart preferedVocal={preferedVocal}/>:""
           }
           <div className="card bg-gradient-success">
             <div className="card-header border-0 ui-sortable-handle" style={{cursor: 'move'}}>

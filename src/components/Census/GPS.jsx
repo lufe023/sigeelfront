@@ -33,8 +33,9 @@ const GPS = ({lat, long, peopleName, picture, gotAutomatic}) => {
     return (
       <>
   <div style={{ height: '100vh', width: '100%' }}>
-      <GoogleMapReact
-        bootstrapURLKeys={{ key: "AIzaSyBrPKvk4bruxATYGQ-CcxouXxiwMeUuKDY" }}
+      <GoogleMapReact 
+      
+        bootstrapURLKeys={{ key: "AIzaSyAgm-ggcmQqeknCzs5gRoizLafCkqLclKY" }}
         defaultCenter={defaultProps.center}
         defaultZoom={defaultProps.zoom}
       >

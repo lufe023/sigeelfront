@@ -13,7 +13,6 @@ const CampainList = ({campain, getCampains}) => {
         .then((response) => {
           // Restablecer el formulario después de enviar los datos (opcional)
           getCampains()
-          console.log(response)
           const Toast = Swal.mixin({
             toast: true,
             position: 'top-end',

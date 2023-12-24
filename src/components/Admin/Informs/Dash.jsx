@@ -7,6 +7,7 @@ import SelectCollege from './SelectCollege'
 import PreferdPartiesByPlace from './PreferdPartiesbyPlace'
 import PreferdPartiesByCollege from './PreferdPartiesbyCollege'
 import SelectPlace from './SelectPlace'
+import WarRoom from './WarRoom'
 
 const Dash = () => {
   const [menu, setMenu] = useState({
@@ -199,6 +200,19 @@ const Dash = () => {
           <i className="fas fa-project-diagram" />
           Vocales
         </label>
+        <label className={`btn btn-app ${menu.menu === 'warroom' ? 'bg-primary' : ''}`} style={{ fontWeight: '400' }}>
+          <span className="badge bg-success"></span>
+          <input
+            type="radio"
+            name="menu"
+            value="warroom"
+            onChange={handleRadioChange}
+            hidden
+          />
+          <i className="fas fa-flag" />
+
+          War Room
+        </label>
         </div>
         <div className='form-group'>
         {
@@ -282,7 +296,9 @@ const Dash = () => {
         {
           menu.menu == 'partidos' && menu.campain && menu.tipo== 'colegios' && campains.length>0?<PreferdPartiesByCollege campainId={menu.campain} collegeId={collegeData?.college}/> :""
         }
-
+        {
+          menu.menu == 'warroom' && menu.campain && menu.tipo== 'colegios' && campains.length>0?<WarRoom campainId={menu.campain} collegeId={collegeData?.college}/> :""
+        }
         </div>
         </div>
 

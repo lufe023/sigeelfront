@@ -49,7 +49,7 @@ var misoptions = {
     animation : true,
     plugins : {
         legend : {
-            display : false
+            display : true
         }
     },
     scales : {

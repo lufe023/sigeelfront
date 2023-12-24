@@ -150,12 +150,6 @@ const [user, setUser] = useState(useSelector(state=> state.userSlice))
                       <p> Informe</p>
                   </NavLink>
                   </li>
-                  <li className="nav-item">
-                    <NavLink to="/warroom" className="nav-link">
-                      <i className="fas fa-users nav-icon"/>
-                      <p> WarRoom</p>
-                    </NavLink>
-                  </li>
                   </ul>
                   </li>
                   </ul>

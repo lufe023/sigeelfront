@@ -52,7 +52,7 @@ const data = {
               title: `Accion no permitida: ${err.response.statusText}`
             })
         })
-        }
+    }
 
         useEffect(() => {
 

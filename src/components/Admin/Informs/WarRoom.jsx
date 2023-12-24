@@ -8,12 +8,11 @@ import axios from 'axios';
 import getConfig from '../../../utils/getConfig';
 ChartJS.register(LineElement, ArcElement, Tooltip, Legend);
 
-const WarRoom = () => {
+const WarRoom = ({campainId, collegeId}) => {
 
     const [info, setInfo] = useState()
-    const getInfo = () => {
-          let URL = `${import.meta.env.VITE_API_SERVER}/api/v1/reports/urna`;
-          
+    const getInfo = (campain, college ) => {
+          let URL = `${import.meta.env.VITE_API_SERVER}/api/v1/reports/urna?campain=${campain}&college=${college}`;
           axios.get(URL, getConfig())
           .then((res) => {
             setInfo(res.data)
@@ -22,10 +21,9 @@ const WarRoom = () => {
               console.log(err);
           });
       };
-    
       useEffect(() => {
         const getInfoAndSetInterval = () => {
-            getInfo();  // Realiza la consulta al cargar la página
+            getInfo(campainId, collegeId);  // Realiza la consulta al cargar la página
     
             // Configura un intervalo para realizar la consulta cada 1 minuto (ajusta según tus necesidades)
             const intervalId = setInterval(() => {
@@ -38,7 +36,7 @@ const WarRoom = () => {
     
         // Llama a la función para la primera vez
         getInfoAndSetInterval();
-    }, []); 
+    }, [campainId]); 
       
       const groupedData = {};
 
@@ -46,7 +44,7 @@ const WarRoom = () => {
       info?.forEach((obj) => {
           if (!groupedData[obj.name]) {
               groupedData[obj.name] = {
-                  nombre: obj.name.substr(0,10)+' ('+obj.partyAcronyms+')',
+                  nombre: obj.name.substr(0,15)+' ('+obj.partyAcronyms+')',
                   color: obj.color,
                   puntos: new Array(24).fill(0), // Crear un array de 24 horas con valores iniciales de 0
               };
@@ -66,10 +64,12 @@ const WarRoom = () => {
         fill: false,
         backgroundColor: candidato.color,
         cubicInterpolationMode: 'monotone',
-        tension: 0.4,
+        tension: 0.9,
         pointStyle: 'circle',
         pointRadius: 5,
         hoverRadius: 15,
+        fill: false,
+        
       }));
   const startHour = 0; // Inicio de la cuenta de horas
   const endHour = 23; // Fin de la cuenta de horas
@@ -124,26 +124,27 @@ const WarRoom = () => {
               display: true,
               text: 'Votos',
             },
-            suggestedMin: 0,
+            suggestedMin: -1,
             suggestedMax: 10, // Ajusta según tus necesidades
       
     } ,
     },
   };
 
+  const totalVotes = resultArray.reduce((acc, candidato) => acc + candidato.puntos.reduce((sum, voto) => sum + voto, 0), 0);
+
+  // Calcula y formatea los porcentajes para cada candidato
+  const porcentajes = resultArray.map((candidato) => ({
+      nombre: candidato.nombre,
+      color: candidato.color,
+      total: candidato.puntos.reduce((sum, voto) => sum + voto, 0),
+      porcentaje: ((candidato.puntos.reduce((sum, voto) => sum + voto, 0) / totalVotes) * 100).toFixed(2),
+  }));
+
 
   return (
     <>
-    <Header/>
-    <Aside/>
-    <div className="content-wrapper">
-    <section class="content-header">
-        <div class="container-fluid">
-            <div class="row mb-2">
-                <div class="col-sm-6"><h1>Cuarto de Guerra</h1></div>
-                <div class="col-sm-6"><ol class="breadcrumb float-sm-right"><li class="breadcrumb-item"><a href="#">Home</a></li><li class="breadcrumb-item"><a href="#/mypeople">My People</a></li><li class="breadcrumb-item active">Perfil del  Ciudadano</li></ol></div></div></div></section>
-        <div className="container-fluid">
-
+ 
     <div className='row'>
         <div className='col-md-12'>
             <div className='card card-primary'>
@@ -154,16 +155,38 @@ const WarRoom = () => {
     </div>
 </div>
 
-          <div className="card-body">
+<div className="card-body">
 
-      <Line data={data} options={options} />
+<div className="row">
+  <div className="col-md-8">
+  <Line data={data} options={options} />
+  </div>
+  {/* /.col */}
+  <div className="col-md-4">
+    <p className="text-center">
+      <strong>Informe Completo</strong>
+    </p>
+
+{porcentajes.map((candidato, index) => (
+        <div className="progress-group" key={index}>
+            {`${candidato.nombre} ${candidato.total}/${totalVotes}`}
+            <span className="float-right">{`${candidato.porcentaje}%`}</span>
+            <div className="progress progress-sm">
+                <div className="progress-bar" style={{ width: `${candidato.porcentaje}%`, backgroundColor: candidato.color }} />
+            </div>
+        </div>
+    ))}
+    {/* /.progress-group */}
+  </div>
+  {/* /.col */}
+</div>
+
       </div>
       </div>
       </div></div>
       
-      </div>
-      </div>
-      <Footer/>
+
+ 
     </>
   );
 };
