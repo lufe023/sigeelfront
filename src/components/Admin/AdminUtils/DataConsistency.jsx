@@ -1,5 +1,4 @@
-import axios from 'axios'
-import React, { useEffect, useState } from 'react'
+
 
 const DataConsistency = ({data}) => {
 
@@ -7,10 +6,10 @@ const DataConsistency = ({data}) => {
   return (
     <>
 {
-    data?.map((recinto) =>
-    <div key={recinto.id} className={`card collapsed-card ${recinto.electLocal === recinto.localCitizens && recinto.electExterior == recinto.exteriorCitizens?`` :`card-warning` }`}>
+  data?.map((recinto) =>
+  <div key={recinto.id} className={`card collapsed-card ${recinto.electLocal === recinto.localCitizens && recinto.electExterior == recinto.exteriorCitizens?`` :`card-warning` }`}>
   <div className="card-header">
-    <h3 className="card-title">{recinto.precintNumber.toString().padStart(5, '0')} {recinto.recintoNombre} <b>{recinto?.PrecinctsMunicipio[0]?.name}, {recinto?.PrecinctsProvincia[0]?.name}</b>
+    <h3 className="card-title"><b>{recinto.precintNumber.toString().padStart(5, '0')} </b>{recinto.recintoNombre} <b>{recinto?.PrecinctsMunicipio[0]?.name}, {recinto?.PrecinctsProvincia[0]?.name}</b>
     
 
     </h3>
@@ -33,7 +32,7 @@ const DataConsistency = ({data}) => {
   Local: <small> {recinto.electLocal}</small> Actuales: <small>{recinto.localCitizens}</small>
   <div className="custom-control custom-switch custom-switch-off-danger custom-switch-on-success">
     {recinto.electLocal == recinto.localCitizens? 
-    <input type="checkbox" checked className="custom-control-input" id="customSwitch3" />: 
+    <input type="checkbox" checked readOnly className="custom-control-input" id="customSwitch3" />: 
     <input type="checkbox" className="custom-control-input" id="customSwitch3" />
     } 
     <label className="custom-control-label">Los datos locales {recinto.electLocal == recinto.localCitizens? "son concistentes": "no son consistentes"} </label>
@@ -45,7 +44,7 @@ const DataConsistency = ({data}) => {
   Exterior: <small> {recinto.electExterior}</small> Actuales: <small>{recinto.exteriorCitizens}</small>
   <div className="custom-control custom-switch custom-switch-off-danger custom-switch-on-success">
     {recinto.electExterior == recinto.exteriorCitizens? 
-    <input type="checkbox" checked className="custom-control-input" id="customSwitch3" />: 
+    <input type="checkbox" checked readOnly className="custom-control-input" id="customSwitch3" />: 
     <input type="checkbox" className="custom-control-input" id="customSwitch3" />
     } 
     <label className="custom-control-label">Los datos exteriores {recinto.electExterior == recinto.exteriorCitizens? "son concistentes": "no son consistentes"} </label>
@@ -69,7 +68,7 @@ const DataConsistency = ({data}) => {
     <tr key={colegio.id}>
     <td>
     <span className={`badge ${colegio.electExterior === colegio.collegeCitizensExterior && colegio.electLocal === colegio.collegeCitizensLocal ? "bg-success" : "bg-danger"}`}>
-    {colegio.collegeNumber.toString().padStart(4, '0')}
+      {colegio.collegeNumber.toString().padStart(4, '0')}
       </span>
     </td>
     <td>{colegio.electLocal}</td>

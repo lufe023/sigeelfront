@@ -150,13 +150,14 @@ const FindAndAddPeople = ({getMypeople, leaderId}) => {
            <ul className='demographic-information' style={{margin:"0", padding:"0"}}>
            
             <li>
+            
            <span>{people.firstName} {people.lastName} {people.nickname?<small>({people.nickname})</small>: ''}</span>
             </li>
             <li>
             <span></span>
           </li>
           <li>
-         <span>{`${people.citizenID.substr(0,3)}-${people.citizenID.substr(3,10)}-${people.citizenID.substr(10,1)}`}</span>
+         <span>{`${people.citizenID.substr(0,3)}-${people.citizenID.substr(3,7)}-${people.citizenID.substr(10,1)}`}</span>
           </li>
       
           

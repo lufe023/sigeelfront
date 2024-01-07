@@ -114,10 +114,11 @@ else if(passwordFail===2){
         
         id="password" 
         required
+        autoFocus
         className="form-control"
         type="password" 
         placeholder="Contraseña" 
-        autoComplete='new-password'/>
+        autoComplete='password'/>
         <div className="input-group-append">
           <button type="button" className="btn">
             <i className="fas fa-arrow-right text-muted" />

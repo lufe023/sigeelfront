@@ -2,10 +2,9 @@ import axios from 'axios'
 import React, { useEffect, useState } from 'react'
 import getConfig from '../../../utils/getConfig'
 
-const SelectCollege = ({collegeData, setCollegeData, setCampains}) => {
+const SelectCollege = ({collegeData, setCollegeData, setCampains, selectedPrecint, setSelectedPrecint}) => {
 
       const [precints, setPrecints] = useState()
-      const [selectedPrecint, setSelectedPrecint] = useState()
       
       const getAllPrecints = ()=>{
         const URL = `${import.meta.env.VITE_API_SERVER}/api/v1/jce/precints`
@@ -61,7 +60,7 @@ const SelectCollege = ({collegeData, setCollegeData, setCampains}) => {
             >
           {
             precints?.map((recinto) => 
-            <option onClick={()=>setSelectedPrecint(recinto?.colegios)} key={recinto?.id} value={recinto?.id}>{recinto?.precintNumber.toString().padStart(5, '0')} {recinto?.recintoNombre}</option>
+            <option onClick={()=>setSelectedPrecint(recinto?.colegios)} key={recinto?.id} value={recinto?.id}>{recinto?.precintNumber.toString().padStart(5, '0')} ({recinto?.PrecinctsMunicipio[0]?.name} ){recinto?.recintoNombre}</option>
             )
           }
           </select>

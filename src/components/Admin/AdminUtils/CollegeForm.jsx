@@ -88,7 +88,7 @@ const CollegeForm = ({precints, getAllPrecints, getAllData}) => {
       <div className="card-body">
         <div className="container">
           <div className="row">
-            <div className="col-md-6">
+            <div className="col-md-3">
               <form onSubmit={handleSubmit}>
                 <div className="form-group">
                   <label>Número:</label>
@@ -134,7 +134,7 @@ const CollegeForm = ({precints, getAllPrecints, getAllData}) => {
                 <button type="submit" className="btn btn-primary">Enviar</button>
               </form>
             </div>
-            <div className="col-md-6">
+            <div className="col-md-9">
               <form>
                 <div className="form-group">
                   <label>Recinto</label>
@@ -146,9 +146,8 @@ const CollegeForm = ({precints, getAllPrecints, getAllData}) => {
                     required
                     size={5}>
                   {
-                  
                     precints?.map((recinto) => 
-                    <option onClick={()=>setSelectedPrecint(recinto?.colegios)} key={recinto?.id} value={recinto?.id}>{recinto?.precintNumber.toString().padStart(5, '0')} {recinto?.recintoNombre}</option>
+                    <option onClick={()=>setSelectedPrecint(recinto?.colegios)} key={recinto?.id} value={recinto?.id}>{recinto?.precintNumber.toString().padStart(5, '0')} ({recinto?.PrecinctsMunicipio[0]?.name}) {recinto?.recintoNombre}</option>
                     )
                   }
                   </select>

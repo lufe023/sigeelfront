@@ -101,17 +101,15 @@ const SearhPeople = () => {
         <td>
             
         <img style={{float: 'left', width:'125px', marginRight:'5px'}} src={`${import.meta.env.VITE_API_SERVER}/api/v1/images/citizen/${people?.picture}`} alt="message user image"/>
-         
-           <ul className='demographic-information' style={{margin:"0", padding:"0"}}>
-           
-            <li>
-           <span>{people.firstName} {people.lastName} {people.nickname?<small>({people.nickname})</small>: ''}</span>
+          <ul className='demographic-information' style={{margin:"0", padding:"0"}}>
+          <li>
+          <span>{people.firstName} {people.lastName} {people.nickname?<small>({people.nickname})</small>: ''}</span>
             </li>
             <li>
             <span></span>
           </li>
           <li>
-         <span>{`${people.citizenID.substr(0,3)}-${people.citizenID.substr(3,10)}-${people.citizenID.substr(10,1)}`}</span>
+          <span>{`${people.citizenID.substr(0,3)}-${people.citizenID.substr(3,7)}-${people.citizenID.substr(10,1)}`}</span>
           </li>
       
           

@@ -70,11 +70,11 @@ const [data, setData] = useState()
     <div className="row">
       {/*/.col (left) */}
       {/* right column */}
-      <div className="col-md-6">
+      <div className="col-md-12">
     <CollegeForm precints={precints} getAllPrecints={getAllPrecints} getAllData={getAllData}/>
     </div>
 
-    <div className="col-md-6">
+    <div className="col-md-12">
     <DataProcessor precints={precints} getAllPrecints={getAllPrecints} getAllData={getAllData}/>
       </div>
     </div>

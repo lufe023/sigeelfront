@@ -209,7 +209,12 @@ const Delegate = () => {
                       <label htmlFor={recinto?.id} className="custom-control-label">
                       <small className="badge badge-primary">
 
-                        {recinto?.precintNumber.toString().padStart(5, '0')} </small>{recinto?.recintoNombre}
+                        {recinto?.precintNumber.toString().padStart(5, '0')} </small>
+                        <small className="badge badge-info">
+                        {recinto?.PrecinctsMunicipio[0]?.name}
+                        </small>
+                        {' '}
+                        {recinto?.recintoNombre}
                         </label>
                     </div>
                   ))}
@@ -276,12 +281,8 @@ const Delegate = () => {
     <label className="custom-control-label" htmlFor="customSwitch3">{pagination.includeExterior?"Incluyendo": "Excluyendo"}</label>
   </div>
 </div>
-
-
 </div>
 </div>
-
-
 </div>
 <div className="col-md-12">
 <button type="button" className="btn btn-primary btn-block" onClick={()=>{getAllPeopleyByCollege(formData.college, pagination.offset, pagination.limit ), setIsloading(true)}}><i className="fa fa-search" /> Ver</button>

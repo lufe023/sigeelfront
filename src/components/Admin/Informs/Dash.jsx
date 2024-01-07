@@ -8,6 +8,7 @@ import PreferdPartiesByPlace from './PreferdPartiesbyPlace'
 import PreferdPartiesByCollege from './PreferdPartiesbyCollege'
 import SelectPlace from './SelectPlace'
 import WarRoom from './WarRoom'
+import Metas from './Metas'
 
 const Dash = () => {
   const [menu, setMenu] = useState({
@@ -24,7 +25,8 @@ const Dash = () => {
     meta: 0,
     college: ''
   });
-
+  const [selectedPrecint, setSelectedPrecint] = useState()
+  
   const [formMapData, setFormMapData] = useState({
     name: '',
     details: '',
@@ -213,6 +215,21 @@ const Dash = () => {
 
           War Room
         </label>
+
+        <label className={`btn btn-app ${menu.menu === 'metas' ? 'bg-primary' : ''}`} style={{ fontWeight: '400' }}>
+          <span className="badge bg-success"></span>
+          <input
+            type="radio"
+            name="menu"
+            value="metas"
+            onChange={handleRadioChange}
+            hidden
+          />
+          <i className="fas fa-medal" />
+          Metas
+        </label>
+      
+
         </div>
         <div className='form-group'>
         {
@@ -248,11 +265,11 @@ const Dash = () => {
         </>
         :""
         }
-        {menu.tipo == 'colegios'? <SelectCollege collegeData={collegeData} setCollegeData={setCollegeData} setCampains={setCampains}/>: ""}
+        {menu.tipo == 'colegios'? <SelectCollege collegeData={collegeData} setCollegeData={setCollegeData} setCampains={setCampains} selectedPrecint={selectedPrecint} setSelectedPrecint={setSelectedPrecint}/>: ""}
         {menu.tipo == 'lugares'? <SelectPlace setCampains={setCampains} formMapData={formMapData} setFormMapData={setFormMapData}/>: ""}
         </div>
         {
-          menu.tipo?
+          menu.tipo &&  menu.menu !='metas'?
         <>
         <h3>Campañas</h3>
         <div className='row'>
@@ -298,6 +315,10 @@ const Dash = () => {
         }
         {
           menu.menu == 'warroom' && menu.campain && menu.tipo== 'colegios' && campains.length>0?<WarRoom campainId={menu.campain} collegeId={collegeData?.college}/> :""
+        }
+   
+        {
+          menu.menu == 'metas'? <Metas campainId={menu.campain} college={collegeData}/> :""
         }
         </div>
         </div>

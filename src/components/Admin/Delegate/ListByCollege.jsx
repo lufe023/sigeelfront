@@ -60,7 +60,9 @@ const ListByCollege = ({citizens, addPeople}) => {
                     <li>
                         {
                         item.leaders?.id? <span> Lider:  <Link to={`/peoplebyuser/${item.leaders?.id}`}>{item.leaders?.censu?.firstName}</Link></span>:
+                        addPeople?
                         <a className='btn btn-xs btn-primary' onClick={()=>{addPeople(item.id)}}> <i className="fas fa-user-plus"/> Agregar a Mi Gente</a>
+                        :""
                         }
                     </li>
                     
