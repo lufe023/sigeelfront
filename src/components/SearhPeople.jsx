@@ -44,6 +44,7 @@ const SearhPeople = () => {
                 
         })
         .catch(err =>{
+          console.log(err)
             setResults([])
             setCount()
         })

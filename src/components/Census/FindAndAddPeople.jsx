@@ -69,7 +69,7 @@ const FindAndAddPeople = ({getMypeople, leaderId}) => {
         const URL = `${import.meta.env.VITE_API_SERVER}/api/v1/census/search`
             axios.post(URL,
                 {
-                    findWord:findWord  
+                  findWord:findWord  
                 },
             getConfig(),
             )
@@ -77,7 +77,6 @@ const FindAndAddPeople = ({getMypeople, leaderId}) => {
                 setResults(res.data.data.rows)
                 setCount(res.data.data.count)
                 setIsloading(false)
-                
         })
         .catch(err =>{
             setResults([])
