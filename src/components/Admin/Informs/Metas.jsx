@@ -55,11 +55,7 @@ console.log(data)
   Exterior: <small> {data?.[0].electExterior.toLocaleString('en-EN', { useGrouping: true })}</small>
 
 </div>
-
-
-
   </div>
-  {/* /.card-body */}
 </div>
 
 {colegios?.rows?.map((colegio)=>

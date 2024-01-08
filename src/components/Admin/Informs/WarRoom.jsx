@@ -68,9 +68,7 @@ const WarRoom = ({campainId, collegeId}) => {
         pointStyle: 'circle',
         pointRadius: 5,
         hoverRadius: 15,
-        fill: false,
-        
-      }));
+}));
   const startHour = 0; // Inicio de la cuenta de horas
   const endHour = 23; // Fin de la cuenta de horas
   const hoursArray = Array.from({ length: endHour - startHour + 1 }, (_, index) => {

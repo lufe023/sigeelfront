@@ -177,7 +177,7 @@ let totalExterior = 0
         />
         </div>
         </div>
-         <div className="row">
+      <div className="row">
           
           {/* Agrega el input de tipo 'file' para seleccionar las fotos */}
   <div className="input-group">
@@ -190,13 +190,7 @@ let totalExterior = 0
   <button type="submit" className="input-group-text btn btn-warning">Procesar</button>
   </div>
 </div>
-
-         
-          {/* Muestra la vista previa de las fotos seleccionadas */}
-   
         </div>
-       
-
       </form>
       <div className='row'>
         <div className='mt-4 col-md-12'>
