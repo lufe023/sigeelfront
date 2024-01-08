@@ -9,6 +9,8 @@ import Header from '../Header'
 import Cargando from '../../utils/Cargando'
 import AllUsers from './AllUsers'
 import userDisable from '../UserDashboard/userDisable'
+import AdminUserRegister from '../Users/AdminUserRegister'
+
 const UserDashBoard = () => {
   const [users, setUsers] = useState([])
   const [loading, setLoading] = useState(true)
@@ -84,6 +86,11 @@ const UserDashBoard = () => {
   <section className="content">
   <div className="row">
 
+<div className="col-12">
+  <AdminUserRegister getAllUsers={getAllUsers}/>
+  </div></div>
+  <div className="row">
+
     <div className="col-12">
       <div className='' style={{display:'flex', justifyContent:"center"}}>
     <div className="form-group col-6 col-3" >
@@ -136,6 +143,7 @@ const UserDashBoard = () => {
     </button>
   </li>
 </ul>
+
 {
     loading?<div className='loading' style={{height:"100px", marginBottom:"50px"}}>
     <Cargando escala='1.5'/>

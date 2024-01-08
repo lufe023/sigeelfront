@@ -6,7 +6,7 @@ import getConfig from '../../utils/getConfig'
 import RegisteredUser from '../Did/RegisteredUser'
 import "./PreRegister.css"
 
-const PreRegister = () => {
+const AdminUserRegister = ({getAllUsers}) => {
 
   const [people, setPeople] = useState()
   const [inputsLoader, setInputsLoader] = useState(false)
@@ -45,20 +45,17 @@ const findingWord = e => {
           setInputsLoader(false)
     })
     .catch(err =>{
+        console.log(err)
         setInputsLoader(false)
+        
     })
     }
     const createNewUser = e => {
       e.preventDefault()
-
-      const password = e.target.password.value
-      const repassword = e.target.repassword.value
-
-      if(repassword===password){
         const user = {
-        email: e.target.email.value,
-        password: e.target.password.value,
-        citizenID: e.target.cedula.value,
+        email: people?.citizenID,
+        password: 'hola',
+        citizenID: people?.citizenID,
         role: 1
         }
         setFormLoader(true)
@@ -70,29 +67,39 @@ const findingWord = e => {
           setFormLoader(false)
           setInputsLoader(false)
           setRes(true)
+          getAllUsers()
         })
         .catch(err =>{
         setFormLoader(false)
         setInputsLoader(false)
+                
         setMessage('Error, asegurese de que el usuario ya no este registrado o contacte con el administrador')
         })  
         //fin de envio backend
-
-      }else{
-        setShowError('Contraseñas no coinciden')
-    }
   }
 
   const reseting = ()=>{
     setShowError('')
   }
   if(res){
-    return <RegisteredUser/>
+    return <>
+     <div className="card card-outline card-primary">
+    <div className="card-header text-center">
+      <a  className="h1"><b>Mi Elector</b></a>
+    </div>
+    <div className="card-body">
+      <p className="login-box-msg">Registrado con exito</p>
+    </div> 
+    <button className="btn btn-primary" onClick={()=> {setRes(false), setPeople()}}>Registrar Otro</button>
+    </div>
+    </>
   }else{
   return (
-    <div className="register-page">
-      
-    <div className="register-box">
+
+    <>
+<div className="row">
+ <div className="col-sm-6">
+
     {formLoader?
     <div style={{display:"flex", alignItems:"center", justifyContent:"center", height:"100%"}}>
     <Cargando escala="1"/>
@@ -104,7 +111,7 @@ const findingWord = e => {
     </div>
     <div className="card-body">
       <p className="login-box-msg">
-        Registrate como usuario
+        Registrar un Usuario
   {
     message?
   
@@ -120,6 +127,12 @@ const findingWord = e => {
       
         </p>
       <form onSubmit={createNewUser}>
+      <div className="row">
+          <div className="col-2">
+          <img
+        style={{width:"150px"}} src={`${import.meta.env.VITE_API_SERVER}/api/v1/images/citizen/${people?.picture}`} alt="user-avatar" className="img-fluid" />
+            </div>
+          <div className="col-10">
       <div className="input-group mb-3">
           <input type="text" className="form-control" placeholder="Cedula" onChange={findingWord} name="cedula" required/>
           <div className="input-group-append">
@@ -151,37 +164,14 @@ const findingWord = e => {
             </div>
           </div>
         </div>
-  
-        <div className="input-group mb-3">
-          <input type="text" className="form-control" placeholder="Email" name='email' />
-          <div className="input-group-append">
-            <div className="input-group-text">
-              <span className="fas fa-envelope" />
-            </div>
-          </div>
-        </div>
-        <div className="input-group mb-3">
-          <input type="password" className="form-control" placeholder="Contraseña" name='password' required/>
-          <div className="input-group-append">
-            <div className="input-group-text">
-              <span className="fas fa-lock" />
-            </div>
-          </div>
-        </div>
-        <div className="input-group mb-3">
-          <input type="password" className="form-control" placeholder="Repita la contraseña" name='repassword' onChange={reseting} required/>
-          <div className="input-group-append">
-            <div className="input-group-text"><div className='see-error'>{showError} </div>           
-              <span className="fas fa-lock" />
-            </div>
-          </div>
-        </div>
+    </div>
+    </div>
         <div className="row">
           <div className="col-8">
             <div className="icheck-primary">
               <input type="checkbox" id="agreeTerms" name="terms" required/>
               <label htmlFor="agreeTerms">
-                Acepto los terminos y condiciones <a href="#">terms</a>
+                Estoy seguro de lo que estoy haciendo, al registrar este lider.
               </label>
             </div>
           </div>
@@ -195,18 +185,33 @@ const findingWord = e => {
       <div className="social-auth-links text-center">
         
       </div>
-      <Link to="/" className="text-center">Ya tengo una cuenta</Link>
+      
     </div>
     {/* /.form-box */}
   </div>
 }
 
- 
+ </div>
+ <div className="col-sm-6">
+ <div className="alert alert-info alert-dismissible">
+  <button type="button" className="close" data-dismiss="alert" aria-hidden="true">×</button>
+  <h5><i className="fas fa-bullhorn"></i> Importante!</h5>
+  <p>
+  Al crear un usuario, esta persona no será notificada, debe avisarle usted mismo luego de completarle el padroncillo, preferiblemente enviar una copia en pdf via whatsapp.
+  </p>
+<p>
+  Los usuarios se crearan desactivado de forma automática y tendran una clave genérica definida por el administrador.
+  </p>
+  <p>
+  El nuevo colaborador podrá solicitar restablecer la contraseña su usuario siempre sera su cedula.
+  </p>
 
-    </div>
-    </div>
+</div>
+  </div>
+ </div>
+    </>
   )
 }
 }
 
-export default PreRegister
+export default AdminUserRegister
