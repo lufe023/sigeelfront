@@ -82,6 +82,7 @@ const FindAndAddPeople = ({getMypeople, leaderId}) => {
         .catch(err =>{
             setResults([])
             setCount()
+            console.log(err)
         })
         }
         const findingWord = e => {
