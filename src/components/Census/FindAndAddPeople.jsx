@@ -146,9 +146,8 @@ const FindAndAddPeople = ({getMypeople, leaderId}) => {
         <td>
             
         <img style={{float: 'left', width:'125px', marginRight:'5px'}} src={`${import.meta.env.VITE_API_SERVER}/api/v1/images/citizen/${people?.picture}`} alt="message user image"/>
-         
-           <ul className='demographic-information' style={{margin:"0", padding:"0"}}>
-           
+          <ul className='demographic-information' style={{margin:"0", padding:"0"}}>
+          
             <li>
             
            <span>{people.firstName} {people.lastName} {people.nickname?<small>({people.nickname})</small>: ''}</span>
