@@ -178,7 +178,7 @@ const FindAndAddPeople = ({getMypeople, leaderId}) => {
           <li>
           {  
           people.leaders?
-          <Link to={`/mypeople/${ people.leaders.censu.id}`}>
+          <Link to={`/mypeople/${ people?.leaders?.censu?.id}`}>
           {people?.leaders?.censu?.firstName}
           </Link>
           :""
@@ -194,7 +194,7 @@ const FindAndAddPeople = ({getMypeople, leaderId}) => {
         </Link>
         {people.leader
         ?
-        <Link to={`/mypeople/${ people.leaders.censu.id}`} className=' btn btn-default'>
+        <Link to={`/mypeople/${ people?.leaders?.censu?.id}`} className=' btn btn-default'>
         <i className="fas fa-user-check search-tool less"></i>
         </Link>
         :

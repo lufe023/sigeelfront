@@ -107,11 +107,11 @@ const findingWord = e => {
     :
     <div className="card card-outline card-primary">
     <div className="card-header text-center">
-      <a href="../../index2.html" className="h1"><b>Mi Elector</b></a>
+      <a href="../../index2.html" className="h1"><b>Registrar un Colaborador</b></a>
     </div>
     <div className="card-body">
       <p className="login-box-msg">
-        Registrar un Usuario
+   
   {
     message?
   

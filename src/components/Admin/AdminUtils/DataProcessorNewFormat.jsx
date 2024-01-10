@@ -70,7 +70,7 @@ const CitizenForm = ({precints, getAllPrecints, getAllData}) => {
       },
     ]);
   };
-
+console.log(citizens)
   return (
     <div className="card card-primary">
     <div className="card-header">
