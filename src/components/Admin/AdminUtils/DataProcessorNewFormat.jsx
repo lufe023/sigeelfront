@@ -1,26 +1,34 @@
+import axios from 'axios';
 import React, { useState } from 'react';
+import Swal from 'sweetalert2';
+import getConfig from '../../../utils/getConfig';
 
-const CitizenForm = ({precints, getAllPrecints, getAllData}) => {
-  const [citizens, setCitizens] = useState([
-    {
-      cedula: '',
-      nombre: '',
-      apellido: '',
-      celular: '',
-      foto: null,
-    },
-  ]);
+const NewCitizenForm = ({precints, getAllPrecints, getAllData}) => {
+
+  const [mapa, setMapa] = useState([])
+
+  const [selectedPrecint, setSelectedPrecint] = useState()
+
 
   const [formData, setFormData] = useState({
     precinct: '',
     college: ''
   });
 
-  const [selectedPrecint, setSelectedPrecint] = useState()
-  const selecciones = (recinto)=> {
-    setSelectedPrecint(recinto?.colegios)
-    setMapa(recinto)
-  }
+  const [citizen, setCitizen] = useState({
+    firstName: '',
+    lastName: '',
+    citizenID: '',
+    province: null,
+    municipality: null,
+    district: null,
+    position: 900,
+    address: '',
+    outside: false,
+    telephone: '',
+    celphone: '',
+    college: null,
+  });
 
 
   const selectHandleChange = (event) => {
@@ -30,49 +38,83 @@ const CitizenForm = ({precints, getAllPrecints, getAllData}) => {
       [name]: value,
     }));
   };
+  const [photo, setPhoto] = useState(null);
 
-
-  const handleInputChange = (e, index) => {
+  const handleInputChange = (e) => {
     const { name, value } = e.target;
-    const updatedCitizens = [...citizens];
-    updatedCitizens[index][name] = value;
-    setCitizens(updatedCitizens);
+  
+    // Actualizar todas las propiedades en una sola llamada
+    setCitizen((prevCitizen) => ({
+      ...prevCitizen,
+      [name]: value,
+      municipality: mapa?.municipio,
+      province: mapa?.provincia,
+      district: mapa?.distrito
+      // Agrega otras propiedades según sea necesario
+    }));
+  };
+  
+  const selecciones = (recinto)=> {
+    setSelectedPrecint(recinto?.colegios)
+    setMapa(recinto)
+  }
+
+  const handlePhotoChange = (e) => {
+    setPhoto(e.target.files[0]);
   };
 
-  const handleFotoChange = (e, index) => {
-    const foto = e.target.files[0];
-    const updatedCitizens = [...citizens];
-    updatedCitizens[index].foto = foto;
-    setCitizens(updatedCitizens);
-  };
-
-  const handleAddCitizen = () => {
-    setCitizens([...citizens, { cedula: '', nombre: '', apellido: '', celular: '', foto: null }]);
-  };
-
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
-    // Aquí puedes realizar alguna validación antes de enviar los datos
-    // ...
+    const formData = new FormData();
+    formData.append('citizen', JSON.stringify(citizen)); // Envía el objeto directamente
+    
+    formData.append('photos', photo);
 
-    // Luego, envías los datos al componente principal
-    console.log(citizens);
-
-    // Reinicias el estado del formulario
-    setCitizens([
-      {
-        cedula: '',
-        nombre: '',
-        apellido: '',
-        celular: '',
-        foto: null,
-      },
-    ]);
-  };
-console.log(citizens)
+      // Enviar datos al backend
+      axios.post(`${import.meta.env.VITE_API_SERVER}/api/v1/jce/newcitizen`, formData, getConfig())
+      .then((response) => {
+        const Toast = Swal.mixin({
+          toast: true,
+          position: 'top-end',
+          showConfirmButton: false,
+          timer: 3000,
+          timerProgressBar: true,
+          didOpen: (toast) => {
+            toast.addEventListener('mouseenter', Swal.stopTimer)
+            toast.addEventListener('mouseleave', Swal.resumeTimer)
+          }
+        })
+        
+        Toast.fire({
+          icon: 'success',
+          title: 'Ciudadano Registrado'
+        })
+        getAllData()
+        getAllPrecints()
+      })
+      .catch((error) => {
+        console.log( error);
+        const Toast = Swal.mixin({
+          toast: true,
+          position: 'top-end',
+          showConfirmButton: false,
+          timer: 3000,
+          timerProgressBar: true,
+          didOpen: (toast) => {
+            toast.addEventListener('mouseenter', Swal.stopTimer)
+            toast.addEventListener('mouseleave', Swal.resumeTimer)
+          }
+        })
+        Toast.fire({
+          icon: 'error',
+          title: 'Algo anda mal'
+        })
+      })
+    }
   return (
-    <div className="card card-primary">
+    <>
+     <div className="card card-primary">
     <div className="card-header">
       <h3 className="card-title">Ingreso Manual de Ciudadanos</h3>
       <div className="card-tools">
@@ -82,9 +124,11 @@ console.log(citizens)
 </div>
     </div>
     <div className="card-body">
+
+    <form onSubmit={handleSubmit} encType="multipart/form-data">
     <div className='row'> 
-<div className="col-md-6">
-              <form encType="multipart/form-data">
+    <div className="col-md-6">
+
                 <div className="form-group">
                   <label>Recinto</label>
                   <select
@@ -102,7 +146,7 @@ console.log(citizens)
                   </select>
                 </div>
                 
-              </form>
+          
 </div>
 <div className="col-md-6">
               <div className="form-group">
@@ -111,7 +155,7 @@ console.log(citizens)
                     className="form-control"
                     name="college"
                     required
-                    onChange={selectHandleChange}
+                    onChange={handleInputChange}
                     size={5}>
                       {
                       selectedPrecint?.sort((a, b) => a.collegeNumber - b.collegeNumber).map((colegio) => 
@@ -121,65 +165,51 @@ console.log(citizens)
                 </div>
             </div>
           </div>
-    <div className="row">
-
-      {citizens.map((citizen, index) => (
-            <form key={index} className='shadow-sm col-sm-4' style={{display:"flex", justifyContent:"space-between"}}>
-             <div className="col-sm-2" style={{minHeight:"120px"}}>
-    
-               <div className="form-group">
-               <div className="card-tools">
-              <span title="3 New Messages" className="badge bg-success">{index + 1}</span>
-              </div>
-               {citizen.foto && (
-              <img src={URL.createObjectURL(citizen.foto)} alt={`Foto del ciudadano ${citizen.nombre}`} className="img-thumbnail" style={{ maxWidth: '100px', maxHeight: '100px', margin: '10px' }} />
-            )}
-               </div>
-             </div>
-             <div className="col-sm-8">
-               {/* radio */}
-            <div className="form-group">
-      
-          <label>
-            <input type="text" className="form-control" placeholder="Cédula" name="cedula" value={citizen.cedula} onChange={(e) => handleInputChange(e, index)} />
-          </label>
-          
-          <label>
-            <input type="text" className="form-control" placeholder="Nombre" name="nombre" value={citizen.nombre} onChange={(e) => handleInputChange(e, index)} />
-          </label>
-          <br />
-          <label>
-            <input type="text" className="form-control" placeholder="Apellido" name="apellido" value={citizen.apellido} onChange={(e) => handleInputChange(e, index)} />
-          </label>
-          <br />
-          <label>
-            <input type="text" className="form-control" placeholder="Celular" name="celular" value={citizen.celular} onChange={(e) => handleInputChange(e, index)} />
-          </label>
-          <br />
-          <div className="input-group">
-          <div className="custom-file">
-            <input type="file" name="foto" onChange={(e) => handleFotoChange(e, index)} className="btn btn-info" id="exampleInputFile" />
-          </div>
-          </div>
-
-          <br />
-          </div>
-          </div>
-        </form>
-      ))}
-        </div>
-       <br />
-      <button type="button" onClick={handleAddCitizen}>
-        Nuevo Formulario
-      </button>
+          <div className="form-group">
+  {photo && (
+    <img src={URL.createObjectURL(photo)} alt={`foto del ciudadano`} className="img-thumbnail" style={{ maxWidth: '100px', maxHeight: '100px', margin: '10px' }} />
+  )}
+</div>
+          <div className="form-group">
+      <label>
+        <input type="number" className="form-control" placeholder="Cédula" name="citizenID" value={citizen.citizenID} onChange={handleInputChange} required />
+      </label>
       <br />
-      <button type="button" onClick={handleSubmit}>
-        Enviar Datos
-      </button>
-    
-    </div>
-    </div>
+      <label>
+
+        <input type="text" className="form-control" placeholder="Nombre" name="firstName" value={citizen.firstName} onChange={handleInputChange} required />
+      </label>
+      <br />
+      <label>
+
+        <input type="text" className="form-control" placeholder="Apellido" name="lastName" value={citizen.lastName} onChange={handleInputChange} required />
+      </label>
+      <br />
+      <label>
+        <input type="text" className="form-control" placeholder="Dirección" name="address" value={citizen.address} onChange={handleInputChange} />
+      </label>
+      <br />
+      <label>
+        <input type="text" className="form-control" placeholder="Teléfono" name="telephone" value={citizen.telephone} onChange={handleInputChange} />
+      </label>
+      <br />
+      <label>
+        <input type="text" className="form-control" placeholder="Celular" name="celphone" value={citizen.celphone} onChange={handleInputChange} />
+      </label>
+      <br />
+      <label>
+        Foto:
+        <input type="file" name="photos" onChange={handlePhotoChange} accept="image/*" required />
+      </label>
+      <br />
+      
+</div>
+      <button type="submit" className='btn btn-primary'>Guardar</button>
+    </form>
+</div>
+</div>
+    </>
   );
 };
 
-export default CitizenForm;
+export default NewCitizenForm;
