@@ -89,7 +89,7 @@ const SearhPeople = () => {
         {
           count? <span className="dropdown-item dropdown-header">{`${count} coincidencia`}</span>:''
         }
-         <div className='table-responsive p-0 container-table-search'>
+        <div className='table-responsive p-0 container-table-search'>
         {
         count?
       <table className="table ">
@@ -104,13 +104,13 @@ const SearhPeople = () => {
         <img style={{float: 'left', width:'125px', marginRight:'5px'}} src={`${import.meta.env.VITE_API_SERVER}/api/v1/images/citizen/${people?.picture}`} alt="message user image"/>
           <ul className='demographic-information' style={{margin:"0", padding:"0"}}>
           <li>
-          <span>{people.firstName} {people.lastName} {people.nickname?<small>({people.nickname})</small>: ''}</span>
+          <span>{people?.firstName} {people?.lastName} {people?.nickname?<small>({people?.nickname})</small>: ''}</span>
             </li>
             <li>
             <span></span>
           </li>
           <li>
-          <span>{`${people.citizenID.substr(0,3)}-${people.citizenID.substr(3,7)}-${people.citizenID.substr(10,1)}`}</span>
+          <span>{`${people?.citizenID.substr(0,3)}-${people?.citizenID.substr(3,7)}-${people?.citizenID.substr(10,1)}`}</span>
           </li>
       
           
@@ -131,8 +131,8 @@ const SearhPeople = () => {
           </li>
           <li>
           {  
-          people.leaders?
-          <Link to={`/mypeople/${ people.leaders.censu.id}`}>
+          people?.leaders?
+          <Link to={`/mypeople/${ people?.leaders?.censu?.id}`}>
           {people?.leaders?.censu?.firstName}
           </Link>
           :""
@@ -141,22 +141,22 @@ const SearhPeople = () => {
           </ul>
           
         <div className='card-footer' style={{display: 'flex', justifyContent:'flex-start', gap:'20px' }}>
-        <Link to={`/mypeople/${people.id}`}>
+        <Link to={`/mypeople/${people?.id}`}>
         <button className='btn btn-primary'>
         <i className="far fa-eye search-tool "></i>
         </button>
         </Link>
-        {people.leader
+        {people?.leader
         ?
-        <Link to={`/mypeople/${ people.leaders.censu.id}`} className=' btn btn-default'>
+        <Link to={`/mypeople/${ people?.leaders?.censu?.id}`} className=' btn btn-default'>
         <i className="fas fa-user-check search-tool less"></i>
         </Link>
         :
-        <button className=' btn btn-success ' onClick={()=>addPeople(people.id, people.citizenID)}>
+        <button className=' btn btn-success ' onClick={()=>addPeople(people?.id, people?.citizenID)}>
             <i className="fas fa-user-plus search-tool" ></i> 
         </button>
             }
-        <Link to={`/mypeople/${people.id}`}>
+        <Link to={`/mypeople/${people?.id}`}>
         <button className=' btn btn-warning'>
         <i className="fas fa-user-edit search-tool"></i>
         </button>
@@ -176,100 +176,18 @@ const SearhPeople = () => {
 </div>
 }
       </div>
-      {/* <div className='table-responsive p-0 container-table-search'>
-        {
-        count?
-      <table className="table table-striped table-valign-middle">
-      <thead>
-        <tr>
-        <th>Ciudadano</th>
-        <th>Demografía</th>
-        <th>Herramientas</th>
-        </tr>
-      </thead>
-      <tbody>
-        {
-        results?.map((people)=>
-        <tr key={people.id} className="people-finding">
-        <td>
-          <img className="direct-chat-img" src={`${import.meta.env.VITE_API_SERVER}/api/v1/images/citizen/${people?.picture}`} alt="message user image"/>
-          <ul className='demographic-information'>
-            <li>
-            Nombre: <span>{people.firstName} {people.lastName}</span>
-            </li>
-            <li>
-            {people.nickname?'Le Dicen:':''} <span>{people.nickname?people.nickname: ''}</span>
-          </li>
-          <li>
-            Cedula: <span>{`${people.citizenID.substr(0,3)}-${people.citizenID.substr(3,10)}-${people.citizenID.substr(10,1)}`}</span>
-          </li>
-          <li>
-            Colegio: <span>{people.colegio.collegeNumber.toString().padStart(4, '0')}</span>
-          </li>
-          <li>
-          Recinto: <span>{people.colegio.precinctData.recintoNombre}</span>
-          </li>
-          </ul>
-        </td>
-
-
-        <td>
-          <ul className='demographic-information'>
-            <li>
-              Distritto: <span>{people?.districts?.name} </span>
-            </li>
-            <li>
-              Municipio: <span>{people?.municipalities?.name}</span>
-            </li>
-            <li>
-              Provincia: <span>{people?.provinces?.name} </span>
-            </li>
-          </ul>
-        </td>
-        
-        <td>
-          <div className='search-tools-box'>
-        <Link to={`/mypeople/${people.id}`}>
-        <i className="far fa-eye search-tool"></i></Link>
-        {people.leader
-        ?<i className="fas fa-user-check search-tool less"></i>
-        :<i className="fas fa-user-plus search-tool" onClick={()=>addPeople(people.id, people.citizenID)}></i> }
-        <Link to={`/mypeople/${people.id}`}>
-        <i className="fas fa-user-edit search-tool"></i>
-        </Link>
-        </div>
-        </td>
-        </tr>
-        )
-      }
-      
-      </tbody>
-      </table>
-      : 
-      <div className="">
-  <h5>Sin resultados</h5>
-  <p>Intente buscar por nombre, apellido o numero de cedula sin los guiones</p>
-</div>
-
-}
-      </div> */}
-     
       <div className="dropdown-divider" />
         {
             count?
-          
                 <a href="#" className="dropdown-item dropdown-footer">Ver todos los resultados</a>
-            
                 :''
         }
         <div className='loading'>
             {
                 isLoading? <Cargando escala='0.3'/>: ''
             }
-
-       
         </div>
-              </div>
+        </div>
     </li>
   )
 }
