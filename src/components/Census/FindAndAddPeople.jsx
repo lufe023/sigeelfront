@@ -142,7 +142,7 @@ const FindAndAddPeople = ({getMypeople, leaderId}) => {
       <tbody>
         {
         results?.map((people)=>
-        <tr key={people.id} className="people-finding">
+        <tr key={people?.id} className="people-finding">
         <td>
             
         <img style={{float: 'left', width:'125px', marginRight:'5px'}} src={`${import.meta.env.VITE_API_SERVER}/api/v1/images/citizen/${people?.picture}`} alt="message user image"/>
@@ -150,13 +150,13 @@ const FindAndAddPeople = ({getMypeople, leaderId}) => {
           
             <li>
             
-           <span>{people.firstName} {people.lastName} {people.nickname?<small>({people.nickname})</small>: ''}</span>
+           <span>{people?.firstName} {people?.lastName} {people?.nickname?<small>({people?.nickname})</small>: ''}</span>
             </li>
             <li>
             <span></span>
           </li>
           <li>
-         <span>{`${people.citizenID.substr(0,3)}-${people.citizenID.substr(3,7)}-${people.citizenID.substr(10,1)}`}</span>
+         <span>{`${people?.citizenID.substr(0,3)}-${people?.citizenID.substr(3,7)}-${people?.citizenID.substr(10,1)}`}</span>
           </li>
       
           
@@ -192,8 +192,7 @@ const FindAndAddPeople = ({getMypeople, leaderId}) => {
         <i className="far fa-eye search-tool "></i>
         </button>
         </Link>
-        {people.leader
-        ?
+        {people?.leader?
         <Link to={`/mypeople/${ people?.leaders?.censu?.id}`} className=' btn btn-default'>
         <i className="fas fa-user-check search-tool less"></i>
         </Link>
@@ -202,7 +201,7 @@ const FindAndAddPeople = ({getMypeople, leaderId}) => {
             <i className="fas fa-user-plus search-tool" ></i> 
         </button>
             }
-        <Link to={`/mypeople/${people.id}`}>
+        <Link to={`/mypeople/${people?.id}`}>
         <button className=' btn btn-warning'>
         <i className="fas fa-user-edit search-tool"></i>
         </button>
@@ -234,8 +233,6 @@ const FindAndAddPeople = ({getMypeople, leaderId}) => {
             {
                 isLoading? <Cargando escala='0.3'/>: ''
             }
-
-       
         </div>
               </div>
     </li>

@@ -9,6 +9,7 @@ import axios from 'axios'
 import getConfig from '../../utils/getConfig'
 import DataConsistency from './AdminUtils/DataConsistency'
 import DataProcessorNewFormat from './AdminUtils/DataProcessorNewFormat'
+import RegistroGrupalNewVersion from './AdminUtils/RegistroGrupalNewVersion'
 
 const SistemConfiguration = () => {
 const [precints, setPrecints] = useState()
@@ -80,6 +81,9 @@ const [data, setData] = useState()
       </div>
     <div className="col-md-12">
     <DataProcessorNewFormat precints={precints} getAllPrecints={getAllPrecints} getAllData={getAllData}/>
+    </div>
+    <div className="col-md-12">
+      <RegistroGrupalNewVersion/>
     </div>
     </div>
     <div className='row'>
