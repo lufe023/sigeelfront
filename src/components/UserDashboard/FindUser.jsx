@@ -8,7 +8,7 @@ const FindUser = ({setResults}) => {
         const URL = `${import.meta.env.VITE_API_SERVER}/api/v1/users/userSearch`
             axios.post(URL,
                 {
-                    findUser:findWord  
+                findUser:findWord  
                 },
             getConfig(),
             )
@@ -29,15 +29,15 @@ const FindUser = ({setResults}) => {
 }
 }
 
-  return (
+    return (
     <div>
-          <div className="form-group">
-  <label htmlFor="exampleInputEmail1">Buscar un usuario</label>
-  <input type="text" autoComplete="off" className="form-control" id="exampleInputEmail1" placeholder="Apodo, nombre, apellido o cedula sin guiones" onChange={findingWord}/>
+    <div className="form-group">
+    <label htmlFor="exampleInputEmail1">Buscar un usuario</label>
+    <input type="text" autoComplete="off" className="form-control" id="exampleInputEmail1" placeholder="Apodo, nombre, apellido o cedula sin guiones" onChange={findingWord}/>
 </div>
 
     </div>
-  )
+)
 }
 
 export default FindUser

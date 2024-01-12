@@ -10,8 +10,11 @@ import Cargando from '../../utils/Cargando'
 import AllUsers from './AllUsers'
 import userDisable from '../UserDashboard/userDisable'
 import AdminUserRegister from '../Users/AdminUserRegister'
+import LookUser from './LookUser'
 
 const UserDashBoard = () => {
+
+  const [results, setResults] = useState()
   const [users, setUsers] = useState([])
   const [loading, setLoading] = useState(true)
   const [pagination, setPagination] = useState({
@@ -90,7 +93,9 @@ const UserDashBoard = () => {
   <AdminUserRegister getAllUsers={getAllUsers}/>
   </div></div>
   <div className="row">
-
+<div className="col-12">
+  <LookUser/>
+</div>
     <div className="col-12">
       <div className='' style={{display:'flex', justifyContent:"center"}}>
     <div className="form-group col-6 col-3" >
