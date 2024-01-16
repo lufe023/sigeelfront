@@ -100,7 +100,6 @@ const SearhPeople = () => {
         results?.map((people)=>
         <tr key={people.id} className="people-finding">
         <td>
-            
         <img style={{float: 'left', width:'125px', marginRight:'5px'}} src={`${import.meta.env.VITE_API_SERVER}/api/v1/images/citizen/${people?.picture}`} alt="message user image"/>
           <ul className='demographic-information' style={{margin:"0", padding:"0"}}>
           <li>
@@ -112,8 +111,6 @@ const SearhPeople = () => {
           <li>
           <span>{`${people?.citizenID.substr(0,3)}-${people?.citizenID.substr(3,7)}-${people?.citizenID.substr(10,1)}`}</span>
           </li>
-      
-          
             <li>
               Distritto: <span>{people?.districts?.name} </span>
             </li>
@@ -161,6 +158,13 @@ const SearhPeople = () => {
         <i className="fas fa-user-edit search-tool"></i>
         </button>
         </Link>
+      
+        <button className={` btn ${people?.sufragio?.suffrage?'btn-success':'btn-danger' }`}>
+        {
+          people?.sufragio?.suffrage?"Votó":"No Votó"
+        }
+            
+            </button>
         </div>
         </td>
 
