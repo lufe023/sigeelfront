@@ -121,7 +121,7 @@ const SearhPeople = () => {
               Provincia: <span>{people?.provinces?.name} </span>
             </li>
             <li>
-          Colegio: <span>{people?.colegio?.collegeNumber.toString().padStart(4, '0')}</span>
+          Colegio: <span>{people?.colegio?.collegeNumber.toString().padStart(4, '0')} | {people?.colegio?.id}</span>
           </li>
           <li>
           Recinto: <span>{people?.colegio?.precinctData?.recintoNombre}</span>

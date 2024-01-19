@@ -216,7 +216,6 @@ const isFieldUpdated = (fieldName) => {
   people.condition?<UpdateConditions condition={people.condition} citizenID={people?.citizenID} key={people?.citizenID.citizenID}/>: <NewConditions citizenID={people?.citizenID}  key={people?.citizenID.citizenID}/>
    /* <NewConditions/> */
 }
-  
   <ParticipationForm citizenID={people?.citizenID} getPeople={getMypeople}/>
   <BenefitForm citizenID={people?.citizenID} getPeople={getMypeople} />
   <Jobs citizenID={people?.citizenID} getPeople={getMypeople}/>
@@ -225,7 +224,7 @@ const isFieldUpdated = (fieldName) => {
   <div className="tab-pane" id={`actualizar${people.id}`}>
     <h6>Campos Pendientes de Actualización</h6>
     <ul>
-    {pendingFields.map((fieldName, index) => (
+    {pendingFields?.map((fieldName, index) => (
   !people.pendingUpdates.some((update) => update.changedFields[fieldName]) && (
     <li key={index}>
       {translateField(fieldName)}
@@ -237,14 +236,14 @@ const isFieldUpdated = (fieldName) => {
 </div>
     </div>
     <div className="card-footer">
-    <Link to={`/mypeople/${people.id}`} className="btn btn-app bg-info">
+    <Link to={`/mypeople/${people?.id}`} className="btn btn-app bg-info">
     <i className="fas fa-user-edit" />
     Editar
     </Link>
 
     {
-      people.geolocation?
-      <a href={`https://www.google.com/maps/search/${people.geolocation.latitud},+${people.geolocation.longitud}?shorturl=1`} 
+      people?.geolocation?
+      <a href={`https://www.google.com/maps/search/${people?.geolocation?.latitud},+${people?.geolocation?.longitud}?shorturl=1`} 
       className="btn btn-app bg-dark" target={'_blank'}>
       <i className="fas fa-location-arrow"></i>
       Localizar
@@ -252,15 +251,15 @@ const isFieldUpdated = (fieldName) => {
       :''
       }
 
-<a href={`https://api.whatsapp.com/send?phone=${people.celphone.substring(1,people.celphone.length).split('-').join('')}&text=Hola ${people.firstName} ¿Qué tal?`} className="btn btn-app bg-success" target={'_blank'}>
+<a href={`https://api.whatsapp.com/send?phone=${people?.celphone?.substring(1,people?.celphone?.length).split('-').join('')}&text=Hola ${people?.firstName} ¿Qué tal?`} className="btn btn-app bg-success" target={'_blank'}>
       <i className="fab fa-whatsapp"></i> Whatsapp
         </a>
         
-      <a href={`https://t.me/${people.celphone}`} className="btn btn-app bg-primary" target={'_blank'}>
+      <a href={`https://t.me/${people?.celphone}`} className="btn btn-app bg-primary" target={'_blank'}>
       <i className="fab fa-telegram-plane"></i> Telegram
       </a>
 
-    <a className="btn btn-app bg-danger" onClick={()=>deletePeople(people.id, people.firstName, people.leader)}>
+    <a className="btn btn-app bg-danger" onClick={()=>deletePeople(people?.id, people?.firstName, people?.leader)}>
         <i className="fas fa-user-minus"></i> Quitar
     </a>
 
