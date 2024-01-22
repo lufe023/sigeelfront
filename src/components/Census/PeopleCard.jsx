@@ -45,7 +45,6 @@ const PeopleCard = ({people, getMypeople}) => {
   })
     }
   })
-
 }
 // const pendingFields = [
 //   {latitud:"latitud"},

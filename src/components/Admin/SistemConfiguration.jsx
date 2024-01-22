@@ -10,6 +10,7 @@ import getConfig from '../../utils/getConfig'
 import DataConsistency from './AdminUtils/DataConsistency'
 import DataProcessorNewFormat from './AdminUtils/DataProcessorNewFormat'
 import RegistroGrupalNewVersion from './AdminUtils/RegistroGrupalNewVersion'
+import DataProcessorB from './AdminUtils/DataProcessorB'
 
 const SistemConfiguration = () => {
 const [precints, setPrecints] = useState()
@@ -75,7 +76,9 @@ const [data, setData] = useState()
       <div className="col-md-12">
     <CollegeForm precints={precints} getAllPrecints={getAllPrecints} getAllData={getAllData}/>
     </div>
-
+    <div className="col-md-12">
+    <DataProcessorB precints={precints} getAllPrecints={getAllPrecints} getAllData={getAllData}/>
+    </div>
     <div className="col-md-12">
     <DataProcessor precints={precints} getAllPrecints={getAllPrecints} getAllData={getAllData}/>
       </div>
