@@ -209,9 +209,10 @@ const Delegate = () => {
                       <label htmlFor={recinto?.id} className="custom-control-label">
                       <small className="badge badge-primary">
 
-                        {recinto?.precintNumber.toString().padStart(5, '0')} </small>
-                        <small className="badge badge-info">
-                        {recinto?.PrecinctsMunicipio[0]?.name}
+                        {recinto?.precintNumber.toString().padStart(5, '0')} </small> 
+                        {' '}
+                        <small className="badge badge-info"> 
+                        {recinto?.PrecinctsDistrito[0]?.name? `${recinto?.PrecinctsMunicipio[0]?.name}, ${recinto?.PrecinctsDistrito[0]?.name}`:recinto?.PrecinctsMunicipio[0]?.name}
                         </small>
                         {' '}
                         {recinto?.recintoNombre}
@@ -219,7 +220,7 @@ const Delegate = () => {
                     </div>
                   ))}
               </div>
-              </div>    
+              </div>  
               </div>
               <div className="col-sm-6">
               <div className="form-group">
@@ -243,8 +244,6 @@ const Delegate = () => {
       
             </div>
             <div className="form-group">
-
-
 
   <div className='row'>
 <div className="col-md-6">

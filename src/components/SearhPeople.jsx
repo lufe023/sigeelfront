@@ -21,7 +21,7 @@ const SearhPeople = () => {
       getConfig(),
       )
       .then(res => {
-        findPeople(citizenID)  
+      findPeople(citizenID)  
   })
   .catch(err =>{
       console.log(err)
@@ -163,8 +163,11 @@ const SearhPeople = () => {
         {
           people?.sufragio?.suffrage?"Votó":"No Votó"
         }
-            
-            </button>
+        
+        </button>
+        <div className={` btn btn-dark`}>
+        Posición: {people?.position}
+        </div>
         </div>
         </td>
 

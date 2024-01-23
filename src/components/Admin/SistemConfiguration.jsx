@@ -26,8 +26,6 @@ const [data, setData] = useState()
         console.log(err))
   }
 
-
-
   const getAllData = ()=> {
     const URL = `${import.meta.env.VITE_API_SERVER}/api/v1/jce/dataConsistency`
     axios.get(URL, getConfig())
@@ -35,7 +33,6 @@ const [data, setData] = useState()
       setData(res.data)
     })
 }
-
 
   useEffect(() => {
     getAllPrecints()

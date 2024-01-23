@@ -206,6 +206,15 @@ const FindAndAddPeople = ({getMypeople, leaderId}) => {
         <i className="fas fa-user-edit search-tool"></i>
         </button>
         </Link>
+        <button className={` btn ${people?.sufragio?.suffrage?'btn-success':'btn-danger' }`}>
+        {
+          people?.sufragio?.suffrage?"Votó":"No Votó"
+        }
+        
+        </button>
+        <div className={` btn btn-dark`}>
+        Posición: {people?.position}
+        </div>
         </div>
         </td>
 

@@ -127,7 +127,9 @@ const DataProcessorB = ({precints, getAllPrecints, getAllData}) => {
     <div className="card-body" style={{maxHeight:'700px', overflow:"auto"}}>
 <div className='row'> 
 <div className="col-md-6">
+
               <form encType="multipart/form-data">
+                
                 <div className="form-group">
                   <label>Recinto</label>
                   <select
@@ -137,15 +139,21 @@ const DataProcessorB = ({precints, getAllPrecints, getAllData}) => {
                     onChange={selectHandleChange}
                     required
                     size={5}>
-                  {
+                    {console.log(precints)}  
+                  {//PrecinctsDistrito
                     precints?.map(recinto => 
-                    <option onClick={()=> selecciones(recinto)} key={recinto?.id} value={recinto?.id}>{recinto?.precintNumber.toString().padStart(5, '0')} ({recinto?.PrecinctsMunicipio[0]?.name}) {recinto?.recintoNombre}</option>
+                    <option onClick={()=> selecciones(recinto)} key={recinto?.id} value={recinto?.id}> 
+                    <small className="badge badge-info">
+                    {recinto?.precintNumber.toString().padStart(5, '0')} </small>
+                    {recinto?.PrecinctsDistrito[0]?.name?`${recinto?.PrecinctsMunicipio[0]?.name}, ${recinto?.PrecinctsDistrito[0]?.name} `: `${recinto?.PrecinctsMunicipio[0]?.name} `}
+                    {recinto?.recintoNombre}</option>
                     )
                   }
                   </select>
                 </div>
                 
               </form>
+              
 </div>
 <div className="col-md-6">
               <div className="form-group">
