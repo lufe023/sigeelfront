@@ -113,12 +113,10 @@ const resultArray = Object.values(partyData);
       <div className="d-flex flex-column">
         <span className="text-bold text-lg"> {data[0]?.[0]?.name}</span>
         <span> {data[0]?.[0]?.details}</span>
-        
         {
           loading?
           <div className='loading' style={{height:"100px", marginBottom:"50px"}}>
           <CargandoB scale={'1.9'}/><span style={{marginLeft:"-80px"}}>No hay datos</span></div>:""
-          
         }
 
       </div>

@@ -83,6 +83,15 @@ const data = {
   {/* Main content */}
   <section className="content" >
   <FindAndAddPeople getMypeople={getMypeople} leaderId={id}/>
+  <div className="row no-print" style={{marginBottom:'20px'}}> 
+  <div className="col-12">
+    <Link to={'/printmypeople/?variable=2'} type="button" className="btn btn-danger "><i className="fas fa-print" /> Formulario de Captura
+    </Link>
+    
+    <Link to={`/printmyconcurrencia/${id}`} type="button" className="btn btn-primary float-right"><i className="fas fa-print" /> Formulario de Concurrencia
+    </Link>
+  </div>
+</div>
         <div className="row">
 
             

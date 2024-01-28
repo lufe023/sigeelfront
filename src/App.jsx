@@ -31,6 +31,7 @@ import SistemConfiguration from './components/Admin/SistemConfiguration';
 import UserAdministrator from './components/UserDashboard/UserAdministrator';
 import Delegate from './components/Admin/Delegate/Delegate';
 import WarRoom from './components/Admin/Informs/WarRoom';
+import PeopleByUserPrint from './components/UserDashboard/PeopleByUserPrint';
 
 
 function App() {
@@ -66,6 +67,7 @@ function App() {
       <Route path='/users' element={<UserDashBoard/>}/>
       <Route path='/users/:id/' element={<UserAdministrator/>}/>
       <Route path='/peoplebyuser/:id' element={<PeopleByUser/>}/>
+      <Route path='/printmyconcurrencia/:id' element={<PeopleByUserPrint/>}/>
       </Route>
 
       <Route path='*' element={<Error404/>}/>

@@ -2,24 +2,33 @@ import axios from 'axios'
 import React, { useEffect, useState } from 'react'
 import getConfig from '../../utils/getConfig'
 import Cargando from '../../utils/Cargando'
-import './MyPeoplePrint.css'
 import { useSelector } from 'react-redux';
+import { Link, useParams } from 'react-router-dom'
 import Header from '../Header'
 import Aside from '../Aside'
-const MyPeoplePrintB = () => {
+const PeopleByUserPrint = () => {
 
+    const {id} = useParams()
 
+    const data = {
+        leaderId:id
+    }
 
+    
     const [results, setResults] = useState()
     const [currentDate, setCurrentDate] = useState(new Date());
     const [isLoading, setIsloading] = useState(true)
-    const user= useSelector(state=> state.userSlice)
+    const [user, setUser] = useState()
+
     const getMypeople = ()=>{
-        const URL = `${import.meta.env.VITE_API_SERVER}/api/v1/census/mypeople`
-            axios.get(URL,
+        const URL = `${import.meta.env.VITE_API_SERVER}/api/v1/census/peoplebyuser/`
+            axios.post(URL,
+                data,
             getConfig()
             )
             .then(res => {
+
+                setUser(res.data.user)
                 setResults(res.data.rows)
                 setIsloading(false)
 
@@ -41,6 +50,7 @@ const MyPeoplePrintB = () => {
       <Aside/>
       <div className='content-wrapper'>
     <div className='impresora'>
+   
   {
   isLoading?
   <div className='loading' style={{height:"100px", marginBottom:"50px"}}>
@@ -62,7 +72,7 @@ const MyPeoplePrintB = () => {
 </div>
 <div className="row">
   <div className="col-sm-4">
-    Colaborador
+    {user?.user_role.roleName}
     <address>
       <strong>{user?.censu?.firstName} {user?.censu?.lastName}</strong><br />
       Celular: {user?.censu?.celphone?.substring(0,3)+'-'+ user?.censu?.celphone?.substring(3,6)+'-'+user?.censu?.celphone?.substring(6,10)}<br />
@@ -74,12 +84,15 @@ const MyPeoplePrintB = () => {
     Usuario
     <address>
       <strong>{user?.email}</strong><br />
+      {user?.data?.user?.active?<span className='bg-success'>Activo</span>:<span className='bg-danger'>Desactivado</span>}
     </address>
-
   </div>
-  {/* /.col */}
-
-  {/* /.col */}   
+  <div className="col-sm-4 invoice-col">
+    Asginados: 
+    <address>
+      <strong>{results?results.length:0}</strong><br />
+    </address>
+  </div> 
 </div>
 <div className='card-footer'>
 <div className='col-12'>
@@ -132,4 +145,4 @@ const MyPeoplePrintB = () => {
   )
 }
 
-export default MyPeoplePrintB
+export default PeopleByUserPrint

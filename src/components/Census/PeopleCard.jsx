@@ -10,6 +10,7 @@ import LocationPicker from './Contact/LocationPicker'
 import ParticipationForm from './Contact/Participation'
 import BenefitForm from './Contact/BenefitForm '
 import NewConditions from './Contact/NewCondition'
+
 const PeopleCard = ({people, getMypeople}) => {
 
   const deletePeople = (peopleId, peopleName, leaderId) => {
@@ -212,7 +213,7 @@ const isFieldUpdated = (fieldName) => {
             </li>
             )}
 {
-  people.condition?<UpdateConditions condition={people.condition} citizenID={people?.citizenID} key={people?.citizenID.citizenID}/>: <NewConditions citizenID={people?.citizenID}  key={people?.citizenID.citizenID}/>
+  people.condition?<UpdateConditions condition={people.condition} citizenID={people?.citizenID} key={people?.citizenID?.citizenID}/>: <NewConditions citizenID={people?.citizenID}  key={people?.citizenID?.citizenID}/>
    /* <NewConditions/> */
 }
   <ParticipationForm citizenID={people?.citizenID} getPeople={getMypeople}/>

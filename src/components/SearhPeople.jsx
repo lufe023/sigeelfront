@@ -92,6 +92,7 @@ const SearhPeople = () => {
         <div className='table-responsive p-0 container-table-search'>
         {
         count?
+        
       <table className="table ">
       <thead>
       </thead>
@@ -182,7 +183,10 @@ const SearhPeople = () => {
   <p>Intente buscar por nombre, apellido o apodo numero de cedula sin los guiones</p>
 </div>
 }
+
+
       </div>
+      
       <div className="dropdown-divider" />
         {
             count?
