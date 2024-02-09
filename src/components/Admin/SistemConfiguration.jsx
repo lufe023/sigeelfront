@@ -81,7 +81,6 @@ const [data, setData] = useState()
     <div className="col-md-12">
     <DataProcessorNewFormat precints={precints} getAllPrecints={getAllPrecints} getAllData={getAllData}/>
     </div>
-   
     </div>
     <div className='row'>
     <div className="col-md-12">

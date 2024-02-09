@@ -1,8 +1,5 @@
 import React from 'react'
 import { useState } from 'react'
-import axios from 'axios'
-import getConfig from '../../../utils/getConfig'
-import { useEffect } from 'react'
 import SelectCollege from './SelectCollege'
 import PreferdPartiesByPlace from './PreferdPartiesbyPlace'
 import PreferdPartiesByCollege from './PreferdPartiesbyCollege'
