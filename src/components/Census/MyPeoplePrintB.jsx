@@ -8,8 +8,6 @@ import Header from '../Header'
 import Aside from '../Aside'
 const MyPeoplePrintB = () => {
 
-
-
     const [results, setResults] = useState()
     const [currentDate, setCurrentDate] = useState(new Date());
     const [isLoading, setIsloading] = useState(true)
@@ -22,7 +20,6 @@ const MyPeoplePrintB = () => {
             .then(res => {
                 setResults(res.data.rows)
                 setIsloading(false)
-
         })
         .catch(err =>{
             setResults([])
@@ -62,11 +59,10 @@ const MyPeoplePrintB = () => {
 </div>
 <div className="row">
   <div className="col-sm-4">
-    Colaborador
+{user.user_role.roleName}
     <address>
       <strong>{user?.censu?.firstName} {user?.censu?.lastName}</strong><br />
       Celular: {user?.censu?.celphone?.substring(0,3)+'-'+ user?.censu?.celphone?.substring(3,6)+'-'+user?.censu?.celphone?.substring(6,10)}<br />
-      
     </address>
   </div>
   {/* /.col */}
@@ -86,8 +82,6 @@ const MyPeoplePrintB = () => {
 <button className='btn btn-info btn-block btn-flat no-print' onClick={window.print}>Imprimir</button>
 </div>
 </div>
-    
-     
         <div style={{ display: 'flex', flexWrap: 'wrap',}}>
           {
               results?.map((people) =>
