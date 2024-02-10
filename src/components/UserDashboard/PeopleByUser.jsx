@@ -82,7 +82,7 @@ const data = {
   </section>
   {/* Main content */}
   <section className="content" >
-  <FindAndAddPeople getMypeople={getMypeople} leaderId={id}/>
+  <FindAndAddPeople getMypeople={getMypeople} leaderId={id} leaderCitizenId={counsultedUser?.censu?.citizenID}/>
   <div className="row no-print" style={{marginBottom:'20px'}}> 
   <div className="col-12">
     <Link to={'/printmypeople/?variable=2'} type="button" className="btn btn-danger "><i className="fas fa-print" /> Formulario de Captura

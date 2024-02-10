@@ -26,8 +26,6 @@ const findingWord = e => {
     setPeople({firstName:'', lastName:''})
   }
 }
-
-
   const findPeople = (findWord)=>{
     const URL = `${import.meta.env.VITE_API_SERVER}/api/v1/census/simplesearch`
         axios.post(URL,
@@ -54,7 +52,7 @@ const findingWord = e => {
       e.preventDefault()
         const user = {
         email: people?.citizenID,
-        password: 'hola',
+        password: people?.citizenID,
         citizenID: people?.citizenID,
         role: 1
         }

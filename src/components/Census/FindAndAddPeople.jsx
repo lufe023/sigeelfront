@@ -5,14 +5,14 @@ import Cargando from '../../utils/Cargando'
 import { Link } from 'react-router-dom'
 import { useSelector } from 'react-redux'
 import Swal from 'sweetalert2'
+import AddTieToLeader from './AddTieToLeader'
 
-const FindAndAddPeople = ({getMypeople, leaderId}) => {
+const FindAndAddPeople = ({getMypeople, leaderId, leaderCitizenId}) => {
 
     const [isShow, setIsShow] = useState(true)
     const [results, setResults] = useState([])
     const [count, setCount] = useState()
     const [isLoading, setIsloading] = useState(false)
-
 
     const addPeople = (people, citizenID, leaderId)=>{
       const URL = `${import.meta.env.VITE_API_SERVER}/api/v1/census/addpeopletoother`
@@ -97,9 +97,7 @@ const FindAndAddPeople = ({getMypeople, leaderId}) => {
       }
     }
 
-
   return (
-  
 <div className="card card-primary">
   <div className="card-header">
     <h3 className="card-title">Buscar y agregar personas</h3>
@@ -144,19 +142,21 @@ const FindAndAddPeople = ({getMypeople, leaderId}) => {
         results?.map((people)=>
         <tr key={people?.id} className="people-finding">
         <td>
-            
+        <Link to={`/mypeople/${people.id}`}>
         <img style={{float: 'left', width:'125px', marginRight:'5px'}} src={`${import.meta.env.VITE_API_SERVER}/api/v1/images/citizen/${people?.picture}`} alt="message user image"/>
+        </Link>
           <ul className='demographic-information' style={{margin:"0", padding:"0"}}>
           
             <li>
-            
-           <span>{people?.firstName} {people?.lastName} {people?.nickname?<small>({people?.nickname})</small>: ''}</span>
+            <Link to={`/mypeople/${people.id}`}>
+          <span>{people?.firstName} {people?.lastName} {people?.nickname?<small>({people?.nickname})</small>: ''}</span>
+          </Link> 
             </li>
             <li>
             <span></span>
           </li>
           <li>
-         <span>{`${people?.citizenID.substr(0,3)}-${people?.citizenID.substr(3,7)}-${people?.citizenID.substr(10,1)}`}</span>
+        <span>{`${people?.citizenID.substr(0,3)}-${people?.citizenID.substr(3,7)}-${people?.citizenID.substr(10,1)}`}</span>
           </li>
       
           
@@ -173,7 +173,7 @@ const FindAndAddPeople = ({getMypeople, leaderId}) => {
           Colegio: <span>{people?.colegio?.collegeNumber.toString().padStart(4, '0')}</span>
           </li>
           <li>
-          Recinto: <span>{people?.colegio?.precinctData?.recintoNombre}</span>
+          <span>{people?.colegio?.precinctData?.recintoNombre}</span>
           </li>
           <li>
           {  
@@ -187,11 +187,6 @@ const FindAndAddPeople = ({getMypeople, leaderId}) => {
           </ul>
           
         <div className='card-footer' style={{display: 'flex', justifyContent:'flex-start', gap:'20px' }}>
-        <Link to={`/mypeople/${people.id}`}>
-        <button className='btn btn-primary'>
-        <i className="far fa-eye search-tool "></i>
-        </button>
-        </Link>
         {people?.leader?
         <Link to={`/mypeople/${ people?.leaders?.censu?.id}`} className=' btn btn-default'>
         <i className="fas fa-user-check search-tool less"></i>
@@ -215,6 +210,7 @@ const FindAndAddPeople = ({getMypeople, leaderId}) => {
         <div className={` btn btn-dark`}>
         Posición: {people?.position}
         </div>
+        <AddTieToLeader leaderCitizenId={leaderCitizenId} bCitizenId={people?.citizenID} />
         </div>
         </td>
 

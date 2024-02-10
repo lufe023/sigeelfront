@@ -105,7 +105,6 @@ const addTies = (aCitizenId, bCitizenId, tiesType) => {
 
 return (
     <div>
-
   <div className="form-group">
   <label htmlFor="exampleInputEmail1">Añadir Vinculo</label>
   <input type="text" autoComplete='off'
