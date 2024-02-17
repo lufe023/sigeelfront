@@ -1,8 +1,9 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import * as XLSX from 'xlsx';
 import { saveAs } from 'file-saver';
 
-const ExportToExcel = ({ data, precintName }) => {
+const ExportToExcel = ({ data, precintName, colegios}) => {
+
   const handleExport = () => {
     // Crear un nuevo libro de trabajo y una hoja de cálculo
     const workbook = XLSX.utils.book_new();

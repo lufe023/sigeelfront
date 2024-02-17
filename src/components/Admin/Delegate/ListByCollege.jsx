@@ -1,15 +1,13 @@
-import React from 'react'
-import { Link } from 'react-router-dom'
-import '../../Precints/CitizenByCollege.css'
-import CreateOrUpdateVote from './CreateOrUpdateVote'
+import React, { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
+import '../../Precints/CitizenByCollege.css';
+import CreateOrUpdateVote from './CreateOrUpdateVote';
 
-const ListByCollege = ({citizens, addPeople}) => {
+const ListByCollege = ({ citizens, addPeople }) => {
 
-  
-  return (
-    <div className="row">
-        
-    {citizens?.map(item => (
+    return (
+        <div className="row">
+            {citizens?.map(item => (
     <div key={item.id} className="col-md-4 col-sm-6 col-xl-4 col-12" style={{minWidth:"400px"}}>
     <div className="info-box" >
         <span className=" " style={{width:"auto"}}>
@@ -71,8 +69,8 @@ const ListByCollege = ({citizens, addPeople}) => {
 </div>
 </div>
 ))}
-  </div>
-  )
-}
+        </div>
+    );
+};
 
-export default ListByCollege
+export default ListByCollege;

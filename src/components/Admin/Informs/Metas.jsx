@@ -22,20 +22,21 @@ const Metas = ({college}) => {
       setData(res.data);
       setColegios(res.data[1]);
       setLoading(false);
-  
       const recintoNombre = res.data?.[0].recintoNombre;
       const newReporte = res.data[1]?.rows?.map(colegio => {
-        const electoresTotales = colegio.electLocal + colegio.electExterior;
+        const electoresTotales = colegio.electLocal;
         const sinLider = colegio.ColegioCensus.length;
+        const votos = colegio.ColegioCensus.reduce((acc, item) => acc + (item.sufragio && item.sufragio.suffrage ? 1 : 0), 0);
         const porcentajeConLider = ((electoresTotales - sinLider) / electoresTotales) * 100;
         const porcentajeConLiderFormatted = porcentajeConLider.toFixed(2) + '%'; // Redondea a dos decimales y añade el símbolo %
-      
+  
         return {
           Recinto: recintoNombre,
           Colegio: colegio.collegeNumber,
           Electores: electoresTotales,
           "Con Lider": electoresTotales - sinLider,
           "Sin Lider": sinLider,
+          "Votos": votos, // Añadido el conteo de votos aquí
           "Porcentaje Cubierto": porcentajeConLiderFormatted
         };
       });
@@ -67,7 +68,7 @@ const Metas = ({college}) => {
   Exterior: <small> {data?.[0].electExterior.toLocaleString('en-EN', { useGrouping: true })}</small>
   <br/>
   {colegios?
-  <ExportToExcel data={reporte} precintName={data?.[0].recintoNombre}/>
+  <ExportToExcel data={reporte} precintName={data?.[0].recintoNombre} colegios={colegios}/>
   :""
 }
 </div>
