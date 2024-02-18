@@ -7,7 +7,7 @@ import SelectPlace from './SelectPlace'
 import WarRoom from './WarRoom'
 import Metas from './Metas'
 import WarRoomB from './WaRoomB'
-
+  
 const Dash = () => {
   const [menu, setMenu] = useState({
     tipo: '',

@@ -130,12 +130,12 @@ const VoteGrupal = () => {
             Posiciones (separadas por comas):
             <textarea value={positions} onChange={(e) => setPositions(e.target.value)} />
           </label>
-          </div> */}
+          </div>  */}
           
-          {/* <label>
+         <label>
             ID del Colegio:
-            <input type="text" value={collegeId} onChange={(e) => setCollegeId(e.target.value)} />
-          </label> */}
+            <input type="text" disabled value={collegeId} onChange={(e) => setCollegeId(e.target.value)} />
+          </label>
     
           <label>
             Valor del Sufragio:
