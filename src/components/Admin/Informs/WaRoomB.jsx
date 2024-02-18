@@ -8,11 +8,12 @@ import axios from 'axios';
 import getConfig from '../../../utils/getConfig';
 ChartJS.register(LineElement, ArcElement, Tooltip, Legend);
 
-const WarRoom = ({campainId, collegeId}) => {
+const WarRoomB = ({campainId, collegeId}) => {
 
     const [info, setInfo] = useState()
-    const getInfo = (campain, college ) => {
-          let URL = `${import.meta.env.VITE_API_SERVER}/api/v1/reports/urna?campain=${campain}&college=${college}`;
+
+    const getInfo = () => {
+          let URL = `${import.meta.env.VITE_API_SERVER}/api/v1/reports/urnaalcalde?campain=${campainId}&college=${collegeId}`;
           axios.get(URL, getConfig())
           .then((res) => {
             setInfo(res.data)
@@ -21,14 +22,15 @@ const WarRoom = ({campainId, collegeId}) => {
               console.log(err);
           });
       };
+      
       useEffect(() => {
         const getInfoAndSetInterval = () => {
-            getInfo(campainId, collegeId);  // Realiza la consulta al cargar la página
+            getInfo();  // Realiza la consulta al cargar la página
     
             // Configura un intervalo para realizar la consulta cada 1 minuto (ajusta según tus necesidades)
             const intervalId = setInterval(() => {
-              getInfo(campainId, collegeId);
-          }, 60000 * 5); // 60000 milisegundos es igual a 1 minuto
+                getInfo();
+            }, 60000 * 1);  // 60000 milisegundos es igual a 1 minuto
     
             // Devuelve una función de limpieza para detener el intervalo cuando el componente se desmonte
             return () => clearInterval(intervalId);
@@ -147,16 +149,17 @@ const WarRoom = ({campainId, collegeId}) => {
         <div className='col-md-12'>
             <div className='card card-primary'>
             <div className="card-header">
-    <h3 className="card-title"><i className="fas fa-filter"/> Informe por hora</h3>
+    <h3 className="card-title"><i className="fas fa-filter"/> Informe por hora </h3>
     <div className="card-tools">
     <button type="button" className="btn btn-tool" data-card-widget="collapse" title="Collapse"><i className="fas fa-minus" /></button>
     </div>
 </div>
 
 <div className="card-body">
-
+<button>Generar</button>
 <div className="row">
   <div className="col-md-8">
+  
   <Line data={data} options={options} />
   </div>
   {/* /.col */}
@@ -189,4 +192,4 @@ const WarRoom = ({campainId, collegeId}) => {
   );
 };
 
-export default WarRoom;
+export default WarRoomB;

@@ -32,6 +32,7 @@ import UserAdministrator from './components/UserDashboard/UserAdministrator';
 import Delegate from './components/Admin/Delegate/Delegate';
 import WarRoom from './components/Admin/Informs/WarRoom';
 import PeopleByUserPrint from './components/UserDashboard/PeopleByUserPrint';
+import VoteGrupal from './components/Admin/Delegate/VoteGrupal';
 
 
 function App() {
@@ -56,6 +57,7 @@ function App() {
         <Route path='/teams/:id' element={<TeamView/>}/>
         <Route path='/precints' element={<Delegate/>}/>
         <Route path='/Delegate' element={<Delegate/>}/>
+        <Route path='/concurrencia' element={<VoteGrupal/>}/>
       </Route>
 
       {/* Proteccion para administracion */}

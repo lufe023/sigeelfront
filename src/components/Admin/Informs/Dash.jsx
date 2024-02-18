@@ -6,6 +6,7 @@ import PreferdPartiesByCollege from './PreferdPartiesbyCollege'
 import SelectPlace from './SelectPlace'
 import WarRoom from './WarRoom'
 import Metas from './Metas'
+import WarRoomB from './WaroomB'
 
 const Dash = () => {
   const [menu, setMenu] = useState({
@@ -55,10 +56,6 @@ const Dash = () => {
     }
   };
   
-
-
-
-
   return (
     <div className="content-wrapper">
     {/* Content Header (Page header) */}
@@ -225,7 +222,6 @@ const Dash = () => {
           <i className="fas fa-medal" />
           Metas
         </label>
-      
 
         </div>
         <div className='form-group'>
@@ -310,10 +306,12 @@ const Dash = () => {
         {
           menu.menu == 'partidos' && menu.campain && menu.tipo== 'colegios' && campains.length>0?<PreferdPartiesByCollege campainId={menu.campain} collegeId={collegeData?.college}/> :""
         }
-        {
+        {/* {
           menu.menu == 'warroom' && menu.campain && menu.tipo== 'colegios' && campains.length>0?<WarRoom campainId={menu.campain} collegeId={collegeData?.college}/> :""
+        } */}
+        {
+          menu.menu == 'warroom' && menu.campain && menu.tipo== 'colegios' && campains.length>0?<WarRoomB campainId={menu.campain} collegeId={collegeData?.college}/> :""
         }
-   
         {
           menu.menu == 'metas'? <Metas campainId={menu.campain} college={collegeData}/> :""
         }

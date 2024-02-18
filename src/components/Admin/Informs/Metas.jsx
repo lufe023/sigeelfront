@@ -40,7 +40,6 @@ const Metas = ({college}) => {
           "Porcentaje Cubierto": porcentajeConLiderFormatted
         };
       });
-  
       setReporte(newReporte);
     })
     .catch((err) => {
