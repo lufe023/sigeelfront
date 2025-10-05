@@ -152,6 +152,7 @@ const SearhPeople = () => {
                                                     <span>
                                                         {people?.firstName}{" "}
                                                         {people?.lastName}{" "}
+                                                        {people?.lastNameB}{" "}
                                                         {people?.nickname ? (
                                                             <small>
                                                                 (
