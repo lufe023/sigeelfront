@@ -256,7 +256,7 @@ const PeopleCard = ({ people, getMypeople }) => {
                                                 <i className="fas fa-hotel" />
                                             </span>
                                             Recinto:{" "}
-                                            {people?.colegio?.precinctData?.recintoNombre
+                                            {people?.colegio?.precinctData?.descripcion
                                                 .toString()
                                                 .padStart(4, "0")}
                                         </li>

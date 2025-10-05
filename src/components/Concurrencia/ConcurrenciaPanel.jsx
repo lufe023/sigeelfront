@@ -99,7 +99,7 @@ const ConcurrenciaPanel = ({ citizens }) => {
                                                                 <Link
                                                                     to={`/precints`}
                                                                 >
-                                                                    {citizen?.colegio?.precinctData?.recintoNombre.substring(
+                                                                    {citizen?.colegio?.precinctData?.descripcion.substring(
                                                                         0,
                                                                         25
                                                                     )}

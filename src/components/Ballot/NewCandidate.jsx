@@ -3,23 +3,29 @@ import Cargando from "../../utils/Cargando";
 import getConfig from "../../utils/getConfig";
 import axios from "axios";
 import Swal from "sweetalert2";
-//import "./NewCandidate.css"
 
 const NewCandidate = ({ getAllCandidates, getAllParties, parties }) => {
-    /* llamar el mapa */
-    const [maps, setMaps] = useState();
-    const [preMunicipios, setPreMunicipios] = useState();
-    const [preDistritos, setPreDistritos] = useState();
+    /* Estados para el mapa y las selecciones */
+    const [maps, setMaps] = useState([]);
+    const [selectedProvinceId, setSelectedProvinceId] = useState("");
+    const [selectedMunicipalityId, setSelectedMunicipalityId] = useState(""); // Se mantiene para Distritos
 
+    /* Estado de carga */
+    const [formLoading, setFormLoading] = useState(false);
+
+    // --- Lógica para Obtener el Mapa ---
     const getAllMaps = () => {
         const URL = `${import.meta.env.VITE_API_SERVER}/api/v1/maps`;
         axios
             .get(URL, getConfig())
             .then((res) => {
-                setMaps(res.data.rows);
+                console.log(res.data);
+                // 'res.data' ahora contiene la mezcla de provincias y municipios
+                setMaps(res.data);
             })
             .catch((err) => {
-                console.log(err);
+                console.error(err);
+                // ... (manejo de error con Swal)
                 const Toast = Swal.mixin({
                     toast: true,
                     position: "top-end",
@@ -31,10 +37,11 @@ const NewCandidate = ({ getAllCandidates, getAllParties, parties }) => {
                         toast.addEventListener("mouseleave", Swal.resumeTimer);
                     },
                 });
-
                 Toast.fire({
                     icon: "error",
-                    title: `Accion no permitida: ${err.response.statusText}`,
+                    title: `Acción no permitida: ${
+                        err.response?.statusText || "Error de red"
+                    }`,
                 });
             });
     };
@@ -43,28 +50,74 @@ const NewCandidate = ({ getAllCandidates, getAllParties, parties }) => {
         getAllMaps();
     }, []);
 
-    /* fin de la llamada del mapa*/
-    const [formLoading, setFormLoading] = useState(false);
+    // --- Lógica de Filtrado y Dependencia con el nuevo enfoque "type" ---
+
+    // 1. Filtra las Provincias: donde 'type' es "province"
+    const provincias = maps.filter((map) => map.type === "province");
+
+    // 2. Filtra los Municipios: donde 'type' es "municipality" y 'parentId' coincide con la provincia seleccionada
+    // Nota: Asumo que los municipios tienen una propiedad que enlaza con la provincia (ej: parentId o provinciaId).
+    // Si tu backend usa el campo 'provinciaId' para el Municipio, úsalo aquí. Si usa 'parent', déjalo así.
+    const municipios = maps.filter(
+        (map) =>
+            map.type === "municipality" &&
+            String(map.ProvinciaId) === selectedProvinceId // Usando 'provinciaId' como ejemplo, ajusta si es 'parent'
+    );
+
+    // 3. (OPCIONAL) Distritos: Si existieran, tendrían que tener otro 'type' y un 'parent' que apunte al municipio.
+    // Como tu función de backend SOLO retorna province y municipality, filtramos solo los municipios.
+    // Si tienes distritos, DEBES agregarlos a la función getAllMaps del backend, y asignarle un 'type' y 'parent' correcto.
+    const distritos = maps.filter(
+        (map) =>
+            map.type === "district" &&
+            String(map.municipioId) === selectedMunicipalityId
+    );
+    // Nota: Por ahora, `distritos` estará vacío a menos que agregues un 'type: "district"' en el backend.
+
+    // --- Handlers de Cambio (Event Handlers) ---
+
+    const handleChangeProvincia = (event) => {
+        const newProvinceId = event.target.value;
+        // Reinicia Municipio y Distrito cuando cambia la Provincia
+        setSelectedProvinceId(newProvinceId);
+        setSelectedMunicipalityId("");
+    };
+
+    const handleChangeMunicipio = (event) => {
+        const newMunicipalityId = event.target.value;
+        // Reinicia Distrito cuando cambia el Municipio
+        setSelectedMunicipalityId(newMunicipalityId);
+    };
+
+    // --- Handler de Envío (Submit Handler) ---
 
     const handleSubmit = (e) => {
         e.preventDefault();
         setFormLoading(true);
 
+        const form = e.target;
         let data = new FormData();
 
-        data.append("name", e.target.nombre.value);
-        data.append("party", e.target.partido.value);
-        data.append("nomination", e.target.candidatura.value);
-        data.append("file", e.target.file.files[0]);
-        data.append("distritoMunicipal", e.target.distrito.value);
-        data.append("municipio", e.target.municipio.value);
-        data.append("provincia", e.target.provincia.value);
+        data.append("name", form.nombre.value);
+        data.append("party", form.partido.value);
+        data.append("nomination", form.candidatura.value);
+        data.append("file", form.file.files[0]);
+        // Asegúrate de que los valores enviados son los IDs correctos o un string vacío.
+        data.append("provincia", form.provincia.value);
+        data.append("municipio", form.municipio.value);
+        data.append("distritoMunicipal", form.distrito.value || "");
+
         const URL = `${import.meta.env.VITE_API_SERVER}/api/v1/ballots/`;
         axios
             .post(URL, data, getConfig())
             .then((res) => {
+                // ... (lógica de éxito)
                 setFormLoading(false);
                 getAllCandidates();
+                form.reset();
+                setSelectedProvinceId("");
+                setSelectedMunicipalityId("");
+
                 const Toast = Swal.mixin({
                     toast: true,
                     position: "top-end",
@@ -76,14 +129,14 @@ const NewCandidate = ({ getAllCandidates, getAllParties, parties }) => {
                         toast.addEventListener("mouseleave", Swal.resumeTimer);
                     },
                 });
-
                 Toast.fire({
                     icon: "success",
-                    title: "Candidato Agregado con exito",
+                    title: "Candidato Agregado con éxito",
                 });
             })
             .catch((err) => {
-                console.log(err);
+                // ... (lógica de error)
+                console.error(err);
                 setFormLoading(false);
                 const Toast = Swal.mixin({
                     toast: true,
@@ -96,25 +149,18 @@ const NewCandidate = ({ getAllCandidates, getAllParties, parties }) => {
                         toast.addEventListener("mouseleave", Swal.resumeTimer);
                     },
                 });
-
                 Toast.fire({
                     icon: "error",
-                    title: `Accion no permitida: ${err.response.data.message}`,
+                    title: `Acción no permitida: ${
+                        err.response?.data?.message ||
+                        err.response?.statusText ||
+                        "Error desconocido"
+                    }`,
                 });
             });
     };
 
-    const provincias = maps?.filter((map) => map.type == 1);
-    const municipios = maps?.filter((map) => map.parent == preMunicipios);
-    const distritos = maps?.filter((map) => map.parent == preDistritos);
-
-    const handleChangeMunicipio = (event) => {
-        setPreMunicipios(event.target.value);
-    };
-
-    const handleChangeDistrito = (event) => {
-        setPreDistritos(event.target.value);
-    };
+    // --- Renderizado ---
 
     if (formLoading) {
         return (
@@ -136,7 +182,9 @@ const NewCandidate = ({ getAllCandidates, getAllParties, parties }) => {
                     encType="multipart/form-data"
                 >
                     <div className="row">
+                        {/* INPUTS DE CANDIDATO */}
                         <div className="col-3">
+                            {/* ... (Tu input de archivo) */}
                             <input
                                 type="file"
                                 className="custom-file-input"
@@ -152,7 +200,6 @@ const NewCandidate = ({ getAllCandidates, getAllParties, parties }) => {
                                 Elige una foto
                             </label>
                         </div>
-
                         <div className="col-2">
                             <input
                                 required
@@ -162,10 +209,13 @@ const NewCandidate = ({ getAllCandidates, getAllParties, parties }) => {
                                 name="nombre"
                             />
                         </div>
-
                         <div className="col-2">
-                            <select name="partido" className="form-control">
-                                <option value={null}>Partido</option>
+                            <select
+                                name="partido"
+                                className="form-control"
+                                required
+                            >
+                                <option value="">Partido</option>
                                 {parties?.map((party) => (
                                     <option
                                         key={party.id}
@@ -178,8 +228,12 @@ const NewCandidate = ({ getAllCandidates, getAllParties, parties }) => {
                             </select>
                         </div>
                         <div className="col-2">
-                            <select className="form-control" name="candidatura">
-                                <option>Postula a</option>
+                            <select
+                                className="form-control"
+                                name="candidatura"
+                                required
+                            >
+                                <option value="">Postula a</option>
                                 <option>Consejal Distrital</option>
                                 <option>Director Municipal</option>
                                 <option>Regidor Municipal</option>
@@ -190,55 +244,69 @@ const NewCandidate = ({ getAllCandidates, getAllParties, parties }) => {
                             </select>
                         </div>
                     </div>
+
+                    {/* SELECTORES DE MAPA */}
                     <div className="row" style={{ marginTop: "10px" }}>
                         <div className="col-11">
+                            {/* PROVINCIA */}
                             <select
                                 className="form-control"
                                 name="provincia"
-                                onChange={handleChangeMunicipio}
+                                onChange={handleChangeProvincia}
+                                value={selectedProvinceId}
+                                required
                             >
-                                <option value="false">Provincia</option>
-                                {provincias?.map((provincia) => (
+                                <option value="">Provincia</option>
+                                {provincias.map((provincia) => (
                                     <option
-                                        key={provincia.id}
-                                        value={provincia.id}
+                                        key={provincia.ProvinciaId}
+                                        value={provincia.ProvinciaId}
                                     >
-                                        {provincia.name}
+                                        {provincia.Descripcion}
                                     </option>
                                 ))}
                             </select>
                         </div>
                     </div>
+
                     <div className="row" style={{ marginTop: "10px" }}>
                         <div className="col-11">
+                            {/* MUNICIPIO */}
                             <select
                                 className="form-control"
                                 name="municipio"
-                                onChange={handleChangeDistrito}
+                                onChange={handleChangeMunicipio}
+                                value={selectedMunicipalityId}
+                                disabled={!selectedProvinceId}
+                                required
                             >
-                                <option value={null}>Municipio</option>
-                                {municipios?.map((municipio) => (
+                                <option value="">Municipio</option>
+                                {municipios.map((municipio) => (
                                     <option
-                                        key={municipio.id}
-                                        value={municipio.id}
+                                        key={municipio.MunicipalityId}
+                                        value={municipio.MunicipalityId}
                                     >
-                                        {municipio.name}
+                                        {municipio.description}
                                     </option>
                                 ))}
                             </select>
                         </div>
                     </div>
+
                     <div className="row" style={{ marginTop: "10px" }}>
                         <div className="col-11">
+                            {/* DISTRITO (Puede estar vacío si no lo devuelve el backend) */}
                             <select
                                 className="form-control"
                                 name="distrito"
-                                defaultValue={null}
+                                defaultValue=""
+                                disabled={
+                                    !selectedMunicipalityId ||
+                                    distritos.length === 0
+                                }
                             >
-                                <option value={"null"}>
-                                    Distrito Municipal
-                                </option>
-                                {distritos?.map((distrito) => (
+                                <option value="">Distrito Municipal</option>
+                                {distritos.map((distrito) => (
                                     <option
                                         key={distrito.id}
                                         value={distrito.id}
@@ -251,7 +319,10 @@ const NewCandidate = ({ getAllCandidates, getAllParties, parties }) => {
                     </div>
 
                     <div className="card-footer">
-                        <button className="btn btn-primary float-right">
+                        <button
+                            type="submit"
+                            className="btn btn-primary float-right"
+                        >
                             Guardar
                         </button>
                     </div>

@@ -36,7 +36,7 @@ const People = () => {
                 setPeople(res.data.data);
                 setUpdates(res.data.pendingUpdates);
             })
-            .catch((err) => console.log(err));
+            .catch((err) => console.error(err));
     };
     useEffect(() => {
         getPeople();
@@ -52,7 +52,7 @@ const People = () => {
             .then((res) => {
                 setTies(res.data);
             })
-            .catch((err) => console.log(err));
+            .catch((err) => console.error(err));
     };
     useEffect(() => {
         getTies();
@@ -107,7 +107,7 @@ const People = () => {
                         );
                     })
                     .catch((error) => {
-                        console.log(error);
+                        console.error(error);
                         Swal.fire({
                             icon: "error",
                             title: `Oops...`,
@@ -196,8 +196,13 @@ const People = () => {
                                                         {
                                                             people?.colegio
                                                                 ?.precinctData
-                                                                ?.recintoNombre
+                                                                ?.descripcion
                                                         }
+                                                        {" ("}
+                                                        {people?.colegio?.precinctData?.precintNumber
+                                                            ?.toString()
+                                                            .padStart(5, "0")}
+                                                        {")"}
                                                     </a>
                                                 </li>
 
@@ -206,7 +211,7 @@ const People = () => {
                                                     <a className="float-right">
                                                         {people?.colegio?.collegeNumber
                                                             .toString()
-                                                            .padStart(4, "0")}
+                                                            .padStart(5, "0")}
                                                     </a>
                                                 </li>
                                                 {people?.districts?.name ? (
@@ -232,7 +237,7 @@ const People = () => {
                                                         {
                                                             people
                                                                 ?.municipalities
-                                                                ?.name
+                                                                ?.description
                                                         }
                                                     </a>
                                                 </li>
@@ -241,7 +246,7 @@ const People = () => {
                                                     <a className="float-right">
                                                         {
                                                             people?.provinces
-                                                                ?.name
+                                                                ?.Descripcion
                                                         }
                                                     </a>
                                                 </li>

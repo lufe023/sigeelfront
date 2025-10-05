@@ -82,13 +82,21 @@ const CampainList = ({ campain, getCampains }) => {
                                         }}
                                     >
                                         <li>
-                                            Prov:
-                                            <b>{campain?.provinces?.name}</b>
+                                            Prov:{" "}
+                                            <b>
+                                                {
+                                                    campain?.provinces
+                                                        ?.Descripcion
+                                                }
+                                            </b>
                                         </li>
                                         <li>
-                                            Mun:
+                                            Mun:{" "}
                                             <b>
-                                                {campain?.municipalities?.name}
+                                                {
+                                                    campain?.municipalities
+                                                        ?.description
+                                                }
                                             </b>
                                         </li>
                                         {campain.districts ? (
