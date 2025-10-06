@@ -160,10 +160,10 @@ const People = () => {
                                                     src={`${
                                                         import.meta.env
                                                             .VITE_API_SERVER
-                                                    }/api/v1/images/citizen/${
-                                                        people?.picture
-                                                    }`}
-                                                    alt="User profile picture"
+                                                    }/api/v1/images/pic/mun/${
+                                                        people?.municipality
+                                                    }/${people?.citizenID}`}
+                                                    alt={people?.firstName}
                                                 />
                                             </div>
                                             <h3 className="profile-username text-center">

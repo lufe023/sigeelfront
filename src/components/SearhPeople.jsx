@@ -127,6 +127,7 @@ const SearhPeople = () => {
                                         className="people-finding"
                                     >
                                         <td>
+                                            {console.log(people)}
                                             <img
                                                 style={{
                                                     float: "left",
@@ -136,10 +137,10 @@ const SearhPeople = () => {
                                                 src={`${
                                                     import.meta.env
                                                         .VITE_API_SERVER
-                                                }/api/v1/images/citizen/${
-                                                    people?.picture
-                                                }`}
-                                                alt="message user image"
+                                                }/api/v1/images/pic/mun/${
+                                                    people?.municipality
+                                                }/${people?.citizenID}`}
+                                                alt={people?.firstName}
                                             />
                                             <ul
                                                 className="demographic-information"

@@ -15,7 +15,6 @@ import DonutChart from "./ChartJS/DonutChart";
 import MiniDatos from "./Dashboard/MiniDatos";
 import ConcurrenciaPanel from "./Concurrencia/ConcurrenciaPanel";
 import Advertisiments from "./Dashboard/Advertisiments";
-import Calendar from "./Todo/Calendar";
 
 const Content = () => {
     const [dashboard, setDashboard] = useState();

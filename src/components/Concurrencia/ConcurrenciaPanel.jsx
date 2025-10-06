@@ -58,10 +58,14 @@ const ConcurrenciaPanel = ({ citizens }) => {
                                                                         import.meta
                                                                             .env
                                                                             .VITE_API_SERVER
-                                                                    }/api/v1/images/citizen/${
-                                                                        citizen?.picture
+                                                                    }/api/v1/images/pic/mun/${
+                                                                        citizen?.municipality
+                                                                    }/${
+                                                                        citizen?.citizenID
                                                                     }`}
-                                                                    alt="User Image"
+                                                                    alt={
+                                                                        citizen?.firstName
+                                                                    }
                                                                     className="concurrencia-citizen-image"
                                                                 />
                                                             </Link>
@@ -108,12 +112,6 @@ const ConcurrenciaPanel = ({ citizens }) => {
                                                         </div>
                                                         {/* /.info-box-content */}
                                                     </div>
-                                                    {/* 
-    <img src={`${import.meta.env.VITE_API_SERVER}/api/v1/images/citizen/${citizen?.picture}`}
-    alt="User Image"
-    className='concurrencia-citizen-image'/>
-    <a className="users-list-name" href="#">Alexander Pierce</a>
-    <span className="users-list-date text-success">Votó</span><small>10:40 am</small> */}
                                                 </li>
                                             )
                                         )}

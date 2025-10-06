@@ -169,10 +169,14 @@ const FindAndAddPeople = ({ getMypeople, leaderId, leaderCitizenId }) => {
                                                             src={`${
                                                                 import.meta.env
                                                                     .VITE_API_SERVER
-                                                            }/api/v1/images/citizen/${
-                                                                people?.picture
+                                                            }/api/v1/images/pic/mun/${
+                                                                people?.municipality
+                                                            }/${
+                                                                people?.citizenID
                                                             }`}
-                                                            alt="message user image"
+                                                            alt={
+                                                                people?.firstName
+                                                            }
                                                         />
                                                     </Link>
                                                     <ul

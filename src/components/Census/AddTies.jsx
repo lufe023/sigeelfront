@@ -18,7 +18,7 @@ const AddTies = ({ aCitizenId, getTies, setTies }) => {
                 setTiesTypes(res.data.data.rows);
             })
             .catch((err) => {
-                console.log(err);
+                console.error(err);
             });
     };
     const findPeople = (findWord) => {
@@ -168,7 +168,9 @@ const AddTies = ({ aCitizenId, getTies, setTies }) => {
                                     className="img-circle img-bordered-sm"
                                     src={`${
                                         import.meta.env.VITE_API_SERVER
-                                    }/api/v1/images/citizen/${user?.picture}`}
+                                    }/api/v1/images/pic/mun/${
+                                        user?.municipality
+                                    }/${user?.citizenID}`}
                                     alt="user image"
                                     style={{
                                         width: "70px",
