@@ -3,9 +3,9 @@ import { createSlice } from "@reduxjs/toolkit";
 export const userSlice = createSlice({
     name: 'user',
     initialState: {
-        usuario:{
-        first_name: 'Cargando',
-        last_name: 'Cargando',
+        censu:{
+        firstName: 'Cargando',
+        lastName: 'Cargando',
         picture: 'Cargando'
     }
 },

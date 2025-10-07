@@ -1,10 +1,20 @@
 import axios from 'axios'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import getConfig from '../../utils/getConfig'
 import Swal from 'sweetalert2'
 import Cargando from '../../utils/Cargando'
+import { Link, useParams, redirect} from 'react-router-dom'
 
-const TodoEdit = ({getAllTask, editingTask, setEditingTask}) => {
+const TodoEdit = ({setEditingTask, editingTask, getAllTask}) => {
+
+
+
+const [defaultValue, setDefaultValue] = useState({
+  title: editingTask?.title,
+  description: editingTask?.description,
+  limit: editingTask?.limit,
+  isActive: editingTask.isActive
+})
 
     const handleSubmit = e =>{
 
@@ -59,14 +69,31 @@ const TodoEdit = ({getAllTask, editingTask, setEditingTask}) => {
             title: 'No se pudo realizar la actualización'
           })
         })
-        getAllTask()
-      }   
+
+        
+    }
+
+      const fechaIso8601 = editingTask?.limit
+
+      const fecha = new Date(fechaIso8601)
+
+      const fechaFormateada = fecha.toISOString().slice(0,16)
 
     return (
     <div className="card card-warning">
+
     <div className="card-header">
       <h3 className="card-title">Editar Tarea </h3>
     </div>
+
+    {
+    editingTask?""
+    :
+    <div className='loading' style={{height:"100px", marginBottom:"50px"}}>
+  <Cargando escala='1.5'/>
+  </div>
+  }
+
 <form onSubmit={handleSubmit}>
     <div className="card-body">
       <div className="form-group">
@@ -75,57 +102,61 @@ const TodoEdit = ({getAllTask, editingTask, setEditingTask}) => {
           type="text"
           id="title"
           className="form-control"
-          defaultValue={editingTask?.title} />
+          value={defaultValue.title}
+          onChange={(e) => setDefaultValue({...defaultValue, title: e.target.value})}
+          />
       </div>
-
+    
       <div className="form-group">
         <label htmlFor="inputDescription">Descripcion de la tarea</label>
-        <input
+        <textarea className="form-control"
+        rows="3"
+        value={defaultValue.description}
         name='description'
-        type="text"
-        id="inputDescription"
-        className="form-control"
-        defaultValue={editingTask?.description}/>
+        onChange={(e) => setDefaultValue({...defaultValue, description: e.target.value})}
+        >
+        </textarea>
       </div>
 
-      <div className="form-group">
-        <label htmlFor='before'>Completar antes de</label>
-        <div className="input-group date" id="reservationdatetime" data-target-input="nearest">
-          <input 
-          name="limit"
-          id="before"
-          type="text" className="form-control datetimepicker-input" data-target="#reservationdatetime" defaultValue={editingTask?.limit}/>
-          <div className="input-group-append" data-target="#reservationdatetime" data-toggle="datetimepicker">
-            <div className="input-group-text"><i className="fa fa-calendar" /></div>
-          </div>
-        </div>
+    <div className="form-group">
+      <label>Fecha Limite</label>
+      <input
+      type="datetime-local"
+      className="form-control"
+      name="limit"
+      defaultValue={fechaFormateada}
+      onChange={(e) => setDefaultValue({...defaultValue, limit: e.target.value})}
+      />
+      <div className="input-group date" id="reservationdatetime" data-target-input="nearest">
       </div>
-      
+    </div>
       <div className="form-group">
         <label htmlFor='estado'>Estado</label>
-  
-          <select className="form-control" id='estado' name='estado'>
-            <option>selecciona una opcion</option>
-            <option value={true}>verdadero</option>
-            <option value={false}>Falso</option>
+          <select className="form-control" id='estado' name='estado' defaultValue={defaultValue.isActive} onChange={(e) => setDefaultValue({...defaultValue, isActive: e.target.value})}>
+            <option value={true}>Pendiente</option>
+            <option value={false}>Completada</option>
           </select>
     </div>
-
-
       <div className="form-group">
         <label htmlFor="inputClientCompany">Responsable</label>
-        <input type="text" id="inputClientCompany" className="form-control" value={editingTask.Responsible?.email} disabled/>
+        <input type="text" id="inputClientCompany" className="form-control" value={editingTask?.Responsible?.email} disabled/>
       </div>
       <div className="form-group">
         <label htmlFor="inputProjectLeader">Creado por</label>
-        <input type="text" id="inputProjectLeader" className="form-control" value={editingTask.Creador?.email}  disabled />
+        <input type="text" id="inputProjectLeader" className="form-control" value={editingTask?.Creador?.email}  disabled />
       </div>
     </div>
     <div className="card-footer clearfix" style={{display: 'block'}}>
-      <button type="submit" className="btn btn-primary float-right" onClick={getAllTask}><i className="fas fa-save"></i> Guardar</button></div>
+
+    <Link type="button" className="btn btn-danger" to="/tasks"  onClick={(e) => {setEditingTask(), getAllTask()}} >
+      <i className="fas fa-ban"/> Salir
+    </Link>
+    <button type="submit" className="btn btn-primary float-right">
+    <i className="fas fa-save"></i> Aplicar</button>
+    </div>
     </form>
 
   </div>
   )
- }
+}
 export default TodoEdit

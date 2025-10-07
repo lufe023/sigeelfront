@@ -1,4 +1,5 @@
 import React from 'react'
+import { Link } from 'react-router-dom'
 
 const Error404 = () => {
   return (
@@ -17,14 +18,14 @@ const Error404 = () => {
     </div>{/* /.container-fluid */}
   </section>
   {/* Main content */}
-  <section className="content">
+  <section className="content" style={{minHeight:"90vh"}}>
     <div className="error-page">
       <h2 className="headline text-warning"> 404</h2>
       <div className="error-content">
-        <h3><i className="fas fa-exclamation-triangle text-warning" /> Oops! Page not found.</h3>
+        <h3><i className="fas fa-exclamation-triangle text-warning" /> Oops! No he podido encontrar esta pagina.</h3>
         <p>
-          We could not find the page you were looking for.
-          Meanwhile, you may <a href="../../index.html">return to dashboard</a> or try using the search form.
+          quizas estes perdido
+          regresa al inicio <Link to="/">Regresar</Link>.
         </p>
         <form className="search-form">
           <div className="input-group">

@@ -1,0 +1,44 @@
+.users-list-panel li{
+display: inline-block;
+border-radius: 50%;
+margin: 0 5px;
+text-align: left;
+}
+
+.concurrencia-citizen-image{
+width: 60px;
+border-radius: 50%;
+aspect-ratio: 1   ;
+}
+
+.condition-details{
+    padding: 40px;
+}
+
+.scroll::-webkit-scrollbar {
+    -webkit-appearance: none;
+}
+
+.scroll::-webkit-scrollbar:vertical {
+    width:15px;
+    
+}
+
+.scroll::-webkit-scrollbar-button:increment,.scroll::-webkit-scrollbar-button {
+    display: none;
+} 
+
+.scroll::-webkit-scrollbar:horizontal {
+    height: 10px;
+}
+
+.scroll::-webkit-scrollbar-thumb {
+    background-color: #343a40;
+    border-radius: 20px;
+    border: 2px solid #f1f2f3;
+    
+}
+
+.scroll::-webkit-scrollbar-track {
+    border-radius: 10px;  
+}

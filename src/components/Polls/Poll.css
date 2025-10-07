@@ -1,0 +1,21 @@
+
+  
+  .formcontent {
+    display: none;
+    padding: 20px;
+
+  }
+
+ 
+  .tab-content .active {
+    display: block;
+  }
+
+  .margin{
+    margin: 0 5px
+  }
+
+  .saved{
+    padding: 5px;
+    border-radius: 3px;
+  }

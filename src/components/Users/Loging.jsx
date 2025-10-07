@@ -2,7 +2,7 @@ import axios from 'axios';
 import React, { useState } from 'react'
 import { useForm } from "react-hook-form";
 import { useDispatch, useSelector } from 'react-redux';
-import { Link } from 'react-router-dom';
+import { Link, Navigate } from 'react-router-dom';
 import Swal from 'sweetalert2'
 import { setUserData } from '../../store/slices/user.slice';
 import Cargando from '../../utils/Cargando';
@@ -16,7 +16,6 @@ const Loging = () => {
 
   const user = useSelector(state=> state.userSlice)
 
-
   const [message, setMessage] = useState('')
 
   const [loader, setLoader] =useState()
@@ -24,10 +23,8 @@ const Loging = () => {
   const {register, handleSubmit, reset} = useForm()
   
 
-
-  const submit = data => {
-
-const URL = 'http://localhost:9000/api/v1/auth/login'
+const submit = data => {
+const URL = `${import.meta.env.VITE_API_SERVER}/api/v1/auth/login`
     axios.post(URL, data)
     .then(res =>
       {
@@ -49,9 +46,8 @@ const URL = 'http://localhost:9000/api/v1/auth/login'
         
         Toast.fire({
           icon: 'success',
-          title: 'Ingreso Exitoso'
+          title: 'Bienvenido'
         })
-      
       }
     )
     .catch(err => {
@@ -68,17 +64,16 @@ const URL = 'http://localhost:9000/api/v1/auth/login'
           toast.addEventListener('mouseleave', Swal.resumeTimer)
         }
       })
-      
       Toast.fire({
         icon: 'error',
         title: 'Algo anda mal'
       })
     })
-  
     reset({
     password:''
     })
 }
+
 
   const writenPassword = () =>{
     setMessage()
@@ -91,22 +86,24 @@ const URL = 'http://localhost:9000/api/v1/auth/login'
 
 if(isLogged)
 {
-  
+
   return(
-<div className="login-box" style={{margin:'0 auto 40px auto'}}>
-  <div className="card card-outline card-primary">
-    <div className="card-header text-center">
-      <a href="#" className="h1"><b>SIGEEL</b></a>
-    </div>
-    <div className="card-body">
-      <p className="login-box-msg">Session Iniciada</p>
-      <p>
-      <Link to='/logout' className="dropdown-footer btn-danger">LogOut</Link>
-      </p>
-      </div> 
-  </div>
+    <Navigate to='dashboard'/>
+//     <div className="login-box" style={{margin:'0 auto 40px auto'}}>
+//   <div className="card card-outline card-primary">
+//     <div className="card-header text-center">
+//       <a href="#" className="h1"><b>MI ELECTOR</b></a>
+//     </div>
+//     <div className="card-body">
+//       <p className="login-box-msg">Bienvenido</p>
+//       <p>
+//       <Link to='/logout' className="dropdown-footer btn-danger">Cerrar Sesion</Link>
+//       </p>
+//       </div> 
+//   </div>
       
-</div>)
+// </div>
+)
 
 }else{
   
@@ -116,18 +113,18 @@ if(isLogged)
   {/* /.login-logo */}
   <div className="card card-outline card-primary">
     <div className="card-header text-center">
-      <a href="../../index2.html" className="h1"><b>SIGEEL</b></a>
+      <a href="../../index2.html" className="h1"><b>MI ELECTOR</b></a>
     </div>
     <div className="card-body">
-      <p className="login-box-msg">Inicia session</p>
+      <p className="login-box-msg">Inicia sesion</p>
       <form  onSubmit={handleSubmit(submit) }>
         <div className="input-group mb-3">
         <input 
             {...register('email')}
             className='form-control' 
-            type="email" 
+            type="text" 
             id="email" 
-            placeholder="Pon tu email"
+            placeholder="Usuario"
             required/>
           <div className="input-group-append">
             <div className="input-group-text">
@@ -141,7 +138,7 @@ if(isLogged)
               className='form-control' 
               type="password" 
               id="password" 
-              placeholder="Pon tu contraseña"
+              placeholder="Contraseña"
               onInput={writenPassword}
               required
           />
@@ -187,7 +184,7 @@ if(isLogged)
         <Link to='/forgotPassword'>Olvidé la contraseña</Link>
       </p>
       <p className="mb-0">
-        <a href="register.html" className="text-center">Register a new membership</a>
+        <Link to='preregister' className="text-center">Crear usuario</Link>
       </p>
     </div>
     {/* /.card-body */}

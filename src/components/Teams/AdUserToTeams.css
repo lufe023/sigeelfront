@@ -1,0 +1,24 @@
+
+.list-select-user {
+    margin-right: 10px;
+    border-radius: 3px;
+    padding: 3px;
+    
+}
+.list-select-user:hover{
+    background-color: rgb(152, 152, 152);
+
+}
+
+.user-block .description {
+    min-width: 240px;
+}
+
+.agregar{
+    margin-top: -30px;
+    background-color: green;
+}
+
+.notPosible{
+    cursor: not-allowed;
+}

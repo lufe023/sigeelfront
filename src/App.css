@@ -33,3 +33,17 @@ video {
 
 }
 
+li{
+    list-style: none;
+}
+
+.img-circle{
+    aspect-ratio: 1.1;
+}
+
+@media print{
+    body{
+             writing-mode:sideways-lr;
+            
+     }
+}

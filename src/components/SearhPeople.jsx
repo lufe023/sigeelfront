@@ -1,167 +1,345 @@
-import axios from 'axios'
-import React, { useEffect, useState } from 'react'
-import '../Styles/SearhPeople.css'
-import Cargando from '../utils/Cargando'
-import getConfig from '../utils/getConfig'
+import axios from "axios";
+import React, { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
+import "../Styles/SearhPeople.css";
+import Cargando from "../utils/Cargando";
+import getConfig from "../utils/getConfig";
 
 const SearhPeople = () => {
-    
-    const [isShow, setIsShow] = useState(false)
-    const [results, setResults] = useState([])
-    const [count, setCount] = useState()
-    const [isLoading, setIsloading] = useState(false)
+    const [isShow, setIsShow] = useState(false);
+    const [results, setResults] = useState([]);
+    const [count, setCount] = useState();
+    const [isLoading, setIsloading] = useState(false);
 
-    const show = () => setIsShow(!isShow)
-    const data = 
-        {
-            "findWord": "11300054"
-        }
-    
-
-        
-    const findPeople = (findWord)=>{
-        const URL = `${import.meta.env.VITE_API_SERVER}/api/v1/census/search`
-            axios.post(URL,
+    const addPeople = (people, citizenID) => {
+        const URL = `${
+            import.meta.env.VITE_API_SERVER
+        }/api/v1/census/addpeople`;
+        axios
+            .post(
+                URL,
                 {
-                    findWord:findWord  
+                    peopleId: people,
                 },
-            getConfig(),
+                getConfig()
             )
-            .then(res => {
-                setResults(res.data.data.rows)
-                setCount(res.data.data.count)
-                setIsloading(false)
-                
-        })
-        .catch(err =>{
-            setResults([])
-            setCount()
-            console.log(err)
-        })
+            .then((res) => {
+                findPeople(citizenID);
+            })
+            .catch((err) => {
+                console.error(err);
+            });
+    };
+    const show = () => setIsShow(!isShow);
+
+    const findPeople = (findWord) => {
+        const URL = `${import.meta.env.VITE_API_SERVER}/api/v1/census/search`;
+        axios
+            .post(
+                URL,
+                {
+                    findWord: findWord,
+                },
+                getConfig()
+            )
+            .then((res) => {
+                setResults(res.data.data.rows);
+                setCount(res.data.data.count);
+                setIsloading(false);
+            })
+            .catch((err) => {
+                console.error(err);
+                setResults([]);
+                setCount();
+            });
+    };
+
+    const findingWord = (e) => {
+        const fn = e.target.value.trim();
+
+        if (fn != "" && fn.length >= 3) {
+            setIsloading(true);
+            findPeople(fn);
+        } else {
+            setIsloading(false);
+            setResults("");
+            setCount("");
         }
-            const findingWord = e => {
-                const fn = e.target.value.trim()
-                console.log(fn)
-                findPeople(fn)
-                if(fn!=''){
-                setIsloading(true)
-            }else{
-                setIsloading(false)
-            }
-            }
+    };
+
     return (
-    
-    <li className="nav-item">
-      <a className="nav-link" data-widget="navbar-search" href="#" role="button" onClick={show}>
-        <i className="fas fa-search" />
-      </a>
-      <div className="navbar-search-block">
-        <form className="form-inline">
-          <div className="input-group input-group-sm">
-            <input className="form-control form-control-navbar" type="search" placeholder="Nombre, Apellido o Cedula" aria-label="Search" onChange={findingWord}/>
-            <div className="input-group-append">
-              <button className="btn btn-navbar" type="submit">
+        <li className="nav-item">
+            <a
+                className="nav-link"
+                data-widget="navbar-search"
+                href="#"
+                role="button"
+                onClick={show}
+            >
                 <i className="fas fa-search" />
-              </button>
-              <button className="btn btn-navbar" type="button" data-widget="navbar-search" onClick={show}>
-                <i className="fas fa-times" />
-              </button>
-            </div>
-          </div>
-        </form>
-       
-      </div>
-      
-      <div className='searchBox' style={{display:isShow?'block':'none'}}>
-      <span className="dropdown-item dropdown-header">{count?count+' Coincidencias':''} </span>
-        <ul className='findBox'>
-        {
-
-count?
-        results?.map((people)=>
-        <li key={people.id} className="lineDivider">
-            <a href="#" className="people-finding">
-            <img className="direct-chat-img" src="dist/img/user1-128x128.jpg" alt="message user image"/>
-            
-            <span>
-            {people.firstName} {people.lastName}
-            </span>
-            <span>
-            {people.citizenID}
-            </span>
-
-            <span>
-            {people.nickname?people.nickname:''}
-            </span>
-
-            <span>
-            {people.age}
-            </span>
-            
-            <span>
-            {people.gender}
-            </span>
-
-            
-                <span>{people.provinces.name} </span>
-
-                <span>{people.municipalities.name}</span>
-
-                <span>{people.districts.name?people.districts.name: ''}</span>
-
-                
-                
             </a>
-            
+            <div className="navbar-search-block">
+                <form className="form-inline">
+                    <div className="input-group input-group-sm">
+                        <input
+                            className="form-control form-control-navbar"
+                            type="search"
+                            placeholder="Nombre, Apellido o Cedula"
+                            aria-label="Search"
+                            onChange={findingWord}
+                        />
+                        <div className="input-group-append">
+                            <button className="btn btn-navbar" type="submit">
+                                <i className="fas fa-search" />
+                            </button>
+                            <button
+                                className="btn btn-navbar"
+                                type="button"
+                                data-widget="navbar-search"
+                                onClick={show}
+                            >
+                                <i className="fas fa-times" />
+                            </button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+
+            <div
+                className="searchBox callout callout-info"
+                style={{ display: isShow ? "block" : "none" }}
+            >
+                <span className="dropdown-item dropdown-header">
+                    {count > 1
+                        ? `${count.toLocaleString("en-US")} coincidencias`
+                        : count === 1
+                        ? `${count.toLocaleString("en-US")} coincidencia`
+                        : ""}
+                </span>
+                <div className="table-responsive p-0 container-table-search">
+                    {count ? (
+                        <table className="table ">
+                            <thead></thead>
+                            <tbody>
+                                {results?.map((people) => (
+                                    <tr
+                                        key={people.id}
+                                        className="people-finding"
+                                    >
+                                        <td>
+                                            {console.log(people)}
+                                            <img
+                                                style={{
+                                                    float: "left",
+                                                    width: "125px",
+                                                    marginRight: "5px",
+                                                }}
+                                                src={`${
+                                                    import.meta.env
+                                                        .VITE_API_SERVER
+                                                }/api/v1/images/pic/mun/${
+                                                    people?.municipality
+                                                }/${people?.citizenID}`}
+                                                alt={people?.firstName}
+                                            />
+                                            <ul
+                                                className="demographic-information"
+                                                style={{
+                                                    margin: "0",
+                                                    padding: "0",
+                                                }}
+                                            >
+                                                <li>
+                                                    <span>
+                                                        {people?.firstName}{" "}
+                                                        {people?.lastName}{" "}
+                                                        {people?.lastNameB}{" "}
+                                                        {people?.nickname ? (
+                                                            <small>
+                                                                (
+                                                                {
+                                                                    people?.nickname
+                                                                }
+                                                                )
+                                                            </small>
+                                                        ) : (
+                                                            ""
+                                                        )}
+                                                    </span>
+                                                </li>
+                                                <li>
+                                                    <span></span>
+                                                </li>
+                                                <li>
+                                                    <span>{`${people?.citizenID.substr(
+                                                        0,
+                                                        3
+                                                    )}-${people?.citizenID.substr(
+                                                        3,
+                                                        7
+                                                    )}-${people?.citizenID.substr(
+                                                        10,
+                                                        1
+                                                    )}`}</span>
+                                                </li>
+                                                <li>
+                                                    Distritto:{" "}
+                                                    <span>
+                                                        {
+                                                            people?.districts
+                                                                ?.name
+                                                        }{" "}
+                                                    </span>
+                                                </li>
+                                                <li>
+                                                    Municipio:{" "}
+                                                    <span>
+                                                        {
+                                                            people
+                                                                ?.municipalities
+                                                                ?.description
+                                                        }
+                                                    </span>
+                                                </li>
+                                                <li>
+                                                    Provincia:{" "}
+                                                    <span>
+                                                        {
+                                                            people?.provinces
+                                                                ?.Descripcion
+                                                        }{" "}
+                                                    </span>
+                                                </li>
+                                                <li>
+                                                    Colegio:{" "}
+                                                    <span>
+                                                        {people?.colegio?.collegeNumber
+                                                            .toString()
+                                                            .padStart(4, "0")}
+                                                    </span>
+                                                </li>
+                                                <li>
+                                                    Recinto:{" "}
+                                                    <span>
+                                                        {
+                                                            people?.colegio
+                                                                ?.precinctData
+                                                                ?.descripcion
+                                                        }{" "}
+                                                        {people?.colegio?.precinctData?.precintNumber
+                                                            .toString()
+                                                            .padStart(4, "0")}
+                                                    </span>
+                                                </li>
+                                                <li>
+                                                    {people?.leaders ? (
+                                                        <Link
+                                                            to={`/mypeople/${people?.leaders?.censu?.id}`}
+                                                        >
+                                                            {
+                                                                people?.leaders
+                                                                    ?.censu
+                                                                    ?.firstName
+                                                            }
+                                                        </Link>
+                                                    ) : (
+                                                        ""
+                                                    )}
+                                                </li>
+                                            </ul>
+
+                                            <div
+                                                className="card-footer"
+                                                style={{
+                                                    display: "flex",
+                                                    justifyContent:
+                                                        "flex-start",
+                                                    gap: "20px",
+                                                }}
+                                            >
+                                                <Link
+                                                    to={`/mypeople/${people?.id}`}
+                                                >
+                                                    <button className="btn btn-primary">
+                                                        <i className="far fa-eye search-tool "></i>
+                                                    </button>
+                                                </Link>
+                                                {people?.leader ? (
+                                                    <Link
+                                                        to={`/mypeople/${people?.leaders?.censu?.id}`}
+                                                        className=" btn btn-default"
+                                                    >
+                                                        <i className="fas fa-user-check search-tool less"></i>
+                                                    </Link>
+                                                ) : (
+                                                    <button
+                                                        className=" btn btn-success "
+                                                        onClick={() =>
+                                                            addPeople(
+                                                                people?.id,
+                                                                people?.citizenID
+                                                            )
+                                                        }
+                                                    >
+                                                        <i className="fas fa-user-plus search-tool"></i>
+                                                    </button>
+                                                )}
+                                                <Link
+                                                    to={`/mypeople/${people?.id}`}
+                                                >
+                                                    <button className=" btn btn-warning">
+                                                        <i className="fas fa-user-edit search-tool"></i>
+                                                    </button>
+                                                </Link>
+
+                                                <button
+                                                    className={` btn ${
+                                                        people?.sufragio
+                                                            ?.suffrage
+                                                            ? "btn-success"
+                                                            : "btn-danger"
+                                                    }`}
+                                                >
+                                                    {people?.sufragio?.suffrage
+                                                        ? "Votó"
+                                                        : "No Votó"}
+                                                </button>
+                                                <div
+                                                    className={` btn btn-dark`}
+                                                >
+                                                    Posición: {people?.position}
+                                                </div>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                ))}
+                            </tbody>
+                        </table>
+                    ) : (
+                        <div>
+                            <h5>Sin resultados</h5>
+                            <p>
+                                Intente buscar por nombre, apellido o apodo
+                                numero de cedula sin los guiones
+                            </p>
+                        </div>
+                    )}
+                </div>
+
+                <div className="dropdown-divider" />
+                {count ? (
+                    <a href="#" className="dropdown-item dropdown-footer">
+                        Ver todos los resultados
+                    </a>
+                ) : (
+                    ""
+                )}
+                <div className="loading">
+                    {isLoading ? <Cargando escala="0.3" /> : ""}
+                </div>
+            </div>
         </li>
-        )
+    );
+};
 
-    :<li  className="lineDivider"> Sin resultados</li>
-       
-      }
-      </ul>
-     
-      <div className="dropdown-divider" />
-        {
-            count?
-          
-                <a href="#" className="dropdown-item dropdown-footer">Ver todos los resultados</a>
-            
-                :''
-        }
-        <div className='loading'>
-            {
-                isLoading? <Cargando escala='0.3'/>: ''
-            }
-
-       
-        </div>
-      </div>
-   
-{/*       
-      <div className="dropdown-menu show">
-        <span className="dropdown-item dropdown-header">15 Notifications</span>
-        <div className="dropdown-divider" />
-        <a href="#" className="dropdown-item">
-          <i className="fas fa-envelope mr-2" /> 4 new messages
-          <span className="float-right text-muted text-sm">3 mins</span>
-        </a>
-        <div className="dropdown-divider" />
-        <a href="#" className="dropdown-item">
-          <i className="fas fa-users mr-2" /> 8 friend requests
-          <span className="float-right text-muted text-sm">12 hours</span>
-        </a>
-        <div className="dropdown-divider" />
-        <a href="#" className="dropdown-item">
-          <i className="fas fa-file mr-2" /> 3 new reports
-          <span className="float-right text-muted text-sm">2 days</span>
-        </a>
-        <div className="dropdown-divider" />
-        <a href="#" className="dropdown-item dropdown-footer">See All Notifications</a>
-      </div> */}
-    </li>
-   
-  )
-}
-
-export default SearhPeople
+export default SearhPeople;

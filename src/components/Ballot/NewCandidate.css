@@ -1,0 +1,10 @@
+.new-candidate-form input{
+    display: inline-block;
+ margin: 10px
+}
+
+.divisorHorizontal{
+    background-color: rgb(200, 200, 200);
+    border-top: 1px solid #e9ecef;
+    margin-top: 100px;
+}

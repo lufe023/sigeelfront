@@ -1,7 +1,7 @@
 .searchBox{
-    width: 90%;
+    width: 95%;
     position: absolute;
-    left: 30px;
+    left: 16px;
     top: 40px;
     background-color: #fff;
     border: 1px solid rgba(0,0,0,.15);
@@ -9,7 +9,6 @@
     box-shadow: 0 0.5rem 1rem rgb(0 0 0 / 18%);
     display: none;
     z-index: 3;
-
 }
 
 .findBox{
@@ -25,19 +24,11 @@
 }
 
 .people-finding{
-    height: 47px;
-    display:inline-block;
-    text-decoration: none;
-    padding: 0.25rem 1rem;
-    clear: both;
-    font-weight: 400;
-    color: #212529;
-    text-align: inherit;
-    
+    cursor: pointer;
 }
+
 .people-finding:hover{
-color: #0056b3;
-    text-decoration: none;
+    color: #0080ff;
 }
 
 .lineDivider span {
@@ -49,5 +40,33 @@ color: #0056b3;
     display: flex;
     align-items: center;
     justify-content: center;
-
 }
+
+.search-tools-box{
+    display: flex;
+    justify-content: space-around;
+}
+
+
+.search-tool:hover{
+scale: 1.5;
+transition: scale 0.1s ease-out;
+}
+
+.demographic-information li {
+    list-style: none;
+}
+
+.demographic-information li span{
+    font-weight: 600;
+}
+
+.container-table-search{
+    max-height: 50vh;
+}
+
+/*tools*/
+.fa-user-check{
+    color: green;
+}
+
