@@ -107,13 +107,18 @@ const MyPeople = () => {
                         <div className="col-12"></div>
                     </div>
                     <div className="row">
-                        {results?.map((result) => (
-                            <PeopleCard
-                                key={result.id}
-                                people={result}
-                                getMypeople={getMypeople}
-                            />
-                        ))}
+                        {results?.map(
+                            (result) => (
+                                console.log(result),
+                                (
+                                    <PeopleCard
+                                        key={result.id}
+                                        people={result}
+                                        getMypeople={getMypeople}
+                                    />
+                                )
+                            )
+                        )}
                     </div>
 
                     {/*vista de mapa*/}

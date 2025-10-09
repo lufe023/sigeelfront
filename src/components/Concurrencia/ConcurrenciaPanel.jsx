@@ -102,6 +102,13 @@ const ConcurrenciaPanel = ({ citizens }) => {
                                                                 </small>
                                                                 <Link
                                                                     to={`/precints`}
+                                                                    className="text-xs"
+                                                                    style={{
+                                                                        lineHeight:
+                                                                            "0px",
+                                                                        fontWeight:
+                                                                            "lighter",
+                                                                    }}
                                                                 >
                                                                     {citizen?.colegio?.precinctData?.descripcion.substring(
                                                                         0,

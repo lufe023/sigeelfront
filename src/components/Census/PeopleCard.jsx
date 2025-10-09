@@ -46,13 +46,7 @@ const PeopleCard = ({ people, getMypeople }) => {
             }
         });
     };
-    // const pendingFields = [
-    //   {latitud:"latitud"},
-    //   {adress:"adress"},
-    //   {celphone:"celphone"},
-    //   {telephone:"telephone"},
-    //   {otherPhone:"otherPhone"},
-    //   {nickname:"nickname"}];
+
     const pendingFields = [
         "latitud",
         "adress",
@@ -333,17 +327,20 @@ const PeopleCard = ({ people, getMypeople }) => {
                                     </div>
                                 </li>
                             ))}
+                            {console.log(people?.citizenID)}
                             {
                                 people.condition ? (
                                     <UpdateConditions
                                         condition={people.condition}
-                                        citizenID={people?.citizenID}
+                                        citizenID={people.citizenID}
                                         key={people?.citizenID?.citizenID}
+                                        getPeople={getMypeople}
                                     />
                                 ) : (
                                     <NewConditions
-                                        citizenID={people?.citizenID}
-                                        key={people?.citizenID?.citizenID}
+                                        citizenID={people.citizenID}
+                                        key={people.citizenID.citizenID}
+                                        getPeople={getMypeople}
                                     />
                                 )
                                 /* <NewConditions/> */

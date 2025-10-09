@@ -69,12 +69,12 @@ const LookUser = () => {
                                     <div></div>
                                     <div>
                                         <img
-                                            className="img-circle img-bordered-sm"
                                             src={`${
                                                 import.meta.env.VITE_API_SERVER
-                                            }/api/v1/images/citizen/${
-                                                user?.picture
-                                            }`}
+                                            }/api/v1/images/pic/mun/${
+                                                user?.municipality
+                                            }/${user?.citizenID}`}
+                                            className="img-circle img-bordered-sm"
                                             alt="user image"
                                         />
                                         <span className="username">
