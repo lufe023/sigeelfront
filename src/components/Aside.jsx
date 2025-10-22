@@ -25,10 +25,6 @@ const Aside = () => {
         getUserbyId();
     }, []);
 
-    if (user?.censu?.firstName == "Cargando") {
-        getUserbyId();
-    }
-
     const first_name = user?.censu?.firstName;
 
     const last_name = user?.censu?.lastName;
@@ -56,15 +52,10 @@ const Aside = () => {
                             src={`${
                                 import.meta.env.VITE_API_SERVER
                             }/api/v1/images/pic/mun/${
-                                user?.censu.municipality
-                            }/${user?.censu.citizenID}`}
+                                user?.censu?.municipality
+                            }/${user?.censu?.citizenID}`}
                             alt={user?.censu?.firstName}
                             className="img-circle elevation-2"
-                            // src={`${
-                            //     import.meta.env.VITE_API_SERVER
-                            // }/api/v1/images/pic/mun/${picture}`}
-                            // className="img-circle elevation-2"
-                            // alt="User Image"
                         />
                     </div>
                     <div className="info">
