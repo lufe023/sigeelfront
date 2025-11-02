@@ -53,6 +53,7 @@ const Delegate = () => {
         let URL = `${
             import.meta.env.VITE_API_SERVER
         }/api/v1/census/colegio/${collegeId}?offset=${offset}&limit=${limit}`;
+
         if (pagination.includeExterior) {
             URL = `${
                 import.meta.env.VITE_API_SERVER
