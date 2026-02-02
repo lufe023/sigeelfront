@@ -9,10 +9,11 @@ import "../../Precints/CitizenByCollege.css";
 import { Link } from "react-router-dom";
 import Swal from "sweetalert2";
 import ListByCollege from "./ListByCollege";
+import { set } from "react-hook-form";
 const Delegate = () => {
     const [precints, setPrecints] = useState();
     const [selectedPrecint, setSelectedPrecint] = useState();
-
+    const [isLoading, setIsloading] = useState(false);
     const [formData, setFormData] = useState({
         id: 0,
         precinct: "",
@@ -22,6 +23,7 @@ const Delegate = () => {
         college: "",
     });
 
+    const [searchTerm, setSearchTerm] = useState("");
     const getAllPrecints = () => {
         const URL = `${import.meta.env.VITE_API_SERVER}/api/v1/jce/precints`;
         axios
@@ -38,7 +40,7 @@ const Delegate = () => {
 
     const [citizens, setCitizens] = useState();
     const [collegeData, setCollegeData] = useState();
-    const [isLoading, setIsloading] = useState(false);
+
     const [pagination, setPagination] = useState({
         offset: 0,
         limit: 10,
@@ -48,8 +50,22 @@ const Delegate = () => {
         includeExterior: false,
     });
 
+    const onCollegeChange = () => {
+        setCitizens();
+        setCollegeData();
+        setPagination({
+            offset: 0,
+            limit: 10,
+            count: 0,
+            next: "",
+            prev: "",
+            includeExterior: pagination.includeExterior,
+        });
+    };
+
     const getAllPeopleyByCollege = (collegeId, offset, limit) => {
-        console.log(collegeId, offset, limit);
+        setIsloading(true);
+
         let URL = `${
             import.meta.env.VITE_API_SERVER
         }/api/v1/census/colegio/${collegeId}?offset=${offset}&limit=${limit}`;
@@ -77,10 +93,13 @@ const Delegate = () => {
                     includeExterior: res.data.includeExterior,
                 });
             })
-            .catch((err) => console.log(err));
-        setIsloading(false);
+            .catch((err) => {
+                console.log(err);
+                setIsloading(false);
+            });
     };
     const handleChange = (e) => {
+        onCollegeChange();
         const { name, value } = e.target;
         setFormData((prevData) => ({
             ...prevData,
@@ -106,7 +125,7 @@ const Delegate = () => {
                 {
                     peopleId: people,
                 },
-                getConfig()
+                getConfig(),
             )
             .then((res) => {
                 const Toast = Swal.mixin({
@@ -128,7 +147,7 @@ const Delegate = () => {
                 getAllPeopleyByCollege(
                     formData.college,
                     pagination.offset,
-                    pagination.limit
+                    pagination.limit,
                 );
             })
             .catch((err) => {
@@ -165,7 +184,7 @@ const Delegate = () => {
     }
 
     const pageNumbers = [...Array(endPage - startPage + 1).keys()].map(
-        (num) => num + startPage
+        (num) => num + startPage,
     );
 
     const paginationElements = pageNumbers.map((pageNumber) => (
@@ -184,7 +203,7 @@ const Delegate = () => {
                         formData.college,
                         (pageNumber - 1) * pagination.limit,
                         pagination.limit,
-                        pagination.includeExterior
+                        pagination.includeExterior,
                     )
                 }
             >
@@ -212,206 +231,338 @@ const Delegate = () => {
                             <div className="col-md-10 offset-md-1">
                                 <form>
                                     <div className="row">
+                                        {/* COLUMNA DE RECINTOS */}
                                         <div className="col-sm-6">
                                             <div className="form-group">
-                                                <label>Recinto</label>
+                                                <label className="font-weight-bold text-primary">
+                                                    <i className="fa fa-building mr-1"></i>{" "}
+                                                    Seleccione un Recinto
+                                                </label>
+
+                                                {/* BUSCADOR INTEGRADO */}
+                                                <input
+                                                    type="text"
+                                                    className="form-control form-control-sm mb-2"
+                                                    placeholder="Filtrar recinto..."
+                                                    value={searchTerm}
+                                                    onChange={(e) =>
+                                                        setSearchTerm(
+                                                            e.target.value,
+                                                        )
+                                                    }
+                                                />
+
                                                 <div
+                                                    className="scroll-container"
                                                     style={{
                                                         backgroundColor:
-                                                            "white",
-                                                        padding: "20px",
-                                                        overflowX: "hidden",
-                                                        overFlowY: "scroll",
-                                                        height: "150px",
+                                                            "#f8f9fa",
+                                                        padding: "10px",
+                                                        borderRadius: "8px",
+                                                        border: "1px solid #dee2e6",
+                                                        overflowY: "auto",
+                                                        height: "300px",
                                                     }}
                                                 >
-                                                    {console.log(precints)}
-                                                    {precints?.map(
-                                                        (recinto) => (
+                                                    {precints
+                                                        ?.filter((r) =>
+                                                            r.descripcion
+                                                                .toLowerCase()
+                                                                .includes(
+                                                                    searchTerm.toLowerCase(),
+                                                                ),
+                                                        )
+                                                        .map((recinto) => (
                                                             <div
                                                                 key={
                                                                     recinto?.PrecinctId
                                                                 }
-                                                                className="custom-control custom-radio"
+                                                                className="custom-control custom-radio border-bottom py-2"
+                                                                style={{
+                                                                    cursor: "pointer",
+                                                                }}
                                                             >
                                                                 <input
-                                                                    className="custom-control-input"
                                                                     type="radio"
-                                                                    id={
-                                                                        recinto?.PrecinctId
-                                                                    }
+                                                                    className="custom-control-input"
+                                                                    id={`precinct-${recinto?.PrecinctId}`}
                                                                     name="precinct"
-                                                                    onChange={() =>
+                                                                    onChange={() => {
                                                                         setSelectedPrecint(
-                                                                            recinto?.colegios
-                                                                        )
-                                                                    }
+                                                                            recinto?.colegios,
+                                                                        );
+                                                                    }}
                                                                 />
                                                                 <label
-                                                                    htmlFor={
-                                                                        recinto?.PrecinctId
-                                                                    }
-                                                                    className="custom-control-label"
+                                                                    htmlFor={`precinct-${recinto?.PrecinctId}`}
+                                                                    className="custom-control-label d-flex flex-column w-100"
+                                                                    style={{
+                                                                        cursor: "pointer",
+                                                                    }}
                                                                 >
-                                                                    <small className="badge badge-primary">
-                                                                        {recinto?.precintNumber
-                                                                            .toString()
-                                                                            .padStart(
-                                                                                5,
-                                                                                "0"
-                                                                            )}{" "}
+                                                                    <div className="d-flex align-items-center mb-1">
+                                                                        <span className="badge badge-primary mr-2">
+                                                                            {recinto?.precintNumber
+                                                                                ?.toString()
+                                                                                .padStart(
+                                                                                    4,
+                                                                                    "0",
+                                                                                )}
+                                                                        </span>
+                                                                        <span
+                                                                            className="font-weight-bold text-dark text-uppercase"
+                                                                            style={{
+                                                                                fontSize:
+                                                                                    "0.85rem",
+                                                                            }}
+                                                                        >
+                                                                            {
+                                                                                recinto?.descripcion
+                                                                            }
+                                                                        </span>
+                                                                    </div>
+                                                                    <div className="text-muted small">
                                                                         {
-                                                                            recinto?.descripcion
+                                                                            recinto?.direccionRecinto
                                                                         }
-                                                                    </small>{" "}
-                                                                    {/* <small className="badge badge-info"> 
-                        {recinto?.PrecinctsDistrito[0]?.name? `${recinto?.PrecinctsMunicipio[0]?.name}, ${recinto?.PrecinctsDistrito[0]?.name}`:recinto?.PrecinctsMunicipio[0]?.name}
-                        </small> */}{" "}
-                                                                    {
-                                                                        recinto?.recintoNombre
-                                                                    }
+                                                                    </div>
                                                                 </label>
                                                             </div>
+                                                        ))}
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        {/* COLUMNA DE COLEGIOS */}
+                                        <div className="col-sm-6">
+                                            <div className="form-group">
+                                                <label className="font-weight-bold text-success d-flex justify-content-between align-items-center">
+                                                    <span>
+                                                        <i className="fa fa-list-ol mr-1"></i>{" "}
+                                                        Colegios en este recinto
+                                                    </span>
+                                                    {/* CONTADOR DE TOTAL DE COLEGIOS */}
+                                                    {selectedPrecint &&
+                                                        selectedPrecint.length >
+                                                            0 && (
+                                                            <span className="badge badge-success badge-pill">
+                                                                Total:{" "}
+                                                                {
+                                                                    selectedPrecint.length
+                                                                }
+                                                            </span>
+                                                        )}
+                                                </label>
+
+                                                {/* Input vacío para mantener la simetría de altura con el buscador de la izquierda */}
+                                                <div
+                                                    style={{
+                                                        height: "31px",
+                                                        marginBottom: "0.5rem",
+                                                    }}
+                                                ></div>
+
+                                                <div
+                                                    className="scroll-container"
+                                                    style={{
+                                                        backgroundColor:
+                                                            "white",
+                                                        padding: "10px",
+                                                        borderRadius: "8px",
+                                                        border: "1px solid #dee2e6",
+                                                        overflowY: "auto",
+                                                        height: "300px",
+                                                        boxShadow:
+                                                            "inset 0 2px 4px rgba(0,0,0,0.05)",
+                                                    }}
+                                                >
+                                                    {!selectedPrecint ||
+                                                    selectedPrecint.length ===
+                                                        0 ? (
+                                                        <div className="text-center text-muted mt-5">
+                                                            <i className="fa fa-arrow-left d-block mb-2"></i>
+                                                            <small>
+                                                                Seleccione un
+                                                                recinto para ver
+                                                                sus colegios
+                                                            </small>
+                                                        </div>
+                                                    ) : (
+                                                        selectedPrecint.map(
+                                                            (colegio) => (
+                                                                <div
+                                                                    key={
+                                                                        colegio?.CollegeId
+                                                                    }
+                                                                    className="custom-control custom-radio border-bottom py-2"
+                                                                >
+                                                                    <input
+                                                                        type="radio"
+                                                                        className="custom-control-input"
+                                                                        id={`college-${colegio?.CollegeId}`}
+                                                                        name="college"
+                                                                        value={
+                                                                            colegio?.CollegeId
+                                                                        }
+                                                                        checked={
+                                                                            String(
+                                                                                formData.college,
+                                                                            ) ===
+                                                                            String(
+                                                                                colegio?.CollegeId,
+                                                                            )
+                                                                        }
+                                                                        onChange={
+                                                                            handleChange
+                                                                        }
+                                                                        required
+                                                                    />
+                                                                    <label
+                                                                        htmlFor={`college-${colegio?.CollegeId}`}
+                                                                        className="custom-control-label d-flex flex-row align-items-center justify-content-between w-100"
+                                                                        style={{
+                                                                            cursor: "pointer",
+                                                                        }}
+                                                                    >
+                                                                        <div>
+                                                                            <span
+                                                                                className="font-weight-bold text-success"
+                                                                                style={{
+                                                                                    fontSize:
+                                                                                        "1.1rem",
+                                                                                }}
+                                                                            >
+                                                                                Colegio{" "}
+                                                                                {colegio?.collegeNumber
+                                                                                    ?.toString()
+                                                                                    .padStart(
+                                                                                        4,
+                                                                                        "0",
+                                                                                    )}
+                                                                            </span>
+                                                                            <div className="text-muted small">
+                                                                                <span className="mr-2">
+                                                                                    Local:{" "}
+                                                                                    <strong>
+                                                                                        {
+                                                                                            colegio?.electLocal
+                                                                                        }
+                                                                                    </strong>
+                                                                                </span>
+                                                                                <span>
+                                                                                    Exterior:{" "}
+                                                                                    <strong>
+                                                                                        {
+                                                                                            colegio?.electExterior
+                                                                                        }
+                                                                                    </strong>
+                                                                                </span>
+                                                                            </div>
+                                                                        </div>
+                                                                        {colegio?.TieneCupo ===
+                                                                            "S" && (
+                                                                            <span className="badge badge-success">
+                                                                                Disponible
+                                                                            </span>
+                                                                        )}
+                                                                    </label>
+                                                                </div>
+                                                            ),
                                                         )
                                                     )}
                                                 </div>
                                             </div>
                                         </div>
-                                        <div className="col-sm-6">
+                                    </div>
+
+                                    {/* PAGINACIÓN Y FILTROS EXTRA */}
+                                    <div className="row mt-3">
+                                        <div className="col-md-6">
                                             <div className="form-group">
-                                                <label>
-                                                    Colegios en este recinto
+                                                <label className="small font-weight-bold">
+                                                    Personas por Página
                                                 </label>
                                                 <select
                                                     className="form-control"
-                                                    name="college"
-                                                    onChange={handleChange}
-                                                    required
-                                                    size={4}
-                                                >
-                                                    {selectedPrecint?.map(
-                                                        (colegio) => (
-                                                            <option
-                                                                key={
-                                                                    colegio?.id
-                                                                }
-                                                                value={
-                                                                    colegio?.id
-                                                                }
-                                                            >
-                                                                Colegio{" "}
-                                                                {colegio?.collegeNumber
-                                                                    .toString()
-                                                                    .padStart(
-                                                                        4,
-                                                                        "0"
-                                                                    )}
-                                                            </option>
+                                                    value={pagination.limit}
+                                                    onChange={(e) =>
+                                                        setPagination(
+                                                            (prev) => ({
+                                                                ...prev,
+                                                                limit: parseInt(
+                                                                    e.target
+                                                                        .value,
+                                                                ),
+                                                            }),
                                                         )
+                                                    }
+                                                >
+                                                    {[10, 20, 50, 70, 100].map(
+                                                        (num) => (
+                                                            <option
+                                                                key={num}
+                                                                value={num}
+                                                            >
+                                                                {num}
+                                                            </option>
+                                                        ),
                                                     )}
                                                 </select>
                                             </div>
                                         </div>
-                                    </div>
-                                    <div className="form-group">
-                                        <div className="row">
-                                            <div className="col-md-6">
-                                                <div className="form-group">
-                                                    <label>
-                                                        Personas por Paginas
-                                                    </label>
-                                                    <select
-                                                        className="form-control"
-                                                        value={pagination.limit}
-                                                        onChange={(e) => {
-                                                            const newLimit =
-                                                                parseInt(
-                                                                    e.target
-                                                                        .value
-                                                                );
-                                                            setPagination(
-                                                                (
-                                                                    prevPagination
-                                                                ) => ({
-                                                                    ...prevPagination,
-                                                                    limit: newLimit,
-                                                                })
-                                                            );
-                                                        }}
+
+                                        <div className="col-md-6">
+                                            <div className="form-group">
+                                                <label className="small font-weight-bold">
+                                                    Incluir Padrón Exterior
+                                                </label>
+                                                <div className="custom-control custom-switch custom-switch-off-danger custom-switch-on-success">
+                                                    <input
+                                                        type="checkbox"
+                                                        className="custom-control-input"
+                                                        id="includeExteriorSwitch"
+                                                        name="includeExterior"
+                                                        checked={
+                                                            pagination.includeExterior
+                                                        }
+                                                        onChange={
+                                                            handleChangePagination
+                                                        }
+                                                    />
+                                                    <label
+                                                        className="custom-control-label"
+                                                        htmlFor="includeExteriorSwitch"
                                                     >
-                                                        <option>10</option>
-                                                        <option>20</option>
-                                                        <option>50</option>
-                                                        <option>70</option>
-                                                        <option>100</option>
-                                                    </select>
-                                                </div>
-                                            </div>
-                                            <div className="col-md-6">
-                                                <div className="form-group">
-                                                    <label>
-                                                        Incluir Padrón Exterior
+                                                        {pagination.includeExterior
+                                                            ? "Incluyendo"
+                                                            : "Excluyendo"}
                                                     </label>
-                                                    <div className="form-group">
-                                                        <div className="custom-control custom-switch custom-switch-off-danger custom-switch-on-success">
-                                                            <input
-                                                                type="checkbox"
-                                                                className="custom-control-input"
-                                                                id="customSwitch3"
-                                                                name="includeExterior"
-                                                                checked={
-                                                                    pagination.includeExterior
-                                                                }
-                                                                onChange={
-                                                                    handleChangePagination
-                                                                }
-                                                            />
-                                                            <label
-                                                                className="custom-control-label"
-                                                                htmlFor="customSwitch3"
-                                                            >
-                                                                {pagination.includeExterior
-                                                                    ? "Incluyendo"
-                                                                    : "Excluyendo"}
-                                                            </label>
-                                                        </div>
-                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
+                                    </div>
+
+                                    {/* BOTÓN DE ACCIÓN */}
+                                    <div className="row">
                                         <div className="col-md-12">
                                             <button
                                                 type="button"
-                                                className="btn btn-primary btn-block"
+                                                className="btn btn-primary btn-block shadow-sm"
+                                                disabled={!formData.college}
                                                 onClick={() => {
                                                     getAllPeopleyByCollege(
                                                         formData.college,
                                                         pagination.offset,
-                                                        pagination.limit
-                                                    ),
-                                                        setIsloading(true);
+                                                        pagination.limit,
+                                                    );
                                                 }}
                                             >
-                                                <i className="fa fa-search" />{" "}
-                                                Ver
+                                                <i className="fa fa-search mr-1" />{" "}
+                                                Ver Resultados
                                             </button>
                                         </div>
                                     </div>
                                 </form>
-
-                                {isLoading ? (
-                                    <div
-                                        className="loading"
-                                        style={{
-                                            height: "100px",
-                                            marginBottom: "100px",
-                                        }}
-                                    >
-                                        <Cargando escala="2" />
-                                    </div>
-                                ) : (
-                                    ""
-                                )}
                             </div>
                         </div>
 
@@ -445,7 +596,7 @@ const Delegate = () => {
                                                         formData.college,
                                                         pagination.offset -
                                                             pagination.limit,
-                                                        pagination.limit
+                                                        pagination.limit,
                                                     )
                                                 }
                                                 className="page-link"
@@ -468,7 +619,7 @@ const Delegate = () => {
                                                         formData.college,
                                                         pagination.offset +
                                                             pagination.limit,
-                                                        pagination.limit
+                                                        pagination.limit,
                                                     )
                                                 }
                                                 className="page-link"
@@ -482,7 +633,18 @@ const Delegate = () => {
                         ) : (
                             ""
                         )}
-                        {citizens ? (
+                        {isLoading ? (
+                            <div
+                                className="w100 text-center my-4 h-100"
+                                style={{ minHeight: 400 }}
+                            >
+                                <Cargando escala="2" />
+                            </div>
+                        ) : (
+                            ""
+                        )}
+
+                        {citizens && !isLoading ? (
                             <>
                                 <div className="card">
                                     <div className="card-header bg-dark">
@@ -554,7 +716,7 @@ const Delegate = () => {
                                                         formData.college,
                                                         pagination.offset -
                                                             pagination.limit,
-                                                        pagination.limit
+                                                        pagination.limit,
                                                     )
                                                 }
                                                 className="page-link"
@@ -577,7 +739,7 @@ const Delegate = () => {
                                                         formData.college,
                                                         pagination.offset +
                                                             pagination.limit,
-                                                        pagination.limit
+                                                        pagination.limit,
                                                     )
                                                 }
                                                 className="page-link"

@@ -29,7 +29,6 @@ const AllUsers = ({ users, userDisable, getAllUsers, currentPage }) => {
                     {users?.map((user) => (
                         <li className="item" key={user.id}>
                             <div className="product-img">
-                                {console.log(user)}
                                 <img
                                     src={`${
                                         import.meta.env.VITE_API_SERVER

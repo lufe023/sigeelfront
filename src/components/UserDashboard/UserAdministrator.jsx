@@ -13,6 +13,7 @@ import copy from "clipboard-copy";
 import Swal from "sweetalert2";
 import changeUserRole from "../UserDashboard/changeUserRole";
 import TransferCensus from "./TransferCensus";
+import UserMunicipalitiesAccess from "../UserDashboard/userMunicipalitiesAccess";
 
 const UserAdministrator = () => {
     const [people, setPeople] = useState();
@@ -20,6 +21,21 @@ const UserAdministrator = () => {
     const [updates, setUpdates] = useState();
     const [selectedRole, setSelectedRole] = useState("");
     const { id } = useParams();
+    const [municipios, setMunicipios] = useState([]);
+    const [municipiosUsuario, setMunicipiosUsuario] = useState([]);
+
+    const getMunicipiosUsuario = (userId) => {
+        const URL = `${
+            import.meta.env.VITE_API_SERVER
+        }/api/v1/usuario-municipio/municipios/${userId}`;
+        axios
+            .get(URL, getConfig())
+            .then((res) => {
+                setMunicipiosUsuario(res.data);
+            })
+            .catch((err) => console.log(err));
+    };
+
     const getPeople = () => {
         const URL = `${import.meta.env.VITE_API_SERVER}/api/v1/users/${id}`;
         axios
@@ -27,11 +43,26 @@ const UserAdministrator = () => {
             .then((res) => {
                 setPeople(res.data.censu);
                 setUser(res.data);
+                getMunicipiosUsuario(id);
             })
             .catch((err) => console.log(err));
     };
+
+    const getMunicipios = () => {
+        const URL = `${
+            import.meta.env.VITE_API_SERVER
+        }/api/v1/usuario-municipio/municipios`;
+        axios
+            .get(URL, getConfig())
+            .then((res) => {
+                setMunicipios(res.data);
+            })
+            .catch((err) => console.log(err));
+    };
+
     useEffect(() => {
         getPeople();
+        getMunicipios();
     }, [id]);
 
     const urlRecuperation = `${
@@ -669,6 +700,17 @@ const UserAdministrator = () => {
                                     <TransferCensus
                                         people={people}
                                         user={user}
+                                    />
+
+                                    <UserMunicipalitiesAccess
+                                        municipios={municipios}
+                                        municipiosUsuario={municipiosUsuario}
+                                        idusuario={id}
+                                        onChange={(nuevosMunicipios) =>
+                                            setMunicipiosUsuario(
+                                                nuevosMunicipios
+                                            )
+                                        }
                                     />
                                 </div>
 

@@ -14,7 +14,6 @@ const LockAdmin = ({ setAccess, setPasswordFail, passwordFail }) => {
     const [user, setUser] = useState(useSelector((state) => state.userSlice));
     const [msg, setMsg] = useState();
     const { register, handleSubmit, reset } = useForm();
-    console.log(user.censu);
     const getUserbyId = () => {
         const URL = `${import.meta.env.VITE_API_SERVER}/api/v1/users/me`;
         axios
@@ -23,7 +22,7 @@ const LockAdmin = ({ setAccess, setPasswordFail, passwordFail }) => {
                 setUser(res.data);
             })
             .catch((err) => {
-                console.log(err);
+                console.error(err);
                 setPasswordFail(passwordFail + 1);
                 const Toast = Swal.mixin({
                     toast: true,
