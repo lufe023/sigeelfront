@@ -10,6 +10,25 @@ const SearhPeople = () => {
     const [results, setResults] = useState([]);
     const [count, setCount] = useState();
     const [isLoading, setIsloading] = useState(false);
+    const [searchTerm, setSearchTerm] = useState("");
+
+    useEffect(() => {
+        // Solo buscamos si hay contenido suficiente
+        if (searchTerm.length >= 3) {
+            setIsloading(true);
+
+            const delayDebounceFn = setTimeout(() => {
+                findPeople(searchTerm);
+            }, 500); // 500ms de espera
+
+            // Limpia el timeout si el usuario vuelve a escribir antes de los 500ms
+            return () => clearTimeout(delayDebounceFn);
+        } else {
+            setIsloading(false);
+            setResults([]);
+            setCount(0);
+        }
+    }, [searchTerm]);
 
     const addPeople = (people, citizenID) => {
         const URL = `${
@@ -21,7 +40,7 @@ const SearhPeople = () => {
                 {
                     peopleId: people,
                 },
-                getConfig()
+                getConfig(),
             )
             .then((res) => {
                 findPeople(citizenID);
@@ -35,13 +54,7 @@ const SearhPeople = () => {
     const findPeople = (findWord) => {
         const URL = `${import.meta.env.VITE_API_SERVER}/api/v1/census/search`;
         axios
-            .post(
-                URL,
-                {
-                    findWord: findWord,
-                },
-                getConfig()
-            )
+            .post(URL, { findWord }, getConfig())
             .then((res) => {
                 setResults(res.data.data.rows);
                 setCount(res.data.data.count);
@@ -50,21 +63,14 @@ const SearhPeople = () => {
             .catch((err) => {
                 console.error(err);
                 setResults([]);
-                setCount();
+                setCount(0);
+                setIsloading(false);
             });
     };
 
+    // 3. Simplificamos la función que recibe el evento del input
     const findingWord = (e) => {
-        const fn = e.target.value.trim();
-
-        if (fn != "" && fn.length >= 3) {
-            setIsloading(true);
-            findPeople(fn);
-        } else {
-            setIsloading(false);
-            setResults("");
-            setCount("");
-        }
+        setSearchTerm(e.target.value.trim());
     };
 
     return (
@@ -113,8 +119,8 @@ const SearhPeople = () => {
                     {count > 1
                         ? `${count.toLocaleString("en-US")} coincidencias`
                         : count === 1
-                        ? `${count.toLocaleString("en-US")} coincidencia`
-                        : ""}
+                          ? `${count.toLocaleString("en-US")} coincidencia`
+                          : ""}
                 </span>
                 <div className="table-responsive p-0 container-table-search">
                     {count ? (
@@ -170,13 +176,13 @@ const SearhPeople = () => {
                                                 <li className="text-xs">
                                                     <span>{`${people?.citizenID.substr(
                                                         0,
-                                                        3
+                                                        3,
                                                     )}-${people?.citizenID.substr(
                                                         3,
-                                                        7
+                                                        7,
                                                     )}-${people?.citizenID.substr(
                                                         10,
-                                                        1
+                                                        1,
                                                     )}`}</span>
                                                 </li>
                                                 <li className="text-xs">
@@ -282,7 +288,7 @@ const SearhPeople = () => {
                                                             onClick={() =>
                                                                 addPeople(
                                                                     people?.id,
-                                                                    people?.citizenID
+                                                                    people?.citizenID,
                                                                 )
                                                             }
                                                         >

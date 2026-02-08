@@ -20,7 +20,7 @@ const NewConditions = ({ citizenID, getPeople }) => {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        console.log(citizenID);
+
         const URL = `${
             import.meta.env.VITE_API_SERVER
         }/api/v1/intouch/condition/${citizenID}`;
@@ -47,7 +47,7 @@ const NewConditions = ({ citizenID, getPeople }) => {
                 setIsSave(false);
             })
             .catch((err) => {
-                console.log(err);
+                console.error(err);
                 const Toast = Swal.mixin({
                     toast: true,
                     position: "top-end",
@@ -71,7 +71,6 @@ const NewConditions = ({ citizenID, getPeople }) => {
         <div className="card card-warning collapsed-card">
             <div className="card-header">
                 <h3 className="card-title">
-                    {console.log(citizenID)}
                     {isSave ? (
                         <div>
                             <i className="fas fa-save" /> Cambios pendientes
@@ -111,7 +110,7 @@ const NewConditions = ({ citizenID, getPeople }) => {
                                         ...defaultCondition,
                                         conditionDetails: e.target.value,
                                     },
-                                    setIsSave(true)
+                                    setIsSave(true),
                                 )
                             }
                         />
@@ -131,7 +130,7 @@ const NewConditions = ({ citizenID, getPeople }) => {
                                             dyslexia:
                                                 !defaultCondition.dyslexia,
                                         },
-                                        setIsSave(true)
+                                        setIsSave(true),
                                     )
                                 }
                             />
@@ -155,7 +154,7 @@ const NewConditions = ({ citizenID, getPeople }) => {
                                             ...defaultCondition,
                                             visual: !defaultCondition.visual,
                                         },
-                                        setIsSave(true)
+                                        setIsSave(true),
                                     )
                                 }
                             />
@@ -180,7 +179,7 @@ const NewConditions = ({ citizenID, getPeople }) => {
                                             auditory:
                                                 !defaultCondition.auditory,
                                         },
-                                        setIsSave(true)
+                                        setIsSave(true),
                                     )
                                 }
                             />
@@ -204,7 +203,7 @@ const NewConditions = ({ citizenID, getPeople }) => {
                                             ...defaultCondition,
                                             motor: !defaultCondition.motor,
                                         },
-                                        setIsSave(true)
+                                        setIsSave(true),
                                     )
                                 }
                             />
@@ -229,7 +228,7 @@ const NewConditions = ({ citizenID, getPeople }) => {
                                             cognitive:
                                                 !defaultCondition.cognitive,
                                         },
-                                        setIsSave(true)
+                                        setIsSave(true),
                                     )
                                 }
                             />
@@ -253,7 +252,7 @@ const NewConditions = ({ citizenID, getPeople }) => {
                                             ...defaultCondition,
                                             outside: !defaultCondition.outside,
                                         },
-                                        setIsSave(true)
+                                        setIsSave(true),
                                     )
                                 }
                             />

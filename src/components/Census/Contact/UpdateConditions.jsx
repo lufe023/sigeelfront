@@ -45,7 +45,7 @@ const updateConditions = ({ condition, citizenID }) => {
                 setIsSave(false);
             })
             .catch((err) => {
-                console.log(err);
+                console.error(err);
                 const Toast = Swal.mixin({
                     toast: true,
                     position: "top-end",
@@ -64,7 +64,7 @@ const updateConditions = ({ condition, citizenID }) => {
                 });
             });
     };
-    console.log(citizenID);
+
     return (
         <div className="card card-warning collapsed-card">
             <div className="card-header">
@@ -75,7 +75,8 @@ const updateConditions = ({ condition, citizenID }) => {
                         </div>
                     ) : (
                         <div>
-                            <i className="fas fa-hands-helping" /> Condición{" "}
+                            <i className="fas fa-hands-helping" />{" "}
+                            Condición{" "}
                         </div>
                     )}
                 </h3>
@@ -107,7 +108,7 @@ const updateConditions = ({ condition, citizenID }) => {
                                         ...defaultCondition,
                                         conditionDetails: e.target.value,
                                     },
-                                    setIsSave(true)
+                                    setIsSave(true),
                                 )
                             }
                         />
@@ -127,7 +128,7 @@ const updateConditions = ({ condition, citizenID }) => {
                                             dyslexia:
                                                 !defaultCondition.dyslexia,
                                         },
-                                        setIsSave(true)
+                                        setIsSave(true),
                                     )
                                 }
                             />
@@ -151,7 +152,7 @@ const updateConditions = ({ condition, citizenID }) => {
                                             ...defaultCondition,
                                             visual: !defaultCondition.visual,
                                         },
-                                        setIsSave(true)
+                                        setIsSave(true),
                                     )
                                 }
                             />
@@ -176,7 +177,7 @@ const updateConditions = ({ condition, citizenID }) => {
                                             auditory:
                                                 !defaultCondition.auditory,
                                         },
-                                        setIsSave(true)
+                                        setIsSave(true),
                                     )
                                 }
                             />
@@ -200,7 +201,7 @@ const updateConditions = ({ condition, citizenID }) => {
                                             ...defaultCondition,
                                             motor: !defaultCondition.motor,
                                         },
-                                        setIsSave(true)
+                                        setIsSave(true),
                                     )
                                 }
                             />
@@ -225,7 +226,7 @@ const updateConditions = ({ condition, citizenID }) => {
                                             cognitive:
                                                 !defaultCondition.cognitive,
                                         },
-                                        setIsSave(true)
+                                        setIsSave(true),
                                     )
                                 }
                             />
@@ -249,7 +250,7 @@ const updateConditions = ({ condition, citizenID }) => {
                                             ...defaultCondition,
                                             outside: !defaultCondition.outside,
                                         },
-                                        setIsSave(true)
+                                        setIsSave(true),
                                     )
                                 }
                             />

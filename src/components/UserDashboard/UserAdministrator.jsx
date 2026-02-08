@@ -13,7 +13,8 @@ import copy from "clipboard-copy";
 import Swal from "sweetalert2";
 import changeUserRole from "../UserDashboard/changeUserRole";
 import TransferCensus from "./TransferCensus";
-import UserMunicipalitiesAccess from "../UserDashboard/userMunicipalitiesAccess";
+import UserMunicipalitiesAccess from "../UserDashboard/UserMunicipalitiesAccess.jsx";
+import TerritorioAssignment from "./TerritorioAssignment.jsx";
 
 const UserAdministrator = () => {
     const [people, setPeople] = useState();
@@ -171,7 +172,7 @@ const UserAdministrator = () => {
                                                                 onClick={() => (
                                                                     userDisable(
                                                                         user.id,
-                                                                        false
+                                                                        false,
                                                                     ),
                                                                     getPeople()
                                                                 )}
@@ -187,7 +188,7 @@ const UserAdministrator = () => {
                                                                 onClick={() => (
                                                                     userDisable(
                                                                         user.id,
-                                                                        true
+                                                                        true,
                                                                     ),
                                                                     getPeople()
                                                                 )}
@@ -332,7 +333,7 @@ const UserAdministrator = () => {
                                                             onChange={(e) =>
                                                                 setSelectedRole(
                                                                     e.target
-                                                                        .value
+                                                                        .value,
                                                                 )
                                                             }
                                                             size={5}
@@ -689,7 +690,7 @@ const UserAdministrator = () => {
                                                     changeUserRole(
                                                         user.id,
                                                         selectedRole,
-                                                        getPeople
+                                                        getPeople,
                                                     )
                                                 }
                                             >
@@ -702,13 +703,15 @@ const UserAdministrator = () => {
                                         user={user}
                                     />
 
+                                    <TerritorioAssignment usuarioId={user.id} />
+
                                     <UserMunicipalitiesAccess
                                         municipios={municipios}
                                         municipiosUsuario={municipiosUsuario}
                                         idusuario={id}
                                         onChange={(nuevosMunicipios) =>
                                             setMunicipiosUsuario(
-                                                nuevosMunicipios
+                                                nuevosMunicipios,
                                             )
                                         }
                                     />

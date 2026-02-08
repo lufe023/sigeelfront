@@ -16,42 +16,71 @@ const UserMunicipalitiesAccess = ({
     const [disponibles, setDisponibles] = useState([]);
     const [asignados, setAsignados] = useState([]);
 
+    const municipiosArray = Array.isArray(municipios)
+        ? municipios
+        : municipios
+          ? [municipios]
+          : [];
+
+    const municipiosUsuarioArray = Array.isArray(municipiosUsuario)
+        ? municipiosUsuario
+        : municipiosUsuario
+          ? [municipiosUsuario]
+          : [];
+
     // Inicializar listas al montar o al cambiar props
     useEffect(() => {
-        const idsAsignados = municipiosUsuario.map((m) => m.MunicipalityId);
+        const municipiosArr = Array.isArray(municipios)
+            ? municipios
+            : municipios
+              ? [municipios]
+              : [];
+
+        const municipiosUsuarioArr = Array.isArray(municipiosUsuario)
+            ? municipiosUsuario
+            : municipiosUsuario
+              ? [municipiosUsuario]
+              : [];
+
+        const idsAsignados = municipiosUsuarioArr.map((m) => m.MunicipalityId);
+
         setDisponibles(
-            municipios.filter((m) => !idsAsignados.includes(m.MunicipalityId))
+            municipiosArr.filter(
+                (m) => !idsAsignados.includes(m.MunicipalityId),
+            ),
         );
+
         setAsignados(
-            municipios.filter((m) => idsAsignados.includes(m.MunicipalityId))
+            municipiosArr.filter((m) =>
+                idsAsignados.includes(m.MunicipalityId),
+            ),
         );
     }, [municipios, municipiosUsuario]);
 
     // Función para mover un municipio a la lista de asignados
     const asignarMunicipio = (municipio) => {
-        setAsignados([...asignados, municipio]);
-        setDisponibles(
-            disponibles.filter(
-                (m) => m.MunicipalityId !== municipio.MunicipalityId
-            )
+        setAsignados((prev) => {
+            const updated = [...prev, municipio];
+            onChange?.(updated);
+            return updated;
+        });
+
+        setDisponibles((prev) =>
+            prev.filter((m) => m.MunicipalityId !== municipio.MunicipalityId),
         );
-        if (onChange) onChange([...asignados, municipio]);
     };
 
     // Función para mover un municipio de vuelta a disponibles
     const desasignarMunicipio = (municipio) => {
-        setDisponibles([...disponibles, municipio]);
-        setAsignados(
-            asignados.filter(
-                (m) => m.MunicipalityId !== municipio.MunicipalityId
-            )
-        );
-        if (onChange)
-            onChange(
-                asignados.filter(
-                    (m) => m.MunicipalityId !== municipio.MunicipalityId
-                )
+        setDisponibles((prev) => [...prev, municipio]);
+
+        setAsignados((prev) => {
+            const updated = prev.filter(
+                (m) => m.MunicipalityId !== municipio.MunicipalityId,
             );
+            onChange?.(updated);
+            return updated;
+        });
     };
 
     return (
@@ -67,7 +96,7 @@ const UserMunicipalitiesAccess = ({
                     ) : (
                         disponibles.map((m) => (
                             <div
-                                key={m.MunicipalityId}
+                                key={`disp-${m.MunicipalityId}`}
                                 onClick={() => asignarMunicipio(m)}
                                 className="p-2 cursor-pointer hover:bg-gray-100 rounded"
                             >
@@ -89,7 +118,7 @@ const UserMunicipalitiesAccess = ({
                     ) : (
                         asignados.map((m) => (
                             <div
-                                key={m.MunicipalityId}
+                                key={`asg-${m.MunicipalityId}`}
                                 onClick={() => desasignarMunicipio(m)}
                                 className="p-2 cursor-pointer hover:bg-gray-100 rounded"
                             >
