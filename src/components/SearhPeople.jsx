@@ -37,6 +37,7 @@ const SearhPeople = () => {
         axios
             .post(
                 URL,
+
                 {
                     peopleId: people,
                 },
@@ -172,7 +173,6 @@ const SearhPeople = () => {
                                                         )}
                                                     </span>
                                                 </li>
-
                                                 <li className="text-xs">
                                                     <span>{`${people?.citizenID.substr(
                                                         0,
@@ -259,68 +259,58 @@ const SearhPeople = () => {
                                                         ""
                                                     )}
                                                 </li>
-                                                <div
-                                                    className="card-footer d-block mt-4"
-                                                    style={{
-                                                        display: "flex",
-                                                        justifyContent:
-                                                            "flex-start",
-                                                        gap: "20px",
-                                                    }}
-                                                >
-                                                    <Link
-                                                        to={`/mypeople/${people?.id}`}
-                                                    >
-                                                        <button className="btn btn-primary">
-                                                            <i className="far fa-eye search-tool "></i>
-                                                        </button>
-                                                    </Link>
-                                                    {people?.leader ? (
+                                                <div className="card-footer d-flex justify-content-between align-items-center flex-wrap gap-2 mt-4">
+                                                    <div className="d-flex gap-2">
                                                         <Link
-                                                            to={`/mypeople/${people?.leaders?.censu?.id}`}
-                                                            className=" btn btn-default"
+                                                            onClick={show}
+                                                            to={`/mypeople/${people?.id}`}
+                                                            className="btn btn-outline-primary btn-sm"
                                                         >
-                                                            <i className="fas fa-user-check search-tool less"></i>
+                                                            <i className="far fa-eye"></i>
                                                         </Link>
-                                                    ) : (
-                                                        <button
-                                                            className=" btn btn-success "
-                                                            onClick={() =>
-                                                                addPeople(
-                                                                    people?.id,
-                                                                    people?.citizenID,
-                                                                )
-                                                            }
-                                                        >
-                                                            <i className="fas fa-user-plus search-tool"></i>
-                                                        </button>
-                                                    )}
-                                                    <Link
-                                                        to={`/mypeople/${people?.id}`}
-                                                    >
-                                                        <button className=" btn btn-warning">
-                                                            <i className="fas fa-user-edit search-tool"></i>
-                                                        </button>
-                                                    </Link>
 
-                                                    <button
-                                                        className={` btn ${
-                                                            people?.sufragio
+                                                        {people?.leader ? (
+                                                            <Link
+                                                                to={`/mypeople/${people?.leaders?.censu?.id}`}
+                                                                className="btn btn-outline-info btn-sm"
+                                                            >
+                                                                <i className="fas fa-user-check"></i>
+                                                            </Link>
+                                                        ) : (
+                                                            <button
+                                                                className="btn btn-outline-success btn-sm"
+                                                                onClick={() =>
+                                                                    addPeople(
+                                                                        people?.id,
+                                                                        people?.citizenID,
+                                                                    )
+                                                                }
+                                                            >
+                                                                <i className="fas fa-user-plus"></i>
+                                                            </button>
+                                                        )}
+
+                                                        <Link
+                                                            to={`/mypeople/${people?.id}`}
+                                                            className="btn btn-outline-warning btn-sm"
+                                                        >
+                                                            <i className="fas fa-user-edit"></i>
+                                                        </Link>
+                                                    </div>
+
+                                                    <div className="d-flex gap-2 align-items-center">
+                                                        <span
+                                                            className={`badge ${people?.sufragio?.suffrage ? "bg-success" : "bg-danger"} p-2`}
+                                                        >
+                                                            {people?.sufragio
                                                                 ?.suffrage
-                                                                ? "btn-success"
-                                                                : "btn-danger"
-                                                        }`}
-                                                    >
-                                                        {people?.sufragio
-                                                            ?.suffrage
-                                                            ? "Votó"
-                                                            : "No Votó"}
-                                                    </button>
-                                                    <div
-                                                        className={` btn btn-dark`}
-                                                    >
-                                                        Posición:{" "}
-                                                        {people?.position}
+                                                                ? "Votó"
+                                                                : "No Votó"}
+                                                        </span>
+                                                        <span className="badge bg-dark p-2">
+                                                            Posición:{" "}
+                                                            {people?.position}
+                                                        </span>
                                                     </div>
                                                 </div>
                                             </ul>
