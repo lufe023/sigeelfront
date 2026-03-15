@@ -28,7 +28,7 @@ const MyPeople = () => {
             .catch((err) => {
                 setResults([]);
                 setIsloading(false);
-                console.log(err);
+                console.error(err);
             });
     };
 

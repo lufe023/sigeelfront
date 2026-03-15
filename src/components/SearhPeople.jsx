@@ -10,6 +10,25 @@ const SearhPeople = () => {
     const [results, setResults] = useState([]);
     const [count, setCount] = useState();
     const [isLoading, setIsloading] = useState(false);
+    const [searchTerm, setSearchTerm] = useState("");
+
+    useEffect(() => {
+        // Solo buscamos si hay contenido suficiente
+        if (searchTerm.length >= 3) {
+            setIsloading(true);
+
+            const delayDebounceFn = setTimeout(() => {
+                findPeople(searchTerm);
+            }, 500); // 500ms de espera
+
+            // Limpia el timeout si el usuario vuelve a escribir antes de los 500ms
+            return () => clearTimeout(delayDebounceFn);
+        } else {
+            setIsloading(false);
+            setResults([]);
+            setCount(0);
+        }
+    }, [searchTerm]);
 
     const addPeople = (people, citizenID) => {
         const URL = `${
@@ -18,10 +37,11 @@ const SearhPeople = () => {
         axios
             .post(
                 URL,
+
                 {
                     peopleId: people,
                 },
-                getConfig()
+                getConfig(),
             )
             .then((res) => {
                 findPeople(citizenID);
@@ -35,13 +55,7 @@ const SearhPeople = () => {
     const findPeople = (findWord) => {
         const URL = `${import.meta.env.VITE_API_SERVER}/api/v1/census/search`;
         axios
-            .post(
-                URL,
-                {
-                    findWord: findWord,
-                },
-                getConfig()
-            )
+            .post(URL, { findWord }, getConfig())
             .then((res) => {
                 setResults(res.data.data.rows);
                 setCount(res.data.data.count);
@@ -50,21 +64,14 @@ const SearhPeople = () => {
             .catch((err) => {
                 console.error(err);
                 setResults([]);
-                setCount();
+                setCount(0);
+                setIsloading(false);
             });
     };
 
+    // 3. Simplificamos la función que recibe el evento del input
     const findingWord = (e) => {
-        const fn = e.target.value.trim();
-
-        if (fn != "" && fn.length >= 3) {
-            setIsloading(true);
-            findPeople(fn);
-        } else {
-            setIsloading(false);
-            setResults("");
-            setCount("");
-        }
+        setSearchTerm(e.target.value.trim());
     };
 
     return (
@@ -113,8 +120,8 @@ const SearhPeople = () => {
                     {count > 1
                         ? `${count.toLocaleString("en-US")} coincidencias`
                         : count === 1
-                        ? `${count.toLocaleString("en-US")} coincidencia`
-                        : ""}
+                          ? `${count.toLocaleString("en-US")} coincidencia`
+                          : ""}
                 </span>
                 <div className="table-responsive p-0 container-table-search">
                     {count ? (
@@ -127,7 +134,6 @@ const SearhPeople = () => {
                                         className="people-finding"
                                     >
                                         <td>
-                                            {console.log(people)}
                                             <img
                                                 style={{
                                                     float: "left",
@@ -149,7 +155,7 @@ const SearhPeople = () => {
                                                     padding: "0",
                                                 }}
                                             >
-                                                <li>
+                                                <li className="text-xs">
                                                     <span>
                                                         {people?.firstName}{" "}
                                                         {people?.lastName}{" "}
@@ -167,31 +173,38 @@ const SearhPeople = () => {
                                                         )}
                                                     </span>
                                                 </li>
-                                                <li>
-                                                    <span></span>
-                                                </li>
-                                                <li>
+                                                <li className="text-xs">
                                                     <span>{`${people?.citizenID.substr(
                                                         0,
-                                                        3
+                                                        3,
                                                     )}-${people?.citizenID.substr(
                                                         3,
-                                                        7
+                                                        7,
                                                     )}-${people?.citizenID.substr(
                                                         10,
-                                                        1
+                                                        1,
                                                     )}`}</span>
                                                 </li>
-                                                <li>
-                                                    Distritto:{" "}
+                                                <li className="text-xs">
+                                                    Sector:{" "}
                                                     <span>
                                                         {
-                                                            people?.districts
-                                                                ?.name
+                                                            people?.sector
+                                                                ?.Descripcion
                                                         }{" "}
                                                     </span>
                                                 </li>
-                                                <li>
+                                                <li className="text-xs">
+                                                    Distrito:{" "}
+                                                    <span>
+                                                        {
+                                                            people?.district
+                                                                ?.descripcion
+                                                        }{" "}
+                                                    </span>
+                                                </li>
+                                                <li className="text-xs">
+                                                    <span></span>
                                                     Municipio:{" "}
                                                     <span>
                                                         {
@@ -201,7 +214,7 @@ const SearhPeople = () => {
                                                         }
                                                     </span>
                                                 </li>
-                                                <li>
+                                                <li className="text-xs">
                                                     Provincia:{" "}
                                                     <span>
                                                         {
@@ -210,7 +223,7 @@ const SearhPeople = () => {
                                                         }{" "}
                                                     </span>
                                                 </li>
-                                                <li>
+                                                <li className="text-xs">
                                                     Colegio:{" "}
                                                     <span>
                                                         {people?.colegio?.collegeNumber
@@ -218,7 +231,7 @@ const SearhPeople = () => {
                                                             .padStart(4, "0")}
                                                     </span>
                                                 </li>
-                                                <li>
+                                                <li className="text-xs">
                                                     Recinto:{" "}
                                                     <span>
                                                         {
@@ -231,7 +244,7 @@ const SearhPeople = () => {
                                                             .padStart(4, "0")}
                                                     </span>
                                                 </li>
-                                                <li>
+                                                <li className="text-xs">
                                                     {people?.leaders ? (
                                                         <Link
                                                             to={`/mypeople/${people?.leaders?.censu?.id}`}
@@ -246,70 +259,61 @@ const SearhPeople = () => {
                                                         ""
                                                     )}
                                                 </li>
-                                            </ul>
+                                                <div className="card-footer d-flex justify-content-between align-items-center flex-wrap gap-2 mt-4">
+                                                    <div className="d-flex gap-2">
+                                                        <Link
+                                                            onClick={show}
+                                                            to={`/mypeople/${people?.id}`}
+                                                            className="btn btn-outline-primary btn-sm"
+                                                        >
+                                                            <i className="far fa-eye"></i>
+                                                        </Link>
 
-                                            <div
-                                                className="card-footer"
-                                                style={{
-                                                    display: "flex",
-                                                    justifyContent:
-                                                        "flex-start",
-                                                    gap: "20px",
-                                                }}
-                                            >
-                                                <Link
-                                                    to={`/mypeople/${people?.id}`}
-                                                >
-                                                    <button className="btn btn-primary">
-                                                        <i className="far fa-eye search-tool "></i>
-                                                    </button>
-                                                </Link>
-                                                {people?.leader ? (
-                                                    <Link
-                                                        to={`/mypeople/${people?.leaders?.censu?.id}`}
-                                                        className=" btn btn-default"
-                                                    >
-                                                        <i className="fas fa-user-check search-tool less"></i>
-                                                    </Link>
-                                                ) : (
-                                                    <button
-                                                        className=" btn btn-success "
-                                                        onClick={() =>
-                                                            addPeople(
-                                                                people?.id,
-                                                                people?.citizenID
-                                                            )
-                                                        }
-                                                    >
-                                                        <i className="fas fa-user-plus search-tool"></i>
-                                                    </button>
-                                                )}
-                                                <Link
-                                                    to={`/mypeople/${people?.id}`}
-                                                >
-                                                    <button className=" btn btn-warning">
-                                                        <i className="fas fa-user-edit search-tool"></i>
-                                                    </button>
-                                                </Link>
+                                                        {people?.leader ? (
+                                                            <Link
+                                                                to={`/mypeople/${people?.leaders?.censu?.id}`}
+                                                                className="btn btn-outline-info btn-sm"
+                                                            >
+                                                                <i className="fas fa-user-check"></i>
+                                                            </Link>
+                                                        ) : (
+                                                            <button
+                                                                className="btn btn-outline-success btn-sm"
+                                                                onClick={() =>
+                                                                    addPeople(
+                                                                        people?.id,
+                                                                        people?.citizenID,
+                                                                    )
+                                                                }
+                                                            >
+                                                                <i className="fas fa-user-plus"></i>
+                                                            </button>
+                                                        )}
 
-                                                <button
-                                                    className={` btn ${
-                                                        people?.sufragio
-                                                            ?.suffrage
-                                                            ? "btn-success"
-                                                            : "btn-danger"
-                                                    }`}
-                                                >
-                                                    {people?.sufragio?.suffrage
-                                                        ? "Votó"
-                                                        : "No Votó"}
-                                                </button>
-                                                <div
-                                                    className={` btn btn-dark`}
-                                                >
-                                                    Posición: {people?.position}
+                                                        <Link
+                                                            to={`/mypeople/${people?.id}`}
+                                                            className="btn btn-outline-warning btn-sm"
+                                                        >
+                                                            <i className="fas fa-user-edit"></i>
+                                                        </Link>
+                                                    </div>
+
+                                                    <div className="d-flex gap-2 align-items-center">
+                                                        <span
+                                                            className={`badge ${people?.sufragio?.suffrage ? "bg-success" : "bg-danger"} p-2`}
+                                                        >
+                                                            {people?.sufragio
+                                                                ?.suffrage
+                                                                ? "Votó"
+                                                                : "No Votó"}
+                                                        </span>
+                                                        <span className="badge bg-dark p-2">
+                                                            Posición:{" "}
+                                                            {people?.position}
+                                                        </span>
+                                                    </div>
                                                 </div>
-                                            </div>
+                                            </ul>
                                         </td>
                                     </tr>
                                 ))}

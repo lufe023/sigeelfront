@@ -156,7 +156,12 @@ const People = () => {
                                         <div className="card-body box-profile">
                                             <div className="text-center">
                                                 <img
-                                                    className="profile-user-img img-fluid img-circle"
+                                                    className="profile-user-img img-fluid img-circle "
+                                                    style={{
+                                                        width: "200px",
+                                                        height: "200px",
+                                                        objectFit: "cover",
+                                                    }}
                                                     src={`${
                                                         import.meta.env
                                                             .VITE_API_SERVER
@@ -588,7 +593,12 @@ const People = () => {
                                                         ?.longitud
                                                 }
                                                 peopleName={people?.firstName}
-                                                picture={people?.picture}
+                                                picture={`${
+                                                    import.meta.env
+                                                        .VITE_API_SERVER
+                                                }/api/v1/images/pic/mun/${
+                                                    people?.municipality
+                                                }/${people?.citizenID}`}
                                                 gotAutomatic={
                                                     people?.geolocation
                                                         ?.gotAutomatic

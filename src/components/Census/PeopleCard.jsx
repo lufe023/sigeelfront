@@ -35,24 +35,18 @@ const PeopleCard = ({ people, getMypeople }) => {
                             peopleId: peopleId,
                             leaderId: leaderId,
                         },
-                        getConfig()
+                        getConfig(),
                     )
                     .then((res) => {
                         getMypeople();
                     })
                     .catch((err) => {
-                        console.log(err);
+                        console.error(err);
                     });
             }
         });
     };
-    // const pendingFields = [
-    //   {latitud:"latitud"},
-    //   {adress:"adress"},
-    //   {celphone:"celphone"},
-    //   {telephone:"telephone"},
-    //   {otherPhone:"otherPhone"},
-    //   {nickname:"nickname"}];
+
     const pendingFields = [
         "latitud",
         "adress",
@@ -78,7 +72,7 @@ const PeopleCard = ({ people, getMypeople }) => {
 
     const isFieldUpdated = (fieldName) => {
         return people.pendingUpdates.some(
-            (update) => update.changedFields[fieldName] !== undefined
+            (update) => update.changedFields[fieldName] !== undefined,
         );
     };
 
@@ -139,13 +133,13 @@ const PeopleCard = ({ people, getMypeople }) => {
                                     <span>
                                         {`${people.citizenID.substring(
                                             0,
-                                            3
+                                            3,
                                         )}-${people.citizenID.substring(
                                             3,
-                                            10
+                                            10,
                                         )}-${people.citizenID.substring(
                                             10,
-                                            11
+                                            11,
                                         )}`}
                                     </span>
 
@@ -189,15 +183,19 @@ const PeopleCard = ({ people, getMypeople }) => {
                                             <span className="fa-li">
                                                 <i className="fas fa-map"></i>
                                             </span>
-                                            Municipio:
-                                            {people.municipalities.name}
+                                            Municipio:{" "}
+                                            {
+                                                people?.municipalities
+                                                    ?.description
+                                            }
                                         </li>
 
                                         <li className="small">
                                             <span className="fa-li">
                                                 <i className="fas fa-map-marked"></i>
                                             </span>
-                                            Provincia:{people.provinces.name}
+                                            Provincia:
+                                            {people?.provinces.Descripcion}
                                         </li>
 
                                         <li
@@ -294,7 +292,8 @@ const PeopleCard = ({ people, getMypeople }) => {
                                 <Link to={`/mypeople/${people.id}`}>
                                     <h2 className="lead">
                                         <b>
-                                            {people.firstName} {people.lastName}{" "}
+                                            {people.firstName}{" "}
+                                            {people.lastName}{" "}
                                         </b>
                                         {people.nickname
                                             ? `(${people.nickname})`
@@ -319,7 +318,7 @@ const PeopleCard = ({ people, getMypeople }) => {
                                                 <small>
                                                     {result.Campain.finishAt.substring(
                                                         0,
-                                                        10
+                                                        10,
                                                     )}
                                                 </small>
                                             </span>
@@ -333,17 +332,20 @@ const PeopleCard = ({ people, getMypeople }) => {
                                     </div>
                                 </li>
                             ))}
+
                             {
                                 people.condition ? (
                                     <UpdateConditions
                                         condition={people.condition}
-                                        citizenID={people?.citizenID}
+                                        citizenID={people.citizenID}
                                         key={people?.citizenID?.citizenID}
+                                        getPeople={getMypeople}
                                     />
                                 ) : (
                                     <NewConditions
-                                        citizenID={people?.citizenID}
-                                        key={people?.citizenID?.citizenID}
+                                        citizenID={people.citizenID}
+                                        key={people.citizenID.citizenID}
+                                        getPeople={getMypeople}
                                     />
                                 )
                                 /* <NewConditions/> */
@@ -372,12 +374,12 @@ const PeopleCard = ({ people, getMypeople }) => {
                                     (fieldName, index) =>
                                         !people.pendingUpdates.some(
                                             (update) =>
-                                                update.changedFields[fieldName]
+                                                update.changedFields[fieldName],
                                         ) && (
                                             <li key={index}>
                                                 {translateField(fieldName)}
                                             </li>
-                                        )
+                                        ),
                                 )}
                             </ul>
                         </div>
@@ -432,7 +434,7 @@ const PeopleCard = ({ people, getMypeople }) => {
                             deletePeople(
                                 people?.id,
                                 people?.firstName,
-                                people?.leader
+                                people?.leader,
                             )
                         }
                     >

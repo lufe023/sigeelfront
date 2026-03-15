@@ -50,8 +50,8 @@ const Header = () => {
                                 src={`${
                                     import.meta.env.VITE_API_SERVER
                                 }/api/v1/images/pic/mun/${
-                                    user?.censu.municipality
-                                }/${user?.censu.citizenID}`}
+                                    user?.censu?.municipality
+                                }/${user?.censu?.citizenID}`}
                                 alt={user?.censu?.firstName}
                                 className="user-image img-circle elevation-2"
                             />
@@ -66,8 +66,8 @@ const Header = () => {
                                     src={`${
                                         import.meta.env.VITE_API_SERVER
                                     }/api/v1/images/pic/mun/${
-                                        user?.censu.municipality
-                                    }/${user?.censu.citizenID}`}
+                                        user?.censu?.municipality
+                                    }/${user?.censu?.citizenID}`}
                                     alt={user?.censu?.firstName}
                                     className="img-circle elevation-2"
                                 />
