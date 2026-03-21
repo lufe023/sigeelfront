@@ -75,7 +75,7 @@ const SearhPeople = () => {
     };
 
     return (
-        <li className="nav-item">
+        <li className="nav-item" >
             <a
                 className="nav-link"
                 data-widget="navbar-search"
@@ -85,7 +85,7 @@ const SearhPeople = () => {
             >
                 <i className="fas fa-search" />
             </a>
-            <div className="navbar-search-block">
+            <div className="navbar-search-block" >
                 <form className="form-inline">
                     <div className="input-group input-group-sm">
                         <input
@@ -115,6 +115,7 @@ const SearhPeople = () => {
             <div
                 className="searchBox callout callout-info"
                 style={{ display: isShow ? "block" : "none" }}
+                
             >
                 <span className="dropdown-item dropdown-header">
                     {count > 1

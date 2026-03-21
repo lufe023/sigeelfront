@@ -29,9 +29,13 @@ const Delegate = () => {
         axios
             .get(URL, getConfig())
             .then((res) => {
-                setPrecints(res.data.rows);
+                // Organize data by IDSectorParaje
+                const organizedData = res.data.rows.sort(
+                    (a, b) => a.IDSectorParaje - b.IDSectorParaje,
+                );
+                setPrecints(organizedData);
             })
-            .catch((err) => console.log(err));
+            .catch((err) => console.error(err));
     };
 
     useEffect(() => {
@@ -224,7 +228,7 @@ const Delegate = () => {
                             className="text-center"
                             style={{ paddingTop: "50px" }}
                         >
-                            Ciudadanos por Colegios
+                            Ciudadanos por Colegiros
                         </h2>
 
                         <div className="row">
@@ -322,6 +326,20 @@ const Delegate = () => {
                                                                         </span>
                                                                     </div>
                                                                     <div className="text-muted small">
+                                                                        {
+                                                                            recinto
+                                                                                ?.PrecinctsSectorParaje
+                                                                                ?.ciudadSeccion
+                                                                                ?.municipio
+                                                                                ?.description
+                                                                        }
+                                                                        {" | "}
+                                                                        {
+                                                                            recinto
+                                                                                ?.PrecinctsSectorParaje
+                                                                                ?.Descripcion
+                                                                        }
+                                                                        {" | "}
                                                                         {
                                                                             recinto?.direccionRecinto
                                                                         }

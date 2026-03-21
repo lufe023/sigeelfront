@@ -41,6 +41,7 @@ const changeUserRole = (id, newRoleId, updateView) => {
       Toast.fire({
         icon: "error",
         title: `${err.response.data.message}`,
+        text: `${err.response.data.reason}`,
       });
     });
 };

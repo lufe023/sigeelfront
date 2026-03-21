@@ -125,7 +125,7 @@ const LockAdmin = ({ setAccess, setPasswordFail, passwordFail }) => {
                                 <div className="lockscreen-logo">
                                     <img
                                         src="img/logo-Mi-elector-Transparente-200x267.png"
-                                        alt="AdminLTE Logo"
+                                        alt="Mi Elector Logo"
                                         className="brand-image"
                                         style={{ width: "200px" }}
                                     />
@@ -170,7 +170,7 @@ const LockAdmin = ({ setAccess, setPasswordFail, passwordFail }) => {
                                                 <div className="input-group">
                                                     <input
                                                         {...register(
-                                                            "password"
+                                                            "password",
                                                         )}
                                                         autoFocus
                                                         id="password"
