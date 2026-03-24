@@ -141,12 +141,7 @@ const SearhPeople = () => {
                                                     width: "125px",
                                                     marginRight: "5px",
                                                 }}
-                                                src={`${
-                                                    import.meta.env
-                                                        .VITE_API_SERVER
-                                                }/api/v1/images/pic/mun/${
-                                                    people?.municipality
-                                                }/${people?.citizenID}`}
+                                                src={people?.picture}
                                                 alt={people?.firstName}
                                             />
                                             <ul

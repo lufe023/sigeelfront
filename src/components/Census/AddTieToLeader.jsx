@@ -2,7 +2,7 @@ import axios from 'axios'
 import React, { useEffect, useState } from 'react'
 import getConfig from '../../utils/getConfig'
 import Swal from 'sweetalert2'
-
+import '../../Styles/SearhPeople.css'
 const AddTieToLeader = ({leaderCitizenId, bCitizenId}) => {
 
     const [tiesTypes, setTiesTypes] = useState()
@@ -89,17 +89,41 @@ const addTies = (aCitizenId, bCitizenId, tiesType, description) => {
 }
 
 return (
-    <div className="btn-group float-right">
-    <button type="button" className="btn btn-primary" data-toggle="dropdown" aria-expanded="false">Vinculo</button>
-    <button type="button" className="btn btn-primary dropdown-toggle dropdown-icon" data-toggle="dropdown" aria-expanded="false">
+    <div className="btn-group">
+    <button 
+      type="button" 
+      className="btn btn-primary btn-sm dropdown-toggle" 
+      data-toggle="dropdown" 
+      aria-expanded="false"
+    >
+      Vínculo
     </button>
-    <div className="dropdown-menu" role="menu">
-    {
-      tiesTypes?.map(type => 
-        <button key={type.id} className="dropdown-item" onClick={()=> addTies(leaderCitizenId, bCitizenId, type.id, type.tiesDescription)}>{type.tiesDescription}</button>
-      )
-    }
-      
+    <div 
+      className="dropdown-menu dropdown-menu-right tu-elemento " 
+      role="menu" 
+     style={{
+    zIndex: '9999', // Aumentamos el z-index para que flote sobre todo
+    position: 'absolute',
+    backgroundColor: '#fff',
+    borderRadius: '10px',
+    boxShadow: '0px 8px 16px rgba(0,0,0,0.2)',
+    padding: '8px 0', // Añade espacio arriba y abajo para que se vean los bordes
+    right: 0,
+    minWidth: '160px', // Evita que se vea colapsado
+    border: '1px solid rgba(0,0,0,0.15)',
+    maxHeight:'400px', // Asegura que el borde sea visible
+    overflowY: 'scroll' // Permite scroll si hay muchas opciones
+  }}
+    >
+      {tiesTypes?.map(type => (
+        <button 
+          key={type.id} 
+          className="dropdown-item" 
+          onClick={() => addTies(leaderCitizenId, bCitizenId, type.id, type.tiesDescription)}
+        >
+          {type.tiesDescription}
+        </button>
+      ))}
     </div>
   </div>
 )

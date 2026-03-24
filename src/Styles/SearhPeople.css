@@ -1,33 +1,35 @@
-.searchBox{
+.searchBox {
     width: 95%;
     position: absolute;
     left: 16px;
     top: 40px;
     background-color: #fff;
-    border: 1px solid rgba(0,0,0,.15);
+    border: 1px solid rgba(0, 0, 0, .15);
     border-radius: 0.25rem;
     box-shadow: 0 0.5rem 1rem rgb(0 0 0 / 18%);
     display: none;
     z-index: 3;
 }
 
-.findBox{
+.findBox {
     padding: 0;
 }
+
 .lineDivider {
     border-top: 1px solid #e9ecef;
     list-style: none;
 
 }
-.lineDivider:hover{
+
+.lineDivider:hover {
     background-color: #caced1;
 }
 
-.people-finding{
+.people-finding {
     cursor: pointer;
 }
 
-.people-finding:hover{
+.people-finding:hover {
     color: #0080ff;
 }
 
@@ -36,37 +38,55 @@
     display: inline-block;
 }
 
-.loading{
+.loading {
     display: flex;
     align-items: center;
     justify-content: center;
 }
 
-.search-tools-box{
+.search-tools-box {
     display: flex;
     justify-content: space-around;
 }
 
 
-.search-tool:hover{
-scale: 1.5;
-transition: scale 0.1s ease-out;
+.search-tool:hover {
+    scale: 1.5;
+    transition: scale 0.1s ease-out;
 }
 
 .demographic-information li {
     list-style: none;
 }
 
-.demographic-information li span{
+.demographic-information li span {
     font-weight: 600;
 }
 
-.container-table-search{
+.container-table-search {
     max-height: 50vh;
 }
 
 /*tools*/
-.fa-user-check{
+.fa-user-check {
     color: green;
 }
 
+.contenedor-padre {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+.tu-elemento {
+    position: absolute;
+    top: 50%;
+    /* O el valor que necesites */
+    left: 50%;
+}
+
+.no-scroll {
+    overflow: hidden !important;
+    height: 100vh;
+}

@@ -47,11 +47,7 @@ const Header = () => {
                             data-toggle="dropdown"
                         >
                             <img
-                                src={`${
-                                    import.meta.env.VITE_API_SERVER
-                                }/api/v1/images/pic/mun/${
-                                    user?.censu?.municipality
-                                }/${user?.censu?.citizenID}`}
+                                src={user?.censu?.picture}
                                 alt={user?.censu?.firstName}
                                 className="user-image img-circle elevation-2"
                             />
@@ -63,11 +59,7 @@ const Header = () => {
                             {/* User image */}
                             <li className="user-header bg-primary">
                                 <img
-                                    src={`${
-                                        import.meta.env.VITE_API_SERVER
-                                    }/api/v1/images/pic/mun/${
-                                        user?.censu?.municipality
-                                    }/${user?.censu?.citizenID}`}
+                                    src={user?.censu?.picture}
                                     alt={user?.censu?.firstName}
                                     className="img-circle elevation-2"
                                 />

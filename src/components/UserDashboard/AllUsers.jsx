@@ -30,11 +30,7 @@ const AllUsers = ({ users, userDisable, getAllUsers, currentPage }) => {
                         <li className="item" key={user.id}>
                             <div className="product-img">
                                 <img
-                                    src={`${
-                                        import.meta.env.VITE_API_SERVER
-                                    }/api/v1/images/pic/mun/${
-                                        user?.censu?.municipality
-                                    }/${user?.censu?.citizenID}`}
+                                    src={user?.censu?.picture}
                                     alt="Product Image"
                                     className="img-size-50"
                                 />
@@ -44,7 +40,7 @@ const AllUsers = ({ users, userDisable, getAllUsers, currentPage }) => {
                                     to={`/mypeople/${user.censu.id}`}
                                     className="product-title"
                                 >
-                                    {`${user.censu.first_name} ${user.censu.last_name}`}
+                                    {`${user.censu.firstName} ${user.censu.lastName}`}
                                     <span
                                         className={`badge float-right ${
                                             user.user_role.roleName ==
