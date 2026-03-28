@@ -20,7 +20,7 @@ const ListByCollege = ({ citizens, addPeople }) => {
                                     // src={`${import.meta.env.VITE_API_SERVER}/api/v1/images/citizen/${item?.picture}`}
 
                                     className="img-fluid"
-                                    src={`${import.meta.env.VITE_API_SERVER}/api/v1/images/pic/mun/${item?.municipality}/${item?.citizenID}`}
+                                    src={item?.picture}
                                     alt={item?.firstName + " " + item?.lastName}
                                 />
                             </Link>

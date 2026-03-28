@@ -15,7 +15,7 @@ const GPSGeneralView = ({peoples}) => {
     <div >
       <i className="fas fa-map-marker" style={{color:"#bd0000"}}></i>
         <div style={{marginTop:"10px", width:"100px"}}>
-        <img src={`${import.meta.env.VITE_API_SERVER}/api/v1/images/citizen/${picture}`} style={{width:"40px", height: "40px", borderRadius:"50%"}} />
+        <img src={picture} style={{width:"40px", height: "40px", borderRadius:"50%"}} />
         <p style={{ margin:"0", backgroundColor:"#eeeee4", padding:"5px", width:"100px", borderRadius:"0px"}}>
         {text}
         <a style={{display:"block"}}

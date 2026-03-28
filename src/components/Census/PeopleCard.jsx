@@ -273,11 +273,7 @@ const PeopleCard = ({ people, getMypeople }) => {
                                 <div className="col-5 text-center">
                                     <Link to={`/mypeople/${people.id}`}>
                                         <img
-                                            src={`${
-                                                import.meta.env.VITE_API_SERVER
-                                            }/api/v1/images/pic/mun/${
-                                                people?.municipality
-                                            }/${people?.citizenID}`}
+                                            src={people?.picture}
                                             alt={people?.firstName}
                                             className="img-circle img-fluid"
                                         />

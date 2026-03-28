@@ -49,11 +49,7 @@ const Aside = () => {
                 <div className="user-panel mt-3 pb-3 mb-3 d-flex">
                     <div className="image">
                         <img
-                            src={`${
-                                import.meta.env.VITE_API_SERVER
-                            }/api/v1/images/pic/mun/${
-                                user?.censu?.municipality
-                            }/${user?.censu?.citizenID}`}
+                            src={user?.censu?.picture}
                             alt={user?.censu?.firstName}
                             className="img-circle elevation-2"
                         />

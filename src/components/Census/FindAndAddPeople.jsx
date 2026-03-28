@@ -145,9 +145,10 @@ const FindAndAddPeople = ({ getMypeople, leaderId, leaderCitizenId }) => {
                             ""
                         )}
 
-                        <div className="table-responsive p-0 container-table-search">
-                            {count ? (
-                                <table className="table ">
+                      <div className="table-responsive p-2" 
+     style={{ maxHeight: '500px', overflow: 'visible' }}>
+    {count ? (
+        <table className="table table-head-fixed text-nowrap">
                                     <thead></thead>
                                     <tbody>
                                         {results?.map((people) => (
@@ -166,14 +167,7 @@ const FindAndAddPeople = ({ getMypeople, leaderId, leaderCitizenId }) => {
                                                                 marginRight:
                                                                     "5px",
                                                             }}
-                                                            src={`${
-                                                                import.meta.env
-                                                                    .VITE_API_SERVER
-                                                            }/api/v1/images/pic/mun/${
-                                                                people?.municipality
-                                                            }/${
-                                                                people?.citizenID
-                                                            }`}
+                                                            src={people?.picture}
                                                             alt={
                                                                 people?.firstName
                                                             }
@@ -236,14 +230,12 @@ const FindAndAddPeople = ({ getMypeople, leaderId, leaderCitizenId }) => {
                                                                         ?.name
                                                                 }{" "}
                                                             </span>{" "}
-                                                            <a
-                                                                style={{
-                                                                    color: "red",
-                                                                }}
-                                                            >
-                                                                {" "}
-                                                                Arreglar Error
-                                                            </a>
+                                                        <span>
+                                                                {
+                                                            people?.district
+                                                                ?.descripcion
+                                                        }{" "}
+                                                        </span>
                                                         </li>
                                                         <li>
                                                             Municipio:{" "}

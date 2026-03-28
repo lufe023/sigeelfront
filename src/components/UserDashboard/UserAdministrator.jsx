@@ -135,14 +135,10 @@ const activeUser = async (user, status) => {
                                     <div className="card card-primary card-outline">
                                         <div className="card-body box-profile">
                                             <div className="text-center">
+                                 
                                                 <img
                                                     className="profile-user-img img-fluid img-circle"
-                                                    src={`${
-                                                        import.meta.env
-                                                            .VITE_API_SERVER
-                                                    }/api/v1/images/pic/mun/${
-                                                        people?.municipality
-                                                    }/${people?.citizenID}`}
+                                                    src={people?.picture}
                                                     alt="User profile picture"
                                                 />
                                             </div>
