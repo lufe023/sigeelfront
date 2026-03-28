@@ -144,7 +144,7 @@ const AddTies = ({ aCitizenId, getTies, setTies }) => {
                                         data-toggle="dropdown"
                                         aria-expanded="false"
                                     ></button>
-                                    <div className="dropdown-menu" role="menu">
+                                    <div className="dropdown-menu ties-menu" role="menu">
                                         {tiesTypes?.map((type) => (
                                             <button
                                                 key={type.id}

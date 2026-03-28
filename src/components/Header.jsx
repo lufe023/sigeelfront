@@ -1,6 +1,6 @@
-import React, { useState } from "react";
+import React from "react";
 import { useSelector } from "react-redux";
-import { Link, Navigate, NavLink } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 import SearhPeople from "./SearhPeople";
 
 const Header = () => {
@@ -36,10 +36,9 @@ const Header = () => {
                         </NavLink>
                     </li>
                 </ul>
+                <SearhPeople />
                 {/* Right navbar links */}
                 <ul className="navbar-nav ml-auto">
-                    {/* Navbar Search */}
-                    <SearhPeople />
                     <li className="nav-item dropdown user-menu">
                         <a
                             href="#"
