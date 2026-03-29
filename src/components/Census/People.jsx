@@ -40,7 +40,7 @@ const People = () => {
     };
     useEffect(() => {
         getPeople();
-        getTies();
+
     }, [id]);
 
     const getTies = () => {
@@ -54,9 +54,11 @@ const People = () => {
             })
             .catch((err) => console.error(err));
     };
-    useEffect(() => {
+useEffect(() => {
+    if (people?.citizenID) {
         getTies();
-    }, [people]);
+    }
+}, [people]);
 
     const addPeople = (peopleId) => {
         const URL = `${
@@ -162,12 +164,7 @@ const People = () => {
                                                         height: "200px",
                                                         objectFit: "cover",
                                                     }}
-                                                    src={`${
-                                                        import.meta.env
-                                                            .VITE_API_SERVER
-                                                    }/api/v1/images/pic/mun/${
-                                                        people?.municipality
-                                                    }/${people?.citizenID}`}
+                                                    src={people?.picture}
                                                     alt={people?.firstName}
                                                 />
                                             </div>
@@ -593,12 +590,7 @@ const People = () => {
                                                         ?.longitud
                                                 }
                                                 peopleName={people?.firstName}
-                                                picture={`${
-                                                    import.meta.env
-                                                        .VITE_API_SERVER
-                                                }/api/v1/images/pic/mun/${
-                                                    people?.municipality
-                                                }/${people?.citizenID}`}
+                                                picture={people?.picture}
                                                 gotAutomatic={
                                                     people?.geolocation
                                                         ?.gotAutomatic

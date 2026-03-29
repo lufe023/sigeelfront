@@ -17,14 +17,17 @@ const FindUser = ({setResults}) => {
         })
         .catch(err =>{
             setResults([])
-            console.log(err)
+            console.error(err)
         })
         }
 
     const findingWord = e => {
+        let fnreplace = ''
         const fn = e.target.value.trim()
-        findPeople(fn)
-        if(fn!=''){
+        fnreplace = fn.replace(/-/g,'')
+
+        if(fnreplace!='' && fnreplace.length>10){
+        findPeople(fnreplace)
     
 }
 }
@@ -33,7 +36,7 @@ const FindUser = ({setResults}) => {
     <div>
     <div className="form-group">
     <label htmlFor="exampleInputEmail1">Buscar un usuario</label>
-    <input type="text" autoComplete="off" className="form-control" id="exampleInputEmail1" placeholder="Apodo, nombre, apellido o cedula sin guiones" onChange={findingWord}/>
+    <input type="text" autoComplete="off" className="form-control" id="exampleInputEmail1" placeholder="cedula" onChange={findingWord}/>
 </div>
 
     </div>

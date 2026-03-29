@@ -53,16 +53,9 @@ const ConcurrenciaPanel = ({ citizens }) => {
                                                             <Link
                                                                 to={`/mypeople/${citizen.id}`}
                                                             >
+
                                                                 <img
-                                                                    src={`${
-                                                                        import.meta
-                                                                            .env
-                                                                            .VITE_API_SERVER
-                                                                    }/api/v1/images/pic/mun/${
-                                                                        citizen?.municipality
-                                                                    }/${
-                                                                        citizen?.citizenID
-                                                                    }`}
+                                                                    src={citizen?.picture}
                                                                     alt={
                                                                         citizen?.firstName
                                                                     }

@@ -1,5 +1,5 @@
 import axios from "axios";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
 import "../Styles/SearhPeople.css";
 import Cargando from "../utils/Cargando";
@@ -8,27 +8,46 @@ import getConfig from "../utils/getConfig";
 const SearhPeople = () => {
     const [isShow, setIsShow] = useState(false);
     const [results, setResults] = useState([]);
-    const [count, setCount] = useState();
+    const [count, setCount] = useState(0);
     const [isLoading, setIsloading] = useState(false);
     const [searchTerm, setSearchTerm] = useState("");
+    const searchContainerRef = useRef(null);
+    const normalizedSearchTerm = searchTerm.trim();
 
     useEffect(() => {
-        // Solo buscamos si hay contenido suficiente
-        if (searchTerm.length >= 3) {
+        if (normalizedSearchTerm.length >= 3) {
             setIsloading(true);
 
             const delayDebounceFn = setTimeout(() => {
-                findPeople(searchTerm);
-            }, 500); // 500ms de espera
+                findPeople(normalizedSearchTerm);
+            }, 500);
 
-            // Limpia el timeout si el usuario vuelve a escribir antes de los 500ms
             return () => clearTimeout(delayDebounceFn);
-        } else {
-            setIsloading(false);
-            setResults([]);
-            setCount(0);
         }
-    }, [searchTerm]);
+
+        setIsloading(false);
+        setResults([]);
+        setCount(0);
+    }, [normalizedSearchTerm]);
+
+    useEffect(() => {
+        if (!isShow) return;
+
+        const handleClickOutside = (event) => {
+            if (
+                searchContainerRef.current &&
+                !searchContainerRef.current.contains(event.target)
+            ) {
+                setIsShow(false);
+            }
+        };
+
+        document.addEventListener("mousedown", handleClickOutside);
+
+        return () => {
+            document.removeEventListener("mousedown", handleClickOutside);
+        };
+    }, [isShow]);
 
     const addPeople = (people, citizenID) => {
         const URL = `${
@@ -37,20 +56,26 @@ const SearhPeople = () => {
         axios
             .post(
                 URL,
-
                 {
                     peopleId: people,
                 },
                 getConfig(),
             )
-            .then((res) => {
+            .then(() => {
                 findPeople(citizenID);
             })
             .catch((err) => {
                 console.error(err);
             });
     };
-    const show = () => setIsShow(!isShow);
+
+    const toggleSearch = () => {
+        setIsShow((prev) => !prev);
+    };
+
+    const openSearch = () => {
+        setIsShow(true);
+    };
 
     const findPeople = (findWord) => {
         const URL = `${import.meta.env.VITE_API_SERVER}/api/v1/census/search`;
@@ -69,45 +94,44 @@ const SearhPeople = () => {
             });
     };
 
-    // 3. Simplificamos la función que recibe el evento del input
     const findingWord = (e) => {
-        setSearchTerm(e.target.value.trim());
+        setSearchTerm(e.target.value);
     };
 
     return (
-        <li className="nav-item">
-            <a
-                className="nav-link"
-                data-widget="navbar-search"
-                href="#"
-                role="button"
-                onClick={show}
+        <div
+            className={`header-search ${isShow ? "is-open" : ""}`}
+            ref={searchContainerRef}
+        >
+            <button
+                className="header-search-toggle"
+                type="button"
+                aria-label="Abrir buscador"
+                onClick={toggleSearch}
             >
-                <i className="fas fa-search" />
-            </a>
-            <div className="navbar-search-block">
-                <form className="form-inline">
-                    <div className="input-group input-group-sm">
+                <i className={`fas ${isShow ? "fa-times" : "fa-search"}`} />
+            </button>
+
+            <div className="header-search-input-wrap">
+                <form
+                    className="form-inline w-100"
+                    onSubmit={(e) => e.preventDefault()}
+                >
+                    <div className="input-group input-group-sm w-100">
+                        <div className="input-group-prepend">
+                            <span className="input-group-text border-0 bg-transparent">
+                                <i className="fas fa-search text-muted" />
+                            </span>
+                        </div>
                         <input
-                            className="form-control form-control-navbar"
+                            className="form-control form-control-navbar header-search-input"
                             type="search"
-                            placeholder="Nombre, Apellido o Cedula"
+                            placeholder="Nombre, apellido o cédula"
                             aria-label="Search"
+                            value={searchTerm}
+                            onFocus={openSearch}
                             onChange={findingWord}
                         />
-                        <div className="input-group-append">
-                            <button className="btn btn-navbar" type="submit">
-                                <i className="fas fa-search" />
-                            </button>
-                            <button
-                                className="btn btn-navbar"
-                                type="button"
-                                data-widget="navbar-search"
-                                onClick={show}
-                            >
-                                <i className="fas fa-times" />
-                            </button>
-                        </div>
                     </div>
                 </form>
             </div>
@@ -124,7 +148,15 @@ const SearhPeople = () => {
                           : ""}
                 </span>
                 <div className="table-responsive p-0 container-table-search">
-                    {count ? (
+                    {normalizedSearchTerm.length < 3 ? (
+                        <div>
+                            <h5>Empieza a escribir</h5>
+                            <p>
+                                Usa nombre, apellido, apodo o cédula sin
+                                guiones para buscar.
+                            </p>
+                        </div>
+                    ) : count ? (
                         <table className="table ">
                             <thead></thead>
                             <tbody>
@@ -140,12 +172,7 @@ const SearhPeople = () => {
                                                     width: "125px",
                                                     marginRight: "5px",
                                                 }}
-                                                src={`${
-                                                    import.meta.env
-                                                        .VITE_API_SERVER
-                                                }/api/v1/images/pic/mun/${
-                                                    people?.municipality
-                                                }/${people?.citizenID}`}
+                                                src={people?.picture}
                                                 alt={people?.firstName}
                                             />
                                             <ul
@@ -262,7 +289,7 @@ const SearhPeople = () => {
                                                 <div className="card-footer d-flex justify-content-between align-items-center flex-wrap gap-2 mt-4">
                                                     <div className="d-flex gap-2">
                                                         <Link
-                                                            onClick={show}
+                                                            onClick={toggleSearch}
                                                             to={`/mypeople/${people?.id}`}
                                                             className="btn btn-outline-primary btn-sm"
                                                         >
@@ -342,7 +369,7 @@ const SearhPeople = () => {
                     {isLoading ? <Cargando escala="0.3" /> : ""}
                 </div>
             </div>
-        </li>
+        </div>
     );
 };
 

@@ -9,7 +9,7 @@ const TransferCensus = ({people, user}) => {
   const [results, setResults] = useState()
   const [userB, setUserB] = useState()
 
-  const transferir = (leaderIdA, leaderIdB) => {
+  const  transferir = async (leaderIdA, leaderIdB) => {
     Swal.fire({
       title: `¿Seguro quieres transferir electores?`,
       text: `Esta accion no se puede deshacer`,
@@ -42,18 +42,19 @@ const TransferCensus = ({people, user}) => {
         })
 
         const URL = `${import.meta.env.VITE_API_SERVER}/api/v1/census/transfercensus`
-        axios.patch(URL,
+        const resp = axios.patch(URL,
           {
             leaderIdA, leaderIdB  
           },
       getConfig(),
       )
         .then(res => {
+          const transferredCount = res.data[0]; // Extract the number of transferred electors
           Swal.fire(
             'Transferido!',
-            'La Transferencia tuvo lugar',
+            `Se transfirieron ${transferredCount} electores`,
             'success'
-            )
+          )
     })
     .catch(err =>{
         Swal.fire({

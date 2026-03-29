@@ -3,27 +3,27 @@ video {
     left: 0;
     top: 0;
 
-    width:100%;
+    width: 100%;
     height: 100%;
     z-index: 0;
     object-fit: cover;
 
 }
 
-.perfil{
+.perfil {
     margin-top: -10px;
-    width:32px;
+    width: 32px;
 }
 
-.quotes:nth-child(1){
+.quotes:nth-child(1) {
     margin-right: 20px;
 }
 
-.quotes:nth-child(2){
+.quotes:nth-child(2) {
     margin-left: 20px;
 }
 
-.error{
+.error {
 
     border-radius: 3px;
     color: #fff;
@@ -33,19 +33,22 @@ video {
 
 }
 
-li{
+li {
     list-style: none;
 }
 
-.img-circle{
+.img-circle {
     aspect-ratio: 1.1;
 }
 
-@media print{
-    body{
-             writing-mode:sideways-lr;
-            
-     }
+@media print {
+    body {
+        writing-mode: sideways-lr;
+
+    }
 }
 
-
+.ties-menu {
+    max-height: 400px;
+    overflow-y: scroll;
+}

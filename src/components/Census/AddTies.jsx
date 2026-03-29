@@ -144,7 +144,7 @@ const AddTies = ({ aCitizenId, getTies, setTies }) => {
                                         data-toggle="dropdown"
                                         aria-expanded="false"
                                     ></button>
-                                    <div className="dropdown-menu" role="menu">
+                                    <div className="dropdown-menu ties-menu" role="menu">
                                         {tiesTypes?.map((type) => (
                                             <button
                                                 key={type.id}
@@ -166,11 +166,7 @@ const AddTies = ({ aCitizenId, getTies, setTies }) => {
                             <div>
                                 <img
                                     className="img-circle img-bordered-sm"
-                                    src={`${
-                                        import.meta.env.VITE_API_SERVER
-                                    }/api/v1/images/pic/mun/${
-                                        user?.municipality
-                                    }/${user?.citizenID}`}
+                                    src={user?.picture}
                                     alt="user image"
                                     style={{
                                         width: "70px",

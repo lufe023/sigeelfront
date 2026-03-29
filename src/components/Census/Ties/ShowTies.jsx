@@ -89,12 +89,9 @@ const ShowTies = ({ ties, setPeople, getTies }) => {
                                 to={`/mypeople/${tie.aties.id}`}
                                 onClick={() => setPeople()}
                             >
+                              {  console.log(tie)}
                                 <img
-                                    src={`${
-                                        import.meta.env.VITE_API_SERVER
-                                    }/api/v1/images/pic/mun/${
-                                        ties?.aties?.municipality
-                                    }/${tie.aties.citizenID}`}
+                                    src={tie?.aties?.picture}
                                     alt="User Image"
                                     className="concurrencia-citizen-image"
                                 />
@@ -105,11 +102,7 @@ const ShowTies = ({ ties, setPeople, getTies }) => {
                                 onClick={() => setPeople()}
                             >
                                 <img
-                                    src={`${
-                                        import.meta.env.VITE_API_SERVER
-                                    }/api/v1/images/pic/mun/${
-                                        ties?.bties?.municipality
-                                    }/${tie.bties.citizenID}`}
+                                    src={tie?.bties?.picture}
                                     className="concurrencia-citizen-image"
                                 />
                             </Link>

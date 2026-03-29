@@ -7,7 +7,13 @@ import RegisteredUser from "../Did/RegisteredUser";
 import "./PreRegister.css";
 
 const AdminUserRegister = ({ getAllUsers }) => {
-    const [people, setPeople] = useState();
+    const [people, setPeople] = useState({
+        firstName: "",
+        lastName: "",
+        citizenID: "0000000000",
+        municipality: "000",
+        picture: `${import.meta.env.VITE_API_SERVER}/api/v1/images/default-image`,
+    });
     const [inputsLoader, setInputsLoader] = useState(false);
     const [formLoader, setFormLoader] = useState(false);
     const [showError, setShowError] = useState("");
@@ -21,7 +27,7 @@ const AdminUserRegister = ({ getAllUsers }) => {
             setInputsLoader(true);
             findPeople(fn);
         } else {
-            setPeople({ firstName: "", lastName: "" });
+            setPeople({ firstName: "", lastName: "", picture: `${import.meta.env.VITE_API_SERVER}/api/v1/images/default-image` });
         }
     };
     const findPeople = (findWord) => {
@@ -34,7 +40,7 @@ const AdminUserRegister = ({ getAllUsers }) => {
                 {
                     findWord: findWord,
                 },
-                getConfig()
+                getConfig(),
             )
             .then((res) => {
                 if (!res.data.data.rows[0]) {
@@ -48,7 +54,7 @@ const AdminUserRegister = ({ getAllUsers }) => {
                 setInputsLoader(false);
             })
             .catch((err) => {
-                console.log(err);
+                console.error(err);
                 setInputsLoader(false);
             });
     };
@@ -56,9 +62,6 @@ const AdminUserRegister = ({ getAllUsers }) => {
         e.preventDefault();
         const user = {
             email: people?.citizenID,
-            password: people?.citizenID,
-            citizenID: people?.citizenID,
-            role: 1,
         };
         setFormLoader(true);
 
@@ -77,7 +80,7 @@ const AdminUserRegister = ({ getAllUsers }) => {
                 setInputsLoader(false);
 
                 setMessage(
-                    "Error, asegurese de que el usuario ya no este registrado o contacte con el administrador"
+                    "Error, asegurese de que el usuario ya no este registrado o contacte con el administrador",
                 );
             });
         //fin de envio backend
@@ -101,7 +104,7 @@ const AdminUserRegister = ({ getAllUsers }) => {
                     <button
                         className="btn btn-primary"
                         onClick={() => {
-                            setRes(false), setPeople();
+                            (setRes(false), setPeople());
                         }}
                     >
                         Registrar Otro
@@ -159,12 +162,7 @@ const AdminUserRegister = ({ getAllUsers }) => {
                                             <div className="col-2">
                                                 <img
                                                     style={{ width: "150px" }}
-                                                    src={`${
-                                                        import.meta.env
-                                                            .VITE_API_SERVER
-                                                    }/api/v1/images/pic/mun/${
-                                                        people?.municipality
-                                                    }/${people?.citizenID}`}
+                                                    src={people?.picture}
                                                     alt="user-avatar"
                                                     className="img-fluid"
                                                 />
@@ -193,6 +191,7 @@ const AdminUserRegister = ({ getAllUsers }) => {
                                                         value={
                                                             people?.firstName
                                                         }
+                                                        disabled
                                                     />
                                                     <div
                                                         style={{
@@ -221,6 +220,7 @@ const AdminUserRegister = ({ getAllUsers }) => {
                                                         className="form-control"
                                                         placeholder="Apellido"
                                                         value={people?.lastName}
+                                                        disabled
                                                     />
                                                     <div
                                                         style={{

@@ -81,7 +81,7 @@ const LockAdmin = ({ setAccess, setPasswordFail, passwordFail }) => {
                 }
             })
             .catch((err) => {
-                console.log(err);
+                console.error(err);
                 setPasswordFail(passwordFail + 1);
                 const Toast = Swal.mixin({
                     toast: true,
@@ -125,7 +125,7 @@ const LockAdmin = ({ setAccess, setPasswordFail, passwordFail }) => {
                                 <div className="lockscreen-logo">
                                     <img
                                         src="img/logo-Mi-elector-Transparente-200x267.png"
-                                        alt="AdminLTE Logo"
+                                        alt="Mi Elector Logo"
                                         className="brand-image"
                                         style={{ width: "200px" }}
                                     />
@@ -150,15 +150,7 @@ const LockAdmin = ({ setAccess, setPasswordFail, passwordFail }) => {
                                         <>
                                             <div className="lockscreen-image">
                                                 <img
-                                                    src={`${
-                                                        import.meta.env
-                                                            .VITE_API_SERVER
-                                                    }/api/v1/images/pic/mun/${
-                                                        user?.censu
-                                                            ?.municipality
-                                                    }/${
-                                                        user?.censu?.citizenID
-                                                    }`}
+                                                    src={user?.censu?.picture}
                                                     alt="User Image"
                                                 />
                                             </div>
@@ -170,7 +162,7 @@ const LockAdmin = ({ setAccess, setPasswordFail, passwordFail }) => {
                                                 <div className="input-group">
                                                     <input
                                                         {...register(
-                                                            "password"
+                                                            "password",
                                                         )}
                                                         autoFocus
                                                         id="password"

@@ -98,11 +98,7 @@ const NearbyCitizen = ({ citizenId, setPeople }) => {
                                 onClick={() => setPeople()}
                             >
                                 <img
-                                    src={`${
-                                        import.meta.env.VITE_API_SERVER
-                                    }/api/v1/images/pic/mun/${
-                                        citizen?.censusData?.municipality
-                                    }/${citizen?.censusData?.citizenID}`}
+                                    src={citizen?.censusData?.picture}
                                     alt={`${citizen?.censusData?.firstName} ${citizen?.censusData?.lastName}`}
                                     className="concurrencia-citizen-image"
                                 />

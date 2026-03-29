@@ -13,7 +13,6 @@ import copy from "clipboard-copy";
 import Swal from "sweetalert2";
 import changeUserRole from "../UserDashboard/changeUserRole";
 import TransferCensus from "./TransferCensus";
-import UserMunicipalitiesAccess from "../UserDashboard/UserMunicipalitiesAccess.jsx";
 import TerritorioAssignment from "./TerritorioAssignment.jsx";
 
 const UserAdministrator = () => {
@@ -36,7 +35,15 @@ const UserAdministrator = () => {
             })
             .catch((err) => console.log(err));
     };
+const activeUser = async (user, status) => {
+    // Esperamos a que la petición termine y nos dé el booleano
+    const resp = await userDisable(user, status);
 
+    if (resp) {
+        console.log("llamando getpeople");
+        getPeople();
+    }
+}
     const getPeople = () => {
         const URL = `${import.meta.env.VITE_API_SERVER}/api/v1/users/${id}`;
         axios
@@ -128,14 +135,10 @@ const UserAdministrator = () => {
                                     <div className="card card-primary card-outline">
                                         <div className="card-body box-profile">
                                             <div className="text-center">
+                                 
                                                 <img
                                                     className="profile-user-img img-fluid img-circle"
-                                                    src={`${
-                                                        import.meta.env
-                                                            .VITE_API_SERVER
-                                                    }/api/v1/images/pic/mun/${
-                                                        people?.municipality
-                                                    }/${people?.citizenID}`}
+                                                    src={people?.picture}
                                                     alt="User profile picture"
                                                 />
                                             </div>
@@ -165,16 +168,21 @@ const UserAdministrator = () => {
                                                 </li>
                                                 <li className="list-group-item">
                                                     <b>Estado</b>
-                                                    {user.active ? (
                                                         <a className="float-right">
+                                                            {user.active ? "Activo" : "Inactivo"}
+                                                        </a>
+                                                </li>
+                                            </ul>
+                                            <div>
+                                                {user.active ? (
+                                                        <a className="">
                                                             <button
                                                                 className="btn btn-danger btn-xs"
                                                                 onClick={() => (
-                                                                    userDisable(
+                                                                    activeUser(
                                                                         user.id,
                                                                         false,
-                                                                    ),
-                                                                    getPeople()
+                                                                    )                                                                    
                                                                 )}
                                                             >
                                                                 {" "}
@@ -182,15 +190,15 @@ const UserAdministrator = () => {
                                                             </button>
                                                         </a>
                                                     ) : (
-                                                        <a className="float-right">
+                                                        <a className="">
                                                             <button
                                                                 className="btn btn-success btn-xs"
                                                                 onClick={() => (
-                                                                    userDisable(
+                                                                    activeUser(
                                                                         user.id,
                                                                         true,
-                                                                    ),
-                                                                    getPeople()
+                                                                    )
+                                                                
                                                                 )}
                                                             >
                                                                 {" "}
@@ -198,8 +206,7 @@ const UserAdministrator = () => {
                                                             </button>
                                                         </a>
                                                     )}
-                                                </li>
-                                            </ul>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -704,17 +711,6 @@ const UserAdministrator = () => {
                                     />
 
                                     <TerritorioAssignment usuarioId={user.id} />
-
-                                    <UserMunicipalitiesAccess
-                                        municipios={municipios}
-                                        municipiosUsuario={municipiosUsuario}
-                                        idusuario={id}
-                                        onChange={(nuevosMunicipios) =>
-                                            setMunicipiosUsuario(
-                                                nuevosMunicipios,
-                                            )
-                                        }
-                                    />
                                 </div>
 
                                 {/* /.col */}
