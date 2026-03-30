@@ -43,8 +43,8 @@ li {
 
 @media print {
     body {
-        writing-mode: sideways-lr;
-
+        writing-mode: horizontal-tb !important;
+        overflow: visible !important;
     }
 }
 

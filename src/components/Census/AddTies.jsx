@@ -5,10 +5,13 @@ import getConfig from "../../utils/getConfig";
 import Cargando from "../../utils/Cargando";
 //import "./AdUserToTeams.css"
 
+const SEARCH_DEBOUNCE_MS = 450;
+
 const AddTies = ({ aCitizenId, getTies, setTies }) => {
     const [results, setResults] = useState([]);
     const [tiesTypes, setTiesTypes] = useState();
     const [finding, setFinding] = useState(false);
+    const [searchTerm, setSearchTerm] = useState("");
 
     const getTiesTypes = () => {
         const URL = `${import.meta.env.VITE_API_SERVER}/api/v1/ties/types`;
@@ -22,37 +25,54 @@ const AddTies = ({ aCitizenId, getTies, setTies }) => {
             });
     };
     const findPeople = (findWord) => {
+        setFinding(true);
         const URL = `${import.meta.env.VITE_API_SERVER}/api/v1/census/search`;
         axios
             .post(
                 URL,
                 {
                     findWord,
+                    page: 1,
+                    size: 10,
                 },
-                getConfig()
+                getConfig(),
             )
             .then((res) => {
-                setResults(res.data.data.rows);
+                const payload = res.data?.data;
+                const rows = Array.isArray(payload) ? payload : payload?.rows || [];
+
+                setResults(rows);
                 setFinding(false);
             })
-            .catch((err) => {
+            .catch(() => {
                 setResults([]);
                 setFinding(false);
             });
     };
 
     const findingWord = (e) => {
-        const fn = e.target.value.trim();
-        findPeople(fn);
-        setFinding(true);
-        if (fn == "") {
-            setFinding(false);
-        }
+        setSearchTerm(e.target.value);
     };
 
     useEffect(() => {
         getTiesTypes();
     }, []);
+
+    useEffect(() => {
+        const normalizedTerm = searchTerm.trim();
+
+        if (normalizedTerm.length < 3) {
+            setResults([]);
+            setFinding(false);
+            return undefined;
+        }
+
+        const debounceId = setTimeout(() => {
+            findPeople(normalizedTerm);
+        }, SEARCH_DEBOUNCE_MS);
+
+        return () => clearTimeout(debounceId);
+    }, [searchTerm]);
 
     const addTies = (aCitizenId, bCitizenId, tiesType) => {
         setTies();
@@ -111,6 +131,7 @@ const AddTies = ({ aCitizenId, getTies, setTies }) => {
                     className="form-control"
                     id="exampleInputEmail1"
                     placeholder="Apodo, nombre, apellido o cedula sin guiones"
+                    value={searchTerm}
                     onChange={findingWord}
                 />
             </div>

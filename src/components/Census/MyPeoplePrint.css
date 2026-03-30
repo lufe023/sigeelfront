@@ -1,15 +1,318 @@
-.impresora{
-width: 99%;
-box-sizing:'border-box';
+.impresora {
+    width: 100%;
+    box-sizing: border-box;
+    padding: 0.75rem;
+    background: #f5f7fb;
 }
 
-.inforecolecter{
+.print-sheet {
+    background: #fff;
+}
+
+.print-sheet-header {
+    display: flex;
+    justify-content: space-between;
+    gap: 0.75rem;
+    flex-wrap: wrap;
+    padding: 0.75rem;
+    border: 1px solid #0f172a;
+    border-radius: 0.75rem;
+    margin-bottom: 0.75rem;
+}
+
+.print-sheet-brand {
+    display: flex;
+    gap: 0.85rem;
+    align-items: center;
+}
+
+.print-sheet-title {
+    margin: 0;
+    font-size: 1.4rem;
+    font-weight: 700;
+}
+
+.print-sheet-subtitle {
+    margin: 0.25rem 0 0;
+    color: #475569;
+    font-size: 0.92rem;
+}
+
+.print-sheet-meta {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(160px, 1fr));
+    gap: 0.6rem 0.9rem;
+    flex: 1 1 380px;
+}
+
+.print-sheet-meta-item {
+    display: flex;
+    flex-direction: column;
+    padding: 0.45rem 0.6rem;
+    background: #f8fafc;
+    border-radius: 0.5rem;
+    border: 1px solid #e2e8f0;
+}
+
+.print-sheet-meta-item span {
+    font-size: 0.72rem;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    color: #64748b;
+}
+
+.print-sheet-meta-item strong {
+    font-size: 0.95rem;
+    color: #0f172a;
+}
+
+.print-sheet-note {
+    margin-bottom: 0.75rem;
+    padding: 0.55rem 0.8rem;
+    background: #eff6ff;
+    border-left: 4px solid #2563eb;
+    border-radius: 0.5rem;
+    color: #1e3a8a;
+    font-size: 0.88rem;
+}
+
+.print-forms-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 0.5rem;
+}
+
+.capture-form-card {
+    display: flex;
+    flex-direction: column;
+    min-height: 88mm;
+    padding: 0.55rem;
+    border: 1.2px solid #111827;
+    border-radius: 0.65rem;
+    background: #fff;
+    break-inside: avoid;
+    page-break-inside: avoid;
+}
+
+.capture-form-card__header {
+    display: flex;
+    gap: 0.5rem;
+    align-items: flex-start;
+    padding-bottom: 0.45rem;
+    margin-bottom: 0.45rem;
+    border-bottom: 1px dashed #94a3b8;
+}
+
+.capture-form-card__photo {
+    width: 58px;
+    height: 72px;
+    object-fit: cover;
+    flex-shrink: 0;
+    border: 1px solid #cbd5e1;
+    border-radius: 0.35rem;
+    background: #f8fafc;
+}
+
+.capture-form-card__photo--placeholder {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.75rem;
+    color: #64748b;
+}
+
+.capture-form-card__identity h4 {
+    margin: 0 0 0.2rem;
+    font-size: 0.8rem;
+    line-height: 1.2;
+    text-transform: uppercase;
+}
+
+.capture-form-card__identity p {
+    margin: 0 0 0.2rem;
+    font-size: 0.75rem;
+}
+
+.capture-form-field--inline {
+    margin-top: 0.1rem;
+}
+
+.capture-form-card__sections {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 0.35rem;
+    flex: 1;
+}
+
+.capture-form-section h5 {
+    margin: 0 0 0.25rem;
+    padding: 0.15rem 0.35rem;
+    border-radius: 0.35rem;
+    background: #f3f4f6;
+    font-size: 0.66rem;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+}
+
+.capture-form-fields,
+.capture-preferences-grid {
+    display: grid;
+    gap: 0.3rem;
+}
+
+.capture-form-field {
+    display: flex;
+    align-items: flex-end;
+    gap: 0.25rem;
+    font-size: 0.72rem;
+}
+
+.capture-form-field--stacked {
+    display: grid;
+    align-items: start;
+}
+
+.capture-form-label {
+    min-width: 56px;
+    font-weight: 600;
+    color: #111827;
+}
+
+.capture-form-line {
+    flex: 1 1 auto;
+    display: block;
+    min-height: 12px;
+    border-bottom: 1px solid #111827;
+}
+
+.capture-form-line--lg {
+    min-height: 28px;
+}
+
+.print-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    align-items: stretch;
+}
+
+.print-person-card {
+    display: flex;
+    flex: 0 0 calc(50% - 0.25rem);
+    max-width: calc(50% - 0.25rem);
+    margin: 0;
+    padding: 0.4rem;
+    border: solid 1px #000;
+    line-height: 1.25;
+    background: #fff;
+    break-inside: avoid;
+    page-break-inside: avoid;
+}
+
+.print-person-card__photo {
+    width: 92px;
+    height: 110px;
+    object-fit: cover;
+    flex-shrink: 0;
+    margin-right: 0.5rem;
+    border: 1px solid #d1d5db;
+}
+
+.print-person-card__content {
+    flex: 1 1 auto;
+    min-width: 0;
+    font-size: 12px;
+}
+
+.print-person-card__name {
+    margin-bottom: 0.35rem;
+    font-weight: 700;
+}
+
+.print-person-card__line {
+    margin: 0 0 0.15rem;
+}
+
+.inforecolecter {
     margin: 0;
     padding: 0;
 }
 
-.inforecolecter li{
+.inforecolecter li {
     border-bottom: solid 1px #000;
     min-width: 100px;
     padding: 20px 0;
+}
+
+@media screen and (max-width: 991.98px) {
+
+    .print-sheet-meta,
+    .print-forms-grid,
+    .capture-form-card__sections {
+        grid-template-columns: 1fr;
+    }
+
+    .print-person-card {
+        flex-basis: 100%;
+        max-width: 100%;
+    }
+}
+
+@page {
+    size: Letter landscape;
+    margin: 10mm;
+}
+
+@media print {
+
+    html,
+    body {
+        width: 100%;
+        height: auto;
+        background: #fff !important;
+    }
+
+    .main-header,
+    .main-sidebar,
+    .content-header,
+    .no-print {
+        display: none !important;
+    }
+
+    .wrapper,
+    .content-wrapper {
+        margin: 0 !important;
+        padding: 0 !important;
+        background: #fff !important;
+    }
+
+    .content-wrapper {
+        min-height: auto !important;
+    }
+
+    .impresora {
+        width: 100% !important;
+        padding: 0 !important;
+        background: #fff !important;
+    }
+
+    .print-sheet-header,
+    .capture-form-card,
+    .print-person-card {
+        box-shadow: none !important;
+    }
+
+    .print-forms-grid,
+    .print-grid {
+        gap: 4mm;
+    }
+
+    .capture-form-card {
+        min-height: 82mm;
+    }
+
+    .print-person-card {
+        flex: 0 0 calc(50% - 2mm);
+        max-width: calc(50% - 2mm);
+    }
 }
