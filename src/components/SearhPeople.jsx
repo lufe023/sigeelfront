@@ -16,8 +16,6 @@ const SearhPeople = () => {
 
     useEffect(() => {
         if (normalizedSearchTerm.length >= 3) {
-            setIsloading(true);
-
             const delayDebounceFn = setTimeout(() => {
                 findPeople(normalizedSearchTerm);
             }, 500);
@@ -38,7 +36,7 @@ const SearhPeople = () => {
                 searchContainerRef.current &&
                 !searchContainerRef.current.contains(event.target)
             ) {
-                setIsShow(false);
+                closeSearch();
             }
         };
 
@@ -49,7 +47,7 @@ const SearhPeople = () => {
         };
     }, [isShow]);
 
-    const addPeople = (people, citizenID) => {
+    const addPeople = (people) => {
         const URL = `${
             import.meta.env.VITE_API_SERVER
         }/api/v1/census/addpeople`;
@@ -62,7 +60,7 @@ const SearhPeople = () => {
                 getConfig(),
             )
             .then(() => {
-                findPeople(citizenID);
+                findPeople(normalizedSearchTerm);
             })
             .catch((err) => {
                 console.error(err);
@@ -73,17 +71,34 @@ const SearhPeople = () => {
         setIsShow((prev) => !prev);
     };
 
+    const closeSearch = () => {
+        setIsShow(false);
+        // setSearchTerm("");
+        // setResults([]);
+        // setCount(0);
+        setIsloading(false);
+    };
+
     const openSearch = () => {
         setIsShow(true);
     };
 
     const findPeople = (findWord) => {
+        setIsloading(true);
         const URL = `${import.meta.env.VITE_API_SERVER}/api/v1/census/search`;
         axios
-            .post(URL, { findWord }, getConfig())
+            .post(
+                URL,
+                {
+                    findWord,
+                    page: 1,
+                    size: 5,
+                },
+                getConfig(),
+            )
             .then((res) => {
-                setResults(res.data.data.rows);
-                setCount(res.data.data.count);
+                setResults(res.data?.data || []);
+                setCount(res.data?.totalItems || 0);
                 setIsloading(false);
             })
             .catch((err) => {
@@ -126,7 +141,7 @@ const SearhPeople = () => {
                         <input
                             className="form-control form-control-navbar header-search-input"
                             type="search"
-                            placeholder="Nombre, apellido o cédula"
+                            placeholder="Nombre, apellido o cedula"
                             aria-label="Search"
                             value={searchTerm}
                             onFocus={openSearch}
@@ -152,7 +167,7 @@ const SearhPeople = () => {
                         <div>
                             <h5>Empieza a escribir</h5>
                             <p>
-                                Usa nombre, apellido, apodo o cédula sin
+                                Usa nombre, apellido, apodo o cedula sin
                                 guiones para buscar.
                             </p>
                         </div>
@@ -309,7 +324,6 @@ const SearhPeople = () => {
                                                                 onClick={() =>
                                                                     addPeople(
                                                                         people?.id,
-                                                                        people?.citizenID,
                                                                     )
                                                                 }
                                                             >
@@ -331,11 +345,11 @@ const SearhPeople = () => {
                                                         >
                                                             {people?.sufragio
                                                                 ?.suffrage
-                                                                ? "Votó"
-                                                                : "No Votó"}
+                                                                ? "Voto"
+                                                                : "No Voto"}
                                                         </span>
                                                         <span className="badge bg-dark p-2">
-                                                            Posición:{" "}
+                                                            Posicion:{" "}
                                                             {people?.position}
                                                         </span>
                                                     </div>
@@ -358,10 +372,14 @@ const SearhPeople = () => {
                 </div>
 
                 <div className="dropdown-divider" />
-                {count ? (
-                    <a href="#" className="dropdown-item dropdown-footer">
+                {count && normalizedSearchTerm.length >= 3 ? (
+                    <Link
+                        to={`/searchpeople?q=${encodeURIComponent(normalizedSearchTerm)}`}
+                        className="dropdown-item dropdown-footer"
+                        onClick={closeSearch}
+                    >
                         Ver todos los resultados
-                    </a>
+                    </Link>
                 ) : (
                     ""
                 )}

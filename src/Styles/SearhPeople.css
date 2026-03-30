@@ -59,7 +59,7 @@
     left: 0;
     top: calc(100% + 10px);
     background-color: #fff;
-    border: 1px solid rgba(0, 0, 0, .15);
+    border: 1px solid rgba(0, 0, 0, 0.15);
     border-radius: 0.25rem;
     box-shadow: 0 0.5rem 1rem rgb(0 0 0 / 18%);
     display: none;
@@ -73,7 +73,6 @@
 .lineDivider {
     border-top: 1px solid #e9ecef;
     list-style: none;
-
 }
 
 .lineDivider:hover {
@@ -103,7 +102,6 @@
     display: flex;
     justify-content: space-around;
 }
-
 
 .search-tool:hover {
     scale: 1.5;
@@ -146,8 +144,13 @@
     height: 100vh;
 }
 
-@media (max-width: 991.98px) {
+/* @media (max-width: 991.98px) {
+    .main-header.navbar {
+        position: relative;
+    }
+
     .header-search {
+        position: static;
         flex: 0 0 auto;
         max-width: none;
         margin: 0 0.5rem 0 auto;
@@ -180,9 +183,9 @@
         left: auto;
         width: min(92vw, 540px);
     }
-}
+} */
 
-@media (max-width: 575.98px) {
+/* @media (max-width: 580px) {
     .header-search {
         margin: 0 0.25rem 0 auto;
     }
@@ -193,5 +196,47 @@
 
     .header-search .searchBox {
         width: 92vw;
+    }
+} */
+
+@media (max-width: 900px) {
+    .header-search.is-open {
+        position: absolute;
+        top: 0.4rem;
+        left: 0.5rem;
+        right: 0.5rem;
+        margin: 0;
+        max-width: none;
+        z-index: 1042;
+        gap: 0.35rem;
+        padding: 0.25rem 0.35rem;
+        border-radius: 999px;
+        background: #fff;
+        box-shadow: 0 10px 24px rgb(0 0 0 / 18%);
+    }
+
+    .header-search.is-open .header-search-input-wrap {
+        position: static;
+        width: 100%;
+        opacity: 1;
+        pointer-events: auto;
+        transform: none;
+    }
+
+    .header-search.is-open .header-search-input-wrap .input-group {
+        border: 0;
+        background: transparent;
+    }
+
+    .header-search.is-open .header-search-toggle {
+        flex: 0 0 38px;
+        display: inline-flex;
+    }
+
+    .header-search.is-open .searchBox {
+        top: calc(100% + 8px);
+        left: 0;
+        right: 0;
+        width: 100%;
     }
 }

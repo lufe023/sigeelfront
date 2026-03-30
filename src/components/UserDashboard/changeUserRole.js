@@ -3,7 +3,7 @@ import getConfig from "../../utils/getConfig";
 import axios from "axios";
 
 const changeUserRole = (id, newRoleId, updateView) => {
-  const URL = `${import.meta.env.VITE_API_SERVER}/api/v1/users//changeUserRole`;
+  const URL = `${import.meta.env.VITE_API_SERVER}/api/v1/users/changeUserRole`;
   axios
     .patch(URL, { id, newRoleId }, getConfig())
     .then((res) => {

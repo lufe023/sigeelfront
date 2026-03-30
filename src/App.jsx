@@ -33,6 +33,7 @@ import Delegate from './components/Admin/Delegate/Delegate';
 import WarRoom from './components/Admin/Informs/WarRoom';
 import PeopleByUserPrint from './components/UserDashboard/PeopleByUserPrint';
 import VoteGrupal from './components/Admin/Delegate/VoteGrupal';
+import SearchPeopleResults from './components/Census/SearchPeopleResults';
 
 
 function App() {
@@ -49,6 +50,7 @@ function App() {
         <Route path='/tasks' element={<TasksBoard/>}/>
         <Route path='/tasks/:id' element={<TasksBoard/>}/>
         <Route path='/mypeople' element={<MyPeople/>}/>
+        <Route path='/searchpeople' element={<SearchPeopleResults/>}/>
         <Route path='/printmypeople' element={<MyPeoplePrint/>}/>
         <Route path='/printmyconcurrencia' element={<MyPeoplePrintB/>}/>
         <Route path='/mypeople/:id' element={<People/>}/>
