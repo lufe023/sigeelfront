@@ -76,6 +76,7 @@ const MyPeople = () => {
                     <FindAndAddPeople
                         getMypeople={getMypeople}
                         leaderId={user?.id}
+                        leaderCitizenId={user?.censu?.citizenID}
                     />
 
                     {/* Default box */}

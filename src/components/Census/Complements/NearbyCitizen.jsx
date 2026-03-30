@@ -1,30 +1,60 @@
 import axios from "axios";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import getConfig from "../../../utils/getConfig";
 import { Link } from "react-router-dom";
 import Radar from "./Radar";
 
+const EMPTY_RESULT_DELAY_MS = 1800;
+
 const NearbyCitizen = ({ citizenId, setPeople }) => {
-    const [near, setNear] = useState();
+    const [near, setNear] = useState([]);
     const [rangeValue, setRangeValue] = useState(100);
     const [radarLoading, setRadarLoading] = useState(true);
+    const radarDelayTimeoutRef = useRef(null);
+
+    const finishRadarSearch = (nearbyResults, shouldDelay = false) => {
+        if (radarDelayTimeoutRef.current) {
+            clearTimeout(radarDelayTimeoutRef.current);
+            radarDelayTimeoutRef.current = null;
+        }
+
+        setNear(nearbyResults);
+
+        if (shouldDelay) {
+            radarDelayTimeoutRef.current = window.setTimeout(() => {
+                setRadarLoading(false);
+                radarDelayTimeoutRef.current = null;
+            }, EMPTY_RESULT_DELAY_MS);
+            return;
+        }
+
+        setRadarLoading(false);
+    };
 
     const FindNearbyCitizen = () => {
         setRadarLoading(true);
-        setNear();
+        setNear([]);
         const URL = `${import.meta.env.VITE_API_SERVER}/api/v1/gps/nearby/${rangeValue}/${citizenId}`;
         axios
             .get(URL, getConfig())
             .then((res) => {
-                setNear(res.data);
-                setRadarLoading(false);
+                const nearbyResults = Array.isArray(res.data) ? res.data : [];
+                finishRadarSearch(nearbyResults, nearbyResults.length === 0);
             })
-            .catch((err) => console.error(err));
+            .catch((err) => {
+                console.error(err);
+                finishRadarSearch([], true);
+            });
     };
 
     useEffect(() => {
-        FindNearbyCitizen(rangeValue);
-        setRadarLoading(true);
+        FindNearbyCitizen();
+
+        return () => {
+            if (radarDelayTimeoutRef.current) {
+                clearTimeout(radarDelayTimeoutRef.current);
+            }
+        };
     }, [citizenId]);
 
     return (

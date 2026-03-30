@@ -1,17 +1,18 @@
 import axios from "axios";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import getConfig from "../../utils/getConfig";
 import Cargando from "../../utils/Cargando";
 import { Link } from "react-router-dom";
-import { useSelector } from "react-redux";
 import Swal from "sweetalert2";
 import AddTieToLeader from "./AddTieToLeader";
 
+const SEARCH_DEBOUNCE_MS = 450;
+
 const FindAndAddPeople = ({ getMypeople, leaderId, leaderCitizenId }) => {
-    const [isShow, setIsShow] = useState(true);
     const [results, setResults] = useState([]);
-    const [count, setCount] = useState();
+    const [count, setCount] = useState(0);
     const [isLoading, setIsloading] = useState(false);
+    const [searchTerm, setSearchTerm] = useState("");
 
     const addPeople = (people, citizenID, leaderId) => {
         const URL = `${
@@ -47,7 +48,7 @@ const FindAndAddPeople = ({ getMypeople, leaderId, leaderCitizenId }) => {
                 });
             })
             .catch((err) => {
-                console.log(err);
+                console.error(err);
                 const Toast = Swal.mixin({
                     toast: true,
                     position: "top-end",
@@ -68,38 +69,54 @@ const FindAndAddPeople = ({ getMypeople, leaderId, leaderCitizenId }) => {
     };
 
     const findPeople = (findWord) => {
+        setIsloading(true);
         const URL = `${import.meta.env.VITE_API_SERVER}/api/v1/census/search`;
         axios
             .post(
                 URL,
                 {
-                    findWord: findWord,
+                    findWord,
+                    page: 1,
+                    size: 10,
                 },
-                getConfig()
+                getConfig(),
             )
             .then((res) => {
-                setResults(res.data.data.rows);
-                setCount(res.data.data.count);
+                const payload = res.data?.data;
+                const rows = Array.isArray(payload) ? payload : payload?.rows || [];
+                const total = res.data?.totalItems ?? payload?.count ?? rows.length;
+
+                setResults(rows);
+                setCount(total);
                 setIsloading(false);
             })
             .catch((err) => {
                 setResults([]);
-                setCount();
-                console.log(err);
+                setCount(0);
+                setIsloading(false);
+                console.error(err);
             });
     };
     const findingWord = (e) => {
-        const fn = e.target.value.trim();
-
-        if (fn != "" && fn.length >= 3) {
-            setIsloading(true);
-            findPeople(fn);
-        } else {
-            setIsloading(false);
-            setResults("");
-            setCount("");
-        }
+        setSearchTerm(e.target.value);
     };
+
+    useEffect(() => {
+        const normalizedTerm = searchTerm.trim();
+
+        if (normalizedTerm.length < 3) {
+            setIsloading(false);
+            setResults([]);
+            setCount(0);
+            return undefined;
+        }
+
+        const debounceId = setTimeout(() => {
+            findPeople(normalizedTerm);
+        }, SEARCH_DEBOUNCE_MS);
+
+        return () => clearTimeout(debounceId);
+    }, [searchTerm]);
 
     return (
         <div className="card card-primary">
@@ -120,11 +137,16 @@ const FindAndAddPeople = ({ getMypeople, leaderId, leaderCitizenId }) => {
             {/* /.card-header */}
             <div className="card-body">
                 <li className="nav-item">
-                    <form className="form col-8" style={{ margin: "auto" }}>
+                    <form
+                        className="form col-8"
+                        style={{ margin: "auto" }}
+                        onSubmit={(event) => event.preventDefault()}
+                    >
                         <div className="input-group ">
                             <input
                                 className="form-control form-control-navbar"
                                 placeholder="Nombre, Apellido o Cedula"
+                                value={searchTerm}
                                 onChange={findingWord}
                             />
                             <div className="input-group-append">
