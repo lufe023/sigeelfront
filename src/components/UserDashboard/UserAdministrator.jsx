@@ -357,7 +357,7 @@ const activeUser = async (user, status) => {
                                                             <option value={4}>
                                                                 It Support
                                                             </option>
-                                                            <option value={5}>
+                                                            <option value={999}>
                                                                 Super Admin
                                                             </option>
                                                         </select>

@@ -36,6 +36,7 @@ const Header = () => {
                         </NavLink>
                     </li>
                 </ul>
+
                 <SearhPeople />
                 {/* Right navbar links */}
                 <ul className="navbar-nav ml-auto">
