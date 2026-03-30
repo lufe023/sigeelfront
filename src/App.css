@@ -52,3 +52,19 @@ li {
     max-height: 400px;
     overflow-y: scroll;
 }
+
+/* Evita que el navegador haga zoom al enfocar inputs en móviles */
+@media screen and (max-width: 768px) {
+
+    input,
+    select,
+    textarea {
+        font-size: 16px !important;
+    }
+}
+
+/* Evita el scroll horizontal innecesario si la tabla de resultados es ancha */
+body {
+    overflow-x: hidden;
+    position: relative;
+}
