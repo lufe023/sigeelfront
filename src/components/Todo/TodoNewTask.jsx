@@ -5,6 +5,8 @@ import Swal from "sweetalert2";
 
 const TodoNewTask = ({ getAllTask }) => {
     const [users, setUsers] = useState();
+    const [selectedUser, setSelectedUser] = useState(null);
+    const [isDropdownOpen, setIsDropdownOpen] = useState(false);
 
     const getAllUsers = () => {
         axios
@@ -20,6 +22,12 @@ const TodoNewTask = ({ getAllTask }) => {
     useEffect(() => {
         getAllUsers();
     }, []);
+
+    function resetForm(e) {
+        setSelectedUser(null);
+        setIsDropdownOpen(false);
+        e.target.reset();
+    }
 
     const handleSubmit = (e) => {
         e.preventDefault();
@@ -47,12 +55,14 @@ const TodoNewTask = ({ getAllTask }) => {
                         toast.addEventListener("mouseenter", Swal.stopTimer);
                         toast.addEventListener("mouseleave", Swal.resumeTimer);
                     },
+
                 });
 
                 Toast.fire({
                     icon: "success",
                     title: "Ingreso Exitoso",
                 });
+                resetForm(e);
             })
             .catch((err) => {
                 console.error(err);
@@ -119,28 +129,12 @@ const TodoNewTask = ({ getAllTask }) => {
 
                     <div className="form-group">
                         <label htmlFor="before">Completar antes de</label>
-                        <div
-                            className="input-group date"
-                            id="reservationdatetime"
-                            data-target-input="nearest"
-                        >
-                            <input
-                                name="limit"
-                                id="before"
-                                type="text"
-                                className="form-control datetimepicker-input"
-                                data-target="#reservationdatetime"
-                            />
-                            <div
-                                className="input-group-append"
-                                data-target="#reservationdatetime"
-                                data-toggle="datetimepicker"
-                            >
-                                <div className="input-group-text">
-                                    <i className="fa fa-calendar" />
-                                </div>
-                            </div>
-                        </div>
+                        <input
+                            type="datetime-local"
+                            id="before"
+                            name="limit"
+                            className="form-control"
+                        />
                     </div>
 
                     <div className="form-group">
@@ -158,19 +152,64 @@ const TodoNewTask = ({ getAllTask }) => {
 
                     <div className="form-group">
                         <label htmlFor="responsible">Responsable</label>
-                        <select
-                            className="form-control"
-                            id="responsible"
-                            name="responsible"
-                        >
-                            <option value=""></option>
-                            {users?.map((user) => (
-                                <option key={user.id} value={user.id}>
-                                    {user.censu.first_name}{" "}
-                                    {user.censu.last_name} ({user.email})
-                                </option>
-                            ))}
-                        </select>
+                        <div className="dropdown">
+                            <button
+                                className="btn btn-outline-secondary dropdown-toggle form-control"
+                                type="button"
+                                id="dropdownMenuButton"
+                                data-toggle="dropdown"
+                                aria-haspopup="true"
+                                aria-expanded={isDropdownOpen}
+                                onClick={() => setIsDropdownOpen(!isDropdownOpen)}
+                                style={{ textAlign: 'left', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}
+                            >
+                                {selectedUser ? (
+                                    <div style={{ display: 'flex', alignItems: 'center', width: '100%' }}>
+                                        <img
+                                            src={selectedUser.censu.picture}
+                                            alt="Foto"
+                                            style={{ width: '30px', height: '30px', borderRadius: '50%', marginRight: '10px' }}
+                                        />
+                                        <div>
+                                            <div>{selectedUser.censu.firstName} {selectedUser.censu.lastName}</div>
+                                            <div style={{ fontSize: 'small', color: 'gray' }}>{selectedUser.censu.citizenID}</div>
+                                        </div>
+                                    </div>
+                                ) : (
+                                    'Seleccionar Responsable'
+                                )}
+                                <span className="caret"></span>
+                            </button>
+                            {isDropdownOpen && (
+                                <div className="dropdown-menu show" aria-labelledby="dropdownMenuButton" style={{ width: '100%', maxHeight: '200px', overflowY: 'auto' }}>
+                                    {users?.map((user) => (
+                                        <a
+                                            key={user.id}
+                                            className="dropdown-item"
+                                            href="#"
+                                            onClick={(e) => {
+                                                e.preventDefault();
+                                                setSelectedUser(user);
+                                                setIsDropdownOpen(false);
+                                            }}
+                                        >
+                                            <div style={{ display: 'flex', alignItems: 'center' }}>
+                                                <img
+                                                    src={user.censu.picture}
+                                                    alt="Foto"
+                                                    style={{ width: '30px', height: '30px', borderRadius: '50%', marginRight: '10px' }}
+                                                />
+                                                <div>
+                                                    <div>{user.censu.firstName} {user.censu.lastName}</div>
+                                                    <div style={{ fontSize: 'small', color: 'gray' }}>{user.censu.citizenID} - {user.email}</div>
+                                                </div>
+                                            </div>
+                                        </a>
+                                    ))}
+                                </div>
+                            )}
+                        </div>
+                        <input type="hidden" name="responsible" value={selectedUser?.id || ''} />
                     </div>
                 </div>
                 <div

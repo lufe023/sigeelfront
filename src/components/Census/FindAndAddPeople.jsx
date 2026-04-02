@@ -14,6 +14,30 @@ const FindAndAddPeople = ({ getMypeople, leaderId, leaderCitizenId }) => {
     const [isLoading, setIsloading] = useState(false);
     const [searchTerm, setSearchTerm] = useState("");
 
+    const resultActionsStyle = {
+        display: "flex",
+        justifyContent: "space-between",
+        alignItems: "center",
+        flexWrap: "wrap",
+        gap: "10px",
+        padding: "0.75rem 0 0",
+        marginTop: "0.5rem",
+        borderTop: "1px solid #e9ecef",
+    };
+
+    const resultActionGroupStyle = {
+        display: "flex",
+        flexWrap: "wrap",
+        alignItems: "center",
+        gap: "8px",
+        maxWidth: "100%",
+    };
+
+    const resultBadgeStyle = {
+        whiteSpace: "normal",
+        textAlign: "center",
+    };
+
     const addPeople = (people, citizenID, leaderId) => {
         const URL = `${
             import.meta.env.VITE_API_SERVER
@@ -170,7 +194,7 @@ const FindAndAddPeople = ({ getMypeople, leaderId, leaderCitizenId }) => {
                       <div className="table-responsive p-2" 
      style={{ maxHeight: '500px', overflow: 'visible' }}>
     {count ? (
-        <table className="table table-head-fixed text-nowrap">
+        <table className="table table-head-fixed">
                                     <thead></thead>
                                     <tbody>
                                         {results?.map((people) => (
@@ -320,68 +344,69 @@ const FindAndAddPeople = ({ getMypeople, leaderId, leaderCitizenId }) => {
 
                                                     <div
                                                         className="card-footer"
-                                                        style={{
-                                                            display: "flex",
-                                                            justifyContent:
-                                                                "flex-start",
-                                                            gap: "20px",
-                                                        }}
+                                                        style={resultActionsStyle}
                                                     >
-                                                        {people?.leader ? (
+                                                        <div style={resultActionGroupStyle}>
+                                                            {people?.leader ? (
+                                                                <Link
+                                                                    to={`/mypeople/${people?.leaders?.censu?.id}`}
+                                                                    className="btn btn-default"
+                                                                >
+                                                                    <i className="fas fa-user-check search-tool less"></i>
+                                                                </Link>
+                                                            ) : (
+                                                                <button
+                                                                    className="btn btn-success"
+                                                                    onClick={() =>
+                                                                        addPeople(
+                                                                            people.id,
+                                                                            people.citizenID,
+                                                                            leaderId,
+                                                                        )
+                                                                    }
+                                                                >
+                                                                    <i className="fas fa-user-plus search-tool"></i>
+                                                                </button>
+                                                            )}
                                                             <Link
-                                                                to={`/mypeople/${people?.leaders?.censu?.id}`}
-                                                                className=" btn btn-default"
+                                                                to={`/mypeople/${people?.id}`}
                                                             >
-                                                                <i className="fas fa-user-check search-tool less"></i>
+                                                                <button className="btn btn-warning">
+                                                                    <i className="fas fa-user-edit search-tool"></i>
+                                                                </button>
                                                             </Link>
-                                                        ) : (
-                                                            <button
-                                                                className=" btn btn-success "
-                                                                onClick={() =>
-                                                                    addPeople(
-                                                                        people.id,
-                                                                        people.citizenID,
-                                                                        leaderId
-                                                                    )
+                                                            <AddTieToLeader
+                                                                leaderCitizenId={
+                                                                    leaderCitizenId
                                                                 }
-                                                            >
-                                                                <i className="fas fa-user-plus search-tool"></i>
-                                                            </button>
-                                                        )}
-                                                        <Link
-                                                            to={`/mypeople/${people?.id}`}
-                                                        >
-                                                            <button className=" btn btn-warning">
-                                                                <i className="fas fa-user-edit search-tool"></i>
-                                                            </button>
-                                                        </Link>
-                                                        <button
-                                                            className={` btn ${
-                                                                people?.sufragio
-                                                                    ?.suffrage
-                                                                    ? "btn-success"
-                                                                    : "btn-danger"
-                                                            }`}
-                                                        >
-                                                            {people?.sufragio
-                                                                ?.suffrage
-                                                                ? "Votó"
-                                                                : "No Votó"}
-                                                        </button>
-                                                        <div
-                                                            className={` btn btn-dark`}
-                                                        >
-                                                            Posición:{" "}
-                                                            {people?.position}
+                                                                bCitizenId={
+                                                                    people?.citizenID
+                                                                }
+                                                            />
                                                         </div>
-                                                        <AddTieToLeader
-                                                            leaderCitizenId={
-                                                                leaderCitizenId
-                                                            }
-                                                            bCitizenId={
-                                                                people?.citizenID
-                                                            }
-                                                        />
+
+                                                        <div style={resultActionGroupStyle}>
+                                                            <span
+                                                                className={`badge ${
+                                                                    people?.sufragio
+                                                                        ?.suffrage
+                                                                        ? "bg-success"
+                                                                        : "bg-danger"
+                                                                }`}
+                                                                style={resultBadgeStyle}
+                                                            >
+                                                                {people?.sufragio
+                                                                    ?.suffrage
+                                                                    ? "Votó"
+                                                                    : "No Votó"}
+                                                            </span>
+                                                            <span
+                                                                className="badge bg-dark"
+                                                                style={resultBadgeStyle}
+                                                            >
+                                                                Posición: {people?.position || "N/D"}
+                                                            </span>
+                                                        </div>
                                                     </div>
                                                 </td>
                                             </tr>

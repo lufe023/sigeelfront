@@ -96,7 +96,7 @@ const findingWord = e => {
                                 <i className="fas fa-plus-circle"/> Agregar</button>
                             </div>
                                 <div>
-                                <img className="img-circle img-bordered-sm" src={`${import.meta.env.VITE_API_SERVER}/api/v1/images/citizen/${user?.picture}`} alt="user image" />
+                                <img className="img-circle img-bordered-sm" src={user?.picture} alt="user image" />
                             <span className="username">
                                 <a href="#">{user.firstName}</a>
                             </span>

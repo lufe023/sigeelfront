@@ -166,16 +166,7 @@ const TeamMembersTodo = ({ member, getOneteam }) => {
                                         <div className="text-center">
                                             <img
                                                 className="profile-user-img img-fluid img-circle"
-                                                src={`${
-                                                    import.meta.env
-                                                        .VITE_API_SERVER
-                                                }/api/v1/images/pic/mun/${
-                                                    member.memberData.censu
-                                                        ?.municipality
-                                                }/${
-                                                    member.memberData.censu
-                                                        .citizenID
-                                                }`}
+                                                src={member?.memberData?.censu?.picture}
                                                 alt="User profile picture"
                                             />
                                         </div>
@@ -361,14 +352,7 @@ const TeamMembersTodo = ({ member, getOneteam }) => {
                                                                 .censu.citizenID
                                                         }`} */}
                                                         <img
-                                                            src={`${
-                                                                import.meta.env
-                                                                    .VITE_API_SERVER
-                                                            }/api/v1/images/pic/mun/${
-                                                                persona?.municipality
-                                                            }/${
-                                                                persona?.citizenID
-                                                            }`}
+                                                            src={persona?.picture}
                                                             alt="User Image"
                                                         />
                                                     </Link>
