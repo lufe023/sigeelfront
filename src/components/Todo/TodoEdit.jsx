@@ -3,9 +3,11 @@ import React, { useEffect, useState } from 'react'
 import getConfig from '../../utils/getConfig'
 import Swal from 'sweetalert2'
 import Cargando from '../../utils/Cargando'
-import { Link, useParams, redirect} from 'react-router-dom'
+import { Link, useParams, useNavigate } from 'react-router-dom'
 
 const TodoEdit = ({setEditingTask, editingTask, getAllTask}) => {
+
+const navigate = useNavigate();
 
 
 
@@ -48,8 +50,10 @@ const [defaultValue, setDefaultValue] = useState({
               icon: 'success',
               title: 'Ingreso Exitoso'
             })
-          }
-        )
+            setEditingTask(null);
+            getAllTask();
+            navigate('/tasks');
+          })
         .catch(err => {
           console.log(err)
           const Toast = Swal.mixin({
@@ -139,7 +143,17 @@ const [defaultValue, setDefaultValue] = useState({
     </div>
       <div className="form-group">
         <label htmlFor="inputClientCompany">Responsable</label>
-        <input type="text" id="inputClientCompany" className="form-control" value={editingTask?.Responsible?.email} disabled/>
+        <div style={{ display: 'flex', alignItems: 'center', padding: '10px', border: '1px solid #ced4da', borderRadius: '0.375rem', backgroundColor: '#e9ecef' }}>
+          <img
+            src={editingTask?.Responsible?.censu?.picture}
+            alt="Foto"
+            style={{ width: '30px', height: '30px', borderRadius: '50%', marginRight: '10px' }}
+          />
+          <div>
+            <div>{editingTask?.Responsible?.censu?.firstName} {editingTask?.Responsible?.censu?.lastName}</div>
+            <div style={{ fontSize: 'small', color: 'gray' }}>{editingTask?.Responsible?.censu?.citizenID} - {editingTask?.Responsible?.email}</div>
+          </div>
+        </div>
       </div>
       <div className="form-group">
         <label htmlFor="inputProjectLeader">Creado por</label>
