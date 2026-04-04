@@ -41,13 +41,15 @@ const LockAdmin = ({ setAccess, setPasswordFail, passwordFail }) => {
                 });
             });
     };
+
+
     useEffect(() => {
         getUserbyId();
     }, []);
 
-    if (user?.censu?.firstName == "Cargando") {
-        getUserbyId();
-    }
+    // if (user?.censu?.firstName == "Cargando") {
+    //     getUserbyId();
+    // }
 
     const submit = (data) => {
         const URL = `${import.meta.env.VITE_API_SERVER}/api/v1/auth/login`;

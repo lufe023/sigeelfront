@@ -14,6 +14,7 @@ import SeeParties from "./SeeParties";
 const SeeBallot = () => {
     const [candidates, setCandidates] = useState();
     const [parties, setParties] = useState();
+    const [searchTerm, setSearchTerm] = useState("");
 
     const getAllParties = () => {
         const URL = `${import.meta.env.VITE_API_SERVER}/api/v1/ballots/party`;
@@ -52,6 +53,30 @@ const SeeBallot = () => {
         getAllCandidates();
         getAllParties();
     }, []);
+
+    const totalCandidates = candidates?.length ?? 0;
+    const totalParties = parties?.length ?? 0;
+    const normalizedSearchTerm = searchTerm.trim().toLowerCase();
+    const filteredCandidates =
+        candidates?.filter((candidate) => {
+            if (!normalizedSearchTerm) {
+                return true;
+            }
+
+            const searchableContent = [
+                candidate.name,
+                candidate.nomination,
+                candidate.partyDetails?.partyName,
+                candidate.partyDetails?.partyAcronyms,
+                candidate.province?.[0]?.Descripcion,
+                candidate.municipality?.[0]?.description,
+            ]
+                .filter(Boolean)
+                .join(" ")
+                .toLowerCase();
+
+            return searchableContent.includes(normalizedSearchTerm);
+        }) ?? [];
 
     //funcion para eliminar un candidato
     const deleteCandidate = (candidateId, candidateName) => {
@@ -134,36 +159,86 @@ const SeeBallot = () => {
                     </div>
                 </section>
                 <section className="content">
-                    <div className="row">
+                    <div className="row ballot-section-row">
                         <div className="col-12">
-                            <div className="card">
-                                <div className="card-header">
-                                    <h3 className="card-title">Candidatos</h3>
-                                    <div className="card-tools">
-                                        <div
-                                            className="input-group input-group-sm"
-                                            style={{ width: 150 }}
-                                        >
+                            <div className="ballot-hero-card">
+                                <div>
+                                    <span className="ballot-eyebrow">
+                                        Administracion electoral
+                                    </span>
+                                    <h2 className="ballot-hero-title">
+                                        Gestion de boleta
+                                    </h2>
+                                    <p className="ballot-hero-subtitle">
+                                        Centraliza candidatos, partidos y
+                                        configuracion visual en una sola vista
+                                        mas clara para operar sin perderte.
+                                    </p>
+                                </div>
+
+                                <div className="ballot-stats-grid">
+                                    <div className="ballot-stat-card">
+                                        <strong>{totalCandidates}</strong>
+                                        <span>Candidatos</span>
+                                    </div>
+                                    <div className="ballot-stat-card">
+                                        <strong>{totalParties}</strong>
+                                        <span>Partidos</span>
+                                    </div>
+                                    <div className="ballot-stat-card">
+                                        <strong>{filteredCandidates.length}</strong>
+                                        <span>Resultados</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div className="row ballot-section-row">
+                        <div className="col-12">
+                            <div className="card ballot-candidates-panel">
+                                <div className="card-header ballot-panel-header">
+                                    <div>
+                                        <span className="ballot-panel-kicker">
+                                            Candidatos
+                                        </span>
+                                        <h3 className="card-title ballot-panel-title">
+                                            Registro actual de la boleta
+                                        </h3>
+                                        <p className="ballot-panel-subtitle">
+                                            Busca por nombre, partido, cargo o
+                                            demarcacion para revisar rapidamente
+                                            la informacion cargada.
+                                        </p>
+                                    </div>
+
+                                    <div className="ballot-search-box">
+                                        <span className="ballot-search-icon">
+                                            <i className="fas fa-search"></i>
+                                        </span>
+                                        <div className="ballot-search-copy">
+                                            <label htmlFor="ballot-search">
+                                                Buscar candidato
+                                            </label>
                                             <input
+                                                id="ballot-search"
                                                 type="text"
                                                 name="table_search"
-                                                className="form-control float-right"
-                                                placeholder="Search"
+                                                className="form-control ballot-search-input"
+                                                placeholder="Ej. senador, PRM, Santo Domingo..."
+                                                value={searchTerm}
+                                                onChange={(event) =>
+                                                    setSearchTerm(
+                                                        event.target.value
+                                                    )
+                                                }
                                             />
-                                            <div className="input-group-append">
-                                                <button
-                                                    type="submit"
-                                                    className="btn btn-default"
-                                                >
-                                                    <i className="fas fa-search" />
-                                                </button>
-                                            </div>
                                         </div>
                                     </div>
                                 </div>
-                                {/* /.card-header */}
+
                                 <div className="card-body table-responsive p-0">
-                                    <table className="table table-head-fixed text-nowrap">
+                                    <table className="table table-head-fixed ballot-candidates-table">
                                         <thead>
                                             <tr>
                                                 <th></th>
@@ -174,15 +249,16 @@ const SeeBallot = () => {
                                         </thead>
                                         <tbody>
                                             {candidates ? (
-                                                candidates?.map((candidate) => (
+                                                filteredCandidates.length ? (
+                                                    filteredCandidates.map((candidate) => (
                                                     <tr
                                                         key={
                                                             candidate.candidateId
                                                         }
                                                     >
-                                                        <td>
+                                                        <td className="ballot-photo-cell">
                                                             <img
-                                                                className="img-circle img-bordered-sm"
+                                                                className="img-circle img-bordered-sm ballot-candidate-photo"
                                                                 src={`${
                                                                     import.meta
                                                                         .env
@@ -197,12 +273,14 @@ const SeeBallot = () => {
                                                                 }}
                                                             />
                                                         </td>
-                                                        <td>
-                                                            <ul>
+                                                        <td className="ballot-candidate-cell">
+                                                            <ul className="ballot-candidate-list">
                                                                 <li>
-                                                                    {
-                                                                        candidate.name
-                                                                    }
+                                                                    <strong>
+                                                                        {
+                                                                            candidate.name
+                                                                        }
+                                                                    </strong>
                                                                 </li>
                                                                 <li>
                                                                     {
@@ -225,7 +303,7 @@ const SeeBallot = () => {
                                                             </ul>
                                                         </td>
                                                         <td>
-                                                            <ul>
+                                                            <ul className="ballot-candidate-list">
                                                                 <li>
                                                                     {
                                                                         candidate
@@ -243,96 +321,91 @@ const SeeBallot = () => {
                                                                 {/* <li>{candidate.DistritoMunicipal[0]?.name}</li> */}
                                                             </ul>
                                                         </td>
-                                                        <td>
-                                                            <div className="btn-group">
+                                                        <td className="ballot-action-cell">
+                                                            <div className="ballot-action-stack">
                                                                 <button
                                                                     type="button"
-                                                                    className="btn btn-default"
+                                                                    className="btn btn-outline-danger ballot-delete-btn"
+                                                                    onClick={() =>
+                                                                        deleteCandidate(
+                                                                            candidate.candidateId,
+                                                                            candidate.name
+                                                                        )
+                                                                    }
                                                                 >
-                                                                    Acciones
-                                                                </button>
-                                                                <button
-                                                                    type="button"
-                                                                    className="btn btn-default dropdown-toggle dropdown-icon"
-                                                                    data-toggle="dropdown"
-                                                                    aria-expanded="false"
-                                                                >
-                                                                    <span className="sr-only">
-                                                                        Toggle
-                                                                        Dropdown
-                                                                    </span>
-                                                                </button>
-                                                                <div
-                                                                    className="dropdown-menu"
-                                                                    role="menu"
-                                                                    style={{}}
-                                                                >
-                                                                    <a
-                                                                        className="dropdown-item"
-                                                                        href="#"
-                                                                        onClick={() =>
-                                                                            deleteCandidate(
-                                                                                candidate.candidateId,
-                                                                                candidate.name
-                                                                            )
-                                                                        }
-                                                                    >
+                                                                    <i className="fas fa-trash-alt mr-2"></i>
                                                                         Eliminar
-                                                                    </a>
-                                                                </div>
+                                                                </button>
                                                             </div>
                                                         </td>
                                                     </tr>
-                                                ))
+                                                    ))
+                                                ) : (
+                                                    <tr>
+                                                        <td colSpan={4}>
+                                                            <div className="ballot-empty-state">
+                                                                <div className="ballot-empty-icon">
+                                                                    <i className="fas fa-search"></i>
+                                                                </div>
+                                                                <h4>
+                                                                    No hay coincidencias
+                                                                </h4>
+                                                                <p>
+                                                                    Prueba con
+                                                                    otro nombre,
+                                                                    partido,
+                                                                    cargo o
+                                                                    ubicacion.
+                                                                </p>
+                                                            </div>
+                                                        </td>
+                                                    </tr>
+                                                )
                                             ) : (
-                                                <div
-                                                    className="loading"
-                                                    style={{
-                                                        height: "100px",
-                                                        marginBottom: "50px",
-                                                        width: "100vh",
-                                                    }}
-                                                >
-                                                    <Cargando scala="3" />
-                                                </div>
+                                                <tr>
+                                                    <td colSpan={4}>
+                                                        <div
+                                                            className="loading"
+                                                            style={{
+                                                                height: "100px",
+                                                                marginBottom:
+                                                                    "0",
+                                                            }}
+                                                        >
+                                                            <Cargando scala="3" />
+                                                        </div>
+                                                    </td>
+                                                </tr>
                                             )}
-                                            <tr>
-                                                <td colSpan={6}>
-                                                    <NewCandidate
-                                                        getAllCandidates={
-                                                            getAllCandidates
-                                                        }
-                                                        getAllParties={
-                                                            getAllParties
-                                                        }
-                                                        parties={parties}
-                                                    />
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td colSpan={6}>
-                                                    <SeeParties
-                                                        getAllParties={
-                                                            getAllParties
-                                                        }
-                                                        parties={parties}
-                                                    />
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td colSpan={6}>
-                                                    <NewParty
-                                                        getAllParties={
-                                                            getAllParties
-                                                        }
-                                                    />
-                                                </td>
-                                            </tr>
                                         </tbody>
                                     </table>
                                 </div>
-                                {/* /.card-body */}
                             </div>
+                        </div>
+                    </div>
+
+                    <div className="row ballot-section-row">
+                        <div className="col-12">
+                            <NewCandidate
+                                getAllCandidates={getAllCandidates}
+                                getAllParties={getAllParties}
+                                parties={parties}
+                            />
+                        </div>
+                    </div>
+
+                    <div className="row ballot-section-row">
+                        <div className="col-12">
+                            <SeeParties
+                                getAllParties={getAllParties}
+                                parties={parties}
+                            />
+                        </div>
+                    </div>
+
+                    <div className="row ballot-section-row">
+                        <div className="col-12">
+                            <NewParty getAllParties={getAllParties} />
                         </div>
                     </div>
                 </section>
