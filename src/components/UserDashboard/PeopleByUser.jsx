@@ -64,12 +64,14 @@ const data = {
         <Aside/>
   <div className="content-wrapper">
   {/* Content Header (Page header) */}
-  <section className="content-header bg-dark"  style={{position:'sticky', top:'0px', zIndex:'1', backgroundColor:'#f8f9fa', boxShadow:'0px 1px 1px rgba(0, 0, 0, 0.19)', marginBottom:'20px' }}>
+  <section className={"content-header bg-dark"}  style={{position:'sticky', top:'0px', zIndex:'1000', backgroundColor:'#f8f9fa', boxShadow:'0px 1px 1px rgba(0, 0, 0, 0.19)', marginBottom:'20px' }}>
     <div className="container-fluid">
       <div className="row mb-2">
         <div className="col-sm-6">
           <h1>Padroncillo de: <span style={{fontWeight  :"100", margin:"5px"}}>{counsultedUser?.censu.firstName} </span></h1>
-          {counsultedUser?.censu?.nickname} <b>{counsultedUser?.user_role.roleName}</b>
+          {counsultedUser?.censu?.nickname} <i>{counsultedUser?.user_role.roleName}</i> <span className={counsultedUser?.active ? "text-success" : "text-danger"}>
+            {counsultedUser?.active ? "Activo" : "Inactivo"}
+          </span>
         </div>
         <div className="col-sm-6">
           <ol className="breadcrumb float-sm-right">

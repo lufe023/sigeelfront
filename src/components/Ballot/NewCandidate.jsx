@@ -1,31 +1,27 @@
 import React, { useEffect, useState } from "react";
-import Cargando from "../../utils/Cargando";
-import getConfig from "../../utils/getConfig";
 import axios from "axios";
 import Swal from "sweetalert2";
+import Cargando from "../../utils/Cargando";
+import getConfig from "../../utils/getConfig";
+import "./NewCandidate.css";
 
-const NewCandidate = ({ getAllCandidates, getAllParties, parties }) => {
-    /* Estados para el mapa y las selecciones */
+const NewCandidate = ({ getAllCandidates, parties }) => {
     const [maps, setMaps] = useState([]);
     const [selectedProvinceId, setSelectedProvinceId] = useState("");
-    const [selectedMunicipalityId, setSelectedMunicipalityId] = useState(""); // Se mantiene para Distritos
-
-    /* Estado de carga */
+    const [selectedMunicipalityId, setSelectedMunicipalityId] = useState("");
     const [formLoading, setFormLoading] = useState(false);
 
-    // --- Lógica para Obtener el Mapa ---
     const getAllMaps = () => {
         const URL = `${import.meta.env.VITE_API_SERVER}/api/v1/maps`;
+
         axios
             .get(URL, getConfig())
             .then((res) => {
-                console.log(res.data);
-                // 'res.data' ahora contiene la mezcla de provincias y municipios
                 setMaps(res.data);
             })
             .catch((err) => {
                 console.error(err);
-                // ... (manejo de error con Swal)
+
                 const Toast = Swal.mixin({
                     toast: true,
                     position: "top-end",
@@ -37,9 +33,10 @@ const NewCandidate = ({ getAllCandidates, getAllParties, parties }) => {
                         toast.addEventListener("mouseleave", Swal.resumeTimer);
                     },
                 });
+
                 Toast.fire({
                     icon: "error",
-                    title: `Acción no permitida: ${
+                    title: `Accion no permitida: ${
                         err.response?.statusText || "Error de red"
                     }`,
                 });
@@ -50,68 +47,60 @@ const NewCandidate = ({ getAllCandidates, getAllParties, parties }) => {
         getAllMaps();
     }, []);
 
-    // --- Lógica de Filtrado y Dependencia con el nuevo enfoque "type" ---
-
-    // 1. Filtra las Provincias: donde 'type' es "province"
     const provincias = maps.filter((map) => map.type === "province");
-
-    // 2. Filtra los Municipios: donde 'type' es "municipality" y 'parentId' coincide con la provincia seleccionada
-    // Nota: Asumo que los municipios tienen una propiedad que enlaza con la provincia (ej: parentId o provinciaId).
-    // Si tu backend usa el campo 'provinciaId' para el Municipio, úsalo aquí. Si usa 'parent', déjalo así.
     const municipios = maps.filter(
         (map) =>
             map.type === "municipality" &&
-            String(map.ProvinciaId) === selectedProvinceId // Usando 'provinciaId' como ejemplo, ajusta si es 'parent'
+            String(map.ProvinciaId) === selectedProvinceId
     );
-
-    // 3. (OPCIONAL) Distritos: Si existieran, tendrían que tener otro 'type' y un 'parent' que apunte al municipio.
-    // Como tu función de backend SOLO retorna province y municipality, filtramos solo los municipios.
-    // Si tienes distritos, DEBES agregarlos a la función getAllMaps del backend, y asignarle un 'type' y 'parent' correcto.
     const distritos = maps.filter(
         (map) =>
             map.type === "district" &&
-            String(map.municipioId) === selectedMunicipalityId
+            String(map.parentMunicipalityId) === selectedMunicipalityId
     );
-    // Nota: Por ahora, `distritos` estará vacío a menos que agregues un 'type: "district"' en el backend.
 
-    // --- Handlers de Cambio (Event Handlers) ---
+    const availablePartyCount = parties?.length ?? 0;
+    const mapsLoaded = maps.length > 0;
+
+    const locationStatus = !mapsLoaded
+        ? "Cargando ubicaciones disponibles..."
+        : !selectedProvinceId
+        ? "Selecciona una provincia para habilitar los municipios."
+        : !selectedMunicipalityId
+        ? "Selecciona un municipio para revisar si hay distritos."
+        : distritos.length > 0
+        ? `${distritos.length} distritos disponibles para este municipio.`
+        : "Este municipio no tiene distritos registrados.";
 
     const handleChangeProvincia = (event) => {
-        const newProvinceId = event.target.value;
-        // Reinicia Municipio y Distrito cuando cambia la Provincia
-        setSelectedProvinceId(newProvinceId);
+        setSelectedProvinceId(event.target.value);
         setSelectedMunicipalityId("");
     };
 
     const handleChangeMunicipio = (event) => {
-        const newMunicipalityId = event.target.value;
-        // Reinicia Distrito cuando cambia el Municipio
-        setSelectedMunicipalityId(newMunicipalityId);
+        setSelectedMunicipalityId(event.target.value);
     };
-
-    // --- Handler de Envío (Submit Handler) ---
 
     const handleSubmit = (e) => {
         e.preventDefault();
         setFormLoading(true);
 
         const form = e.target;
-        let data = new FormData();
+        const data = new FormData();
 
         data.append("name", form.nombre.value);
         data.append("party", form.partido.value);
         data.append("nomination", form.candidatura.value);
         data.append("file", form.file.files[0]);
-        // Asegúrate de que los valores enviados son los IDs correctos o un string vacío.
         data.append("provincia", form.provincia.value);
         data.append("municipio", form.municipio.value);
         data.append("distritoMunicipal", form.distrito.value || "");
 
         const URL = `${import.meta.env.VITE_API_SERVER}/api/v1/ballots/`;
+
         axios
             .post(URL, data, getConfig())
-            .then((res) => {
-                // ... (lógica de éxito)
+            .then(() => {
                 setFormLoading(false);
                 getAllCandidates();
                 form.reset();
@@ -129,15 +118,16 @@ const NewCandidate = ({ getAllCandidates, getAllParties, parties }) => {
                         toast.addEventListener("mouseleave", Swal.resumeTimer);
                     },
                 });
+
                 Toast.fire({
                     icon: "success",
-                    title: "Candidato Agregado con éxito",
+                    title: "Candidato agregado con exito",
                 });
             })
             .catch((err) => {
-                // ... (lógica de error)
                 console.error(err);
                 setFormLoading(false);
+
                 const Toast = Swal.mixin({
                     toast: true,
                     position: "top-end",
@@ -149,9 +139,10 @@ const NewCandidate = ({ getAllCandidates, getAllParties, parties }) => {
                         toast.addEventListener("mouseleave", Swal.resumeTimer);
                     },
                 });
+
                 Toast.fire({
                     icon: "error",
-                    title: `Acción no permitida: ${
+                    title: `Accion no permitida: ${
                         err.response?.data?.message ||
                         err.response?.statusText ||
                         "Error desconocido"
@@ -160,176 +151,306 @@ const NewCandidate = ({ getAllCandidates, getAllParties, parties }) => {
             });
     };
 
-    // --- Renderizado ---
-
     if (formLoading) {
         return (
-            <div
-                className="loading"
-                style={{ height: "100px", marginBottom: "50px" }}
-            >
+            <div className="new-candidate-loading">
                 <Cargando scala="3" />
             </div>
         );
-    } else {
-        return (
-            <div className="card-body">
-                <h3>Agregar un nuevo candidato/a</h3>
+    }
+
+    return (
+        <div className="new-candidate-shell">
+            <div className="new-candidate-card">
+                <div className="new-candidate-hero">
+                    <div>
+                        <span className="new-candidate-eyebrow">
+                            Gestion de boleta
+                        </span>
+                        <h3 className="new-candidate-title">
+                            Registrar nuevo candidato
+                        </h3>
+                        <p className="new-candidate-subtitle">
+                            Un formulario mas claro para cargar la foto, el
+                            partido y la demarcacion sin perderte entre campos.
+                        </p>
+                    </div>
+
+                    <div className="new-candidate-badges">
+                        <span className="new-candidate-badge">
+                            {availablePartyCount} partidos
+                        </span>
+                        <span className="new-candidate-badge">
+                            {provincias.length} provincias
+                        </span>
+                        <span className="new-candidate-badge">
+                            {selectedProvinceId ? municipios.length : 0} municipios
+                        </span>
+                    </div>
+                </div>
 
                 <form
                     className="new-candidate-form"
                     onSubmit={handleSubmit}
                     encType="multipart/form-data"
                 >
-                    <div className="row">
-                        {/* INPUTS DE CANDIDATO */}
-                        <div className="col-3">
-                            {/* ... (Tu input de archivo) */}
-                            <input
-                                type="file"
-                                className="custom-file-input"
-                                id="canditate-picture"
-                                accept="image/png, image/jpeg"
-                                name="file"
-                                required
-                            />
-                            <label
-                                className="custom-file-label"
-                                htmlFor="canditate-picture"
-                            >
-                                Elige una foto
-                            </label>
-                        </div>
-                        <div className="col-2">
-                            <input
-                                required
-                                type="text"
-                                placeholder="Nombre"
-                                className="form-control"
-                                name="nombre"
-                            />
-                        </div>
-                        <div className="col-2">
-                            <select
-                                name="partido"
-                                className="form-control"
-                                required
-                            >
-                                <option value="">Partido</option>
-                                {parties?.map((party) => (
-                                    <option
-                                        key={party.id}
-                                        value={party.id}
-                                        style={{ backgroundColor: party.color }}
+                    <div className="new-candidate-grid">
+                        <section className="new-candidate-panel">
+                            <div className="new-candidate-panel-header">
+                                <span className="new-candidate-panel-icon">
+                                    <i className="fas fa-id-card"></i>
+                                </span>
+                                <div>
+                                    <h4>Informacion personal</h4>
+                                    <p>
+                                        Completa los datos base del candidato y
+                                        su postulacion.
+                                    </p>
+                                </div>
+                            </div>
+
+                            <div className="new-candidate-field">
+                                <label htmlFor="canditate-picture">
+                                    Foto del candidato
+                                </label>
+                                <input
+                                    type="file"
+                                    className="form-control-file new-candidate-file"
+                                    id="canditate-picture"
+                                    accept="image/png, image/jpeg"
+                                    name="file"
+                                    required
+                                />
+                                <small>Formato PNG o JPG, hasta 5MB.</small>
+                            </div>
+
+                            <div className="new-candidate-field">
+                                <label htmlFor="nombre">Nombre completo</label>
+                                <div className="new-candidate-control">
+                                    <span className="new-candidate-control-icon">
+                                        <i className="fas fa-user"></i>
+                                    </span>
+                                    <input
+                                        required
+                                        type="text"
+                                        placeholder="Ej. Maria Rodriguez"
+                                        className="form-control new-candidate-input"
+                                        name="nombre"
+                                        id="nombre"
+                                    />
+                                </div>
+                            </div>
+
+                            <div className="new-candidate-field">
+                                <label htmlFor="partido">Partido politico</label>
+                                <div className="new-candidate-control">
+                                    <span className="new-candidate-control-icon">
+                                        <i className="fas fa-flag"></i>
+                                    </span>
+                                    <select
+                                        name="partido"
+                                        className="form-control new-candidate-input"
+                                        id="partido"
+                                        required
+                                        disabled={!availablePartyCount}
                                     >
-                                        {party.partyAcronyms}
-                                    </option>
-                                ))}
-                            </select>
-                        </div>
-                        <div className="col-2">
-                            <select
-                                className="form-control"
-                                name="candidatura"
-                                required
-                            >
-                                <option value="">Postula a</option>
-                                <option>Consejal Distrital</option>
-                                <option>Director Municipal</option>
-                                <option>Regidor Municipal</option>
-                                <option>Alcalde Municipal</option>
-                                <option>Diputado/a</option>
-                                <option>Senador/a</option>
-                                <option>Presidente</option>
-                            </select>
-                        </div>
+                                        <option value="">
+                                            {availablePartyCount
+                                                ? "Selecciona un partido"
+                                                : "No hay partidos cargados"}
+                                        </option>
+                                        {parties?.map((party) => (
+                                            <option key={party.id} value={party.id}>
+                                                {party.partyAcronyms} -{" "}
+                                                {party.partyName}
+                                            </option>
+                                        ))}
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div className="new-candidate-field">
+                                <label htmlFor="candidatura">Candidatura</label>
+                                <div className="new-candidate-control">
+                                    <span className="new-candidate-control-icon">
+                                        <i className="fas fa-trophy"></i>
+                                    </span>
+                                    <select
+                                        className="form-control new-candidate-input"
+                                        name="candidatura"
+                                        id="candidatura"
+                                        required
+                                    >
+                                        <option value="">
+                                            Selecciona el cargo al que postula
+                                        </option>
+                                        <option>Consejal Distrital</option>
+                                        <option>Director Municipal</option>
+                                        <option>Regidor Municipal</option>
+                                        <option>Alcalde Municipal</option>
+                                        <option>Diputado/a</option>
+                                        <option>Senador/a</option>
+                                        <option>Presidente</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </section>
+
+                        <section className="new-candidate-panel">
+                            <div className="new-candidate-panel-header">
+                                <span className="new-candidate-panel-icon">
+                                    <i className="fas fa-map-marked-alt"></i>
+                                </span>
+                                <div>
+                                    <h4>Ubicacion electoral</h4>
+                                    <p>
+                                        Define provincia, municipio y distrito
+                                        municipal en orden.
+                                    </p>
+                                </div>
+                            </div>
+
+                            <div className="new-candidate-location-card">
+                                <strong>Estado de la seleccion</strong>
+                                <p>{locationStatus}</p>
+                            </div>
+
+                            <div className="new-candidate-field">
+                                <label htmlFor="provincia">Provincia</label>
+                                <div className="new-candidate-control">
+                                    <span className="new-candidate-control-icon">
+                                        <i className="fas fa-globe-americas"></i>
+                                    </span>
+                                    <select
+                                        className="form-control new-candidate-input"
+                                        name="provincia"
+                                        id="provincia"
+                                        onChange={handleChangeProvincia}
+                                        value={selectedProvinceId}
+                                        required
+                                        disabled={!mapsLoaded}
+                                    >
+                                        <option value="">
+                                            {mapsLoaded
+                                                ? "Selecciona una provincia"
+                                                : "Cargando provincias..."}
+                                        </option>
+                                        {provincias.map((provincia) => (
+                                            <option
+                                                key={provincia.ProvinciaId}
+                                                value={provincia.ProvinciaId}
+                                            >
+                                                {provincia.Descripcion}
+                                            </option>
+                                        ))}
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div className="new-candidate-field">
+                                <label htmlFor="municipio">Municipio</label>
+                                <div className="new-candidate-control">
+                                    <span className="new-candidate-control-icon">
+                                        <i className="fas fa-city"></i>
+                                    </span>
+                                    <select
+                                        className="form-control new-candidate-input"
+                                        name="municipio"
+                                        id="municipio"
+                                        onChange={handleChangeMunicipio}
+                                        value={selectedMunicipalityId}
+                                        disabled={!selectedProvinceId}
+                                        required
+                                    >
+                                        <option value="">
+                                            {selectedProvinceId
+                                                ? "Selecciona un municipio"
+                                                : "Primero elige la provincia"}
+                                        </option>
+                                        {municipios.map((municipio) => (
+                                            <option
+                                                key={municipio.MunicipalityId}
+                                                value={municipio.MunicipalityId}
+                                            >
+                                                {municipio.description}
+                                            </option>
+                                        ))}
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div className="new-candidate-field">
+                                <label htmlFor="distrito">
+                                    Distrito municipal
+                                </label>
+                                <div className="new-candidate-control">
+                                    <span className="new-candidate-control-icon">
+                                        <i className="fas fa-building"></i>
+                                    </span>
+                                    <select
+                                        className="form-control new-candidate-input"
+                                        name="distrito"
+                                        id="distrito"
+                                        defaultValue=""
+                                        disabled={
+                                            !selectedMunicipalityId ||
+                                            distritos.length === 0
+                                        }
+                                    >
+                                        <option value="">
+                                            {selectedMunicipalityId &&
+                                            distritos.length > 0
+                                                ? "Selecciona un distrito"
+                                                : selectedMunicipalityId
+                                                ? "No hay distritos disponibles"
+                                                : "Primero elige el municipio"}
+                                        </option>
+                                        {distritos.map((distrito) => (
+                                            <option
+                                                key={distrito.MunicipalityId}
+                                                value={distrito.MunicipalityId}
+                                            >
+                                                {distrito.description}
+                                            </option>
+                                        ))}
+                                    </select>
+                                </div>
+                                <small>
+                                    Este campo es opcional y solo aparece si el
+                                    municipio tiene distritos.
+                                </small>
+                            </div>
+                        </section>
                     </div>
 
-                    {/* SELECTORES DE MAPA */}
-                    <div className="row" style={{ marginTop: "10px" }}>
-                        <div className="col-11">
-                            {/* PROVINCIA */}
-                            <select
-                                className="form-control"
-                                name="provincia"
-                                onChange={handleChangeProvincia}
-                                value={selectedProvinceId}
-                                required
-                            >
-                                <option value="">Provincia</option>
-                                {provincias.map((provincia) => (
-                                    <option
-                                        key={provincia.ProvinciaId}
-                                        value={provincia.ProvinciaId}
-                                    >
-                                        {provincia.Descripcion}
-                                    </option>
-                                ))}
-                            </select>
-                        </div>
-                    </div>
+                    <div className="new-candidate-footer">
+                        <p>
+                            Revisa la foto y la ubicacion antes de guardar para
+                            evitar duplicados en la boleta.
+                        </p>
 
-                    <div className="row" style={{ marginTop: "10px" }}>
-                        <div className="col-11">
-                            {/* MUNICIPIO */}
-                            <select
-                                className="form-control"
-                                name="municipio"
-                                onChange={handleChangeMunicipio}
-                                value={selectedMunicipalityId}
-                                disabled={!selectedProvinceId}
-                                required
+                        <div className="new-candidate-actions">
+                            {/* <button
+                                type="button"
+                                className="btn btn-light new-candidate-secondary"
+                                onClick={() => window.history.back()}
                             >
-                                <option value="">Municipio</option>
-                                {municipios.map((municipio) => (
-                                    <option
-                                        key={municipio.MunicipalityId}
-                                        value={municipio.MunicipalityId}
-                                    >
-                                        {municipio.description}
-                                    </option>
-                                ))}
-                            </select>
-                        </div>
-                    </div>
-
-                    <div className="row" style={{ marginTop: "10px" }}>
-                        <div className="col-11">
-                            {/* DISTRITO (Puede estar vacío si no lo devuelve el backend) */}
-                            <select
-                                className="form-control"
-                                name="distrito"
-                                defaultValue=""
-                                disabled={
-                                    !selectedMunicipalityId ||
-                                    distritos.length === 0
-                                }
+                                Volver
+                            </button> */}
+                            <button
+                                type="submit"
+                                className="btn btn-primary new-candidate-submit"
+                                disabled={formLoading}
                             >
-                                <option value="">Distrito Municipal</option>
-                                {distritos.map((distrito) => (
-                                    <option
-                                        key={distrito.id}
-                                        value={distrito.id}
-                                    >
-                                        {distrito.name}
-                                    </option>
-                                ))}
-                            </select>
+                                <i className="fas fa-save mr-2"></i>
+                                Crear candidato
+                            </button>
                         </div>
-                    </div>
-
-                    <div className="card-footer">
-                        <button
-                            type="submit"
-                            className="btn btn-primary float-right"
-                        >
-                            Guardar
-                        </button>
                     </div>
                 </form>
             </div>
-        );
-    }
+        </div>
+    );
 };
 
 export default NewCandidate;

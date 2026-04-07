@@ -1,3 +1,315 @@
-table tr td ul li{
+.ballot-hero-card {
+    display: flex;
+    justify-content: space-between;
+    gap: 1.5rem;
+    padding: 1.8rem 2rem;
+    border: 1px solid rgba(37, 69, 108, 0.1);
+    border-radius: 26px;
+    background:
+        radial-gradient(circle at top right, rgba(77, 166, 255, 0.18), transparent 28%),
+        linear-gradient(135deg, #14324a 0%, #1f4f72 56%, #3a8ac6 100%);
+    color: #ffffff;
+    box-shadow: 0 24px 52px rgba(20, 50, 74, 0.16);
+}
+
+.ballot-hero-card > *,
+.ballot-panel-header > *,
+.ballot-search-box > *,
+.ballot-candidates-table td > *,
+.ballot-empty-state > * {
+    min-width: 0;
+}
+
+.ballot-eyebrow {
+    display: inline-block;
+    margin-bottom: 0.75rem;
+    padding: 0.35rem 0.7rem;
+    border: 1px solid rgba(255, 255, 255, 0.18);
+    border-radius: 999px;
+    background: rgba(255, 255, 255, 0.12);
+    font-size: 0.78rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+}
+
+.ballot-hero-title {
+    margin: 0;
+    font-size: 2rem;
+    font-weight: 800;
+}
+
+.ballot-hero-subtitle {
+    max-width: 44rem;
+    margin: 0.7rem 0 0;
+    color: rgba(255, 255, 255, 0.88);
+    line-height: 1.6;
+    overflow-wrap: anywhere;
+}
+
+.ballot-stats-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(110px, 1fr));
+    gap: 0.8rem;
+    min-width: 360px;
+}
+
+.ballot-stat-card {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 1rem 1.05rem;
+    border-radius: 18px;
+    background: rgba(255, 255, 255, 0.12);
+    backdrop-filter: blur(8px);
+}
+
+.ballot-stat-card strong {
+    font-size: 1.85rem;
+    line-height: 1;
+}
+
+.ballot-stat-card span {
+    margin-top: 0.4rem;
+    color: rgba(255, 255, 255, 0.86);
+    font-size: 0.92rem;
+    overflow-wrap: anywhere;
+}
+
+.ballot-candidates-panel {
+    overflow: hidden;
+    border: 1px solid rgba(36, 52, 71, 0.1);
+    border-radius: 24px;
+    background: #ffffff;
+    box-shadow: 0 20px 45px rgba(36, 52, 71, 0.1);
+}
+
+.ballot-panel-header {
+    display: flex;
+    justify-content: space-between;
+    gap: 1.5rem;
+    padding: 1.5rem 1.5rem 1.35rem;
+    border-bottom: 1px solid rgba(36, 52, 71, 0.08);
+    background: linear-gradient(180deg, #ffffff 0%, #f8fbfe 100%);
+}
+
+.ballot-panel-kicker {
+    display: inline-block;
+    margin-bottom: 0.45rem;
+    color: #356187;
+    font-size: 0.78rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+}
+
+.ballot-panel-title {
+    margin: 0;
+    color: #183048;
+    font-size: 1.5rem;
+    font-weight: 800;
+}
+
+.ballot-panel-subtitle {
+    max-width: 42rem;
+    margin: 0.5rem 0 0;
+    color: #66798b;
+    line-height: 1.55;
+    overflow-wrap: anywhere;
+}
+
+.ballot-search-box {
+    display: flex;
+    gap: 0.9rem;
+    align-items: flex-start;
+    min-width: 320px;
+    max-width: 420px;
+    padding: 1rem;
+    border: 1px solid rgba(36, 52, 71, 0.08);
+    border-radius: 18px;
+    background: #ffffff;
+}
+
+.ballot-search-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 2.8rem;
+    height: 2.8rem;
+    border-radius: 14px;
+    background: linear-gradient(135deg, #e3f1ff 0%, #f1f7ff 100%);
+    color: #2d6a99;
+    font-size: 1rem;
+    flex-shrink: 0;
+}
+
+.ballot-search-copy {
+    flex: 1 1 auto;
+    min-width: 0;
+}
+
+.ballot-search-copy label {
+    display: block;
+    margin-bottom: 0.45rem;
+    color: #183048;
+    font-size: 0.88rem;
+    font-weight: 700;
+}
+
+.ballot-search-input {
+    min-height: 3rem;
+    border: 1px solid rgba(36, 52, 71, 0.12);
+    border-radius: 14px;
+    background: #f8fbff;
+    box-shadow: none;
+}
+
+.ballot-search-input:focus {
+    border-color: rgba(58, 138, 198, 0.6);
+    background: #ffffff;
+    box-shadow: 0 0 0 0.2rem rgba(58, 138, 198, 0.12);
+}
+
+.ballot-candidates-table {
+    margin-bottom: 0;
+}
+
+.ballot-candidates-table tr td ul li {
     list-style: none;
+}
+
+.ballot-candidates-table td,
+.ballot-candidates-table th {
+    white-space: normal;
+    vertical-align: middle;
+}
+
+.ballot-candidates-table thead th {
+    padding: 0.95rem 1rem;
+    border-bottom: 1px solid rgba(36, 52, 71, 0.08);
+    color: #5f7386;
+    font-size: 0.8rem;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+}
+
+.ballot-candidates-table tbody td {
+    padding: 1rem;
+    border-top: 1px solid rgba(36, 52, 71, 0.08);
+}
+
+.ballot-candidates-table ul {
+    margin: 0;
+    padding-left: 0;
+}
+
+.ballot-photo-cell {
+    width: 90px;
+}
+
+.ballot-candidate-photo {
+    width: 56px;
+    height: 56px;
+    object-fit: cover;
+}
+
+.ballot-candidate-list {
+    display: grid;
+    gap: 0.22rem;
+}
+
+.ballot-candidate-list li {
+    color: #495f73;
+    line-height: 1.45;
+    overflow-wrap: anywhere;
+}
+
+.ballot-candidate-list strong {
+    color: #183048;
+}
+
+.ballot-action-cell {
+    width: 140px;
+}
+
+.ballot-action-stack {
+    display: flex;
+    justify-content: flex-start;
+}
+
+.ballot-delete-btn {
+    width: 100%;
+    border-radius: 12px;
+    font-weight: 700;
+}
+
+.ballot-empty-state {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 2.25rem 1.25rem;
+    text-align: center;
+}
+
+.ballot-empty-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 68px;
+    height: 68px;
+    margin-bottom: 0.9rem;
+    border-radius: 22px;
+    background: linear-gradient(135deg, #e3f1ff 0%, #f0f7ff 100%);
+    color: #2d6a99;
+    font-size: 1.55rem;
+}
+
+.ballot-empty-state h4 {
+    margin: 0;
+    color: #183048;
+    font-size: 1.25rem;
+    font-weight: 700;
+}
+
+.ballot-empty-state p {
+    max-width: 26rem;
+    margin: 0.6rem 0 0;
+    color: #66798b;
+    line-height: 1.55;
+}
+
+.ballot-section-row + .ballot-section-row {
+    margin-top: 1.5rem;
+}
+
+@media (max-width: 991px) {
+    .ballot-hero-card,
+    .ballot-panel-header {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .ballot-stats-grid,
+    .ballot-search-box {
+        min-width: 0;
+        width: 100%;
+    }
+}
+
+@media (max-width: 767px) {
+    .ballot-stats-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .ballot-panel-header {
+        padding: 1.2rem 1rem;
+    }
+
+    .ballot-candidates-table thead th,
+    .ballot-candidates-table tbody td {
+        padding-left: 0.8rem;
+        padding-right: 0.8rem;
+    }
 }

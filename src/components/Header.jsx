@@ -4,11 +4,13 @@ import { Link, NavLink } from "react-router-dom";
 import SearhPeople from "./SearhPeople";
 
 const Header = () => {
+
+    const DEFAULT_IMAGE = "/img/nobody.jpg";
+
     const user = useSelector((state) => state.userSlice);
-
     const first_name = user?.censu?.firstName;
-
     const last_name = user?.censu?.lastName;
+    const userPicture = user?.censu?.picture || DEFAULT_IMAGE;
 
     return (
         <>
@@ -46,10 +48,12 @@ const Header = () => {
                             className="nav-link dropdown-toggle"
                             data-toggle="dropdown"
                         >
-                            <img
-                                src={user?.censu?.picture}
-                                alt={user?.censu?.firstName}
+                           <img
+                                src={userPicture}
+                                alt={first_name || "Usuario"}
                                 className="user-image img-circle elevation-2"
+                                // 3. Por si la URL de la base de datos da error 404
+                                onError={(e) => { e.target.src = DEFAULT_IMAGE; }}
                             />
                             <span className="d-none d-md-inline">
                                 {first_name} {last_name}
@@ -58,10 +62,12 @@ const Header = () => {
                         <ul className="dropdown-menu dropdown-menu-lg dropdown-menu-right">
                             {/* User image */}
                             <li className="user-header bg-primary">
+                                
                                 <img
-                                    src={user?.censu?.picture}
-                                    alt={user?.censu?.firstName}
+                                    src={userPicture}
+                                    alt={first_name}
                                     className="img-circle elevation-2"
+                                    onError={(e) => { e.target.src = DEFAULT_IMAGE; }}
                                 />
                                 <p>
                                     {first_name} {last_name}
