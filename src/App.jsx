@@ -34,6 +34,8 @@ import WarRoom from './components/Admin/Informs/WarRoom';
 import PeopleByUserPrint from './components/UserDashboard/PeopleByUserPrint';
 import VoteGrupal from './components/Admin/Delegate/VoteGrupal';
 import SearchPeopleResults from './components/Census/SearchPeopleResults';
+import Metas from './components/Admin/Informs/Metas';
+import MetasByLeader from './components/Admin/Informs/MetasByLeader';
 
 
 function App() {
@@ -60,6 +62,8 @@ function App() {
         <Route path='/precints' element={<Delegate/>}/>
         <Route path='/Delegate' element={<Delegate/>}/>
         <Route path='/concurrencia' element={<VoteGrupal/>}/>
+
+
       </Route>
 
       {/* Proteccion para administracion */}
@@ -72,6 +76,8 @@ function App() {
       <Route path='/users/:id/' element={<UserAdministrator/>}/>
       <Route path='/peoplebyuser/:id' element={<PeopleByUser/>}/>
       <Route path='/printmyconcurrencia/:id' element={<PeopleByUserPrint/>}/>
+      <Route path='/informs/metas' element={<Metas/>}/>
+      <Route path='/informs/metas-por-lider' element={<MetasByLeader/>}/>
       </Route>
 
       <Route path='*' element={<Error404/>}/>

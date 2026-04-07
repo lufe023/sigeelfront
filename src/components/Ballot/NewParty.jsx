@@ -312,11 +312,11 @@ const NewParty = ({ getAllParties }) => {
                         </section>
 
                         <aside className="new-party-panel new-party-preview-panel">
-                            <div className="new-party-panel-header" style={{backgroundColor:'green', wordWrap: "break-word"}}>
+                            <div className="new-party-panel-header">
                                 <span className="new-party-panel-icon">
                                     <i className="fas fa-palette"></i>
                                 </span>
-                                <div style={{MaxWidth:'100%', wordWrap: "break-word", backgroundColor:'red'}}>
+                                <div>
                                     <h4>Vista previa</h4>
                                     <p>Así se verá la identidad del partido
                                         dentro del panel administrativo.

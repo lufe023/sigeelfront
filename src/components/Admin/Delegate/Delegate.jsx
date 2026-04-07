@@ -228,7 +228,7 @@ const Delegate = () => {
                             className="text-center"
                             style={{ paddingTop: "50px" }}
                         >
-                            Ciudadanos por Colegiros
+                            Ciudadanos por Colegios
                         </h2>
 
                         <div className="row">

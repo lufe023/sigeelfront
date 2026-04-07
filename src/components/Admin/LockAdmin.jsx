@@ -14,6 +14,9 @@ const LockAdmin = ({ setAccess, setPasswordFail, passwordFail }) => {
     const [user, setUser] = useState(useSelector((state) => state.userSlice));
     const [msg, setMsg] = useState();
     const { register, handleSubmit, reset } = useForm();
+
+    const DEFAULT_IMAGE = "/img/nobody.jpg";
+    const picture = user?.censu?.picture || DEFAULT_IMAGE;
     const getUserbyId = () => {
         const URL = `${import.meta.env.VITE_API_SERVER}/api/v1/users/me`;
         axios
@@ -46,10 +49,6 @@ const LockAdmin = ({ setAccess, setPasswordFail, passwordFail }) => {
     useEffect(() => {
         getUserbyId();
     }, []);
-
-    // if (user?.censu?.firstName == "Cargando") {
-    //     getUserbyId();
-    // }
 
     const submit = (data) => {
         const URL = `${import.meta.env.VITE_API_SERVER}/api/v1/auth/login`;
@@ -152,8 +151,11 @@ const LockAdmin = ({ setAccess, setPasswordFail, passwordFail }) => {
                                         <>
                                             <div className="lockscreen-image">
                                                 <img
-                                                    src={user?.censu?.picture}
-                                                    alt="User Image"
+                                                    src={picture}
+                                                    alt="Administrador"
+                                                    onError={(e) => {
+                                e.target.src = DEFAULT_IMAGE;
+                            }}
                                                 />
                                             </div>
 

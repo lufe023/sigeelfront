@@ -312,9 +312,9 @@ const Dash = () => {
         {
           menu.menu == 'warroom' && menu.campain && menu.tipo== 'colegios' && campains.length>0?<WarRoomB campainId={menu.campain} collegeId={collegeData?.college}/> :""
         }
-        {
+        {/* {
           menu.menu == 'metas'? <Metas campainId={menu.campain} college={collegeData}/> :""
-        }
+        } */}
         </div>
         </div>
 
