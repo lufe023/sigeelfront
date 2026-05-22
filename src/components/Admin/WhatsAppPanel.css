@@ -1,0 +1,54 @@
+.wa-summary-card {
+    background: linear-gradient(145deg, #f7fbff 0%, #eef6ff 100%);
+}
+
+.wa-qr-card {
+    background:
+        radial-gradient(circle at 10% 10%, rgba(40, 167, 69, 0.14), transparent 45%),
+        radial-gradient(circle at 95% 80%, rgba(0, 123, 255, 0.1), transparent 38%),
+        #ffffff;
+}
+
+.wa-status-line i {
+    font-size: 1.1rem;
+    color: #1f2d3d;
+}
+
+.wa-detail-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 0.75rem;
+}
+
+.wa-message-box {
+    border: 1px solid #dce7f3;
+    border-radius: 0.75rem;
+    background: #ffffff;
+    padding: 0.75rem;
+}
+
+.wa-qr-image {
+    width: min(360px, 100%);
+    border-radius: 1rem;
+    border: 1px solid rgba(0, 0, 0, 0.08);
+    box-shadow: 0 12px 28px rgba(0, 0, 0, 0.12);
+}
+
+.wa-empty-state {
+    max-width: 360px;
+    border: 1px dashed #bdd4ea;
+    border-radius: 1rem;
+    padding: 1rem;
+    color: #4f657a;
+}
+
+.wa-empty-state i {
+    font-size: 1.8rem;
+    display: block;
+}
+
+@media (max-width: 767.98px) {
+    .wa-detail-grid {
+        grid-template-columns: 1fr;
+    }
+}
