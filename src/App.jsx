@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+﻿import React, { useEffect, useState } from 'react';
 import { Routes, Route } from 'react-router-dom';
 import './App.css';
 import Aboutme from './components/Aboutme';
@@ -36,6 +36,7 @@ import VoteGrupal from './components/Admin/Delegate/VoteGrupal';
 import SearchPeopleResults from './components/Census/SearchPeopleResults';
 import Metas from './components/Admin/Informs/Metas';
 import MetasByLeader from './components/Admin/Informs/MetasByLeader';
+import WhatsAppPanel from './components/Admin/WhatsAppPanel';
 
 
 function App() {
@@ -70,7 +71,8 @@ function App() {
       <Route element={<ProtectedAdmin/>}>
       <Route path='/campains' element={<Campains/>}/>
       <Route path='/informs' element={<Informs/>}/>
-      <Route path='/admin' element={<SistemConfiguration/>}/>
+      <Route path='/admin' element={<SistemConfiguration/>}/> 
+      <Route path='/admin/whatsapp' element={<WhatsAppPanel/>}/> 
       <Route path='/ballot' element={<SeeBallot/>}/>
       <Route path='/users' element={<UserDashBoard/>}/>
       <Route path='/users/:id/' element={<UserAdministrator/>}/>
@@ -92,3 +94,4 @@ function App() {
 }
 
 export default App
+

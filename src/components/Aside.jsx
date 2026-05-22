@@ -1,4 +1,4 @@
-import axios from "axios";
+﻿import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, NavLink, useLocation } from "react-router-dom";
@@ -214,6 +214,12 @@ const Aside = () => {
                                     <NavLink to="/admin" className="nav-link">
                                         <i className="fas fa-person-booth nav-icon" />
                                         <p> Registros</p>
+                                    </NavLink>
+                                </li>
+                                <li className="nav-item">
+                                    <NavLink to="/admin/whatsapp" className="nav-link">
+                                        <i className="fab fa-whatsapp nav-icon" />
+                                        <p> WhatsApp</p>
                                     </NavLink>
                                 </li>
                                 <li className="nav-item">
