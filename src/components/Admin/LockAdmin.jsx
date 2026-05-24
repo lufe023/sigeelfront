@@ -10,13 +10,17 @@ import Swal from "sweetalert2";
 import axios from "axios";
 import getConfig from "../../utils/getConfig";
 
-const LockAdmin = ({ setAccess, setPasswordFail, passwordFail }) => {
+const LockAdmin = ({ setAccess, setPasswordFail, passwordFail, requiredRole }) => {
     const [user, setUser] = useState(useSelector((state) => state.userSlice));
     const [msg, setMsg] = useState();
     const { register, handleSubmit, reset } = useForm();
 
     const DEFAULT_IMAGE = "/img/nobody.jpg";
     const picture = user?.censu?.picture || DEFAULT_IMAGE;
+
+    // Detectamos si el usuario fue rechazado estrictamente por su rol/permisos
+    const isPermissionError = msg === "No cumple con los permisos requeridos para esta sección";
+
     const getUserbyId = () => {
         const URL = `${import.meta.env.VITE_API_SERVER}/api/v1/users/me`;
         axios
@@ -40,17 +44,19 @@ const LockAdmin = ({ setAccess, setPasswordFail, passwordFail }) => {
                 });
                 Toast.fire({
                     icon: "error",
-                    title: `Contraseña erronea, intentelo de  nuevo`,
+                    title: `Contraseña erronea, intentelo de nuevo`,
                 });
             });
     };
-
 
     useEffect(() => {
         getUserbyId();
     }, []);
 
     const submit = (data) => {
+        // Bloqueamos envíos adicionales por si presionan Enter tras ser rechazados
+        if (isPermissionError) return;
+
         const URL = `${import.meta.env.VITE_API_SERVER}/api/v1/auth/login`;
         axios
             .post(URL, { password: data.password, email: user?.email })
@@ -66,17 +72,28 @@ const LockAdmin = ({ setAccess, setPasswordFail, passwordFail }) => {
                         toast.addEventListener("mouseleave", Swal.resumeTimer);
                     },
                 });
-                if (res.data.nivel > 2) {
+
+                const userRole = res.data.user?.user_role?.id || res.data.user?.role || res.data.nivel;
+
+                let hasPermission = false;
+
+                if (requiredRole === 99) {
+                    hasPermission = (userRole === 99);
+                } else {
+                    hasPermission = (res.data.nivel > 2 || userRole === 3 || userRole === 99);
+                }
+
+                if (hasPermission) {
                     setAccess(true);
-                    setMsg("Cumple permisos");
+                    setMsg(null);
                     Toast.fire({
                         icon: "success",
                         title: `Credenciales Correctas, permisos aceptados`,
                     });
                 } else {
-                    setMsg("No cumple con los permisos");
+                    setMsg("No cumple con los permisos requeridos para esta sección");
                     Toast.fire({
-                        icon: "success",
+                        icon: "error",
                         title: `Credenciales Correctas, pero no autorizado`,
                     });
                 }
@@ -97,12 +114,11 @@ const LockAdmin = ({ setAccess, setPasswordFail, passwordFail }) => {
                 });
                 Toast.fire({
                     icon: "error",
-                    title: `Contraseña erronea, intentelo de  nuevo`,
+                    title: `Contraseña erronea, intentelo de nuevo`,
                 });
             });
-        reset({
-            password: "",
-        });
+
+        reset({ password: "" });
     };
 
     return (
@@ -113,7 +129,6 @@ const LockAdmin = ({ setAccess, setPasswordFail, passwordFail }) => {
                 <section className="content">
                     <div className="hold-transition lockscreen">
                         <div
-                            className=""
                             style={{
                                 height: "90vh",
                                 width: "100%",
@@ -131,74 +146,80 @@ const LockAdmin = ({ setAccess, setPasswordFail, passwordFail }) => {
                                         style={{ width: "200px" }}
                                     />
                                 </div>
-                                {/* User name */}
-                                <div className="lockscreen-name">
+
+                                {/* Nombre del usuario o cuadro de alerta */}
+                                <div className="lockscreen-name" style={{ textAlign: "center" }}>
                                     {msg ? (
-                                        <span style={{ color: "red" }}>
-                                            {msg}{" "}
+                                        <span style={{
+                                            color: "red",
+                                            fontSize: "13px",
+                                            background: "#ffe6e6",
+                                            padding: "0.5rem 0.8rem",
+                                            borderRadius: "4px",
+                                            display: "inline-block",
+                                            maxWidth: "320px",
+                                            lineHeight: "1.2"
+                                        }}>
+                                            {msg}
                                         </span>
                                     ) : (
                                         user?.censu?.firstName
                                     )}
                                 </div>
+
                                 {/* START LOCK SCREEN ITEM */}
                                 <div className="lockscreen-item">
-                                    {/* lockscreen image */}
+                                    <div className="lockscreen-image">
+                                        <img
+                                            src={picture}
+                                            alt="Administrador"
+                                            onError={(e) => {
+                                                e.target.src = DEFAULT_IMAGE;
+                                            }}
+                                        />
+                                    </div>
 
-                                    {msg == "No cumple con los permisos" ? (
-                                        ""
-                                    ) : (
-                                        <>
-                                            <div className="lockscreen-image">
-                                                <img
-                                                    src={picture}
-                                                    alt="Administrador"
-                                                    onError={(e) => {
-                                e.target.src = DEFAULT_IMAGE;
-                            }}
-                                                />
+                                    <form
+                                        className="lockscreen-credentials"
+                                        onSubmit={handleSubmit(submit)}
+                                    >
+                                        <div className="input-group">
+                                            <input
+                                                {...register("password")}
+                                                autoFocus={!isPermissionError}
+                                                id="password"
+                                                required={!isPermissionError}
+                                                className="form-control"
+                                                type="password"
+                                                placeholder={isPermissionError ? "Acceso denegado" : "Contraseña"}
+                                                autoComplete="new-password"
+                                                disabled={isPermissionError}
+                                                style={isPermissionError ? { backgroundColor: "#f4f6f9", cursor: "not-allowed" } : {}}
+                                            />
+                                            <div className="input-group-append">
+                                                <button
+                                                    type="submit"
+                                                    className="btn"
+                                                    disabled={isPermissionError}
+                                                    style={isPermissionError ? { cursor: "not-allowed" } : {}}
+                                                >
+                                                    <i className={`fas ${isPermissionError ? "fa-ban text-danger" : "fa-arrow-right text-muted"}`} />
+                                                </button>
                                             </div>
-
-                                            <form
-                                                className="lockscreen-credentials"
-                                                onSubmit={handleSubmit(submit)}
-                                            >
-                                                <div className="input-group">
-                                                    <input
-                                                        {...register(
-                                                            "password",
-                                                        )}
-                                                        autoFocus
-                                                        id="password"
-                                                        required
-                                                        className="form-control"
-                                                        type="password"
-                                                        placeholder="Contraseña"
-                                                        autoComplete="new-password"
-                                                    />
-                                                    <div className="input-group-append">
-                                                        <button
-                                                            type="submit"
-                                                            className="btn"
-                                                        >
-                                                            <i className="fas fa-arrow-right text-muted" />
-                                                        </button>
-                                                    </div>
-                                                </div>
-                                            </form>
-                                        </>
-                                    )}
-                                    {/* /.lockscreen credentials */}
+                                        </div>
+                                    </form>
                                 </div>
-                                {/* /.lockscreen-item */}
+
                                 <div className="help-block text-center">
                                     <p style={{ display: "block" }}>
-                                        Se nececita confirmar identidad para
-                                        acceder a esta área
+                                        {isPermissionError
+                                            ? "Esta cuenta no posee los privilegios requeridos."
+                                            : "Se necesita confirmar identidad para acceder a esta área"
+                                        }
                                     </p>
                                 </div>
                                 <div className="text-center">
-                                    <Link to="/logout">
+                                    <Link to="/logout" style={{ fontWeight: "bold" }}>
                                         Iniciar con otro usuario
                                     </Link>
                                 </div>

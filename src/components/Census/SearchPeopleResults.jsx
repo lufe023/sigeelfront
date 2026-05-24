@@ -6,6 +6,7 @@ import Footer from "../Footer";
 import Header from "../Header";
 import Cargando from "../../utils/Cargando";
 import getConfig from "../../utils/getConfig";
+import Swal from "sweetalert2";
 import "../../Styles/SearchPeopleResults.css";
 
 const EMPTY_FILTERS = {
@@ -176,7 +177,25 @@ const SearchPeopleResults = () => {
             });
     };
 
-    const addPeople = (peopleId) => {
+    const isPersonRestricted = (person) => {
+        return person?.firstName === "RESTRINGIDO" ||
+            person?.lastName === "RESTRINGIDO" ||
+            person?.lastNameB === "RESTRINGIDO" ||
+            person?.nickname === "RESTRINGIDO";
+    };
+
+    const addPeople = (peopleId, person) => {
+        // Validar si la persona está restringida
+        if (isPersonRestricted(person)) {
+            Swal.fire({
+                icon: "warning",
+                title: "Persona Restringida",
+                text: "Persona restringida no puedes agregarla a tu padroncillo",
+                confirmButtonText: "Entendido",
+            });
+            return;
+        }
+
         const URL = `${import.meta.env.VITE_API_SERVER}/api/v1/census/addpeople`;
 
         axios
@@ -268,7 +287,7 @@ const SearchPeopleResults = () => {
         return (
             isMunicipality &&
             String(map.ProvinciaId || map.parent || "") ===
-                String(filtersForm.province || "")
+            String(filtersForm.province || "")
         );
     });
 
@@ -281,7 +300,7 @@ const SearchPeopleResults = () => {
         return (
             isDistrict &&
             String(map.municipioId || map.parent || "") ===
-                String(filtersForm.municipality || "")
+            String(filtersForm.municipality || "")
         );
     });
 
@@ -698,7 +717,7 @@ const SearchPeopleResults = () => {
                                                                     people?.firstName
                                                                 }
                                                             />
-                                                            
+
 
                                                             <div className="search-result-info">
                                                                 <h4 className="search-result-name">
@@ -798,7 +817,7 @@ const SearchPeopleResults = () => {
                                                                             "0",
                                                                         ) || ""}
 
-                                                                        
+
                                                                 </p>
                                                                 <p className="mb-1">
                                                                     <strong>
@@ -806,21 +825,21 @@ const SearchPeopleResults = () => {
                                                                     </strong>{" "}
                                                                     {people?.leader ? (
                                                                         <Link
-                                                                                                                        to={`/mypeople/${people?.leaders?.censu?.id}`}
-                                                                                                                    >
-                                                                                                                        {
-                                                                                                                            people?.leaders
-                                                                                                                                ?.censu
-                                                                                                                                ?.firstName
-                                                                                                                        }
-                                                                                                                    </Link>
-                                                                                                                ) : (
-                                                                                                                    ""
-                                                                                                                )}
-                                                                                                                </p>
+                                                                            to={`/mypeople/${people?.leaders?.censu?.id}`}
+                                                                        >
+                                                                            {
+                                                                                people?.leaders
+                                                                                    ?.censu
+                                                                                    ?.firstName
+                                                                            }
+                                                                        </Link>
+                                                                    ) : (
+                                                                        ""
+                                                                    )}
+                                                                </p>
                                                                 <div className="search-result-badges">
 
-                                                                    
+
                                                                     <span
                                                                         className={`badge ${people?.sufragio?.suffrage ? "bg-success" : "bg-danger"}`}
                                                                     >
@@ -859,11 +878,15 @@ const SearchPeopleResults = () => {
                                                         ) : (
                                                             <button
                                                                 className="btn btn-outline-success btn-sm"
+                                                                disabled={isPersonRestricted(people)}
+                                                                style={isPersonRestricted(people) ? { opacity: 0.5, cursor: "not-allowed" } : {}}
                                                                 onClick={() =>
                                                                     addPeople(
                                                                         people?.id,
+                                                                        people,
                                                                     )
                                                                 }
+                                                                title={isPersonRestricted(people) ? "Persona restringida - no se puede agregar" : "Agregar a padroncillo"}
                                                             >
                                                                 <i className="fas fa-user-plus"></i>
                                                             </button>

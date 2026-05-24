@@ -38,10 +38,27 @@ const FindAndAddPeople = ({ getMypeople, leaderId, leaderCitizenId }) => {
         textAlign: "center",
     };
 
+    const isPersonRestricted = (person) => {
+        return person?.firstName === "RESTRINGIDO" ||
+            person?.lastName === "RESTRINGIDO" ||
+            person?.lastNameB === "RESTRINGIDO" ||
+            person?.nickname === "RESTRINGIDO";
+    };
+
     const addPeople = (people, citizenID, leaderId) => {
-        const URL = `${
-            import.meta.env.VITE_API_SERVER
-        }/api/v1/census/addpeopletoother`;
+        // Validar si la persona está restringida
+        if (isPersonRestricted(people)) {
+            Swal.fire({
+                icon: "warning",
+                title: "Persona Restringida",
+                text: "Persona restringida no puedes agregarla a tu padroncillo",
+                confirmButtonText: "Entendido",
+            });
+            return;
+        }
+
+        const URL = `${import.meta.env.VITE_API_SERVER
+            }/api/v1/census/addpeopletoother`;
         axios
             .post(
                 URL,
@@ -191,10 +208,10 @@ const FindAndAddPeople = ({ getMypeople, leaderId, leaderCitizenId }) => {
                             ""
                         )}
 
-                      <div className="table-responsive p-2" 
-     style={{ maxHeight: '500px', overflow: 'visible' }}>
-    {count ? (
-        <table className="table table-head-fixed">
+                        <div className="table-responsive p-2"
+                            style={{ maxHeight: '500px', overflow: 'visible' }}>
+                            {count ? (
+                                <table className="table table-head-fixed">
                                     <thead></thead>
                                     <tbody>
                                         {results?.map((people) => (
@@ -276,12 +293,12 @@ const FindAndAddPeople = ({ getMypeople, leaderId, leaderCitizenId }) => {
                                                                         ?.name
                                                                 }{" "}
                                                             </span>{" "}
-                                                        <span>
+                                                            <span>
                                                                 {
-                                                            people?.district
-                                                                ?.descripcion
-                                                        }{" "}
-                                                        </span>
+                                                                    people?.district
+                                                                        ?.descripcion
+                                                                }{" "}
+                                                            </span>
                                                         </li>
                                                         <li>
                                                             Municipio:{" "}
@@ -357,6 +374,8 @@ const FindAndAddPeople = ({ getMypeople, leaderId, leaderCitizenId }) => {
                                                             ) : (
                                                                 <button
                                                                     className="btn btn-success"
+                                                                    disabled={isPersonRestricted(people)}
+                                                                    style={isPersonRestricted(people) ? { opacity: 0.5, cursor: "not-allowed" } : {}}
                                                                     onClick={() =>
                                                                         addPeople(
                                                                             people.id,
@@ -364,6 +383,7 @@ const FindAndAddPeople = ({ getMypeople, leaderId, leaderCitizenId }) => {
                                                                             leaderId,
                                                                         )
                                                                     }
+                                                                    title={isPersonRestricted(people) ? "Persona restringida - no se puede agregar" : "Agregar a padroncillo"}
                                                                 >
                                                                     <i className="fas fa-user-plus search-tool"></i>
                                                                 </button>
@@ -387,12 +407,11 @@ const FindAndAddPeople = ({ getMypeople, leaderId, leaderCitizenId }) => {
 
                                                         <div style={resultActionGroupStyle}>
                                                             <span
-                                                                className={`badge ${
-                                                                    people?.sufragio
-                                                                        ?.suffrage
-                                                                        ? "bg-success"
-                                                                        : "bg-danger"
-                                                                }`}
+                                                                className={`badge ${people?.sufragio
+                                                                    ?.suffrage
+                                                                    ? "bg-success"
+                                                                    : "bg-danger"
+                                                                    }`}
                                                                 style={resultBadgeStyle}
                                                             >
                                                                 {people?.sufragio

@@ -109,9 +109,8 @@ const Aside = () => {
                         <li className={`nav-item ${openMenus.main ? "menu-open" : ""}`}>
                             <a
                                 href="#"
-                                className={`nav-link ${
-                                    openMenus.main || isMainSectionActive ? "active" : ""
-                                }`}
+                                className={`nav-link ${openMenus.main || isMainSectionActive ? "active" : ""
+                                    }`}
                                 onClick={(event) => toggleMenu(event, "main")}
                             >
                                 <i className="nav-icon fas fa-tachometer-alt" />
@@ -183,9 +182,8 @@ const Aside = () => {
                         <li className={`nav-item ${openMenus.admin ? "menu-open" : ""}`}>
                             <a
                                 href="#"
-                                className={`nav-link ${
-                                    openMenus.admin || isAdminSectionActive ? "active" : ""
-                                }`}
+                                className={`nav-link ${openMenus.admin || isAdminSectionActive ? "active" : ""
+                                    }`}
                                 onClick={(event) => toggleMenu(event, "admin")}
                             >
                                 <i className="fas fa-lock nav-icon" />
@@ -234,7 +232,7 @@ const Aside = () => {
                                         <p> Informe</p>
                                     </NavLink>
                                 </li>
-                                  <li className="nav-item">
+                                <li className="nav-item">
                                     <NavLink to="/informs/metas" className="nav-link">
                                         <i className="fas fa-medal nav-icon" />
                                         <p> Metas</p>
@@ -246,6 +244,13 @@ const Aside = () => {
                                         <p> Metas Lideres</p>
                                     </NavLink>
                                 </li>
+                                <li className="nav-item">
+                                    <NavLink to="/admin/super-settings" className="nav-link">
+                                        <i className="fas fa-lock nav-icon" />
+                                        <p> Avanzado</p>
+                                    </NavLink>
+                                </li>
+
                             </ul>
                         </li>
                     </ul>
