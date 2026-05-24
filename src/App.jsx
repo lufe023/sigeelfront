@@ -37,6 +37,8 @@ import SearchPeopleResults from './components/Census/SearchPeopleResults';
 import Metas from './components/Admin/Informs/Metas';
 import MetasByLeader from './components/Admin/Informs/MetasByLeader';
 import WhatsAppPanel from './components/Admin/WhatsAppPanel';
+import SuperAdminSettings from './components/SuperAdmin/setting/SuperAdminSettings';
+import ProtectedSuperAdmin from './components/ProtectedSuperAdmin'
 
 
 function App() {
@@ -44,52 +46,56 @@ function App() {
 
   return (
     <div className='wrapper'>
-      <ScrollToTop/>
+      <ScrollToTop />
       <Routes>
-      <Route path='/' element={<Home/>}/>
-      <Route element={<ProtectedRoutes/>}>
-        <Route path='/dashboard' element={<Dashboard/>}/>
-        <Route path='/aboutme' element={<Aboutme/>}/>
-        <Route path='/tasks' element={<TasksBoard/>}/>
-        <Route path='/tasks/:id' element={<TasksBoard/>}/>
-        <Route path='/mypeople' element={<MyPeople/>}/>
-        <Route path='/searchpeople' element={<SearchPeopleResults/>}/>
-        <Route path='/printmypeople' element={<MyPeoplePrint/>}/>
-        <Route path='/printmyconcurrencia' element={<MyPeoplePrintB/>}/>
-        <Route path='/mypeople/:id' element={<People/>}/>
-        <Route path='/people/poll/:id/:name' element={<Polls/>}/>
-        <Route path='/teams' element={<Teams/>}/>
-        <Route path='/teams/:id' element={<TeamView/>}/>
-        <Route path='/precints' element={<Delegate/>}/>
-        <Route path='/Delegate' element={<Delegate/>}/>
-        <Route path='/concurrencia' element={<VoteGrupal/>}/>
+        <Route path='/' element={<Home />} />
+        <Route element={<ProtectedRoutes />}>
+          <Route path='/dashboard' element={<Dashboard />} />
+          <Route path='/aboutme' element={<Aboutme />} />
+          <Route path='/tasks' element={<TasksBoard />} />
+          <Route path='/tasks/:id' element={<TasksBoard />} />
+          <Route path='/mypeople' element={<MyPeople />} />
+          <Route path='/searchpeople' element={<SearchPeopleResults />} />
+          <Route path='/printmypeople' element={<MyPeoplePrint />} />
+          <Route path='/printmyconcurrencia' element={<MyPeoplePrintB />} />
+          <Route path='/mypeople/:id' element={<People />} />
+          <Route path='/people/poll/:id/:name' element={<Polls />} />
+          <Route path='/teams' element={<Teams />} />
+          <Route path='/teams/:id' element={<TeamView />} />
+          <Route path='/precints' element={<Delegate />} />
+          <Route path='/Delegate' element={<Delegate />} />
+          <Route path='/concurrencia' element={<VoteGrupal />} />
 
 
-      </Route>
+        </Route>
 
-      {/* Proteccion para administracion */}
-      <Route element={<ProtectedAdmin/>}>
-      <Route path='/campains' element={<Campains/>}/>
-      <Route path='/informs' element={<Informs/>}/>
-      <Route path='/admin' element={<SistemConfiguration/>}/> 
-      <Route path='/admin/whatsapp' element={<WhatsAppPanel/>}/> 
-      <Route path='/ballot' element={<SeeBallot/>}/>
-      <Route path='/users' element={<UserDashBoard/>}/>
-      <Route path='/users/:id/' element={<UserAdministrator/>}/>
-      <Route path='/peoplebyuser/:id' element={<PeopleByUser/>}/>
-      <Route path='/printmyconcurrencia/:id' element={<PeopleByUserPrint/>}/>
-      <Route path='/informs/metas' element={<Metas/>}/>
-      <Route path='/informs/metas-por-lider' element={<MetasByLeader/>}/>
-      </Route>
+        {/* Proteccion para administracion */}
+        <Route element={<ProtectedAdmin />}>
+          <Route path='/campains' element={<Campains />} />
+          <Route path='/informs' element={<Informs />} />
+          <Route path='/admin' element={<SistemConfiguration />} />
+          <Route path='/admin/whatsapp' element={<WhatsAppPanel />} />
+          <Route path='/ballot' element={<SeeBallot />} />
+          <Route path='/users' element={<UserDashBoard />} />
+          <Route path='/users/:id/' element={<UserAdministrator />} />
+          <Route path='/peoplebyuser/:id' element={<PeopleByUser />} />
+          <Route path='/printmyconcurrencia/:id' element={<PeopleByUserPrint />} />
+          <Route path='/informs/metas' element={<Metas />} />
+          <Route path='/informs/metas-por-lider' element={<MetasByLeader />} />
+        </Route>
 
-      <Route path='*' element={<Error404/>}/>
-      <Route path='/preregister' element={<PreRegister/>}/>
-      <Route path='/logout' element={<LogGout/>}/>
+        <Route element={<ProtectedSuperAdmin />}>
+          <Route path="/admin/super-settings" element={<SuperAdminSettings />} />
+        </Route>
 
-      <Route path='/forgotPassword' element={<ForgotPassword/>}/>
-      <Route path='/recoverypassword/:id' element={<RecoverPassword/>}/>
+        <Route path='*' element={<Error404 />} />
+        <Route path='/preregister' element={<PreRegister />} />
+        <Route path='/logout' element={<LogGout />} />
+
+        <Route path='/forgotPassword' element={<ForgotPassword />} />
+        <Route path='/recoverypassword/:id' element={<RecoverPassword />} />
       </Routes>
-      </div>
+    </div>
   )
 }
 

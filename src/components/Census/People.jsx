@@ -44,9 +44,8 @@ const People = () => {
     }, [id]);
 
     const getTies = () => {
-        const URL = `${import.meta.env.VITE_API_SERVER}/api/v1/ties/${
-            people?.citizenID
-        }`;
+        const URL = `${import.meta.env.VITE_API_SERVER}/api/v1/ties/${people?.citizenID
+            }`;
         axios
             .get(URL, getConfig())
             .then((res) => {
@@ -54,16 +53,33 @@ const People = () => {
             })
             .catch((err) => console.error(err));
     };
-useEffect(() => {
-    if (people?.citizenID) {
-        getTies();
-    }
-}, [people]);
+    useEffect(() => {
+        if (people?.citizenID) {
+            getTies();
+        }
+    }, [people]);
+
+    const isPersonRestricted = (person) => {
+        return person?.firstName === "RESTRINGIDO" ||
+            person?.lastName === "RESTRINGIDO" ||
+            person?.lastNameB === "RESTRINGIDO" ||
+            person?.nickname === "RESTRINGIDO";
+    };
 
     const addPeople = (peopleId) => {
-        const URL = `${
-            import.meta.env.VITE_API_SERVER
-        }/api/v1/census/addpeople`;
+        // Validar si la persona está restringida
+        if (isPersonRestricted(people)) {
+            Swal.fire({
+                icon: "warning",
+                title: "Persona Restringida",
+                text: "Esta persona está restringida no puede hacer cambios",
+                confirmButtonText: "Entendido",
+            });
+            return;
+        }
+
+        const URL = `${import.meta.env.VITE_API_SERVER
+            }/api/v1/census/addpeople`;
 
         Swal.fire({
             title: `¿Seguro quieres agregar a esta persona a tu padroncillo?`,
@@ -84,7 +100,7 @@ useEffect(() => {
                     didOpen: () => {
                         Swal.showLoading();
                         const b = Swal.getHtmlContainer().querySelector("b");
-                        timerInterval = setInterval(() => {}, 100);
+                        timerInterval = setInterval(() => { }, 100);
                     },
                     willClose: () => {
                         clearInterval(timerInterval);
@@ -269,11 +285,14 @@ useEffect(() => {
                                                 ) : (
                                                     <button
                                                         className=" btn btn-success "
+                                                        disabled={isPersonRestricted(people)}
+                                                        style={isPersonRestricted(people) ? { opacity: 0.5, cursor: "not-allowed" } : {}}
                                                         onClick={() =>
                                                             addPeople(
                                                                 people?.id
                                                             )
                                                         }
+                                                        title={isPersonRestricted(people) ? "Persona restringida - no se puede agregar" : "Agregar a padroncillo"}
                                                     >
                                                         <i className="fas fa-user-plus search-tool"></i>{" "}
                                                         Agregar a mi padroncillo
@@ -286,6 +305,7 @@ useEffect(() => {
                                         <ParticipationForm
                                             citizenID={people?.citizenID}
                                             getPeople={getPeople}
+                                            isRestricted={isPersonRestricted(people)}
                                         />
                                     ) : (
                                         ""
@@ -294,6 +314,7 @@ useEffect(() => {
                                         <BenefitForm
                                             citizenID={people?.citizenID}
                                             getPeople={getPeople}
+                                            isRestricted={isPersonRestricted(people)}
                                         />
                                     ) : (
                                         ""
@@ -302,6 +323,7 @@ useEffect(() => {
                                         <Jobs
                                             citizenID={people?.citizenID}
                                             getPeople={getPeople}
+                                            isRestricted={isPersonRestricted(people)}
                                         />
                                     ) : (
                                         ""
@@ -310,6 +332,7 @@ useEffect(() => {
                                         <LocationPicker
                                             citizenID={people?.citizenID}
                                             getPeople={getPeople}
+                                            isRestricted={isPersonRestricted(people)}
                                         />
                                     ) : (
                                         ""
@@ -351,6 +374,7 @@ useEffect(() => {
                                                         updates={updates}
                                                         citizen={people}
                                                         getPeople={getPeople}
+                                                        isRestricted={isPersonRestricted(people)}
                                                     />
                                                 </div>
                                                 <div
@@ -385,6 +409,7 @@ useEffect(() => {
                                                         ties={ties}
                                                         setPeople={setPeople}
                                                         getTies={getTies}
+                                                        isRestricted={isPersonRestricted(people)}
                                                     />
                                                 ) : (
                                                     <div
@@ -410,6 +435,7 @@ useEffect(() => {
                                                             }
                                                             getTies={getTies}
                                                             setTies={setTies}
+                                                            isRestricted={isPersonRestricted(people)}
                                                         />
                                                     ) : (
                                                         ""
@@ -428,6 +454,7 @@ useEffect(() => {
                                                     citizenID={
                                                         people?.citizenID
                                                     }
+                                                    isRestricted={isPersonRestricted(people)}
                                                 />
                                             ) : (
                                                 <NewConditions
@@ -435,6 +462,7 @@ useEffect(() => {
                                                         people?.citizenID
                                                     }
                                                     getPeople={getPeople}
+                                                    isRestricted={isPersonRestricted(people)}
                                                 />
                                             )}
                                             {/* 
@@ -483,6 +511,7 @@ useEffect(() => {
                                                                 getPeople={
                                                                     getPeople
                                                                 }
+                                                                isRestricted={isPersonRestricted(people)}
                                                             />
                                                         )
                                                     )}
@@ -520,6 +549,7 @@ useEffect(() => {
                                                                 getPeople={
                                                                     getPeople
                                                                 }
+                                                                isRestricted={isPersonRestricted(people)}
                                                             />
                                                         )
                                                     )}
@@ -550,6 +580,7 @@ useEffect(() => {
                                                                 getPeople={
                                                                     getPeople
                                                                 }
+                                                                isRestricted={isPersonRestricted(people)}
                                                             />
                                                         )
                                                     )}
