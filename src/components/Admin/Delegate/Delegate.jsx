@@ -692,12 +692,14 @@ const Delegate = () => {
 
                                 <ListByCollege
                                     citizens={citizens}
-                                    getAllPeopleyByCollege={
-                                        getAllPeopleyByCollege
-                                    }
-                                    formData={formData.college}
-                                    pagination={pagination.limit}
                                     addPeople={addPeople}
+                                    onVoteUpdated={() =>
+                                        getAllPeopleyByCollege(
+                                            formData.college,
+                                            pagination.offset,
+                                            pagination.limit,
+                                        )
+                                    }
                                 />
                             </>
                         ) : (
