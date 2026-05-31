@@ -9,7 +9,7 @@ const CreateOrUpdateVoteGrupal = (positions, collegeId, suffrageValue) => {
         positions,collegeId,suffrageValue
     }, getConfig())
     .then((response) => {
-        console.log(response)
+  
     const Toast = Swal.mixin({
         toast: true,
         position: 'top-end',
@@ -22,8 +22,6 @@ const CreateOrUpdateVoteGrupal = (positions, collegeId, suffrageValue) => {
         }
     })
     {
-console.log('ocurrio: ')
-
     response?.data.success?
     Toast.fire({
         icon: 'success',

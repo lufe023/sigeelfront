@@ -13,6 +13,7 @@ const VoteGrupal = () => {
     const [suffrageValue, setSuffrageValue] = useState(false);
     const [precints, setPrecints] = useState([]);
     const [selectedPrecintColegios, setSelectedPrecintColegios] = useState([]);
+    const [searchTerm, setSearchTerm] = useState("");
 
     const getAllPrecints = () => {
         const URL = `${import.meta.env.VITE_API_SERVER}/api/v1/jce/precints`;
@@ -34,6 +35,12 @@ const VoteGrupal = () => {
                 icon: "warning",
                 title: "Campos incompletos",
                 text: "Por favor selecciona un colegio e ingresa las posiciones.",
+                showConfirmButton: true,
+                confirmButtonText: "Aceptar",
+                confirmButtonColor: "#28a745",
+                allowOutsideClick: false,
+                allowEscapeKey: true,
+                allowEnterKey: true,
             });
             return;
         }
@@ -137,8 +144,25 @@ const VoteGrupal = () => {
                                                 <i className="fas fa-landmark"></i>{" "}
                                                 Seleccione Recinto
                                             </label>
+                                            <input
+                                                type="text"
+                                                className="form-control form-control-sm mb-2"
+                                                placeholder="Filtrar recinto..."
+                                                value={searchTerm}
+                                                onChange={(e) =>
+                                                    setSearchTerm(
+                                                        e.target.value,
+                                                    )
+                                                }
+                                            />
                                             <div style={listContainerStyle}>
-                                                {precints?.map((recinto) => (
+                                                {precints?.filter((r) =>
+                                                    r.descripcion
+                                                        .toLowerCase()
+                                                        .includes(
+                                                            searchTerm.toLowerCase(),
+                                                        ),
+                                                ).map((recinto) => (
                                                     <div
                                                         key={
                                                             recinto?.PrecinctId
@@ -154,11 +178,12 @@ const VoteGrupal = () => {
                                                             onChange={() => {
                                                                 setSelectedPrecintColegios(
                                                                     recinto?.colegios ||
-                                                                        [],
+                                                                    [],
                                                                 );
                                                                 setCollegeId(
                                                                     "",
                                                                 );
+
                                                             }}
                                                         />
                                                         <label
@@ -202,7 +227,7 @@ const VoteGrupal = () => {
                                             </label>
                                             <div style={listContainerStyle}>
                                                 {selectedPrecintColegios.length >
-                                                0 ? (
+                                                    0 ? (
                                                     selectedPrecintColegios.map(
                                                         (colegio) => (
                                                             <div
@@ -320,17 +345,15 @@ const VoteGrupal = () => {
                                                                 setSuffrageValue(
                                                                     e.target
                                                                         .value ===
-                                                                        "true",
+                                                                    "true",
                                                                 )
                                                             }
                                                         >
                                                             <option value="false">
                                                                 Pendiente
-                                                                (Falso)
                                                             </option>
                                                             <option value="true">
                                                                 Votado
-                                                                (Verdadero)
                                                             </option>
                                                         </select>
                                                     </div>
