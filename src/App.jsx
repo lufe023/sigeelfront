@@ -39,6 +39,7 @@ import MetasByLeader from './components/Admin/Informs/MetasByLeader';
 import WhatsAppPanel from './components/Admin/WhatsAppPanel';
 import SuperAdminSettings from './components/SuperAdmin/setting/SuperAdminSettings';
 import ProtectedSuperAdmin from './components/ProtectedSuperAdmin'
+import Advice from './components/Advice/Advice'
 
 
 function App() {
@@ -72,6 +73,7 @@ function App() {
         {/* Proteccion para administracion */}
         <Route element={<ProtectedAdmin />}>
           <Route path='/campains' element={<Campains />} />
+          <Route path='/advice' element={<Advice />} />
           <Route path='/informs' element={<Informs />} />
           <Route path='/admin' element={<SistemConfiguration />} />
           <Route path='/admin/whatsapp' element={<WhatsAppPanel />} />

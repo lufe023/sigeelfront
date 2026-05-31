@@ -28,7 +28,8 @@ const Aside = () => {
         pathname.startsWith("/ballot") ||
         pathname.startsWith("/admin") ||
         pathname.startsWith("/campains") ||
-        pathname.startsWith("/informs");
+        pathname.startsWith("/informs") ||
+        pathname.startsWith("/advice");
 
     const [openMenus, setOpenMenus] = useState({
         main: isMainSectionActive || !isAdminSectionActive,
@@ -208,12 +209,12 @@ const Aside = () => {
                                         <p> Boleta</p>
                                     </NavLink>
                                 </li>
-                                <li className="nav-item">
-                                    <NavLink to="/admin" className="nav-link">
-                                        <i className="fas fa-person-booth nav-icon" />
-                                        <p> Registros</p>
-                                    </NavLink>
-                                </li>
+                                {/* <li className="nav-item">
+                                        <NavLink to="/admin" className="nav-link">
+                                            <i className="fas fa-person-booth nav-icon" />
+                                            <p> Registros</p>
+                                        </NavLink>
+                                    </li> */}
                                 <li className="nav-item">
                                     <NavLink to="/admin/whatsapp" className="nav-link">
                                         <i className="fab fa-whatsapp nav-icon" />
@@ -227,11 +228,17 @@ const Aside = () => {
                                     </NavLink>
                                 </li>
                                 <li className="nav-item">
+                                    <NavLink to="/advice" className="nav-link">
+                                        <i className="fas fa-bullhorn nav-icon" />
+                                        <p> Anuncios</p>
+                                    </NavLink>
+                                </li>
+                                {/* <li className="nav-item">
                                     <NavLink to="/informs" className="nav-link">
                                         <i className="fas fa-chart-bar nav-icon" />
                                         <p> Informe</p>
                                     </NavLink>
-                                </li>
+                                </li> */}
                                 <li className="nav-item">
                                     <NavLink to="/informs/metas" className="nav-link">
                                         <i className="fas fa-medal nav-icon" />
